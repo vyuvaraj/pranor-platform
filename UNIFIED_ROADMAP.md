@@ -87,9 +87,9 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 
 | **Phase 35: Serv-lang Language Ergonomics** | 40 | 40 | 0 | **100%** | ████████████████████ |
 | **Phase 39: ServQueue Embedded & OPFS Browser Queue** | 6 | 6 | 0 | **100%** | ████████████████████ |
-| **Phase 40: ServQueue Browser WASM Hardening & Multi-Tab Resilience** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
+| **Phase 40: ServQueue Browser WASM Hardening & Multi-Tab Resilience** | 6 | 4 | 2 | **67%** | █████████████░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **522** | **518** | **4** | **99%** | ███████████████████░ |
+| **TOTAL ECOSYSTEM WORK** | **522** | **520** | **2** | **99%** | ███████████████████░ |
 
 
 ---
@@ -457,8 +457,8 @@ All backlog tasks for Phase 39 have been fully completed, verified, and archived
 | SQ.E8 | **Client-Side Encryption at Rest (AES-256-GCM)** | ServQueue | Encrypt OPFS WAL log records on disk using WebCrypto AES-GCM-256 keys to protect sensitive browser event streams from local inspection | [x] |
 | SQ.E9 | **WebTransport (HTTP/3 QUIC) Outbox Relay** | ServQueue | Upgrade Outbox Relay transport to WebTransport over HTTP/3 QUIC for multiplexed binary streaming without head-of-line blocking | [ ] |
 | SQ.E10 | **Auto-Compaction & Quota Manager** | ServQueue | Monitor storage quota via `navigator.storage.estimate()` and auto-purge acknowledged WAL segments when disk utilization exceeds 85% | [x] |
-| SQ.E11 | **Client-Side WASM Stream Filters** | ServQueue | Execute compiled WASI stream filtering and transformation modules directly inside the browser Web Worker prior to OPFS storage or outbox relay | [ ] |
-| SQ.E12 | **Persistent Storage Eviction Safeguard** | ServQueue | Request explicit origin persistence via `navigator.storage.persist()` and implement startup WAL checksum auto-recovery | [ ] |
+| SQ.E11 | **Client-Side WASM Stream Filters** | ServQueue | Execute compiled WASI stream filtering and transformation modules directly inside the browser Web Worker prior to OPFS storage or outbox relay | [x] |
+| SQ.E12 | **Persistent Storage Eviction Safeguard** | ServQueue | Request explicit origin persistence via `navigator.storage.persist()` and implement startup WAL checksum auto-recovery | [x] |
 
 ---
 
