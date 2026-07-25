@@ -151,7 +151,8 @@
       </div>
       <div class="hero-actions">
         <a href="#quickstart" class="btn btn-primary">Get Started</a>
-        <a href="#architecture" class="btn btn-secondary">See Standalone Tools</a>
+        <a href="https://vyuvaraj.github.io/servverse/playground/" target="_blank" rel="noopener" class="btn btn-secondary">⚡ Serv-lang Playground</a>
+        <a href="playground/opfs_demo.html" target="_blank" rel="noopener" class="btn btn-secondary" style="border-color: rgba(56, 189, 248, 0.4); color: var(--accent-cyan, #38bdf8);">💾 OPFS Browser Queue Demo</a>
       </div>
     </div>
     <div class="hero-visual glass-card reveal">
@@ -639,6 +640,35 @@
 <span class="kw">let</span> apiKey = secret.get(<span class="str">"stripe.api_key"</span>)
 <span class="kw">let</span> conn = secret.dbLogin(<span class="str">"postgres-prod"</span>)</code></pre>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Web Playgrounds & Demos -->
+  <section class="section" style="padding: 3.5rem 0; background: rgba(0, 0, 0, 0.2); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+    <div class="section-header reveal" style="margin-bottom: 2rem;">
+      <h2>Interactive Browser Demos & Playgrounds</h2>
+      <p>Test Servverse components natively in your browser with zero server setup.</p>
+    </div>
+    <div class="arch-grid reveal" style="max-width: 960px; margin: 0 auto; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+      <div class="arch-card glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="card-icon">⚡</div>
+          <div class="pill-row"><div class="component-pill purple">Serv-lang DSL & WASM Compiler</div></div>
+          <h4>Serv-lang Web Playground</h4>
+          <p class="wasm-desc">Write, format, type-check, and compile <code>.srv</code> DSL code directly into WebAssembly binaries inside Monaco Editor.</p>
+        </div>
+        <a href="https://vyuvaraj.github.io/servverse/playground/" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top: 1.2rem; text-align: center;">Launch Compiler Playground →</a>
+      </div>
+
+      <div class="arch-card glass-card" style="display: flex; flex-direction: column; justify-content: space-between; border-color: rgba(56, 189, 248, 0.3);">
+        <div>
+          <div class="card-icon">💾</div>
+          <div class="pill-row"><div class="component-pill cyan" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid #38bdf8;">ServQueue OPFS Browser Queue</div></div>
+          <h4>OPFS Local-First Event Demo</h4>
+          <p class="wasm-desc">Try embedded zero-server event logging using Origin Private File System (<code>FileSystemSyncAccessHandle</code>), WASM stream processing, and reconnect outbox relay.</p>
+        </div>
+        <a href="playground/opfs_demo.html" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top: 1.2rem; text-align: center; border-color: #38bdf8; color: #38bdf8;">Launch OPFS Browser Demo →</a>
       </div>
     </div>
   </section>
