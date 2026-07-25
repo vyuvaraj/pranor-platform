@@ -100,6 +100,10 @@
         <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"></path></svg>
         Playground
       </a>
+      <a href="playground/opfs_demo.html" target="_blank" rel="noopener" class="sidebar-link">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+        OPFS Browser Demo
+      </a>
       
       <div style="margin-top:auto; padding-top:2rem; display:flex; flex-direction:column; gap:1rem;">
         <a href="https://github.com/vyuvaraj/serv" class="github-btn" target="_blank" rel="noopener" style="justify-content:center; width:100%;">
@@ -461,8 +465,10 @@
         </div>
         <div class="tab-panel" id="panel-servqueue">
           <h3>ServQueue — WASM-enabled Broker</h3>
-          <p class="panel-desc">Distributed STOMP-compliant message broker with server-side WASM transforms and guaranteed delivery.</p>
+          <p class="panel-desc">Distributed STOMP-compliant message broker with OPFS browser event persistence, server-side WASM transforms, and guaranteed delivery.</p>
           <ul class="feature-list">
+            <li><strong>OPFS Browser Queue & WASM Embedded:</strong> Local-first event persistence in browser Web Workers (`FileSystemSyncAccessHandle`) via `@servverse/queue-wasm`.</li>
+            <li><strong>Offline Outbox Sync Relay:</strong> Automatic sequence replay of offline event streams to remote clusters upon network reconnection.</li>
             <li><strong>Consumer Groups:</strong> Partition-assigned load balancing across subscribers.</li>
             <li><strong>Delayed Messages:</strong> Timer-wheel delivery via STOMP headers.</li>
             <li><strong>Compute-in-Queue:</strong> Inline WASM transform pipelines on topic events.</li>
