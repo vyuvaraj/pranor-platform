@@ -88,8 +88,9 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 35: Serv-lang Language Ergonomics** | 40 | 40 | 0 | **100%** | ████████████████████ |
 | **Phase 39: ServQueue Embedded & OPFS Browser Queue** | 6 | 6 | 0 | **100%** | ████████████████████ |
 | **Phase 40: ServQueue Browser WASM Hardening & Multi-Tab Resilience** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 41: ServQueue Next-Gen Enterprise Stream Engine** | 8 | 2 | 6 | **25%** | █████░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **522** | **522** | **0** | **100%** | ████████████████████ |
+| **TOTAL ECOSYSTEM WORK** | **530** | **524** | **6** | **99%** | ███████████████████░ |
 
 
 ---
@@ -449,6 +450,25 @@ All backlog tasks for Phase 39 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 40 have been fully completed, verified, and archived.
 - For completed details of Phase 40: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
+
+---
+
+## Phase 41: ServQueue Next-Gen Enterprise Stream Engine (New Initiative — Proposed Q1 2027)
+
+> **Context:** Expand ServQueue into an enterprise stream engine featuring tiered cloud offloading, payload contract validation, atomic transactions, cooperative rebalancing, Change Data Capture (CDC), and real-time SQL windowing.
+
+### Detailed Items
+
+| # | Item | Component | Description | Status |
+|---|------|-----------|-------------|--------|
+| SQ.F1 | **Tiered Cloud Storage Offloading** | ServQueue Storage | Offload cold WAL log segments to S3 / ServStore for infinite topic retention | [ ] |
+| SQ.F2 | **Schema Registry & Validation** | ServQueue Core | Enforce JSON Schema / ProtoBuf payload contracts on publish boundaries | [x] |
+| SQ.F3 | **Atomic Multi-Topic Transactions** | ServQueue Core | Two-phase commit transactional publishing (`beginTx`, `commitTx`) for Exactly-Once Delivery | [x] |
+| SQ.F4 | **Cooperative Consumer Rebalancing** | ServQueue Broker | Cooperative sticky partition rebalancing across subscribers without stop-the-world pauses | [ ] |
+| SQ.F5 | **Change Data Capture (CDC) Engine** | ServQueue CDC | Auto-convert Postgres WAL, MySQL binlog, and SQLite WAL mutations into topic streams | [ ] |
+| SQ.F6 | **Real-Time Stream SQL Windowing** | ServQueue Analytics | Embedded sliding-window SQL engine over live queue topics (`SELECT ... WINDOW 10s`) | [ ] |
+| SQ.F7 | **Multi-Tenant VHosts & Rate Quotas** | ServQueue Gate | Virtual host namespace isolation with per-tenant bandwidth throttling and ACLs | [ ] |
+| SQ.F8 | **Zero-Trust OAuth2 & SPIFFE Auth** | ServQueue Auth | Native OAuth2 JWT and SPIFFE/SPIRE mTLS identity verification for cluster nodes | [ ] |
 
 ---
 
