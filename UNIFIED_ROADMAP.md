@@ -90,8 +90,10 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 40: ServQueue Browser WASM Hardening & Multi-Tab Resilience** | 6 | 6 | 0 | **100%** | ████████████████████ |
 | **Phase 41: ServQueue Next-Gen Enterprise Stream Engine** | 8 | 8 | 0 | **100%** | ████████████████████ |
 | **Phase 42: ServQueue Beyond-Enterprise Security & Sovereign Stream Engine** | 8 | 8 | 0 | **100%** | ████████████████████ |
+| **Phase 43: ServQueue Standalone Distribution, Dual-CLI & ServConsole Suite** | 8 | 3 | 5 | **38%** | ███████░░░░░░░░░░░░░ |
+| **Phase 44: ServQueue Cloud-Native Ecosystem & Enterprise Operations** | 8 | 0 | 8 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **538** | **538** | **0** | **100%** | ████████████████████ |
+| **TOTAL ECOSYSTEM WORK** | **554** | **541** | **13** | **98%** | ███████████████████░ |
 
 
 ---
@@ -465,6 +467,44 @@ All backlog tasks for Phase 41 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 42 have been fully completed, verified, and archived.
 - For completed details of Phase 42: See [UNIFIED_ROADMAP_COMPLETED_41_45.md](UNIFIED_ROADMAP_COMPLETED_41_45.md).
+
+---
+
+## Phase 43: ServQueue Standalone Distribution, Dual-CLI & ServConsole Suite (New Initiative — Proposed Q3 2027)
+
+> **Context:** Transform ServQueue into a standalone product distribution featuring a zero-dependency server daemon (`servqueued`), dedicated CLI (`servqueue`), ServConsole live web management inspector, embedded UI, DLQ engine, and point-in-time replay.
+
+### Detailed Items
+
+| # | Item | Component | Description | Status |
+|---|------|-----------|-------------|--------|
+| SQ.M1 | **Standalone Daemon (`servqueued`)** | ServQueue Server | Single zero-dependency server binary with YAML configuration & CLI flags | [x] |
+| SQ.M2 | **Standalone CLI (`servqueue` CLI & `serv queue`)** | ServQueue CLI | Dedicated CLI for publishing, consuming, topic inspection, and DLQ management | [x] |
+| SQ.M3 | **ServConsole Queue Inspector UI** | ServConsole | Web UI tab in ServConsole for visual consumer lag, stream tailing, and outbox relay monitoring | [ ] |
+| SQ.M4 | **Embedded Lightweight Web Admin UI** | ServQueue Admin UI | Built-in web UI embedded inside `servqueued` via `go:embed` at `http://localhost:9092/ui` | [ ] |
+| SQ.M5 | **DLQ & Exponential Backoff Engine** | ServQueue Core | Poison-pill isolation, circuit breaking, and automatic retry policies | [x] |
+| SQ.M6 | **Point-in-Time Event Replay** | ServQueue Storage | Seek consumer offsets to arbitrary past timestamps (`seekToTime`) for disaster recovery | [ ] |
+| SQ.M7 | **Prometheus `/metrics` & Grafana Exporter** | ServQueue Telemetry | Prometheus `/metrics` endpoint with pre-built Grafana dashboard templates | [ ] |
+| SQ.M8 | **Multi-Language Client SDKs** | Distribution | Publish standalone Go, TypeScript/Node.js, Browser WASM, and Python client packages | [ ] |
+
+---
+
+## Phase 44: ServQueue Cloud-Native Ecosystem & Enterprise Operations (New Initiative — Proposed Q4 2027)
+
+> **Context:** Operationalize ServQueue in Kubernetes and cloud environments with custom controllers, KEDA scaling, cross-cloud active-active geo-replication, protocol adapters (MQTT / Kafka), and automated chaos testing.
+
+### Detailed Items
+
+| # | Item | Component | Description | Status |
+|---|------|-----------|-------------|--------|
+| SQ.N1 | **Kubernetes Operator (`ServQueueCluster`)** | ServQueue K8s | Native K8s Operator CRD controller for automated cluster provisioning & failover | [ ] |
+| SQ.N2 | **KEDA Metrics Adapter for K8s** | ServQueue K8s | KEDA scaler provider to auto-scale consumer pod replicas based on topic lag | [ ] |
+| SQ.N3 | **Cross-Cloud Active-Active Geo-Replication** | ServQueue Mirror | Multi-region active-active cluster mirroring with CRDT conflict resolution | [ ] |
+| SQ.N4 | **Automated Storage Tiering & Compaction** | ServQueue Storage | Configurable TTL, max segment size, and auto-archiving background workers | [ ] |
+| SQ.N5 | **MQTT v5.0 IoT Gateway Protocol Adapter** | ServQueue IoT | Native MQTT v5.0 bridge for IoT device telemetry ingestion | [ ] |
+| SQ.N6 | **Kafka Wire Protocol Compatibility Adapter** | ServQueue Adapter | Binary Kafka protocol adapter allowing Kafka clients to connect to ServQueue | [ ] |
+| SQ.N7 | **Serverless EventBridge & Webhooks Connector** | ServQueue Relay | Auto-dispatch topic events to external HTTP webhooks & AWS EventBridge targets | [ ] |
+| SQ.N8 | **Automated Chaos Testing & Failure Injector** | ServQueue Testing | Built-in chaos injector testing network partitions, disk corruptions, and node crashes | [ ] |
 
 ---
 
