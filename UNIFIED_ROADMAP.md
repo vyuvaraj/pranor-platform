@@ -86,10 +86,10 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 34: ServLock & ServSecret Enterprise & UI** | 6 | 6 | 0 | **100%** | ████████████████████ |
 
 | **Phase 35: Serv-lang Language Ergonomics** | 40 | 40 | 0 | **100%** | ████████████████████ |
-| **Phase 36: Component Maturity & Ecosystem Security** | 5 | 5 | 0 | **100%** | ████████████████████ |
 | **Phase 39: ServQueue Embedded & OPFS Browser Queue** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 40: ServQueue Browser WASM Hardening & Multi-Tab Resilience** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **516** | **516** | **0** | **100%** | ████████████████████ |
+| **TOTAL ECOSYSTEM WORK** | **522** | **518** | **4** | **99%** | ███████████████████░ |
 
 
 ---
@@ -442,6 +442,23 @@ All backlog tasks for Phase 38 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 39 have been fully completed, verified, and archived.
 - For completed details of Phase 39: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
+
+---
+
+## Phase 40: ServQueue Browser WASM Hardening & Multi-Tab Resilience (New Initiative — Proposed Q4 2026)
+
+> **Context:** Harden the browser-embedded ServQueue WASM engine against storage quota limits, multi-tab lock contention, client-side encryption requirements, and unpersisted storage eviction.
+
+### Detailed Items
+
+| # | Item | Component | Description | Status |
+|---|------|-----------|-------------|--------|
+| SQ.E7 | **SharedWorker Multi-Tab Coordination** | ServQueue | Coordinate OPFS access across multiple open browser tabs via a single `SharedWorker` and `BroadcastChannel` event dispatching | [ ] |
+| SQ.E8 | **Client-Side Encryption at Rest (AES-256-GCM)** | ServQueue | Encrypt OPFS WAL log records on disk using WebCrypto AES-GCM-256 keys to protect sensitive browser event streams from local inspection | [x] |
+| SQ.E9 | **WebTransport (HTTP/3 QUIC) Outbox Relay** | ServQueue | Upgrade Outbox Relay transport to WebTransport over HTTP/3 QUIC for multiplexed binary streaming without head-of-line blocking | [ ] |
+| SQ.E10 | **Auto-Compaction & Quota Manager** | ServQueue | Monitor storage quota via `navigator.storage.estimate()` and auto-purge acknowledged WAL segments when disk utilization exceeds 85% | [x] |
+| SQ.E11 | **Client-Side WASM Stream Filters** | ServQueue | Execute compiled WASI stream filtering and transformation modules directly inside the browser Web Worker prior to OPFS storage or outbox relay | [ ] |
+| SQ.E12 | **Persistent Storage Eviction Safeguard** | ServQueue | Request explicit origin persistence via `navigator.storage.persist()` and implement startup WAL checksum auto-recovery | [ ] |
 
 ---
 
