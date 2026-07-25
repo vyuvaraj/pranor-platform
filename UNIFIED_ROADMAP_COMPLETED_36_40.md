@@ -91,3 +91,19 @@ To accelerate developer onboarding and remove the friction of configuring local 
 | SQ.E5 | **Serv-lang Edge Target Integration** | Serv-lang | Support `broker "servqueue://opfs"` connection syntax in `.srv` files when compiling to `--target wasm` / `--target wasm-edge` | [x] |
 | SQ.E6 | **Web Playground & Local-First Demo** | ServConsole | Embedded interactive Web Worker demo in ServConsole showcasing zero-server event streaming, WASM stream transforms, and PWA offline sync | [x] |
 
+---
+
+## Phase 40: ServQueue Browser WASM Hardening & Multi-Tab Resilience (Completed)
+
+> **Context:** Harden the browser-embedded ServQueue WASM engine against storage quota limits, multi-tab lock contention, client-side encryption requirements, and unpersisted storage eviction.
+
+| # | Item | Component | Description | Status |
+|---|------|-----------|-------------|--------|
+| SQ.E7 | **SharedWorker Multi-Tab Coordination** | ServQueue | Coordinate OPFS access across multiple open browser tabs via a single `SharedWorker` and `BroadcastChannel` event dispatching | [x] |
+| SQ.E8 | **Client-Side Encryption at Rest (AES-256-GCM)** | ServQueue | Encrypt OPFS WAL log records on disk using WebCrypto AES-GCM-256 keys to protect sensitive browser event streams from local inspection | [x] |
+| SQ.E9 | **WebTransport (HTTP/3 QUIC) Outbox Relay** | ServQueue | Upgrade Outbox Relay transport to WebTransport over HTTP/3 QUIC for multiplexed binary streaming without head-of-line blocking | [x] |
+| SQ.E10 | **Auto-Compaction & Quota Manager** | ServQueue | Monitor storage quota via `navigator.storage.estimate()` and auto-purge acknowledged WAL segments when disk utilization exceeds 85% | [x] |
+| SQ.E11 | **Client-Side WASM Stream Filters** | ServQueue | Execute compiled WASI stream filtering and transformation modules directly inside the browser Web Worker prior to OPFS storage or outbox relay | [x] |
+| SQ.E12 | **Persistent Storage Eviction Safeguard** | ServQueue | Request explicit origin persistence via `navigator.storage.persist()` and implement startup WAL checksum auto-recovery | [x] |
+
+
