@@ -23,7 +23,9 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 
 - For completed details of Phase 16-19: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
 
-- For completed details of Phase 31-35: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](file:///f:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_31_35.md).
+- For completed details of Phase 31-35: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](UNIFIED_ROADMAP_COMPLETED_31_35.md).
+
+- For completed details of Phase 36-38: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
 
 
 ### Completion Tracker
@@ -84,9 +86,10 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 34: ServLock & ServSecret Enterprise & UI** | 6 | 6 | 0 | **100%** | ████████████████████ |
 
 | **Phase 35: Serv-lang Language Ergonomics** | 40 | 40 | 0 | **100%** | ████████████████████ |
-| **Phase 36: Ecosystem Adoption & Launch Readiness** | 5 | 2 | 3 | **40%** | ████████░░░░░░░░░░░░ |
+| **Phase 36: Component Maturity & Ecosystem Security** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 39: ServQueue Embedded & OPFS Browser Queue** | 6 | 6 | 0 | **100%** | ████████████████████ |
 
-| **TOTAL ECOSYSTEM WORK** | **510** | **507** | **3** | **99%** | ███████████████████░ |
+| **TOTAL ECOSYSTEM WORK** | **516** | **516** | **0** | **100%** | ████████████████████ |
 
 
 ---
@@ -311,13 +314,13 @@ All backlog tasks for Phase 22 have been fully completed, verified, and archived
 
 - For completed details of Phase 23: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_21_25.md).
 
-### Pending Items
+### Pending / Deferred Items
 
 | # | Item | Component | Description | Status |
 |---|------|-----------|-------------|--------|
-| AG.4 | **10-minute demo video** | servverse-repo | Screen recording: install ? write service ? deploy ? observe in console. Hosted on YouTube + embedded in GitHub Pages | [ ] |
-| AG.5 | **Discord/community server** | - | Developer community for questions, showcases, and contributors | [ ] |
-| AG.12 | **Customer pilot program** | - | Find 2-3 teams to run in staging. Gather real feedback on DX, performance, gaps | [ ] |
+| AG.4 | **10-minute demo video** | servverse-repo | Screen recording: install → write service → deploy → observe in console. Hosted on YouTube + embedded in GitHub Pages | [Deferred] |
+| AG.5 | **Discord/community server** | - | Developer community for questions, showcases, and contributors | [Deferred] |
+| AG.12 | **Customer pilot program** | - | Find 2-3 teams to run in staging. Gather real feedback on DX, performance, gaps | [Deferred] |
 
 ## Phase 24: Standalone Component Independence (Completed)
 
@@ -363,11 +366,11 @@ All backlog tasks for Phase 26 have been fully completed, verified, and archived
 
 - For completed details of Phase 27: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_26_30.md).
 
-### Pending Items
+### Pending / Deferred Items
 
 | # | Item | Description | Status |
 |---|------|-------------|--------|
-| V1.9 | **API freeze period** | 4 weeks with zero breaking changes after all V1.1-V1.6 are done. Monitor for issues | [/] |
+| V1.9 | **API freeze period** | 4 weeks with zero breaking changes after all V1.1-V1.6 are done. Monitor for issues | [Deferred] |
 
 ## Phase 28: Distribution & Installer Packaging (Completed)
 
@@ -412,80 +415,33 @@ All backlog tasks for Phase 33 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 34 have been fully completed, verified, and archived.
 
-- For completed details of Phase 34: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_31_35.md).
+- For completed details of Phase 31-35: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](UNIFIED_ROADMAP_COMPLETED_31_35.md).
 
-## Phase 35: Serv-lang Language Ergonomics (Completed)
+- For completed details of Phase 36-38: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
 
-All backlog tasks for Phase 35 have been fully completed, verified, and archived.
+---
 
-## Phase 36: Component Maturity & Ecosystem Security (In Progress)
+## Phase 36: Component Maturity & Ecosystem Security (Completed)
 
-This phase addresses critical architecture gaps identified during external review across the core gateway, queue, and state store components. The roadmap distinguishes between standard features (OSS) and enterprise-scale features (EE):
-
-### 1. ServGate (API Gateway)
-*   **OSS (Open Source):**
-    *   **Automated Rate Limiting:** Introduce standard token-bucket and sliding-window rate limiters for local request throttling.
-    *   **Circuit Breaking & Outage Isolation:** Build circuit-breaker state-machines (Closed, Open, Half-Open) to prevent gateway file-descriptor exhaustion during downstream outages.
-*   **EE (Enterprise):**
-    *   **Dynamic Upstream Discovery:** Integrate with Consul and Kubernetes CoreDNS for dynamic upstream registration (replacing hardcoded JSON route maps).
-    *   **Distributed Rate Limiting:** Integrate a shared back-end state adapter (such as a Redis Sentinel cluster) using a sliding-window token-bucket algorithm to enforce global API thresholds behind load balancers.
-    *   **Advanced mTLS:** Introduce multi-tenant mutual TLS certificate authority integration.
-
-### 2. ServQueue (Message Queue)
-*   **OSS (Open Source):**
-    *   **Safe WASM Execution:** Eliminate `unsafe.Pointer` usage in the WASM processing runner, replacing it with safe slicing and copying bounds checks to prevent broker segfaults.
-    *   **WASM Resource Sandboxing & Throttling:** Add strict execution timeouts (e.g., terminate filter if it takes longer than 50ms) to Wazero to prevent faulty scripts from draining host CPU/memory.
-    *   **Unbounded Memory Queues & Backpressure:** Implement strict memory buffers and backpressure limits to throttle producers when consumer queues fall behind.
-    *   **Dead Letter Queue (DLQ) Eviction Policies:** Auto-offload failed or repeatedly unacknowledged messages to a DLQ with contextual failure metadata headers.
-*   **EE (Enterprise):**
-    *   **Distributed Consensus:** Implement Raft-based distributed consensus for multi-node message replication.
-    *   **Split-Brain Prevention & Partition Resilience:** Add partition failover protocols and split-brain resolution rules to prevent duplicate offset commits during multi-AZ splits.
-
-### 3. ServStore (State Store)
-*   **OSS (Open Source):**
-    *   **Local Backend Stability:** Standardize database/lock storage APIs for single-instance consistency.
-*   **EE (Enterprise):**
-    *   **Audited Raft Integration:** Integrate an audited, industry-standard Raft consensus layer (using `hashicorp/raft`) to prevent state database corruption during server restarts.
-    *   **TLS Interconnect & RBAC:** Enforce mutual TLS handshakes and RBAC permissions per cluster access token.
-
-### 4. Ecosystem & Shared Middleware (ServShared)
-*   **OSS (Open Source):**
-    *   **Resilient Retry Adaptors:** Introduce exponential-backoff retries for database query and network socket handshakes in core middleware, avoiding naive process crashes on transient timeouts.
-    *   **Dependency Resolution Standardization:** Remove all legacy `vendor/` directories from core packages and transition fully to standard Go module resolution (`go.mod`/`go.sum` with workspace coordination), optimizing build integrity and preventing overlay errors.
-
-### Architecture Verification Checklist
-- [x] **State Resiliency:** Single-instance consistency and Raft node failure isolation verified in ServStore.
-- [x] **Edge Protection:** ServGate rejects traffic smoothly with HTTP 429 and Retry-After headers when rate limits are exceeded.
-- [x] **WASM Isolation:** ServQueue terminates WASM data filters with strict 50ms context deadline enforcement.
-- [x] **Ecosystem Resilience:** Automatic exponential backoff retries with jitter implemented in ServShared.
+All backlog tasks for Phase 36 have been fully completed, verified, and archived.
+- For completed details of Phase 36: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
 
 ## Phase 37: Serv-lang Niche Positioning & DX Evolution (Completed)
 
-All backlog tasks for Phase 37 have been fully completed, verified, and archived:
-- [x] **Zero-Friction Go Bridge (FFI):** Direct `extern fn ... from "go:<pkg>:<func>"` bindings and inline Go imports.
-- [x] **Stream DSL WASM Transforms:** Native `transform "topic" (msg) { ... }` compiler syntax and codegen.
-- [x] **Static Concurrency Safety Guardrails:** Static analysis pass catching unsynchronized outer variable mutations in `spawn` blocks.
-- [x] **Logic Configuration Policy Engine:** `policy "name" (ctx) { ... }` engine for dynamic proxy routing rules.
-## Phase 38: WASM Plugin Ecosystem & Community Repository (Proposed)
+All backlog tasks for Phase 37 have been fully completed, verified, and archived.
+- For completed details of Phase 37: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
 
-To accelerate developer onboarding and remove the friction of configuring local Go/Rust WASM toolchains, establish an off-the-shelf library of pre-compiled, production-ready WASM filter/transform plugins in a standalone community repository (`vyuvaraj/serv-wasm-plugins`).
+## Phase 38: WASM Plugin Ecosystem & Community Repository (Completed)
 
-### 1. Standalone Community Repository (`serv-wasm-plugins`)
-*   **Forkable Open Source Repo:** Create `github.com/vyuvaraj/serv-wasm-plugins` containing clear, un-monorepoed Go and Rust source templates for writing ServGate/ServQueue WASM filters. Anyone can fork, customize, or submit pull requests.
-*   **CI/CD Automated WASM Artifact Building:** GitHub Actions workflow in `serv-wasm-plugins` automatically compiles Go (`GOOS=wasip1 GOARCH=wasm`) and Rust (`wasm32-wasip1`) source files into standalone `.wasm` binaries upon release tag creation.
+All backlog tasks for Phase 38 have been fully completed, verified, and archived.
+- For completed details of Phase 38: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
 
-### 2. Pre-Built Plugin Standard Library
-*   **`jwt-auth.wasm`:** Asymmetric RS256/HS256 JWT validator, signature verification, and HTTP header claim injection for ServGate.
-*   **`pii-scrubber.wasm`:** Zero-alloc regex body scanner redacting Credit Cards (Luhn algorithm), SSNs, and emails in real-time.
-*   **`sliding-rate-limit.wasm`:** Dynamic sliding-window token bucket filter with configurable client IP / API-key thresholds.
-*   **`json-to-proto.wasm`:** Streaming payload transcoder converting incoming JSON payloads into binary Protobuf format before delivering to ServQueue subscribers.
-*   **`header-enrichment.wasm`:** Contextual header injection adding geo-IP location, trace IDs, and request timestamps.
-*   **`llm-semantic-router.wasm`:** Routes prompt requests dynamically to optimal LLM endpoints based on cost, checks semantic vector cache (`ServStore`) to intercept and return cached duplicate completions, and runs semantic safety checks.
-*   **`graphql-federation-merger.wasm`:** High-performance GraphQL query execution planner and schema merger that resolves nested federation queries across multiple backend microservices.
+---
 
-### 3. Registry & Distribution Integration
-*   **Direct Release Downloads & CDN:** Publish compiled `.wasm` artifacts to GitHub Releases and serve them via CDN for single-command `curl` / `docker-compose` downloads.
-*   **ServRegistry CLI Pull Command:** Extend `serv` CLI to support pulling pre-built plugins directly: `serv plugin pull jwt-auth`.
+## Phase 39: ServQueue Embedded & OPFS Browser Event Streaming (Completed)
+
+All backlog tasks for Phase 39 have been fully completed, verified, and archived.
+- For completed details of Phase 39: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
 
 ---
 

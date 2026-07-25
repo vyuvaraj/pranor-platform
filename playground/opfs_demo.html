@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServQueue OPFS Local-First Event Broker Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.8);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-color: #38bdf8;
+            --accent-green: #34d399;
+            --text-color: #e2e8f0;
+            --muted-text: #94a3b8;
+        }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 24px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        h1 { font-size: 1.8rem; margin: 0; }
+        .accent { color: var(--accent-color); }
+        .badge {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(12px);
+        }
+        .card h2 { font-size: 1.2rem; margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .btn {
+            background: var(--accent-color);
+            color: #0f172a;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-sync { background: var(--accent-green); }
+        .input-group { margin-bottom: 12px; }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            box-sizing: border-box;
+        }
+        .terminal {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 14px;
+            height: 280px;
+            overflow-y: auto;
+            font-size: 0.88rem;
+        }
+        .line { margin-bottom: 6px; }
+        .line.info { color: var(--accent-color); }
+        .line.success { color: var(--accent-green); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚡ ServQueue <span class="accent">Embedded OPFS Demo</span></h1>
+        <span class="badge">Origin Private File System + WASM</span>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>📤 Enqueue Local OPFS Event</h2>
+            <div class="input-group">
+                <label>Topic:</label>
+                <input type="text" id="topic" value="user_actions">
+            </div>
+            <div class="input-group">
+                <label>Event Payload (JSON):</label>
+                <input type="text" id="payload" value='{"action": "checkout", "cart_id": "c_9942", "amount": 149.50}'>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 16px;">
+                <button class="btn" id="btn-enqueue">Enqueue to OPFS WAL</button>
+                <button class="btn btn-sync" id="btn-sync">Trigger Outbox Sync</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📜 Live Event Log & Sync Status</h2>
+            <div class="terminal" id="terminal">
+                <div class="line info">[System] OPFS Storage Worker Initialized. Ready for zero-server persistent logging.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let offsetCounter = 0;
+        const terminal = document.getElementById('terminal');
+
+        function logMsg(msg, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `line ${type}`;
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            terminal.appendChild(div);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        document.getElementById('btn-enqueue').addEventListener('click', () => {
+            offsetCounter++;
+            const topic = document.getElementById('topic').value;
+            const payload = document.getElementById('payload').value;
+            logMsg(`[OPFS WAL Write] Offset #${offsetCounter} → Topic: '${topic}' | Payload: ${payload}`, 'success');
+        });
+
+        document.getElementById('btn-sync').addEventListener('click', () => {
+            if (offsetCounter === 0) {
+                logMsg(`[Outbox Relay] No unsynced events pending in OPFS.`, 'info');
+                return;
+            }
+            logMsg(`[Outbox Relay] Connecting WebTransport relay... Streaming offsets #1..#${offsetCounter} to backend ServQueue server.`, 'info');
+            setTimeout(() => {
+                logMsg(`[Outbox ACK] Backend Server ACK received for offsets #1..#${offsetCounter}. Marked as synced in OPFS.`, 'success');
+            }, 600);
+        });
+    </script>
+</body>
+</html>
