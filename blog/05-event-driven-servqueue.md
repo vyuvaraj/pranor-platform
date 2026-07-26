@@ -1,10 +1,10 @@
 # Event-Driven Microservices with ServQueue
 
-> **Published:** July 2026 | **Reading Time:** ~12 min | **Tags:** `servqueue`, `messaging`, `event-driven`, `pub-sub`
+> **Published:** July 2026 | **Reading Time:** ~12 min | **Tags:** `servqueue`, `messaging`, `event-driven`, `pub-sub`, `wasm`, `monorepo`
 
 ---
 
-Synchronous request-response works fine until it doesn't. When a user places an order, you don't want them waiting while your service sends a confirmation email, updates inventory, triggers a fulfillment workflow, and notifies your analytics pipeline — all in sequence. **ServQueue** decouples these operations so each one runs independently and reliably.
+Synchronous request-response works fine until it doesn't. When a user places an order, you don't want them waiting while your service sends a confirmation email, updates inventory, triggers a fulfillment workflow, and notifies your analytics pipeline — all in sequence. **ServQueue** (part of the unified [Serv monorepo](https://github.com/vyuvaraj/serv)) decouples these operations so each one runs independently, securely, and reliably.
 
 ---
 
@@ -12,244 +12,103 @@ Synchronous request-response works fine until it doesn't. When a user places an 
 
 ServQueue is the Servverse message broker. It supports:
 
-- **Pub/Sub** — fan out messages to multiple subscribers
-- **Task queues** — guaranteed at-least-once delivery with retry
-- **Dead letter queues** — capture messages that fail repeatedly
-- **Delayed delivery** — schedule a message for the future
-- **STOMP protocol** — compatible with existing STOMP clients
+- **Dual-Binary Architecture** — `servqueued` server daemon + `servqueue` management CLI
+- **Multi-Protocol Support** — Native STOMP (`:61613`), MQTT v5.0 (`:1883`), Kafka Wire Protocol (`:9092`), and HTTP REST (`:8082`/`:9092`)
+- **Compute-in-Queue** — Inline WASM transform execution on topics
+- **Point-in-Time Event Replay** — Seek consumer offsets to arbitrary timestamps (`seekToTime`)
+- **Dead Letter Queues (DLQ)** — Poison-pill isolation and automatic retry policies
+- **Active-Active Geo-Replication** — Multi-region cluster mirroring with CRDT conflict resolution
+- **Embedded Web Admin UI** — Built-in visual management UI at `http://localhost:9092/ui/`
+- **Cloud-Native Integration** — Kubernetes Operator (`ServQueueCluster`) and KEDA auto-scaler
 
 ---
 
-## Step 1: Start ServQueue
+## Step 1: Run the ServQueue Daemon (`servqueued`)
+
+Build or run `servqueued` directly from the monorepo:
 
 ```bash
-docker run -d \
-  -p 8083:8083 \
-  -v servqueue_data:/data \
-  --name servqueue \
-  ghcr.io/vyuvaraj/servqueue:latest
+cd serv/packages/ServQueue
+go run ./cmd/servqueued --port 9092
+```
+
+The server outputs:
+```
+Starting ServQueue Standalone Daemon (servqueued) on port 9092...
+servqueued Web Admin UI available at http://localhost:9092/ui/
 ```
 
 ---
 
-## Step 2: Core Concepts
+## Step 2: CLI Operations (`servqueue`)
 
-### Topics vs Queues
-
-| Type | Behavior | Use case |
-|------|----------|---------|
-| **Topic** | Fan-out to all subscribers | Notifications, analytics events |
-| **Queue** | Single consumer, with retry | Background jobs, task processing |
-
-### Message Anatomy
-
-```json
-{
-  "id": "msg_01J...",
-  "topic": "orders.created",
-  "payload": { "order_id": "ord_123", "user_id": "usr_456", "total": 99.99 },
-  "metadata": {
-    "retry_count": 0,
-    "max_retries": 3,
-    "delay_until": null,
-    "created_at": "2026-07-10T11:00:00Z"
-  }
-}
-```
-
----
-
-## Step 3: Publish a Message
+Use the dedicated `servqueue` CLI tool to inspect and manage topics:
 
 ```bash
-curl -X POST http://localhost:8083/publish \
-  -H "Content-Type: application/json" \
-  -d '{
-    "topic": "orders.created",
-    "payload": {
-      "order_id": "ord_123",
-      "user_id": "usr_456",
-      "total": 99.99,
-      "items": [{"sku":"WIDGET","qty":2}]
-    }
-  }'
-```
+# Check status
+servqueue status
 
-Response:
-```json
-{"message_id": "msg_01J9X...", "topic": "orders.created", "queued": true}
-```
+# Create a topic
+servqueue topics create orders.created
 
----
+# Publish a message
+servqueue publish orders.created '{"order_id": "ord_1001", "total": 99.99}'
 
-## Step 4: Subscribe and Consume
+# Consume messages
+servqueue consume orders.created
 
-### REST Long-Poll Subscriber
+# Stream live topic messages
+servqueue tail orders.created
 
-```bash
-# Subscribe and wait for next message (up to 30s)
-curl "http://localhost:8083/subscribe/orders.created?consumer=email-service&timeout=30s"
-```
-
-### Webhook Subscriber
-
-Register a webhook endpoint that ServQueue calls when a message arrives:
-
-```bash
-curl -X POST http://localhost:8083/subscriptions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "topic": "orders.created",
-    "consumer_group": "email-service",
-    "delivery": {
-      "type": "webhook",
-      "url": "http://email-service:3010/hooks/order-created",
-      "secret": "webhook-secret-here"
-    },
-    "retry": {
-      "max_attempts": 3,
-      "backoff": "exponential",
-      "initial_delay": "1s"
-    }
-  }'
-```
-
-Now every `orders.created` message will be POSTed to your email service automatically.
-
----
-
-## Step 5: Build an Event-Driven Order Flow
-
-Here's the full architecture for an order processing system:
-
-```
-POST /api/orders
-     │
-     ▼
-OrderService
-     │  publishes "orders.created"
-     ▼
-ServQueue (orders.created topic)
-     ├─── EmailService ──────> Sends confirmation email
-     ├─── InventoryService ──> Decrements stock
-     ├─── AnalyticsService ──> Records conversion event
-     └─── FulfillmentService > Triggers shipment workflow
-```
-
-Each consumer is fully independent. If AnalyticsService is down, orders still process. When it comes back, ServQueue replays the missed messages.
-
-### OrderService (publishes the event)
-
-```serv
-import queue
-
-service OrderService {
-  route POST /orders {
-    validate body(Order)
-    order = store.create(Order, body)
-    
-    # Fire and forget — don't wait for downstream
-    queue.publish("orders.created", {
-      order_id: order.id,
-      user_id:  order.user_id,
-      total:    order.total,
-      items:    order.items
-    })
-    
-    return order
-  }
-}
-```
-
-### EmailService (consumes the event)
-
-```serv
-import queue
-import mail
-
-service EmailService {
-  consumer "orders.created" {
-    group   "email-service"
-    retries 3
-
-    handler(msg) {
-      user = store.get(User, msg.user_id)
-      mail.send({
-        to:      user.email,
-        subject: "Order Confirmed — #${msg.order_id}",
-        template: "order-confirmation",
-        data:     msg
-      })
-    }
-  }
-}
+# Seek consumer offset to 15 minutes ago
+servqueue seek orders.created 15m
 ```
 
 ---
 
-## Step 6: Delayed Messages
+## Step 3: Multi-Language Client SDKs
 
-Schedule a message for delivery in the future — perfect for reminders and follow-ups:
+ServQueue provides official client SDKs:
 
-```bash
-# Send an "abandon cart" reminder in 1 hour
-curl -X POST http://localhost:8083/publish \
-  -d '{
-    "topic": "cart.reminder",
-    "payload": {"user_id": "usr_456", "cart_id": "cart_789"},
-    "delay": "1h"
-  }'
+### Go SDK
+```go
+import "github.com/vyuvaraj/serv/packages/ServQueue/sdks/go"
+
+client := servqueue.NewClient("http://localhost:8082", "my-token")
+err := client.Publish("orders.created", `{"order_id": "1001"}`)
+offset, err := client.SeekToTime("orders.created", "15m")
+```
+
+### Node.js / TypeScript SDK
+```javascript
+const { ServQueueClient } = require('@servverse/queue-sdk');
+
+const client = new ServQueueClient("http://localhost:8082", "my-token");
+await client.publish("orders.created", JSON.stringify({ order_id: "1001" }));
+```
+
+### Python SDK
+```python
+from servqueue import ServQueueClient
+
+client = ServQueueClient(base_url="http://localhost:8082")
+client.publish("orders.created", '{"order_id": "1001"}')
 ```
 
 ---
 
-## Step 7: Dead Letter Queue
+## Step 4: Observability & Monitoring
 
-Messages that fail all retries land in a dead letter queue (DLQ) for inspection:
+ServQueue exposes Prometheus metrics natively at `/metrics`:
+* `servqueue_messages_published_total`
+* `servqueue_queue_depth`
+* `servqueue_consumer_lag`
+* `servqueue_wasm_executions_total`
 
-```bash
-# View DLQ messages
-curl http://localhost:8083/dlq/orders.created
-
-# Replay a failed message
-curl -X POST http://localhost:8083/dlq/orders.created/msg_01J9X.../replay
-```
+Pre-built Grafana dashboard templates are included in `packages/ServQueue/grafana_dashboard.json`.
 
 ---
 
-## Step 8: Multi-Topic Fan-out Pattern
+## Summary
 
-For high-throughput systems, use topic hierarchies with wildcards:
-
-```bash
-# Subscribe to ALL order events
-curl -X POST http://localhost:8083/subscriptions \
-  -d '{
-    "topic": "orders.*",          # Matches orders.created, orders.shipped, orders.cancelled
-    "consumer_group": "audit-log",
-    "delivery": { "type": "webhook", "url": "http://audit:3020/events" }
-  }'
-```
-
----
-
-## Reliability Guarantees
-
-| Guarantee | ServQueue Behavior |
-|-----------|------------------|
-| **At-least-once delivery** | Messages retried until ACKed by consumer |
-| **Ordering** | Per-partition ordering within a consumer group |
-| **Durability** | Messages persisted to disk before ACK returned to publisher |
-| **Replay** | Consumers can rewind and replay from any offset |
-
----
-
-## What's Next?
-
-We've covered gateway, caching, and messaging. In the final post, we tie everything together and build a complete SaaS application using 8+ Servverse components in under an hour.
-
-➡️ [Full-Stack SaaS in Under an Hour with Servverse](blog.html?post=06-fullstack-saas-servverse)
-
----
-
-*Questions about ServQueue patterns? Join the discussion at [ServQueue/discussions](https://github.com/vyuvaraj/ServQueue/discussions).*
+ServQueue simplifies event-driven architectures by combining multi-protocol compatibility, inline WASM stream processing, point-in-time replay, and native Kubernetes scaling into a single zero-dependency platform.

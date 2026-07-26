@@ -1,202 +1,140 @@
 # I Built a Message Broker With Inline WASM Stream Processing — From Scratch
 
-*How ServQueue combines STOMP messaging, sliding-window deduplication, Dead Letter Queues, and serverless WebAssembly transforms.*
+*How ServQueue evolved into a monorepo distribution featuring dual-CLI binaries, STOMP & MQTT & Kafka protocol compatibility, point-in-time event replay, embedded Web Admin UI, and CRDT active-active geo-replication.*
 
 ---
 
-## The Stream Processing Problem
+## The Stream Processing & Ecosystem Evolution
 
-Message brokers like RabbitMQ, NATS, or Kafka do an excellent job of delivering bytes from producer to consumer. But they are fundamentally passive pipelines.
+Message brokers like RabbitMQ, NATS, or Kafka do an excellent job of delivering bytes from producer to consumer. But traditional brokers are fundamentally passive pipelines: transforming messages or routing across protocol boundaries requires deploying complex stream processors (Apache Flink, Kafka Streams) or external bridge containers.
 
-If you need to transform a message (e.g., uppercase a string, filter out spam, or format JSON) before it reaches the consumer, you have to spin up a separate stream processor (like Apache Flink, Kafka Streams, or a custom worker). This adds network hops, deployment complexity, and infrastructure cost.
-
-What if your message broker could process streams *internally*? What if you could write a lightweight filter in Go or Rust, compile it to WebAssembly (WASM), and execute it inside the message broker's dispatch loop with absolute isolation?
-
-This is why I built ServQueue.
+**ServQueue** was built to solve this natively within the **Servverse monorepo** ecosystem (`github.com/vyuvaraj/serv/packages/ServQueue`). It combines **Compute-in-Queue** (inline WASM transform execution), zero-dependency deployment, protocol adapters, and automated cloud-native operations into a single platform.
 
 ---
 
 ## What is ServQueue?
 
-ServQueue is a lightweight, high-performance message broker written in Go, specifically designed for the **Servverse** ecosystem. It supports the industry-standard **STOMP (Simple Text Oriented Messaging Protocol)** protocol, meaning standard STOMP clients in Python, Node.js, Java, and Go connect out of the box.
+ServQueue is a high-performance message broker written in Go as part of the unified **Servverse** monorepo. It features a clean **Daemon/Client separation**:
 
-But the core differentiator is **Compute-in-Queue**:
+* **`servqueued`**: Single zero-dependency server daemon hosting the log storage engine, STOMP server (`:61613`), HTTP REST API (`:8082`/`:9092`), MQTT v5.0 gateway (`:1883`), Kafka wire protocol adapter (`:9092`), and an embedded Web Admin UI (`http://localhost:9092/ui`).
+* **`servqueue`**: Lightweight client CLI for administrative tasks (`status`, `topics`, `publish`, `consume`, `tail`, `seek`).
 
 ```
-Producer ➔ [ Publish ] ➔ ( ServQueue Topic ) ➔ [ WASM Transform ] ➔ [ Dispatch ] ➔ Consumer
-                                                      │
-                                             (Failed / Dropped)
-                                                      │
-                                                      ▼
-                                            ( Dead Letter Queue )
+Producer ➔ [ Publish (STOMP / MQTT / Kafka / REST) ]
+                  │
+                  ▼
+         ( ServQueue Topic ) ➔ [ WASM Transform Sandbox ] ➔ [ Dispatch ] ➔ Consumer
+                  │                        │
+                  │               (Failed / Dropped)
+                  │                        │
+                  ▼                        ▼
+       ( CRDT Geo-Mirror )     ( Dead Letter Queue )
 ```
-
-Beyond standard pub/sub routing, ServQueue implements:
-- **WASM Stream Transformers**: Sandboxed event transformation running on the server-side via `wazero`.
-- **Dead Letter Queues (DLQ)**: Automatic routing of malformed messages or failed transformations.
-- **Sliding-Window Deduplication**: Built-in protection against duplicate publications using unique message hashes.
-- **Persistent Write-Ahead Log (WAL)**: Crash-resilient message storage.
 
 ---
 
-## Compute-in-Queue: How Inline Transforms Work
+## Key Differentiators & Advanced Features
 
-Imagine you have a topic called `raw-events` and you want to ensure all incoming payloads are capitalized and cleaned of spaces before reaching subscribers on `processed-events`.
-
-Instead of writing a consumer microservice, you write a WASM transformer in Go:
-
-```go
-package main
-
-import (
-	"strings"
-	"github.com/vyuvaraj/servqueue/pkg/sdk"
-)
-
-func main() {
-	sdk.RegisterTransform(func(msg string) (string, error) {
-		// Capitalize payload
-		trimmed := strings.TrimSpace(msg)
-		return strings.ToUpper(trimmed), nil
-	})
-}
-```
-
-Compile the Go file to a WASM binary:
+### 1. Compute-in-Queue (Inline WASM Transforms)
+Compile transform filters written in Go or Rust into WebAssembly (WASI) and upload them directly to topics using the HTTP management API:
 
 ```bash
-GOOS=wasip1 GOARCH=wasm go build -o transform.wasm main.go
+# Upload a compiled .wasm transform to the 'orders' topic
+curl -X POST http://localhost:8082/api/v1/topics/orders/transform \
+  --data-binary @my_transform.wasm
 ```
 
-Upload the WASM binary directly to the topic configuration:
+Messages pass through the sandboxed `wazero` WASM runner inline during dispatch, eliminating extra network hops.
+
+### 2. Point-in-Time Event Replay (`seekToTime`)
+Seek consumer offsets to arbitrary past timestamps for disaster recovery or historical event replay:
 
 ```bash
-curl -X POST http://localhost:8082/api/topics/raw-events/transform \
-  --data-binary @transform.wasm
+# Seek consumer offset to 15 minutes ago
+servqueue seek orders 15m
+
+# Seek to explicit RFC3339 timestamp
+servqueue seek orders 2026-07-26T05:00:00Z
 ```
 
-Now, every message sent to `raw-events` passes through the `wazero` WASM sandbox. The transformed payload is then dispatched to subscribers. If the transform returns an error or crashes, the broker routes the original payload to the registered Dead Letter Queue (DLQ).
+### 3. Protocol Adapters: Wire-level STOMP, MQTT v5.0, & Kafka
+Connect using standard existing client SDKs without changing client code:
+* **STOMP TCP Server** (`tcp://localhost:61613`): Native pub/sub subscription frames.
+* **MQTT v5.0 IoT Gateway** (`tcp://localhost:1883`): Native IoT device telemetry ingestion with `CONNECT`, `PUBLISH`, `SUBSCRIBE`, and `PUBACK`.
+* **Kafka Compatibility Adapter** (`tcp://localhost:9092`): Decodes Kafka binary protocol requests (`Produce`, `Fetch`, `Metadata`).
+
+### 4. Embedded Web Admin UI & ServConsole Queue Inspector
+* **Embedded UI**: Accessible directly at `http://localhost:9092/ui/` via Go `embed`, providing real-time stats, active topics, queue depth, consumer lag, and live stream tailing.
+* **ServConsole Integration**: Real-time consumer lag monitoring, outbox relay status, and stream inspection integrated directly into the central dashboard.
+
+### 5. Cross-Cloud Active-Active Geo-Replication (CRDT)
+Multi-region active-active cluster mirroring across cloud providers with Last-Write-Wins (LWW) CRDT conflict resolution.
+
+### 6. Cloud-Native & K8s Operations
+* **Kubernetes Operator**: Custom `ServQueueCluster` CRD for automated cluster provisioning and replica failover.
+* **KEDA Metrics Adapter**: Auto-scale consumer pods based on real-time topic lag.
+* **Storage Tiering & Auto-Compaction**: Automatic TTL background eviction and cold segment offloading to S3/ServStore.
+* **Prometheus Metrics**: Exposes native `/metrics` endpoint with ready-to-use Grafana dashboard templates (`grafana_dashboard.json`).
 
 ---
 
-## Dead Letter Queues (DLQ)
+## Multi-Language Client SDKs
 
-Failures are inevitable. A JSON parser fails, a WASM transform runs out of memory, or a client times out.
+ServQueue ships with standalone client SDKs in `packages/ServQueue/sdks/`:
 
-ServQueue handles this with native Dead Letter Queues. When registering a source topic, you can attach a DLQ destination:
+* **Go**: `import "github.com/vyuvaraj/serv/packages/ServQueue/sdks/go"`
+* **TypeScript / Node.js**: `const { ServQueueClient } = require('@servverse/queue-sdk');`
+* **Python**: `from servqueue import ServQueueClient`
+* **Browser WASM**: `@servverse/queue-wasm` for OPFS-backed embedded Web Worker event logs.
+
+---
+
+## Architecture Comparison
+
+| Feature | RabbitMQ | NATS JetStream | Kafka | ServQueue |
+|:---|:---|:---|:---|:---|
+| **Repository** | Separate | Separate | Separate | **Serv Monorepo** |
+| **Daemon / CLI Split** | Partial | `nats` CLI | `kafka-tools` | **`servqueued` / `servqueue`** |
+| **Compute-in-Queue** | ❌ (Plugins only) | ❌ | ❌ | **✅ (WASM WASI)** |
+| **Multi-Protocol** | AMQP/STOMP | NATS | Kafka | **STOMP, MQTT, Kafka, REST** |
+| **Point-in-Time Seek** | ❌ | Offset only | Offset/Timestamp | **`seekToTime` (CLI & REST)** |
+| **Embedded Admin UI** | Plugin | ❌ | External | **Built-in (`http://localhost:9092/ui`)** |
+| **CRDT Geo-Mirroring** | ❌ | ❌ | MirrorMaker 2 | **Native Active-Active CRDT** |
+| **K8s Operator & KEDA** | Third-party | Third-party | Strimzi | **Built-in Operator & KEDA** |
+
+---
+
+## Quickstart (Monorepo Setup)
 
 ```bash
-# Register a DLQ for the 'orders' topic
-curl -X POST http://localhost:8082/api/topics/orders/dlq \
-  -H "Content-Type: application/json" \
-  -d '{"dlq_topic": "orders.dlq"}'
-```
+# Clone the unified Serv monorepo
+git clone https://github.com/vyuvaraj/serv.git
+cd serv/packages/ServQueue
 
-If a message published to `orders` fails processing (e.g., due to a WASM transformation failure), the broker wraps the message in a diagnostic envelope and routes it to `orders.dlq`:
+# Build and run the daemon
+go build -o servqueued ./cmd/servqueued
+./servqueued --port 9092
 
-```json
-{
-  "dlq": true,
-  "source_topic": "orders",
-  "reason": "wasm execution error: out of memory",
-  "payload": "{\"order_id\": 102}"
-}
-```
-
-This prevents malformed messages from blocking your queues (head-of-line blocking) while preserving them for debugging and reprocessing.
-
----
-
-## Sliding-Window Deduplication
-
-In distributed systems, networks drop connections. Producres often retry publications, causing duplicate messages.
-
-ServQueue provides sliding-window deduplication out-of-the-box. When publishing a message, you can supply a `X-Message-ID` or a deduplication key. ServQueue maintains a time-bound ring buffer of recently processed keys:
-
-```bash
-# Publish with a unique message ID
-curl -X POST http://localhost:8082/api/publish \
-  -H "Content-Type: application/json" \
-  -d '{
-    "topic": "billing",
-    "payload": "invoice-9832",
-    "dedup_key": "msg-uuid-9832"
-  }'
-```
-
-If the producer retries the publication due to a network drop, ServQueue identifies the duplicate key within the configured window (e.g., 5 minutes) and drops it silently, returning a `200 OK` to ensure the producer stops retrying.
-
----
-
-## How It Compares
-
-| Feature | RabbitMQ | NATS JetStream | ServQueue |
-|---------|----------|----------------|-----------|
-| **Protocol** | AMQP / STOMP | NATS | STOMP / HTTP |
-| **Compute-in-Queue** | ❌ (Plugins only) | ❌ | ✅ (WASM WASI) |
-| **Deduplication** | Manual plugins | Stream deduplication | ✅ (Sliding Window) |
-| **Dead Letter Queue** | ✅ | ✅ | ✅ (Auto-wrapped) |
-| **Persistence** | Mnesia / Queue index | File / Memory | ✅ (Write-Ahead Log) |
-| **Tracing** | Heavy configuration | Built-in | ✅ (OTel standard) |
-| **Client Support** | Wide | Wide | ✅ (Standard STOMP) |
-
----
-
-## Getting Started
-
-### 1. Build and Run the Broker
-Build the broker server:
-
-```bash
-# Clone the broker
-git clone https://github.com/vyuvaraj/ServQueue.git
-cd ServQueue
-
-# Build and run
-go build -o servqueue.exe main.go
-./servqueue.exe
-```
-
-The **STOMP TCP Server** listens on `:61613` (standard STOMP port), and the **HTTP Management API** listens on `:8082`.
-
-### 2. Connect via STOMP (Python Example)
-You can consume messages from ServQueue using any standard STOMP client:
-
-```python
-import stomp
-import time
-
-class Listener(stomp.ConnectionListener):
-    def on_message(self, frame):
-        print(f"Received: {frame.body}")
-
-conn = stomp.Connection([('127.0.0.1', 61613)])
-conn.set_listener('', Listener())
-conn.connect(wait=True)
-conn.subscribe(destination='processed-events', id=1, ack='auto')
-
-time.sleep(10)
-conn.disconnect()
+# In another terminal, interact using the CLI
+go build -o servqueue ./cmd/servqueue
+./servqueue status
+./servqueue topics create orders
+./servqueue publish orders '{"order_id": 1001, "total": 49.99}'
+./servqueue consume orders
+./servqueue seek orders 5m
 ```
 
 ---
 
-## What's Next
+## Links & Ecosystem
 
-- **Distributed Raft Clustered Queues**: Share queue state across multiple nodes with strong consistency.
-- **Delayed Message Delivery**: Schedule messages to be delivered at a specific time in the future.
-- **Telemetry Visualizer**: Integrate directly with ServConsole to view queue depths and message flows in real-time.
-
----
-
-## Links
-
-- **GitHub**: [github.com/vyuvaraj/ServQueue](https://github.com/vyuvaraj/ServQueue)
-- **Ecosystem Specs**: Check the full roadmap at `UNIFIED_ROADMAP.md` in the workspace root.
+- **Monorepo**: [github.com/vyuvaraj/serv](https://github.com/vyuvaraj/serv)
+- **ServQueue Package**: [packages/ServQueue](https://github.com/vyuvaraj/serv/tree/main/packages/ServQueue)
+- **Ecosystem Specs**: Check `UNIFIED_ROADMAP.md` in `servverse-repo`.
 - **License**: Apache 2.0
 
 ---
 
-*Streamline your infrastructure. Run transformations near the data inside the broker, handle failures gracefully with DLQs, and say goodbye to boilerplate processing pipelines.*
+*Streamline your infrastructure. Run transformations near the data inside the broker, speak standard STOMP/MQTT/Kafka protocols, and scale seamlessly from embedded local-first PWAs to active-active cloud clusters.*
 
 *— Yuvaraj*
