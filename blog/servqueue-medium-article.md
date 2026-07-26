@@ -27,35 +27,46 @@ Here is how we addressed these challenges in **ServQueue v2** and migrated to th
 
 We merged standalone services into the unified **Serv monorepo** (`github.com/vyuvaraj/serv/packages/ServQueue`). As part of this migration, we strictly separated server runtime logic from client administration tooling:
 
-* **`servqueued` (Server Daemon)**: Zero-dependency background service hosting the WAL log engine, WASM execution runner, protocol adapters, Prometheus metrics (`/metrics`), and an embedded Web Admin UI served at `http://localhost:9092/ui/` via Go `embed`.
+* **`servqueued` (Server Daemon)**: Zero-dependency background service process. It hosts dedicated listeners for STOMP (`:61613`), MQTT v5.0 (`:1883`), Kafka (`:9092`), HTTP REST (`:8082`), Prometheus metrics (`/metrics`), and an embedded Web Admin UI (`http://localhost:8082/ui/`) served via Go `embed`.
 * **`servqueue` (Client CLI)**: Fast-booting administrative binary for operators and scripts (`status`, `topics`, `publish`, `consume`, `tail`, `seek`).
-
-```
-                              ┌────────────────────────────────────────┐
-                              │               servqueued               │
-┌──────────────┐              │ ┌──────────┐  ┌──────────┐ ┌─────────┐ │              ┌──────────────┐
-│  STOMP /     │  publish     │ │  STOMP   │  │   MQTT   │ │  Kafka  │ │   dispatch   │  Consumers   │
-│  MQTT /      ├─────────────►│ │  :61613  │  │  :1883   │ │  :9092  │ ├─────────────►│  (Subscribers│
-│  Kafka Client│              │ └────┬─────┘  └────┬─────┘ └────┬────┘ │              └──────────────┘
-└──────────────┘              │      └───────────┼────────────┘      │
-                              │                  ▼                   │
-                              │     [ WASM Stream Processor ]        │
-                              │                  │                   │
-                              │     [ Point-in-Time Replay ]         │
-                              │                  │                   │
-                              │    [ CRDT Active-Active Sync ]       │
-                              └────────────────────────────────────────┘
-```
 
 ---
 
-## 2. Multi-Protocol Compatibility: Speaking MQTT & Kafka Natively
+## 2. Multi-Protocol Architecture & Dedicated Ports
 
-Rather than requiring users to deploy protocol translation bridges, `servqueued` implements native binary socket decoders for multiple industry wire protocols:
+A common point of confusion with multi-protocol brokers is whether all clients connect to the same port. 
 
-* **STOMP (`:61613`)**: Traditional text-oriented pub/sub frame parser.
-* **MQTT v5.0 Gateway (`:1883`)**: Decodes MQTT `CONNECT`, `PUBLISH`, `SUBSCRIBE`, and `PINGREQ` frames directly into ServQueue topics — allowing low-power IoT devices to publish directly into the broker.
-* **Kafka Compatibility Adapter (`:9092`)**: Decodes binary Kafka request headers (`Produce`, `Fetch`, `Metadata`), allowing standard Kafka client SDKs to publish directly to ServQueue without changing code.
+In `servqueued`, **each protocol listens on its standard dedicated TCP port**, but all protocol handlers funnel into the **same underlying core message broker engine**. This enables seamless **Cross-Protocol Fan-Out**: an IoT sensor publishing via MQTT on port `1883` can be read by a STOMP subscriber on port `61613`, a Kafka client on port `9092`, or inspected via the HTTP Web UI on port `8082`.
+
+```
+PRODUCER CLIENTS                                servqueued DAEMON                                CONSUMER CLIENTS
+────────────────                               ─────────────────                                ────────────────
+[ STOMP Client ]   ─── tcp://localhost:61613 ──► ┌──────────────────────────┐ ─── tcp://localhost:61613 ──► [ STOMP Subscriber ]
+                                                 │ STOMP Server (:61613)   │
+[ MQTT Device ]    ─── tcp://localhost:1883  ──► │ MQTT Gateway (:1883)    │ ─── tcp://localhost:1883  ──► [ MQTT Subscriber ]
+                                                 │ Kafka Adapter (:9092)   │
+[ Kafka Producer ] ─── tcp://localhost:9092  ──► │ HTTP REST API (:8082)   │ ─── tcp://localhost:9092  ──► [ Kafka Consumer ]
+                                                 └────────────┬─────────────┘
+[ REST / CLI ]     ─── http://localhost:8082 ──►              │
+                                                              ▼
+                                               ┌────────────────────────────┐
+                                               │ Core Engine & Topic Router │
+                                               ├────────────────────────────┤
+                                               │ ⚙️ WASM Stream Processor   │
+                                               │ ⏪ Point-in-Time Replay    │
+                                               │ 🌐 CRDT Geo-Replication     │
+                                               │ ☠️ Dead Letter Queue (DLQ) │
+                                               └────────────────────────────┘
+```
+
+### Port Mapping Summary
+
+| Protocol | Default Port | Primary Use Case |
+|:---|:---|:---|
+| **STOMP** | `:61613` | Lightweight pub/sub messaging across languages |
+| **MQTT v5.0** | `:1883` | Low-power IoT telemetry & edge sensor publishing |
+| **Kafka Wire** | `:9092` | Direct producer/consumer integration with Kafka client SDKs |
+| **HTTP REST / UI** | `:8082` | Management API, Web Admin UI (`/ui/`), & Prometheus `/metrics` |
 
 ---
 
@@ -114,9 +125,9 @@ ServQueue v2 provides official client packages under `packages/ServQueue/sdks/`:
 git clone https://github.com/vyuvaraj/serv.git
 cd serv/packages/ServQueue
 
-# Build and start the daemon (Web UI at http://localhost:9092/ui/)
+# Build and start the daemon (Web UI at http://localhost:8082/ui/)
 go build -o servqueued ./cmd/servqueued
-./servqueued --port 9092
+./servqueued --port 8082
 
 # In another terminal, use the CLI
 go build -o servqueue ./cmd/servqueue
@@ -130,7 +141,7 @@ go build -o servqueue ./cmd/servqueue
 
 ## Summary & What's Next
 
-ServQueue has grown from an experimental WASM pub/sub broker into a multi-protocol stream processing engine. By combining inline WASM transforms with native MQTT/Kafka protocol support, timestamp-based replay, and Kubernetes operator tooling, developers get the power of a modern event streaming platform with zero external dependencies.
+ServQueue has grown from an experimental WASM pub/sub broker into a multi-protocol stream processing engine. By combining inline WASM transforms with native STOMP/MQTT/Kafka protocol support, cross-protocol fan-out, timestamp-based replay, and Kubernetes operator tooling, developers get the power of a modern event streaming platform with zero external dependencies.
 
 * **Monorepo**: [github.com/vyuvaraj/serv](https://github.com/vyuvaraj/serv)
 * **Package Path**: `packages/ServQueue`
