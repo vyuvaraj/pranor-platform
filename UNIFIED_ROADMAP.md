@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **668** | **51** | **93%** | ███████████████████░ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **672** | **47** | **93%** | ███████████████████░ |
 
 
 ---
@@ -654,9 +654,9 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | SP.G1 | **Read/Write Split Router (Primary for Writes, Replica for Reads)** | ServPool Routing | Detect read vs. write SQL intent (SELECT vs. INSERT/UPDATE/DELETE) and route queries to appropriate replica or primary connections; configure per-replica weights for read load distribution | [x] | OSS |
 | SP.G2 | **Pre-Checkout Connection Health Validation (Ping & Validation Query)** | ServPool Health | Execute a configurable lightweight validation query (e.g. `SELECT 1`) before returning a pooled connection to the caller; immediately discard and replace stale, closed, or broken connections | [x] | OSS |
 | SP.G3 | **Automatic Connection Leak Detection & Forced Reclaim** | ServPool Safety | Track connections checked out beyond a configurable `maxHoldDuration`; log a stack trace warning and forcibly reclaim leaked connections to prevent pool exhaustion under load | [x] | OSS |
-| SP.G4 | **Per-Query Execution Time Histogram & Slow Query Logger** | ServPool Telemetry | Wrap every query execution with nanosecond timing; maintain P50/P95/P99 latency histograms per query fingerprint and log queries exceeding a configurable slow-query threshold | [ ] | OSS |
-| SP.G5 | **Multi-Dialect Prepared Statement Cache** | ServPool Cache | Cache parsed and compiled prepared statements per-connection-per-dialect (PostgreSQL, MySQL, SQLite); reduce repeated parse overhead on high-throughput transactional workloads | [ ] | OSS |
-| SP.G6 | **Pool Utilization & Saturation Alerting in ServConsole** | ServConsole UI | Stream real-time pool utilization (active/idle/waiting connection counts) to ServConsole; alert operators when pool saturation or wait queue depth exceeds configurable thresholds | [ ] | OSS |
+| SP.G4 | **Per-Query Execution Time Histogram & Slow Query Logger** | ServPool Telemetry | Wrap every query execution with nanosecond timing; maintain P50/P95/P99 latency histograms per query fingerprint and log queries exceeding a configurable slow-query threshold | [x] | OSS |
+| SP.G5 | **Multi-Dialect Prepared Statement Cache** | ServPool Cache | Cache parsed and compiled prepared statements per-connection-per-dialect (PostgreSQL, MySQL, SQLite); reduce repeated parse overhead on high-throughput transactional workloads | [x] | OSS |
+| SP.G6 | **Pool Utilization & Saturation Alerting in ServConsole** | ServConsole UI | Stream real-time pool utilization (active/idle/waiting connection counts) to ServConsole; alert operators when pool saturation or wait queue depth exceeds configurable thresholds | [x] | OSS |
 
 ---
 
@@ -667,7 +667,7 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| TN.G1 | **WebSocket Connection Multiplexing over a Single Tunnel Pipe** | ServTunnel Protocol | Multiplex multiple concurrent WebSocket connections from different clients over a single persistent tunnel connection using a lightweight stream framing header protocol | [ ] | OSS |
+| TN.G1 | **WebSocket Connection Multiplexing over a Single Tunnel Pipe** | ServTunnel Protocol | Multiplex multiple concurrent WebSocket connections from different clients over a single persistent tunnel connection using a lightweight stream framing header protocol | [x] | OSS |
 | TN.G2 | **JWT / API-Key Auth Gating on Tunnel Endpoint Connections** | ServTunnel Auth | Require JWT bearer tokens or API keys before accepting inbound HTTP connections on any tunnel endpoint; integrate with ServAuth for token validation and scope enforcement | [ ] | OSS |
 | TN.G3 | **Full Request & Response Body Capture with Replay UI in ServConsole** | ServTunnel Inspector | Capture complete request/response pairs (headers, body, timing, status) and expose them in a ServConsole tunnel inspector tab; allow one-click replay of any captured request for debugging | [ ] | OSS |
 | TN.G4 | **Persistent Tunnel Reconnect with Exponential Backoff & Jitter** | ServTunnel Client | Implement automatic reconnect logic in the tunnel client with exponential backoff and jitter; maintain tunnel availability and re-register subdomain routing across transient network interruptions | [ ] | OSS |
