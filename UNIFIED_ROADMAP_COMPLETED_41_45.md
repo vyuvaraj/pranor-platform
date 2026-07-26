@@ -36,3 +36,19 @@ This document contains the archived detailed breakdown of all fully completed ph
 | SQ.S7 | **eBPF Kernel Bypass & XDP Acceleration** | ServQueue Network | eBPF XDP network socket bypass for ultra-low latency packet ingestion (<10µs p99 delivery) | [x] |
 | SQ.S8 | **SIMD / AVX-512 Vectorized Filter Engine** | ServQueue Core | SIMD batch matching for processing 10M+ events/sec per CPU core | [x] |
 
+---
+
+## Phase 43: ServQueue Standalone Distribution, Dual-CLI & ServConsole Suite (Completed)
+
+> **Context:** Transform ServQueue into a standalone product distribution featuring a zero-dependency server daemon (`servqueued`), dedicated CLI (`servqueue`), ServConsole live web management inspector, embedded UI, DLQ engine, and point-in-time replay.
+
+| # | Item | Component | Description | Status |
+|---|------|-----------|-------------|--------|
+| SQ.M1 | **Standalone Daemon (`servqueued`)** | ServQueue Server | Single zero-dependency server binary with YAML configuration & CLI flags | [x] |
+| SQ.M2 | **Standalone CLI (`servqueue` CLI & `serv queue`)** | ServQueue CLI | Dedicated CLI for publishing, consuming, topic inspection, and DLQ management | [x] |
+| SQ.M3 | **ServConsole Queue Inspector UI** | ServConsole | Web UI tab in ServConsole for visual consumer lag, stream tailing, and outbox relay monitoring | [x] |
+| SQ.M4 | **Embedded Lightweight Web Admin UI** | ServQueue Admin UI | Built-in web UI embedded inside `servqueued` via `go:embed` at `http://localhost:9092/ui` | [x] |
+| SQ.M5 | **DLQ & Exponential Backoff Engine** | ServQueue Core | Poison-pill isolation, circuit breaking, and automatic retry policies | [x] |
+| SQ.M6 | **Point-in-Time Event Replay** | ServQueue Storage | Seek consumer offsets to arbitrary past timestamps (`seekToTime`) for disaster recovery | [x] |
+| SQ.M7 | **Prometheus `/metrics` & Grafana Exporter** | ServQueue Telemetry | Prometheus `/metrics` endpoint with pre-built Grafana dashboard templates | [x] |
+| SQ.M8 | **Multi-Language Client SDKs** | Distribution | Publish standalone Go, TypeScript/Node.js, Browser WASM, and Python client packages | [x] |
