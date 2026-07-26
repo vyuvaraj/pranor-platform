@@ -105,8 +105,8 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 55: ServGateway WASM Plugin Hot-Reload Registry, GraphQL Federation & WAF** | 5 | 5 | 0 | **100%** | ████████████████████ |
 | **Phase 56: ServGateway Enterprise WAF, Remote WASM Sync & OAuth2 Engine** | 5 | 5 | 0 | **100%** | ████████████████████ |
 
-| **Phase 57: ServAuth — Session Management, Passkeys & Adaptive MFA** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
-| **Phase 58: ServCache — Distributed Cluster Mode, Bloom Filters & Tiered TTL** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
+| **Phase 57: ServAuth — Session Management, Passkeys & Adaptive MFA** | 6 | 3 | 3 | **50%** | ██████████░░░░░░░░░░ |
+| **Phase 58: ServCache — Distributed Cluster Mode, Bloom Filters & Tiered TTL** | 6 | 5 | 1 | **83%** | ████████████████░░░░ |
 | **Phase 59: ServCron — DAG Job Chaining, Retry Policies & Cron-as-Code** | 6 | 3 | 3 | **50%** | ██████████░░░░░░░░░░ |
 | **Phase 60: ServFlow — Visual Workflow Designer, WASM Step Functions & Human Tasks** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 61: ServMesh — WireGuard Overlay, mTLS Identity & Adaptive Load Balancing** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **636** | **83** | **88%** | █████████████████░░░ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **640** | **79** | **89%** | ██████████████████░░ |
 
 
 ---
@@ -708,7 +708,7 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
 | SA.G1 | **Opaque Session Token Store with Server-Side Revocation** | ServAuth Sessions | Replace stateless-only JWT approach with opaque refresh token store backed by ServStore; enable instant per-session revocation without waiting for JWT expiry | [x] | OSS |
-| SA.G2 | **WebAuthn / Passkey (FIDO2) Registration & Assertion** | ServAuth MFA | Implement FIDO2 WebAuthn authenticator registration and login assertion flow; enable hardware key (YubiKey) and platform passkey (TouchID/FaceID) authentication | [ ] | OSS |
+| SA.G2 | **WebAuthn / Passkey (FIDO2) Registration & Assertion** | ServAuth MFA | Implement FIDO2 WebAuthn authenticator registration and login assertion flow; enable hardware key (YubiKey) and platform passkey (TouchID/FaceID) authentication | [x] | OSS |
 | SA.G3 | **Adaptive Risk-Based MFA Step-Up Engine** | ServAuth Risk | Analyze login signals (new device, unusual geo, time-of-day anomaly) and dynamically escalate to OTP or WebAuthn challenge mid-session without forcing full re-login | [ ] | **EE** |
 | SA.G4 | **Device Fingerprinting & Trusted Device Registry** | ServAuth Trust | Track device fingerprints (user-agent, screen entropy, timezone) and maintain per-user trusted device list with one-click revocation from ServConsole | [ ] | **EE** |
 | SA.G5 | **Per-Tenant OIDC Provider Federation (Okta, Azure AD, Google Workspace)** | ServAuth Federation | Allow enterprise tenants to bring their own OIDC/SAML identity provider; auto-federate external group claims into ServAuth roles without code changes | [ ] | **EE** |
@@ -724,11 +724,11 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
 | SC.G1 | **Multi-Node Raft-Based Distributed Cache Cluster** | ServCache Cluster | Extend single-node InMemoryCache to a Raft-replicated distributed cluster; support 3-node quorum writes with consistent reads and automatic leader election | [ ] | **EE** |
-| SC.G2 | **RESP3 Protocol Wire Compatibility (Redis Drop-in Mode)** | ServCache Protocol | Implement Redis Serialization Protocol v3 (RESP3) wire compatibility so ServCache can function as a Redis drop-in replacement for existing application codebases | [ ] | OSS |
+| SC.G2 | **RESP3 Protocol Wire Compatibility (Redis Drop-in Mode)** | ServCache Protocol | Implement Redis Serialization Protocol v3 (RESP3) wire compatibility so ServCache can function as a Redis drop-in replacement for existing application codebases | [x] | OSS |
 | SC.G3 | **Probabilistic Bloom Filter for Absent-Key Elimination** | ServCache Filter | Embed a Bloom filter in front of the LRU lookup path to short-circuit backend fetches for keys statistically absent from the cache; reduces load by eliminating redundant origin queries | [x] | OSS |
 | SC.G4 | **Tiered TTL Policy Engine (Hot / Warm / Cold Tiers)** | ServCache Policy | Implement multi-tier TTL policies: short-TTL hot tier (sub-second), medium-TTL warm tier (minutes), long-TTL cold tier (hours); auto-promote/demote entries based on access frequency | [x] | OSS |
-| SC.G5 | **Cache Stampede Protection via Probabilistic Early Expiry** | ServCache Resilience | Implement probabilistic early expiry (PER algorithm) to proactively recompute cache values before expiry under high concurrency, eliminating thundering herd spikes | [ ] | OSS |
-| SC.G6 | **Real-Time Hit Rate & Eviction Metrics Dashboard in ServConsole** | ServConsole UI | Stream live per-namespace hit rate, eviction rate, and memory pressure metrics into the ServConsole dashboard with configurable alert thresholds | [ ] | OSS |
+| SC.G5 | **Cache Stampede Protection via Probabilistic Early Expiry** | ServCache Resilience | Implement probabilistic early expiry (PER algorithm) to proactively recompute cache values before expiry under high concurrency, eliminating thundering herd spikes | [x] | OSS |
+| SC.G6 | **Real-Time Hit Rate & Eviction Metrics Dashboard in ServConsole** | ServConsole UI | Stream live per-namespace hit rate, eviction rate, and memory pressure metrics into the ServConsole dashboard with configurable alert thresholds | [x] | OSS |
 
 ---
 
