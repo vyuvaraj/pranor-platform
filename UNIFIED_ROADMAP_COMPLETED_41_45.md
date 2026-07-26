@@ -69,3 +69,20 @@ This document contains the archived detailed breakdown of all fully completed ph
 | SQ.N6 | **Kafka Wire Protocol Compatibility Adapter** | ServQueue Adapter | Binary Kafka protocol adapter allowing Kafka clients to connect to ServQueue | [x] |
 | SQ.N7 | **Serverless EventBridge & Webhooks Connector** | ServQueue Relay | Auto-dispatch topic events to external HTTP webhooks & AWS EventBridge targets | [x] |
 | SQ.N8 | **Automated Chaos Testing & Failure Injector** | ServQueue Testing | Built-in chaos injector testing network partitions, disk corruptions, and node crashes | [x] |
+
+---
+
+## Phase 45: ServQueue Enterprise Commercial Feature Modularization & Build-Tag Gating (Completed)
+
+> **Context:** Enforce strict OSS/EE architectural boundary policy for ServQueue by modularizing commercial enterprise features (Geo-replication, Kafka adapter, HSM/PQC security, AI guardrails, eBPF acceleration, multi-cloud compaction, EventBridge relay, K8s federation) into `serv-ee` behind `//go:build enterprise` build tags while preserving clean interface hooks and `//go:build !enterprise` fallback stubs in the open-source `serv` monorepo.
+
+| # | Item | Component | Description | Status |
+|---|------|-----------|-------------|--------|
+| SQ.E15 | **Geo-Replication EE Modularization** | ServQueue Mirror | Modularize Cross-Cloud Active-Active CRDT Geo-Replication into `serv-ee` behind `//go:build enterprise` tag | [x] |
+| SQ.E16 | **Kafka Protocol Adapter EE Modularization** | ServQueue Adapter | Modularize Kafka Wire Protocol Compatibility Adapter into `serv-ee` behind `//go:build enterprise` tag | [x] |
+| SQ.E17 | **FIPS 140-3 HSM & Sovereign Security EE Modularization** | ServQueue Security | Modularize HSM key unsealing, Post-Quantum Kyber768/Dilithium, and Merkle audit ledger into `serv-ee` | [x] |
+| SQ.E18 | **Inline WASM AI Guardrails EE Modularization** | ServQueue WASM | Modularize ONNX/WASM AI PII detection and prompt injection filters into `serv-ee` | [x] |
+| SQ.E19 | **eBPF Kernel Bypass EE Modularization** | ServQueue Network | Modularize eBPF XDP socket acceleration (<10µs latency) into `serv-ee` | [x] |
+| SQ.E20 | **Multi-Cloud Tiered Storage Compaction EE Modularization** | ServQueue Storage | Modularize S3/ServStore cold tier lifecycle compaction workers into `serv-ee` | [x] |
+| SQ.E21 | **AWS EventBridge & Enterprise Webhooks EE Modularization** | ServQueue Relay | Modularize AWS EventBridge relay & signed enterprise webhooks into `serv-ee` | [x] |
+| SQ.E22 | **Multi-Cluster K8s Federation EE Modularization** | ServQueue K8s | Modularize multi-cluster K8s operator federation & cross-region KEDA scaling into `serv-ee` | [x] |
