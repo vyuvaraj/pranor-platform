@@ -120,7 +120,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 69: ServStore — Native HNSW Vector Index & Semantic Object Search** | 6 | 6 | 0 | **100%** | ████████████████████ |
 | **Phase 70: ServConsole — eBPF Flamegraph Profiler, Chaos Engine & Unified AI Assistant** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
-| **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 5 | 1 | **83%** | ████████████████░░░░ |
 
 | **TOTAL ECOSYSTEM WORK** | **719** | **693** | **26** | **96%** | ███████████████████░ |
 
@@ -667,9 +667,9 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| PL.G1 | **Single-Binary `servd` Unified Runtime (Embedded Monolith Mode)** | Platform Runtime | Build `servd` embedding ServGate, ServStore, ServQueue, ServCache, ServAuth, ServCron, and ServMesh; use zero-copy shared-memory channels for inter-module communication; scale from laptop dev mode to distributed cluster deployment | [ ] | OSS |
+| PL.G1 | **Single-Binary `servd` Unified Runtime (Embedded Monolith Mode)** | Platform Runtime | Build `servd` embedding ServGate, ServStore, ServQueue, ServCache, ServAuth, ServCron, and ServMesh; use zero-copy shared-memory channels for inter-module communication; scale from laptop dev mode to distributed cluster deployment | [x] | OSS |
 | PL.G2 | **Automatic WireGuard Cluster Mesh Between `servd` Nodes** | Platform Network | Implement automatic WireGuard mesh key exchange between `servd` cluster peers using a DHT-based peer discovery protocol; establish encrypted kernel-level tunnels between all nodes without manual certificate provisioning | [ ] | **EE** |
-| PL.G3 | **Unified Chaos Injection Engine (Network, CPU, Memory, Disk, Clock Skew)** | Platform Chaos | Expose a Chaos Engineering API (`/api/v1/chaos`) on `servd` supporting: network latency/packet-drop injection, CPU stress, memory pressure, disk I/O throttling, and clock skew simulation; controlled per-node and per-service via `servctl` | [ ] | OSS |
-| PL.G4 | **`servctl` Cluster-Wide Administration CLI** | Platform CLI | Build `servctl` — a unified cluster administration CLI: `servctl cluster status`, `servctl chaos inject --service=servstore --type=latency --duration=60s`, `servctl deploy canary`, `servctl trace query --service=api` | [ ] | OSS |
-| PL.G5 | **Unified Health, Readiness & Rollup Metrics API** | Platform Observability | Expose `/api/v1/health` rollup on `servd` aggregating health status and key metrics across all embedded modules; consumable by Kubernetes liveness/readiness probes and external monitoring systems (Datadog, Grafana) | [ ] | OSS |
-| PL.G6 | **Official Docker Compose & Production Helm Chart Distribution** | Platform Distribution | Publish an official multi-service `docker-compose.yml` (local dev) and a production-grade `helm chart` deploying the complete Servverse stack to Kubernetes with a single `helm install servverse` command | [ ] | OSS |
+| PL.G3 | **Unified Chaos Injection Engine (Network, CPU, Memory, Disk, Clock Skew)** | Platform Chaos | Expose a Chaos Engineering API (`/api/v1/chaos`) on `servd` supporting: network latency/packet-drop injection, CPU stress, memory pressure, disk I/O throttling, and clock skew simulation; controlled per-node and per-service via `servctl` | [x] | OSS |
+| PL.G4 | **`servctl` Cluster-Wide Administration CLI** | Platform CLI | Build `servctl` — a unified cluster administration CLI: `servctl cluster status`, `servctl chaos inject --service=servstore --type=latency --duration=60s`, `servctl deploy canary`, `servctl trace query --service=api` | [x] | OSS |
+| PL.G5 | **Unified Health, Readiness & Rollup Metrics API** | Platform Observability | Expose `/api/v1/health` rollup on `servd` aggregating health status and key metrics across all embedded modules; consumable by Kubernetes liveness/readiness probes and external monitoring systems (Datadog, Grafana) | [x] | OSS |
+| PL.G6 | **Official Docker Compose & Production Helm Chart Distribution** | Platform Distribution | Publish an official multi-service `docker-compose.yml` (local dev) and a production-grade `helm chart` deploying the complete Servverse stack to Kubernetes with a single `helm install servverse` command | [x] | OSS |
