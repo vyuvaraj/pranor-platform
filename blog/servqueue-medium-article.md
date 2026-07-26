@@ -94,9 +94,16 @@ For multi-region deployments, ServQueue v2 introduces background cluster mirrori
 
 When nodes in `us-east-1` and `eu-west-1` operate concurrently, the mirror engine resolves concurrent state updates across cluster boundaries without central locks, ensuring eventual consistency even across temporary network partitions.
 
+## 5. Local-First Browser OPFS Queue (`@servverse/queue-wasm`)
+
+Beyond server-side streaming, ServQueue extends event brokerage directly into the browser for local-first and offline-first Progressive Web Apps (PWAs):
+
+* **Embedded Web Worker Storage**: Powered by `@servverse/queue-wasm`, ServQueue runs an embedded event log inside browser Web Workers leveraging the Origin Private File System (`FileSystemSyncAccessHandle`) for high-throughput local disk storage.
+* **Offline Outbox & Reconnect Relay**: When a browser client loses network connectivity, published events are stored locally in the OPFS WAL. Upon network reconnection, an outbox relay automatically streams unacknowledged event ranges in exact sequence to the remote `servqueued` cluster.
+
 ---
 
-## 5. Cloud-Native Operations & K8s Ecosystem
+## 6. Cloud-Native Operations & K8s Ecosystem
 
 To operationalize ServQueue in cloud environments, we built native Kubernetes controllers and monitoring exporters:
 
@@ -107,7 +114,7 @@ To operationalize ServQueue in cloud environments, we built native Kubernetes co
 
 ---
 
-## 6. Multi-Language SDKs
+## 7. Multi-Language SDKs
 
 ServQueue v2 provides official client packages under `packages/ServQueue/sdks/`:
 
