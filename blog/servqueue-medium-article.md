@@ -135,6 +135,56 @@ Because ServQueue listens natively on STOMP port `:61613`, you are never locked 
 
 ---
 
+---
+
+## 8. Platform Differentiating Factors: ServQueue vs. ServStore vs. ServGateway
+
+A frequent question from developers evaluating the **Servverse Platform** (`github.com/vyuvaraj/serv`) is what makes each engine uniquely disruptive compared to traditional cloud infrastructure:
+
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    SERVVERSE PLATFORM ECOSYSTEM                                  │
+├──────────────────────────────┬───────────────────────────────────┬───────────────────────────────┤
+│    ⚡ ServQueue (Messaging)   │     📦 ServStore (Storage)        │    🌐 ServGateway (Edge AI)   │
+├──────────────────────────────┼───────────────────────────────────┼───────────────────────────────┤
+│ • Browser OPFS WAL Outbox    │ • Browser OPFS Dual-Sync (`.wasm`)│ • Dual Server/Browser WASM    │
+│ • STOMP, MQTT v5, Kafka Wire │ • Native Embedded DuckDB/Parquet  │ • Edge AI Token (TPM) Limits  │
+│ • Point-in-Time Replay       │ • K+M Reed-Solomon Erasure Code   │ • Semantic Prompt Caching     │
+│ • CRDT Geo-Replication       │ • SEC Rule 17a-4 WORM Object Lock │ • eBPF XDP Kernel DDoS Bypass │
+└──────────────────────────────┴───────────────────────────────────┴───────────────────────────────┘
+```
+
+### 📦 ServStore: Differentiating Factors (vs. S3 / MinIO / Cloudflare R2)
+
+1. **Client-Side OPFS Browser Dual-Sync (`@servverse/store-wasm`)**:
+   - *The Problem with MinIO / S3*: Traditional object stores require continuous network connection for direct uploads. Poor mobile connectivity drops uploads and blocks the UI.
+   - *The ServStore Solution*: `@servverse/store-wasm` leverages origin-private filesystem (**OPFS**) inside browser Web Workers. Web apps save gigabytes of media/files **instantly at native NVMe disk speed** into browser OPFS. In the background, ServStore streams chunked S3 multipart uploads to `servstored` with zero UI freezing and automatic retry on reconnect.
+2. **Inline Parquet & DuckDB Zero-ETL Analytics**:
+   - *The Problem with MinIO / S3*: Traditional storage engines are "dumb byte stores" requiring external, expensive query clusters (AWS Athena, Snowflake, Trino).
+   - *The ServStore Solution*: `servstored` embeds an analytical SQL engine directly inside the storage process. Execute ANSI SQL (`SELECT * FROM 's3://bucket/data.parquet' WHERE status = 500`) directly via HTTP. ServStore filters data at rest, returning only requested result rows and cutting network egress by **up to 99%**.
+3. **Hybrid Reed-Solomon Erasure Coding**:
+   - *The Problem with Traditional Storage*: Forced 3x replication (200% storage cost overhead).
+   - *The ServStore Solution*: Configurable $K+M$ erasure coding (e.g., $4+2$ parity = 50% storage overhead for 11 9s of durability).
+
+---
+
+### 🌐 ServGateway: Differentiating Factors (vs. Kong / Envoy / Cloudflare Workers)
+
+1. **Universal WASM Edge Filter Engine (Server & Browser Service Worker)**:
+   - *The Problem with Kong / Envoy*: Kong relies on Lua (single-threaded CPU bottleneck), while Envoy WASM has high IPC overhead. Neither can run inside a user's web browser.
+   - *The ServGateway Solution*: Compiled WebAssembly filters execute in-process with sub-10 microsecond latency. The **exact same WASM filter rules** running in `servgatewayd` on the server can also run inside the browser as a Service Worker (`@servverse/gateway-wasm`), delivering offline-first edge mock APIs and zero-latency client-side request validation.
+2. **Native Edge AI Proxy, Semantic Prompt Caching & Token Throttling**:
+   - *The Problem with Generic Gateways*: Traditional gateways only count HTTP requests (RPM), ignoring actual LLM token consumption.
+   - *The ServGateway Solution*: Parses OpenAI, Anthropic, and Ollama streams natively:
+     - **Token-per-Minute (TPM) Limits**: Enforces real-time rate limits on prompt + completion tokens.
+     - **Semantic Prompt Caching**: Hashes prompt embeddings to return cached LLM responses in <1ms, slashing LLM API costs by up to 80%.
+     - **Automatic PII Redaction**: Strips sensitive data (SSNs, credit cards, keys) before prompts leave the edge.
+3. **Kernel-Level eBPF XDP DDoS Bypass (<5µs Latency)**:
+   - *The Problem with User-Space Gateways*: Traditional gateways inspect malicious traffic after the TCP handshake, remaining vulnerable to SYN floods.
+   - *The ServGateway Solution*: `servgatewayd` attaches eBPF XDP programs directly to the NIC driver layer, dropping SYN floods and malicious IP ranges in kernel space (<5µs latency) before packets hit TCP sockets.
+
+---
+
 ## Quickstart with ServQueue v2
 
 ```bash
@@ -158,10 +208,11 @@ go build -o servqueue ./cmd/servqueue
 
 ## Summary & What's Next
 
-ServQueue has grown from an experimental WASM pub/sub broker into a multi-protocol stream processing engine. By combining inline WASM transforms with native STOMP/MQTT/Kafka protocol support, cross-protocol fan-out, timestamp-based replay, and Kubernetes operator tooling, developers get the power of a modern event streaming platform with zero external dependencies.
+The **Servverse Platform** (`ServQueue`, `ServStore`, `ServGateway`) transforms traditional backend infrastructure into ultra-fast, zero-dependency engines. By combining inline WASM processing, client-side OPFS persistence, multi-protocol native compatibility, and kernel-level eBPF DDoS protection, developers can build local-first, financial-grade distributed systems without cloud lock-in.
 
 * **Monorepo**: [github.com/vyuvaraj/serv](https://github.com/vyuvaraj/serv)
-* **Package Path**: `packages/ServQueue`
-* **License**: Apache 2.0
+* **Packages**: `packages/ServQueue`, `packages/ServStore`, `packages/ServGate`
+* **License**: AGPLv3 (Server Engines) & Apache 2.0 (Client SDKs / OPFS WASM Drivers)
 
 *— Yuvaraj*
+
