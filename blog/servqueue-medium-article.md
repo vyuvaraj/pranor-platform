@@ -114,7 +114,7 @@ To operationalize ServQueue in cloud environments, we built native Kubernetes co
 
 ---
 
-## 7. Multi-Language SDKs
+## 7. Multi-Language SDKs & Standard STOMP Clients
 
 ServQueue v2 provides official client packages under `packages/ServQueue/sdks/`:
 
@@ -122,6 +122,14 @@ ServQueue v2 provides official client packages under `packages/ServQueue/sdks/`:
 * **TypeScript / Node.js**: `const { ServQueueClient } = require('@servverse/queue-sdk');`
 * **Python**: `from servqueue import ServQueueClient`
 * **Browser WASM**: `@servverse/queue-wasm` for embedded Web Worker event streaming using OPFS (`FileSystemSyncAccessHandle`).
+
+### Zero-Lock-In: Any Standard STOMP Client Works Out-of-the-Box
+Because ServQueue listens natively on STOMP port `:61613`, you are never locked into custom SDKs. Any standard open-source STOMP library across language ecosystems connects seamlessly:
+* **Java / Spring**: `spring-messaging` / `StompClient`
+* **Python**: `stomp.py`
+* **Node.js**: `@stomp/stompjs`
+* **C# / .NET**: `Apache.NMS.Stomp`
+* **Ruby**: `stomp` gem
 
 ---
 
