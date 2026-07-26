@@ -116,13 +116,13 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 65: ServPool — Adaptive Scaling, Read-Replica Routing & Connection Health** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 66: ServTunnel — WebSocket Multiplexing, Replay Inspector & Auth Gating** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 67: Serv-lang — Rust & Python Code-Gen Targets & WASM Browser Playground** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 68: ServGateway — Native MCP Tool Registry & AI Agent Routing** | 6 | 1 | 5 | **17%** | ███░░░░░░░░░░░░░░░░░ |
+| **Phase 68: ServGateway — Native MCP Tool Registry & AI Agent Routing** | 6 | 3 | 3 | **50%** | ██████████░░░░░░░░░░ |
 | **Phase 69: ServStore — Native HNSW Vector Index & Semantic Object Search** | 6 | 1 | 5 | **17%** | ███░░░░░░░░░░░░░░░░░ |
 | **Phase 70: ServConsole — eBPF Flamegraph Profiler, Chaos Engine & Unified AI Assistant** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **678** | **41** | **94%** | ████████████████████ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **684** | **35** | **95%** | ██████████████████x░ |
 
 
 ---
@@ -685,10 +685,10 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 |---|------|-----------|-------------|--------|:---:|
 | SL.G1 | **Rust Code-Generation Target (`serv generate --lang rust`)** | Serv-lang Codegen | Add a Rust backend code-generator producing idiomatic Rust `struct` definitions, `serde` derive macros, trait implementations, and `axum` server stubs from `.serv` schema files | [x] | OSS |
 | SL.G2 | **Python Code-Generation Target (`serv generate --lang python`)** | Serv-lang Codegen | Add a Python code-generator producing Pydantic v2 model definitions and FastAPI router stubs from `.serv` schema files; targeting ML/AI teams building LLM service consumers | [x] | OSS |
-| SL.G3 | **Zero-Install WASM Browser Playground (`playground.servverse.dev`)** | Serv-lang Runtime | Compile the Serv-lang compiler toolchain to WebAssembly and host an interactive browser IDE where developers write, compile, and preview `.serv` definitions without any local installation | [ ] | OSS |
-| SL.G4 | **Multi-File Schema Import System with Cross-File Type Resolution** | Serv-lang Compiler | Implement cross-file type imports (`import "auth.serv"`) with a full dependency graph resolver; allow large service definitions to be cleanly split across multiple `.serv` schema files | [ ] | OSS |
-| SL.G5 | **Breaking Change Detector (`serv diff old.serv new.serv`)** | Serv-lang Tooling | Add a `serv diff` command that compares two `.serv` schema versions and outputs a structured compatibility report: new fields (safe), renamed fields (warning), removed fields (breaking) | [ ] | OSS |
-| SL.G6 | **`async` Task & `concurrent {}` Language Primitives** | Serv-lang Parser | Add `async task` and `concurrent { }` block keywords to the Serv-lang grammar enabling declarative concurrent step execution within service handlers, compiled to goroutines in Go | [ ] | OSS |
+| SL.G3 | **Zero-Install WASM Browser Playground (`playground.servverse.dev`)** | Serv-lang Runtime | Compile the Serv-lang compiler toolchain to WebAssembly and host an interactive browser IDE where developers write, compile, and preview `.serv` definitions without any local installation | [x] | OSS |
+| SL.G4 | **Multi-File Schema Import System with Cross-File Type Resolution** | Serv-lang Compiler | Implement cross-file type imports (`import "auth.serv"`) with a full dependency graph resolver; allow large service definitions to be cleanly split across multiple `.serv` schema files | [x] | OSS |
+| SL.G5 | **Breaking Change Detector (`serv diff old.serv new.serv`)** | Serv-lang Tooling | Add a `serv diff` command that compares two `.serv` schema versions and outputs a structured compatibility report: new fields (safe), renamed fields (warning), removed fields (breaking) | [x] | OSS |
+| SL.G6 | **`async` Task & `concurrent {}` Language Primitives** | Serv-lang Parser | Add `async task` and `concurrent { }` block keywords to the Serv-lang grammar enabling declarative concurrent step execution within service handlers, compiled to goroutines in Go | [x] | OSS |
 
 ---
 
@@ -700,11 +700,11 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
 | SG.A1 | **Native MCP Tool Registry (Auto-Expose Servverse Services as AI Agent Tools)** | ServGateway MCP | Implement a native MCP server at `/mcp` that auto-discovers and exposes registered ServStore buckets, ServQueue topics, and Serv-lang services as typed MCP tools consumable by Claude, GPT-4o, and local Ollama agents | [x] | OSS |
-| SG.A2 | **LLM Streaming SSE Response Passthrough (Server-Sent Events)** | ServGateway Proxy | Implement transparent proxy passthrough of streaming SSE LLM completions; preserve chunk ordering and correctly handle chunked transfer encoding for real-time token streaming to browser clients | [ ] | OSS |
+| SG.A2 | **LLM Streaming SSE Response Passthrough (Server-Sent Events)** | ServGateway Proxy | Implement transparent proxy passthrough of streaming SSE LLM completions; preserve chunk ordering and correctly handle chunked transfer encoding for real-time token streaming to browser clients | [x] | OSS |
 | SG.A3 | **AI Agent Session Context Tracker (Multi-Turn Conversation State)** | ServGateway Agent | Maintain per-agent-session conversation context windows across sequential MCP tool calls; inject conversation history into each upstream LLM request automatically based on session ID header | [ ] | **EE** |
 | SG.A4 | **Tool Call Audit Log & Per-Session AI Cost Attribution** | ServGateway Audit | Log every MCP tool call with agent ID, tool name, input arguments, response status, and token cost attribution; expose searchable audit history in ServConsole cost attribution dashboard | [ ] | **EE** |
 | SG.A5 | **Multi-Model Provider Fallback Chain (GPT-4o → Claude → Ollama)** | ServGateway Fallback | Configure ordered fallback chains across AI providers; automatically retry failed or rate-limited requests against the next provider with context adaptation for different model API formats | [ ] | **EE** |
-| SG.A6 | **Prompt Injection Detection & Input Sanitization Guard** | ServGateway Security | Detect and block prompt injection attacks (system prompt override, jailbreak patterns) using embedding-based cosine similarity scoring against known attack signatures before forwarding to LLMs | [ ] | OSS |
+| SG.A6 | **Prompt Injection Detection & Input Sanitization Guard** | ServGateway Security | Detect and block prompt injection attacks (system prompt override, jailbreak patterns) using embedding-based cosine similarity scoring against known attack signatures before forwarding to LLMs | [x] | OSS |
 
 ---
 
