@@ -1,34 +1,34 @@
 # ServStore v2: Evolving Our S3 Storage Engine into a Standalone, Local-First P2P Analytical Store
 
-*From a single-binary storage box to a standalone daemon (`servstored`), browser OPFS dual-sync (`@servverse/store-wasm`), embedded DuckDB SQL analytics, Copy-on-Write bucket branching, and WebTorrent P2P asset seeding.*
+*From a single-binary storage box to a multi-modal object store featuring standalone daemons (`servstored`), client-side browser OPFS dual-sync (`@servverse/store-wasm`), streaming S3 Select & embedded DuckDB SQL analytics, Copy-on-Write bucket branching, and WebTorrent P2P asset seeding.*
 
 ---
 
-> 💡 **Note**: This is **Part 2** of the ServStore series. If you missed Part 1 on building an S3-compatible storage engine from scratch, check out [Part 1: I Built an S3-Compatible Object Storage Engine With AI-Native Capabilities](https://medium.com/@yuvamca002).
+> 💡 **Note**: This is **Part 2** of the ServStore series. If you missed Part 1 on how we built an S3-compatible storage engine from scratch, check out [Part 1: I Built an S3-Compatible Object Storage Engine With AI-Native Capabilities](https://medium.com/@yuvamca002).
 
 ---
 
 ## Why ServStore Needed to Evolve
 
-In Part 1, we introduced ServStore: a Go-based, S3-compatible object storage engine that combined standard S3 APIs with semantic search and WASM compute near data.
+In Part 1, we introduced ServStore: a Go-based, S3-compatible object storage engine that combined standard S3 APIs with semantic search and inline WebAssembly (WASM) compute near data.
 
-However, operating object storage in production and edge environments exposed four massive industry challenges:
+While the core object storage layer worked smoothly, operating it in real-world applications revealed four major architectural bottlenecks:
 
-1. **The Cloud Egress Tax**: Storage engines like S3 or MinIO act as "dumb byte stores." To run simple queries over log or analytics files, you have to download gigabytes of raw data to external clusters (Snowflake, Trino, Athena), incurring huge network egress costs.
-2. **The Offline UI Stall**: Standard web applications upload files directly over HTTP. On spotty mobile networks, file uploads fail or freeze the UI.
-3. **Storage Duplication Overhead**: Creating staging snapshots or test environments for multi-terabyte data lakes requires duplicating petabytes of storage or waiting hours for snapshot copy operations.
-4. **Bandwidth Spikes During Viral Asset Delivery**: Serving video, 3D models, or software updates to thousands of concurrent users overwhelms origin bandwidth.
+1. **The Cloud Egress Tax**: Traditional object storage engines like S3 or MinIO act as "dumb byte stores." To run queries over log files or Parquet datasets, developers are forced to download gigabytes of raw data to external clusters (Snowflake, Athena, Trino), incurring massive network egress fees.
+2. **Offline UI Latency & Stalls**: Web applications uploading files over standard HTTP connections freeze or fail whenever network connectivity dips.
+3. **Storage Snapshot Overhead**: Creating staging environments or test copies of multi-terabyte data lakes requires waiting hours for physical copy operations and doubles storage bills.
+4. **Origin Bandwidth Exhaustion**: Delivering high-demand assets (video streams, 3D assets, software installers) to thousands of concurrent users overloads origin servers and inflates egress costs.
 
-Here is how we addressed these challenges in **ServStore v2** within the unified **Serv monorepo** (`github.com/vyuvaraj/serv/packages/ServStore`).
+Here is how we solved these challenges in **ServStore v2** within the unified **Serv monorepo** (`github.com/vyuvaraj/serv/packages/ServStore`).
 
 ---
 
-## 1. Standalone Distribution & The Daemon / CLI Split
+## 1. Monorepo Migration & The Daemon / CLI Split
 
-We separated the server runtime from administrative client tooling into dedicated standalone binaries:
+We merged standalone components into the unified **Serv monorepo** (`github.com/vyuvaraj/serv/packages/ServStore`). As part of this evolution, we strictly separated server runtime logic from administrative tooling:
 
-* **`servstored` (Server Daemon)**: Zero-dependency background service process. It hosts standard S3 REST API listeners on port `:9000`, an embedded Web Storage Console UI on port `:9001` (`http://localhost:9001/ui/`), and Prometheus telemetry (`/metrics`).
-* **`servstore` (Dual-CLI)**: High-performance administration binary for operators and automated scripts (`servstore status`, `servstore ls`, `servstore mb`, `servstore branch`).
+* **`servstored` (Server Daemon)**: Zero-dependency background service process. It hosts standard S3 REST API listeners on port `:9000`, an embedded Web Storage Console UI on port `:9001` (`http://localhost:9001/ui/`), and Prometheus telemetry metrics (`/metrics`).
+* **`servstore` (Client CLI)**: High-performance administrative binary for operators and automated scripts (`servstore status`, `servstore ls`, `servstore mb`, `servstore branch`).
 
 ```
                               servstored DAEMON                               
@@ -43,7 +43,7 @@ We separated the server runtime from administrative client tooling into dedicate
                              │ Core Engine & Storage Pool │                   
                              ├────────────────────────────┤                   
                              │ ⚡ Browser OPFS Dual-Sync  │                   
-                             │ 🔍 Inline DuckDB Analytics │                   
+                             │ 🔍 Streaming S3 Select     │                   
                              │ 🌿 Copy-on-Write Branching │                   
                              │ 🌐 WebTorrent P2P Seeding  │                   
                              │ 🛡️ SEC 17a-4 WORM Locking │                   
@@ -52,44 +52,56 @@ We separated the server runtime from administrative client tooling into dedicate
 
 ---
 
-## 2. Differentiating Factor #1: Client-Side Browser OPFS Dual-Sync (`@servverse/store-wasm`)
+## 2. Client-Side Browser OPFS Dual-Sync (`@servverse/store-wasm`)
 
-* **The Traditional Approach (S3 / MinIO / Cloudflare R2)**: Web browsers stream file uploads directly across HTTP. If the network hiccups or drops, the upload fails and blocks the user interface.
-* **The ServStore v2 Innovation**: `@servverse/store-wasm` brings origin-private filesystem (**OPFS**) persistence directly into browser Web Workers.
+Standard object storage requires users to upload files over HTTP connections, exposing web applications to latency and network drops.
+
+In ServStore v2, `@servverse/store-wasm` brings origin-private filesystem (**OPFS**) persistence directly into browser Web Workers.
 
 ### How It Works:
-1. When a user creates or uploads a file, it is written **instantly at native NVMe disk speed** into the browser's local OPFS storage using synchronous file handles (`FileSystemSyncAccessHandle`).
-2. The user experience is **0ms zero-latency**—the UI updates immediately without waiting for server responses.
-3. In the background, `@servverse/store-wasm` streams chunked S3 multipart uploads to `servstored` with automatic retry, pause, and resume resilience.
+1. When a user creates or modifies a file in a web application, it is written **instantly at native NVMe disk speed** into the browser's local OPFS storage using synchronous file handles (`FileSystemSyncAccessHandle`).
+2. The user experience is **0ms zero-latency**—the UI updates immediately without waiting for server network ACK packets.
+3. In the background, `@servverse/store-wasm` streams chunked S3 multipart uploads to `servstored` with automatic pause, retry, and resume resilience.
 
-> 🔗 **Result**: Perfect offline-first progressive web apps (video editors, CAD tools, offline recorders) that function flawlessly without internet connectivity and sync transparently when back online.
+```typescript
+import { ServStoreBrowserClient } from '@servverse/store-wasm';
+
+const client = new ServStoreBrowserClient({
+  endpoint: 'http://localhost:9000',
+  bucket: 'user-workspace'
+});
+
+// Saves instantly to local OPFS (0ms) and streams to servstored in background
+await client.putObject('report.pdf', fileBuffer);
+```
 
 ---
 
-## 3. Differentiating Factor #2: Inline Parquet & DuckDB Zero-ETL Analytics
+## 3. Streaming S3 Select & Embedded DuckDB SQL Analytics
 
-* **The Traditional Approach**: S3 and MinIO store raw bytes. If you want to query log files or Parquet datasets, you must pull gigabytes over the network to external query engines.
-* **The ServStore v2 Innovation**: `servstored` embeds an analytical SQL engine directly inside the storage process.
+Traditional S3 object stores return raw byte streams. To filter data, you must pull entire files across the network into external query engines.
+
+ServStore v2 integrates a **Streaming S3 Select SQL Query Engine** and **Embedded DuckDB Parquet Reader** directly into `servstored`.
 
 ### Querying Data at Rest:
-You can execute standard ANSI SQL queries directly via HTTP GET requests:
+You can execute SQL queries directly over HTTP GET requests:
 
 ```bash
 curl -X GET "http://localhost:9000/api/v1/analytics/query?sql=SELECT+*+FROM+'s3://logs/2026-07.parquet'+WHERE+status+=+500"
 ```
 
-ServStore scans the Parquet data directly from local NVMe storage and streams back only the matching result rows. 
-
-* **Impact**: Cuts network egress bandwidth and query latency by **up to 99%** with zero-ETL pipeline setup.
+### Key Advantages:
+* **Zero-ETL Overhead**: Query JSON, CSV, and Parquet data directly where it sits on NVMe storage.
+* **Network Bandwidth Savings**: `servstored` filters data at rest and returns only matching result rows, cutting egress bandwidth by **up to 99%**.
 
 ---
 
-## 4. Differentiating Factor #3: Instant Copy-on-Write (CoW) Bucket Branching (`servstore branch`)
+## 4. Instant Copy-on-Write (CoW) Bucket Branching (`servstore branch`)
 
-* **The Traditional Approach**: Cloning a 10TB S3 bucket for a staging environment requires running background copy scripts that duplicate data and take hours to complete.
-* **The ServStore v2 Innovation**: Git-style zero-byte branching for S3 storage buckets.
+Cloning a multi-terabyte data bucket for testing or staging traditionally requires running background copy scripts that take hours and double storage costs.
 
-### Branching Commands:
+ServStore v2 introduces Git-style zero-byte branching for S3 buckets:
+
 ```bash
 # Create an instant isolated branch clone of 'prod-data'
 servstore branch create prod-data dev-test-branch
@@ -97,38 +109,36 @@ servstore branch create prod-data dev-test-branch
 # List active bucket branches
 servstore branch ls prod-data
 
-# Merge branch overlay modifications back to parent
+# Merge modifications from branch overlay back to parent
 servstore branch merge prod-data dev-test-branch
 ```
 
-### How It Works:
-1. Creating a branch generates a **Copy-on-Write (CoW) virtual metadata overlay** in **<1 millisecond**.
-2. **0 bytes of extra storage** are consumed upon branch creation.
-3. Reads fall back to the base bucket, while modifications are isolated inside the virtual branch namespace (`/branches/dev-test-branch/`).
+### Technical Implementation:
+* Creating a branch generates a **Copy-on-Write (CoW) virtual metadata overlay** in **<1 millisecond**.
+* **0 bytes of physical storage** are copied during branch creation.
+* Unmodified object reads fall back to the base bucket, while object writes are isolated inside the virtual branch namespace (`/branches/dev-test-branch/`).
 
 ---
 
-## 5. Differentiating Factor #4: Browser WebTorrent P2P Asset Seeding
+## 5. Browser WebTorrent P2P Asset Seeding Mesh
 
-* **The Traditional Approach**: Delivering popular video streams, CAD models, or software update installers to thousands of concurrent users generates massive S3 bandwidth costs and overloads origin servers.
-* **The ServStore v2 Innovation**: `@servverse/store-wasm` transforms browser clients into a peer-to-peer P2P asset distribution mesh.
+Serving popular static assets (video streams, CAD models, software updates) to thousands of concurrent users overloads origin servers and inflates bandwidth costs.
 
-### How It Works:
-1. When clients fetch static assets stored in ServStore, `@servverse/store-wasm` checks for nearby peer browsers connected via WebRTC.
-2. Browsers serve cached chunks to each other directly from their local OPFS storage.
-3. ServStore includes an embedded WebRTC peer signaling relay and cryptographic **SHA-256 chunk integrity verification**.
+ServStore v2 transforms client browsers into a peer-to-peer asset distribution mesh via `@servverse/store-wasm`:
 
-* **Impact**: Slashes cloud egress bandwidth bills by **up to 95%** during viral traffic spikes!
+* **WebRTC Peer Mesh**: Browsers fetch cached chunks directly from nearby connected peer browsers using WebRTC.
+* **Integrity Validation**: Includes cryptographic SHA-256 chunk integrity verification before writing to local OPFS.
+* **Cost Impact**: Reduces origin server bandwidth load and egress bills by **up to 95%** during viral traffic spikes.
 
 ---
 
-## 6. High-Performance Reed-Solomon Erasure Coding & Sovereign Security
+## 6. Enterprise Multi-Cloud Lifecycle & Sovereign Archiving
 
-Beyond client-side and analytical breakthroughs, ServStore v2 includes enterprise storage resilience:
+Beyond browser and analytical features, ServStore v2 includes enterprise-grade storage governance:
 
-* **Configurable K+M Erasure Coding**: Configurable data ($K$) and parity ($M$) shard splitting (e.g., $4+2$ parity = 50% storage overhead for 11 9s of durability) without the 200% cost overhead of traditional 3x replication.
-* **SEC Rule 17a-4 WORM Object Locking**: Financial-grade immutability and legal hold governance modes.
-* **FIPS 140-3 KMS Envelope Encryption**: AES-256-GCM object encryption integrated with Hardware Security Modules (HSMs) and HashiCorp Vault.
+* **Policy-Driven Multi-Cloud Tiering**: Automatically migrates cold objects from local NVMe hot storage to AWS Glacier Deep Archive, Azure Blob Archive, or Google Cloud Storage Coldline.
+* **SEC Rule 17a-4 WORM Object Locking**: Immutability modes and legal hold governance for financial compliance.
+* **FIPS 140-3 KMS Envelope Encryption**: AES-256-GCM object encryption backed by Hardware Security Modules (HSMs) and HashiCorp Vault.
 
 ---
 
@@ -152,13 +162,13 @@ go build -o servstore ./cmd/servstore
 
 ---
 
-## Summary Comparison Matrix
+## Platform Comparison Matrix
 
 | Feature | AWS S3 / MinIO | ServStore v2 |
 |:---|:---|:---|
 | **Client Upload Latency** | Network Dependent (Stalls UI) | **0ms Local OPFS Persistence** |
 | **Offline PWA Support** | ❌ None | **✅ Native (`@servverse/store-wasm`)** |
-| **Parquet / Log Analytics** | Requires External Athena/Snowflake | **✅ Built-in DuckDB SQL Engine** |
+| **Parquet / Log Analytics** | Requires External Athena/Snowflake | **✅ Built-in Streaming S3 Select & DuckDB** |
 | **Bucket Snapshot Branching** | Hours (Slow Full Copy) | **✅ <1ms CoW Zero-Byte Branching** |
 | **Asset Delivery Egress** | 100% Cloud Egress Cost | **✅ Up to 95% Bandwidth Offload via P2P** |
 
