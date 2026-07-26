@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **656** | **63** | **91%** | ███████████████████░ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **660** | **59** | **92%** | ████████████████████ |
 
 
 ---
@@ -803,11 +803,11 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| ST.G1 | **eBPF Continuous CPU & Memory Flamegraph Profiler (Implement AnomalyExplainer)** | ServTrace Profiler | Implement the declared `AnomalyExplainer` interface using eBPF perf probes to capture goroutine CPU time and heap allocation hotspots; generate folded flamegraph stacks exposed via `/api/v1/profiles` | [ ] | OSS |
-| ST.G2 | **OTel Trace-to-Flamegraph Automatic Correlation** | ServTrace Correlation | Automatically link eBPF flamegraph samples captured during a trace span's execution window; enable single-click drill-down from a slow OTel span to its kernel-level CPU hotspot in ServConsole | [ ] | OSS |
-| ST.G3 | **SLO Burn Rate Alert Engine (Implement SloBreachPredictor — Multi-Window)** | ServTrace SLO | Implement the declared `SloBreachPredictor` interface using Google SRE-style multi-window (1h + 6h) error budget burn rate; fire alerts when burn rate exceeds configured thresholds | [ ] | OSS |
+| ST.G1 | **eBPF Continuous CPU & Memory Flamegraph Profiler (Implement AnomalyExplainer)** | ServTrace Profiler | Implement the declared `AnomalyExplainer` interface using eBPF perf probes to capture goroutine CPU time and heap allocation hotspots; generate folded flamegraph stacks exposed via `/api/v1/profiles` | [x] | OSS |
+| ST.G2 | **OTel Trace-to-Flamegraph Automatic Correlation** | ServTrace Correlation | Automatically link eBPF flamegraph samples captured during a trace span's execution window; enable single-click drill-down from a slow OTel span to its kernel-level CPU hotspot in ServConsole | [x] | OSS |
+| ST.G3 | **SLO Burn Rate Alert Engine (Implement SloBreachPredictor — Multi-Window)** | ServTrace SLO | Implement the declared `SloBreachPredictor` interface using Google SRE-style multi-window (1h + 6h) error budget burn rate; fire alerts when burn rate exceeds configured thresholds | [x] | OSS |
 | ST.G4 | **Trace Sampling Policy Manager (Head-Based & Tail-Based)** | ServTrace Sampling | Configure per-service head-based sampling rates; implement tail-based adaptive sampling that retrospectively retains 100% of traces containing errors or latency outliers above a P95 threshold | [ ] | **EE** |
-| ST.G5 | **Exemplar-Linked Prometheus Metrics & Histogram Correlation** | ServTrace Metrics | Embed OTel trace exemplars into Prometheus histogram buckets so ServConsole dashboards can jump from a P99 latency spike directly to a representative trace example with one click | [ ] | OSS |
+| ST.G5 | **Exemplar-Linked Prometheus Metrics & Histogram Correlation** | ServTrace Metrics | Embed OTel trace exemplars into Prometheus histogram buckets so ServConsole dashboards can jump from a P99 latency spike directly to a representative trace example with one click | [x] | OSS |
 | ST.G6 | **Critical Path Analyzer & Distributed Dependency Map** | ServTrace Analysis | Automatically compute the critical path across distributed trace spans; highlight the slowest causal dependency in each trace and visualize the full service call graph in ServConsole | [ ] | OSS |
 
 ---
