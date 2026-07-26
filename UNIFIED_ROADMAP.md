@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **652** | **67** | **91%** | ███████████████████░ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **656** | **63** | **91%** | ███████████████████░ |
 
 
 ---
@@ -787,10 +787,10 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| CL.G1 | **Blue/Green Deployment with Atomic Traffic Cutover via ServGate** | ServCloud Deploy | Run a new service version in parallel with the old version; shift 100% of traffic atomically via a ServGate route weight update after health check validation passes | [ ] | OSS |
-| CL.G2 | **Canary Deployment with Automatic Rollback on Error Rate Threshold** | ServCloud Canary | Roll out new service versions to a configurable percentage of traffic; automatically roll back to the stable version when error rate exceeds a configurable SLO threshold | [ ] | OSS |
-| CL.G3 | **Fully Functional Per-Branch Preview Environment with Isolated Subdomain** | ServCloud Preview | Auto-provision isolated preview environments for each Git branch or PR, accessible at `<branch>.preview.servcloud.dev`, with automatic ServGate route registration and teardown on PR merge | [ ] | OSS |
-| CL.G4 | **Docker / OCI Container Isolation Mode** | ServCloud Runtime | Add `docker` isolation mode alongside `process` and `wasm`; pull OCI images, start containers with resource limits, health checks, and manage the full container lifecycle | [ ] | OSS |
+| CL.G1 | **Blue/Green Deployment with Atomic Traffic Cutover via ServGate** | ServCloud Deploy | Run a new service version in parallel with the old version; shift 100% of traffic atomically via a ServGate route weight update after health check validation passes | [x] | OSS |
+| CL.G2 | **Canary Deployment with Automatic Rollback on Error Rate Threshold** | ServCloud Canary | Roll out new service versions to a configurable percentage of traffic; automatically roll back to the stable version when error rate exceeds a configurable SLO threshold | [x] | OSS |
+| CL.G3 | **Fully Functional Per-Branch Preview Environment with Isolated Subdomain** | ServCloud Preview | Auto-provision isolated preview environments for each Git branch or PR, accessible at `<branch>.preview.servcloud.dev`, with automatic ServGate route registration and teardown on PR merge | [x] | OSS |
+| CL.G4 | **Docker / OCI Container Isolation Mode** | ServCloud Runtime | Add `docker` isolation mode alongside `process` and `wasm`; pull OCI images, start containers with resource limits, health checks, and manage the full container lifecycle | [x] | OSS |
 | CL.G5 | **CPU & Memory cgroup Resource Limits & Usage Telemetry** | ServCloud Resources | Enforce per-service CPU and memory cgroup resource limits; stream real-time consumption metrics to ServConsole with breach alerting and auto-throttle enforcement | [ ] | **EE** |
 | CL.G6 | **Deployment Approval Gate & Operator Confirm Flow** | ServCloud Safety | Add a mandatory operator approval gate for production tier deployments; send Slack/webhook notifications requesting explicit approval before traffic cutover is executed | [ ] | **EE** |
 
