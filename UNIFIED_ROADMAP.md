@@ -705,14 +705,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServAuth implements JWT issuance, bcrypt password hashing, JWKS key rotation, TOTP MFA, and OAuth social login.
 > **What is Missing**: Opaque session tokens with server-side revocation (stateless JWTs cannot be invalidated without waiting for expiry), WebAuthn/Passkey FIDO2 support (no hardware key or platform biometric login), adaptive risk-based MFA step-up (no device fingerprinting or geo-anomaly detection), per-tenant OIDC federation (no Okta/Azure AD bring-your-own-IdP), and credential stuffing velocity detection.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| SA.G1 | **Opaque Session Token Store with Server-Side Revocation** | ServAuth Sessions | Replace stateless-only JWT approach with opaque refresh token store backed by ServStore; enable instant per-session revocation without waiting for JWT expiry | [ ] |
-| SA.G2 | **WebAuthn / Passkey (FIDO2) Registration & Assertion** | ServAuth MFA | Implement FIDO2 WebAuthn authenticator registration and login assertion flow; enable hardware key (YubiKey) and platform passkey (TouchID/FaceID) authentication | [ ] |
-| SA.G3 | **Adaptive Risk-Based MFA Step-Up Engine** | ServAuth Risk | Analyze login signals (new device, unusual geo, time-of-day anomaly) and dynamically escalate to OTP or WebAuthn challenge mid-session without forcing full re-login | [ ] |
-| SA.G4 | **Device Fingerprinting & Trusted Device Registry** | ServAuth Trust | Track device fingerprints (user-agent, screen entropy, timezone) and maintain per-user trusted device list with one-click revocation from ServConsole | [ ] |
-| SA.G5 | **Per-Tenant OIDC Provider Federation (Okta, Azure AD, Google Workspace)** | ServAuth Federation | Allow enterprise tenants to bring their own OIDC/SAML identity provider; auto-federate external group claims into ServAuth roles without code changes | [ ] |
-| SA.G6 | **Credential Stuffing Detection & Velocity Rate Limiter** | ServAuth Security | Track failed login attempts per IP and username using sliding window counters; auto-block credential-stuffing bots with progressive CAPTCHA challenge escalation | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SA.G1 | **Opaque Session Token Store with Server-Side Revocation** | ServAuth Sessions | Replace stateless-only JWT approach with opaque refresh token store backed by ServStore; enable instant per-session revocation without waiting for JWT expiry | [ ] | OSS |
+| SA.G2 | **WebAuthn / Passkey (FIDO2) Registration & Assertion** | ServAuth MFA | Implement FIDO2 WebAuthn authenticator registration and login assertion flow; enable hardware key (YubiKey) and platform passkey (TouchID/FaceID) authentication | [ ] | OSS |
+| SA.G3 | **Adaptive Risk-Based MFA Step-Up Engine** | ServAuth Risk | Analyze login signals (new device, unusual geo, time-of-day anomaly) and dynamically escalate to OTP or WebAuthn challenge mid-session without forcing full re-login | [ ] | **EE** |
+| SA.G4 | **Device Fingerprinting & Trusted Device Registry** | ServAuth Trust | Track device fingerprints (user-agent, screen entropy, timezone) and maintain per-user trusted device list with one-click revocation from ServConsole | [ ] | **EE** |
+| SA.G5 | **Per-Tenant OIDC Provider Federation (Okta, Azure AD, Google Workspace)** | ServAuth Federation | Allow enterprise tenants to bring their own OIDC/SAML identity provider; auto-federate external group claims into ServAuth roles without code changes | [ ] | **EE** |
+| SA.G6 | **Credential Stuffing Detection & Velocity Rate Limiter** | ServAuth Security | Track failed login attempts per IP and username using sliding window counters; auto-block credential-stuffing bots with progressive CAPTCHA challenge escalation | [ ] | OSS |
 
 ---
 
@@ -721,14 +721,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServCache implements a single-node in-memory LRU cache with TTL eviction, `DeletePattern` glob invalidation, singleflight coalescing, and an HTTP REST API.
 > **What is Missing**: Multi-node Raft-replicated cluster mode (currently single point of failure), RESP3 wire compatibility for Redis drop-in usage, Bloom filter for absent-key elimination, tiered TTL policies (hot/warm/cold), and cache stampede protection beyond singleflight.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| SC.G1 | **Multi-Node Raft-Based Distributed Cache Cluster** | ServCache Cluster | Extend single-node InMemoryCache to a Raft-replicated distributed cluster; support 3-node quorum writes with consistent reads and automatic leader election | [ ] |
-| SC.G2 | **RESP3 Protocol Wire Compatibility (Redis Drop-in Mode)** | ServCache Protocol | Implement Redis Serialization Protocol v3 (RESP3) wire compatibility so ServCache can function as a Redis drop-in replacement for existing application codebases | [ ] |
-| SC.G3 | **Probabilistic Bloom Filter for Absent-Key Elimination** | ServCache Filter | Embed a Bloom filter in front of the LRU lookup path to short-circuit backend fetches for keys statistically absent from the cache; reduces load by eliminating redundant origin queries | [ ] |
-| SC.G4 | **Tiered TTL Policy Engine (Hot / Warm / Cold Tiers)** | ServCache Policy | Implement multi-tier TTL policies: short-TTL hot tier (sub-second), medium-TTL warm tier (minutes), long-TTL cold tier (hours); auto-promote/demote entries based on access frequency | [ ] |
-| SC.G5 | **Cache Stampede Protection via Probabilistic Early Expiry** | ServCache Resilience | Implement probabilistic early expiry (PER algorithm) to proactively recompute cache values before expiry under high concurrency, eliminating thundering herd spikes | [ ] |
-| SC.G6 | **Real-Time Hit Rate & Eviction Metrics Dashboard in ServConsole** | ServConsole UI | Stream live per-namespace hit rate, eviction rate, and memory pressure metrics into the ServConsole dashboard with configurable alert thresholds | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SC.G1 | **Multi-Node Raft-Based Distributed Cache Cluster** | ServCache Cluster | Extend single-node InMemoryCache to a Raft-replicated distributed cluster; support 3-node quorum writes with consistent reads and automatic leader election | [ ] | **EE** |
+| SC.G2 | **RESP3 Protocol Wire Compatibility (Redis Drop-in Mode)** | ServCache Protocol | Implement Redis Serialization Protocol v3 (RESP3) wire compatibility so ServCache can function as a Redis drop-in replacement for existing application codebases | [ ] | OSS |
+| SC.G3 | **Probabilistic Bloom Filter for Absent-Key Elimination** | ServCache Filter | Embed a Bloom filter in front of the LRU lookup path to short-circuit backend fetches for keys statistically absent from the cache; reduces load by eliminating redundant origin queries | [ ] | OSS |
+| SC.G4 | **Tiered TTL Policy Engine (Hot / Warm / Cold Tiers)** | ServCache Policy | Implement multi-tier TTL policies: short-TTL hot tier (sub-second), medium-TTL warm tier (minutes), long-TTL cold tier (hours); auto-promote/demote entries based on access frequency | [ ] | OSS |
+| SC.G5 | **Cache Stampede Protection via Probabilistic Early Expiry** | ServCache Resilience | Implement probabilistic early expiry (PER algorithm) to proactively recompute cache values before expiry under high concurrency, eliminating thundering herd spikes | [ ] | OSS |
+| SC.G6 | **Real-Time Hit Rate & Eviction Metrics Dashboard in ServConsole** | ServConsole UI | Stream live per-namespace hit rate, eviction rate, and memory pressure metrics into the ServConsole dashboard with configurable alert thresholds | [ ] | OSS |
 
 ---
 
@@ -737,14 +737,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServCron implements per-job HTTP callback scheduling with 5-field cron expressions, distributed leader election locking, ServQueue fan-out integration, failure counting, and audit logging.
 > **What is Missing**: Multi-step DAG job pipelines (Job A triggers Job B on success/failure), configurable per-job retry backoff strategies, failure alert webhooks (Slack/PagerDuty), declarative YAML cron-as-code file loading, timezone-aware scheduling, and a visual execution timeline in ServConsole.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| CR.G1 | **DAG Job Chain Pipeline (Job-A → Job-B on Success/Failure)** | ServCron DAG | Extend the Job model with `OnSuccess` / `OnFailure` successor job references to form directed acyclic graph (DAG) execution pipelines across multiple HTTP callback steps | [ ] |
-| CR.G2 | **Per-Job Retry Policy Engine (Exponential Backoff + Jitter)** | ServCron Retry | Add configurable per-job retry policies: max attempts, initial delay, exponential backoff multiplier, and random jitter; persist retry state across process restarts | [ ] |
-| CR.G3 | **Failure Alert Webhooks & Slack / PagerDuty Notification Integration** | ServCron Alerts | Fire configurable webhook notifications (Slack, PagerDuty, custom URL) when a job exceeds its failure threshold or a DAG pipeline encounters a terminal failure | [ ] |
-| CR.G4 | **Declarative YAML Cron-as-Code Definitions with Hot-Reload** | ServCron Config | Load job definitions from YAML configuration files (`jobs.yaml`) with file-watch hot-reload support; enables GitOps-style cron schedule management without API calls | [ ] |
-| CR.G5 | **Timezone-Aware Cron Scheduling (IANA Zone Support)** | ServCron Scheduler | Support per-job IANA timezone specification (e.g. `America/New_York`) so jobs fire at correct local times regardless of server timezone; persist timezone in job definition | [ ] |
-| CR.G6 | **Job Execution History Gantt Timeline in ServConsole** | ServConsole UI | Render a visual execution timeline in ServConsole showing per-job run history, duration bars, status annotations, and failure counts with drill-down into audit log entries | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| CR.G1 | **DAG Job Chain Pipeline (Job-A → Job-B on Success/Failure)** | ServCron DAG | Extend the Job model with `OnSuccess` / `OnFailure` successor job references to form directed acyclic graph (DAG) execution pipelines across multiple HTTP callback steps | [ ] | OSS |
+| CR.G2 | **Per-Job Retry Policy Engine (Exponential Backoff + Jitter)** | ServCron Retry | Add configurable per-job retry policies: max attempts, initial delay, exponential backoff multiplier, and random jitter; persist retry state across process restarts | [ ] | OSS |
+| CR.G3 | **Failure Alert Webhooks & Slack / PagerDuty Notification Integration** | ServCron Alerts | Fire configurable webhook notifications (Slack, PagerDuty, custom URL) when a job exceeds its failure threshold or a DAG pipeline encounters a terminal failure | [ ] | OSS |
+| CR.G4 | **Declarative YAML Cron-as-Code Definitions with Hot-Reload** | ServCron Config | Load job definitions from YAML configuration files (`jobs.yaml`) with file-watch hot-reload support; enables GitOps-style cron schedule management without API calls | [ ] | OSS |
+| CR.G5 | **Timezone-Aware Cron Scheduling (IANA Zone Support)** | ServCron Scheduler | Support per-job IANA timezone specification (e.g. `America/New_York`) so jobs fire at correct local times regardless of server timezone; persist timezone in job definition | [ ] | OSS |
+| CR.G6 | **Job Execution History Gantt Timeline in ServConsole** | ServConsole UI | Render a visual execution timeline in ServConsole showing per-job run history, duration bars, status annotations, and failure counts with drill-down into audit log entries | [ ] | OSS |
 
 ---
 
@@ -753,14 +753,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServFlow implements a DAG workflow engine with task dependency resolution, time-travel replay snapshots, and ServQueue topic integration for async task dispatch.
 > **What is Missing**: A visual drag-and-drop workflow designer in ServConsole, WASM-compiled step function execution (currently HTTP-callback-only), human approval task gates with async wait, sub-workflow composition (nested workflow invocation), and per-execution cost and OTel span attribution.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| SF.G1 | **Visual Drag-and-Drop Workflow Designer in ServConsole** | ServConsole UI | Build a canvas-based interactive workflow designer where developers can visually create, connect, and configure workflow task nodes without writing JSON/YAML definitions | [ ] |
-| SF.G2 | **WASM Step Function Execution (Inline Compute per Task Node)** | ServFlow Engine | Allow individual workflow task steps to execute inline WebAssembly (WASM) bytecode rather than requiring remote HTTP endpoint callbacks; enables serverless compute-near-orchestration | [ ] |
-| SF.G3 | **Human Approval Task Gate (Async Pause + UI Approve/Reject)** | ServFlow Tasks | Implement a `human-task` step type that pauses workflow execution and presents an approval UI (email link or ServConsole panel) to designated reviewers before continuing | [ ] |
-| SF.G4 | **Sub-Workflow Composition & Nested Workflow Invocation** | ServFlow Composition | Enable workflow task steps to invoke other named workflow definitions as sub-workflows, creating hierarchical multi-level pipeline structures with isolated instance tracking | [ ] |
-| SF.G5 | **Per-Execution OTel Span Attribution & Cost Tracking** | ServFlow Telemetry | Inject W3C `traceparent` context into each task step HTTP call; export OTel spans to ServTrace for full distributed tracing of workflow runs including step latencies | [ ] |
-| SF.G6 | **Dead Letter Workflow Queue & Manual Retry from ServConsole** | ServFlow DLQ | Capture permanently-failed workflow instances in a Dead Letter Queue; allow operators to inspect failure context and manually trigger selective re-execution from ServConsole | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SF.G1 | **Visual Drag-and-Drop Workflow Designer in ServConsole** | ServConsole UI | Build a canvas-based interactive workflow designer where developers can visually create, connect, and configure workflow task nodes without writing JSON/YAML definitions | [ ] | OSS |
+| SF.G2 | **WASM Step Function Execution (Inline Compute per Task Node)** | ServFlow Engine | Allow individual workflow task steps to execute inline WebAssembly (WASM) bytecode rather than requiring remote HTTP endpoint callbacks; enables serverless compute-near-orchestration | [ ] | OSS |
+| SF.G3 | **Human Approval Task Gate (Async Pause + UI Approve/Reject)** | ServFlow Tasks | Implement a `human-task` step type that pauses workflow execution and presents an approval UI (email link or ServConsole panel) to designated reviewers before continuing | [ ] | **EE** |
+| SF.G4 | **Sub-Workflow Composition & Nested Workflow Invocation** | ServFlow Composition | Enable workflow task steps to invoke other named workflow definitions as sub-workflows, creating hierarchical multi-level pipeline structures with isolated instance tracking | [ ] | OSS |
+| SF.G5 | **Per-Execution OTel Span Attribution & Cost Tracking** | ServFlow Telemetry | Inject W3C `traceparent` context into each task step HTTP call; export OTel spans to ServTrace for full distributed tracing of workflow runs including step latencies | [ ] | OSS |
+| SF.G6 | **Dead Letter Workflow Queue & Manual Retry from ServConsole** | ServFlow DLQ | Capture permanently-failed workflow instances in a Dead Letter Queue; allow operators to inspect failure context and manually trigger selective re-execution from ServConsole | [ ] | OSS |
 
 ---
 
@@ -769,14 +769,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServMesh implements a library-level service registry with heartbeat TTL eviction, round-robin load balancing, circuit breaking, mutual TLS, and a topology inspection CLI.
 > **What is Missing**: Automatic WireGuard kernel mesh overlay between nodes (currently requires manual TLS cert management), SPIFFE/SPIRE workload identity attestation, latency-aware and locality-aware load balancing (currently round-robin only), global distributed rate limiting, and a live real-time topology graph in ServConsole.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| SM.G1 | **Automatic WireGuard Kernel Tunnel Mesh Between Nodes** | ServMesh Network | Auto-provision WireGuard encrypted kernel-level tunnels between ServMesh peers using a DHT-based key exchange protocol; eliminates manual TLS certificate provisioning for inter-service traffic | [ ] |
-| SM.G2 | **SPIFFE/SPIRE mTLS Workload Identity Attestation** | ServMesh Identity | Issue short-lived SPIFFE SVIDs (X.509 certificates) to each registered service instance; enforce mTLS workload identity verification on all service-to-service calls within the mesh | [ ] |
-| SM.G3 | **Latency-Aware P2C Load Balancing & Locality Preference** | ServMesh LB | Replace round-robin with Power-of-Two-Choices (P2C) latency-weighted load balancing; prefer same-zone or same-region replicas to minimize cross-datacenter latency and egress cost | [ ] |
-| SM.G4 | **Distributed Global Rate Limiting via ServCache Token Buckets** | ServMesh RateLimit | Implement distributed token-bucket rate limiting shared across all ServMesh nodes via ServCache; prevent upstream overload cascades from triggering inter-service retry storms | [ ] |
-| SM.G5 | **Live Real-Time Service Topology Graph in ServConsole** | ServConsole UI | Render an animated, force-directed service dependency graph in ServConsole showing live traffic flows, circuit breaker open/closed states, and per-edge P99 latency metrics | [ ] |
-| SM.G6 | **Chaos Fault Injection API (Latency, Error Rate, Partition Simulation)** | ServMesh Chaos | Expose a Chaos Engineering REST API that injects simulated network delays, configurable error rates, and service partition failures into ServMesh routing for resilience validation | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SM.G1 | **Automatic WireGuard Kernel Tunnel Mesh Between Nodes** | ServMesh Network | Auto-provision WireGuard encrypted kernel-level tunnels between ServMesh peers using a DHT-based key exchange protocol; eliminates manual TLS certificate provisioning for inter-service traffic | [ ] | **EE** |
+| SM.G2 | **SPIFFE/SPIRE mTLS Workload Identity Attestation** | ServMesh Identity | Issue short-lived SPIFFE SVIDs (X.509 certificates) to each registered service instance; enforce mTLS workload identity verification on all service-to-service calls within the mesh | [ ] | **EE** |
+| SM.G3 | **Latency-Aware P2C Load Balancing & Locality Preference** | ServMesh LB | Replace round-robin with Power-of-Two-Choices (P2C) latency-weighted load balancing; prefer same-zone or same-region replicas to minimize cross-datacenter latency and egress cost | [ ] | OSS |
+| SM.G4 | **Distributed Global Rate Limiting via ServCache Token Buckets** | ServMesh RateLimit | Implement distributed token-bucket rate limiting shared across all ServMesh nodes via ServCache; prevent upstream overload cascades from triggering inter-service retry storms | [ ] | OSS |
+| SM.G5 | **Live Real-Time Service Topology Graph in ServConsole** | ServConsole UI | Render an animated, force-directed service dependency graph in ServConsole showing live traffic flows, circuit breaker open/closed states, and per-edge P99 latency metrics | [ ] | OSS |
+| SM.G6 | **Chaos Fault Injection API (Latency, Error Rate, Partition Simulation)** | ServMesh Chaos | Expose a Chaos Engineering REST API that injects simulated network delays, configurable error rates, and service partition failures into ServMesh routing for resilience validation | [ ] | OSS |
 
 ---
 
@@ -785,14 +785,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServCloud implements a process orchestrator deploying `serv` binaries with health checks, stdout log streaming, deployment history, `process` and `wasm` isolation modes, and preview URL stubs.
 > **What is Missing**: Actual blue/green deployment with traffic weight shifting via ServGate, canary deployments with automatic error-rate rollback, fully functional per-branch preview subdomain routing, Docker/OCI container isolation mode, CPU/memory cgroup enforcement, and a deployment approval gate.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| CL.G1 | **Blue/Green Deployment with Atomic Traffic Cutover via ServGate** | ServCloud Deploy | Run a new service version in parallel with the old version; shift 100% of traffic atomically via a ServGate route weight update after health check validation passes | [ ] |
-| CL.G2 | **Canary Deployment with Automatic Rollback on Error Rate Threshold** | ServCloud Canary | Roll out new service versions to a configurable percentage of traffic; automatically roll back to the stable version when error rate exceeds a configurable SLO threshold | [ ] |
-| CL.G3 | **Fully Functional Per-Branch Preview Environment with Isolated Subdomain** | ServCloud Preview | Auto-provision isolated preview environments for each Git branch or PR, accessible at `<branch>.preview.servcloud.dev`, with automatic ServGate route registration and teardown on PR merge | [ ] |
-| CL.G4 | **Docker / OCI Container Isolation Mode** | ServCloud Runtime | Add `docker` isolation mode alongside `process` and `wasm`; pull OCI images, start containers with resource limits, health checks, and manage the full container lifecycle | [ ] |
-| CL.G5 | **CPU & Memory cgroup Resource Limits & Usage Telemetry** | ServCloud Resources | Enforce per-service CPU and memory cgroup resource limits; stream real-time consumption metrics to ServConsole with breach alerting and auto-throttle enforcement | [ ] |
-| CL.G6 | **Deployment Approval Gate & Operator Confirm Flow** | ServCloud Safety | Add a mandatory operator approval gate for production tier deployments; send Slack/webhook notifications requesting explicit approval before traffic cutover is executed | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| CL.G1 | **Blue/Green Deployment with Atomic Traffic Cutover via ServGate** | ServCloud Deploy | Run a new service version in parallel with the old version; shift 100% of traffic atomically via a ServGate route weight update after health check validation passes | [ ] | OSS |
+| CL.G2 | **Canary Deployment with Automatic Rollback on Error Rate Threshold** | ServCloud Canary | Roll out new service versions to a configurable percentage of traffic; automatically roll back to the stable version when error rate exceeds a configurable SLO threshold | [ ] | OSS |
+| CL.G3 | **Fully Functional Per-Branch Preview Environment with Isolated Subdomain** | ServCloud Preview | Auto-provision isolated preview environments for each Git branch or PR, accessible at `<branch>.preview.servcloud.dev`, with automatic ServGate route registration and teardown on PR merge | [ ] | OSS |
+| CL.G4 | **Docker / OCI Container Isolation Mode** | ServCloud Runtime | Add `docker` isolation mode alongside `process` and `wasm`; pull OCI images, start containers with resource limits, health checks, and manage the full container lifecycle | [ ] | OSS |
+| CL.G5 | **CPU & Memory cgroup Resource Limits & Usage Telemetry** | ServCloud Resources | Enforce per-service CPU and memory cgroup resource limits; stream real-time consumption metrics to ServConsole with breach alerting and auto-throttle enforcement | [ ] | **EE** |
+| CL.G6 | **Deployment Approval Gate & Operator Confirm Flow** | ServCloud Safety | Add a mandatory operator approval gate for production tier deployments; send Slack/webhook notifications requesting explicit approval before traffic cutover is executed | [ ] | **EE** |
 
 ---
 
@@ -801,14 +801,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServTrace implements OTel span ingestion, trace storage, anomaly detection hooks, SLO breach predictor hooks, self-healing, and retention cleanup. The anomaly explainer and SLO predictor interfaces exist but have no concrete implementations.
 > **What is Missing**: Actual eBPF continuous CPU/memory profiling engine (the hooks are declared but not implemented), flamegraph rendering, automatic trace-to-flamegraph correlation, concrete SLO burn rate alerting, trace sampling policy management, and exemplar-linked Prometheus metrics.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| ST.G1 | **eBPF Continuous CPU & Memory Flamegraph Profiler (Implement AnomalyExplainer)** | ServTrace Profiler | Implement the declared `AnomalyExplainer` interface using eBPF perf probes to capture goroutine CPU time and heap allocation hotspots; generate folded flamegraph stacks exposed via `/api/v1/profiles` | [ ] |
-| ST.G2 | **OTel Trace-to-Flamegraph Automatic Correlation** | ServTrace Correlation | Automatically link eBPF flamegraph samples captured during a trace span's execution window; enable single-click drill-down from a slow OTel span to its kernel-level CPU hotspot in ServConsole | [ ] |
-| ST.G3 | **SLO Burn Rate Alert Engine (Implement SloBreachPredictor — Multi-Window)** | ServTrace SLO | Implement the declared `SloBreachPredictor` interface using Google SRE-style multi-window (1h + 6h) error budget burn rate; fire alerts when burn rate exceeds configured thresholds | [ ] |
-| ST.G4 | **Trace Sampling Policy Manager (Head-Based & Tail-Based)** | ServTrace Sampling | Configure per-service head-based sampling rates; implement tail-based adaptive sampling that retrospectively retains 100% of traces containing errors or latency outliers above a P95 threshold | [ ] |
-| ST.G5 | **Exemplar-Linked Prometheus Metrics & Histogram Correlation** | ServTrace Metrics | Embed OTel trace exemplars into Prometheus histogram buckets so ServConsole dashboards can jump from a P99 latency spike directly to a representative trace example with one click | [ ] |
-| ST.G6 | **Critical Path Analyzer & Distributed Dependency Map** | ServTrace Analysis | Automatically compute the critical path across distributed trace spans; highlight the slowest causal dependency in each trace and visualize the full service call graph in ServConsole | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| ST.G1 | **eBPF Continuous CPU & Memory Flamegraph Profiler (Implement AnomalyExplainer)** | ServTrace Profiler | Implement the declared `AnomalyExplainer` interface using eBPF perf probes to capture goroutine CPU time and heap allocation hotspots; generate folded flamegraph stacks exposed via `/api/v1/profiles` | [ ] | OSS |
+| ST.G2 | **OTel Trace-to-Flamegraph Automatic Correlation** | ServTrace Correlation | Automatically link eBPF flamegraph samples captured during a trace span's execution window; enable single-click drill-down from a slow OTel span to its kernel-level CPU hotspot in ServConsole | [ ] | OSS |
+| ST.G3 | **SLO Burn Rate Alert Engine (Implement SloBreachPredictor — Multi-Window)** | ServTrace SLO | Implement the declared `SloBreachPredictor` interface using Google SRE-style multi-window (1h + 6h) error budget burn rate; fire alerts when burn rate exceeds configured thresholds | [ ] | OSS |
+| ST.G4 | **Trace Sampling Policy Manager (Head-Based & Tail-Based)** | ServTrace Sampling | Configure per-service head-based sampling rates; implement tail-based adaptive sampling that retrospectively retains 100% of traces containing errors or latency outliers above a P95 threshold | [ ] | **EE** |
+| ST.G5 | **Exemplar-Linked Prometheus Metrics & Histogram Correlation** | ServTrace Metrics | Embed OTel trace exemplars into Prometheus histogram buckets so ServConsole dashboards can jump from a P99 latency spike directly to a representative trace example with one click | [ ] | OSS |
+| ST.G6 | **Critical Path Analyzer & Distributed Dependency Map** | ServTrace Analysis | Automatically compute the critical path across distributed trace spans; highlight the slowest causal dependency in each trace and visualize the full service call graph in ServConsole | [ ] | OSS |
 
 ---
 
@@ -817,14 +817,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServMail implements SMTP ingestion, DKIM signing, a disk-backed sending queue, and basic Handlebars-style template rendering.
 > **What is Missing**: DMARC policy enforcement (SPF + DKIM alignment validation for outbound integrity), inbound email webhook routing (no ability to receive and process incoming mail), a full template DSL with partials and loops, bounce and complaint handling with automatic suppression list management, and email analytics in ServConsole.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| ML.G1 | **DMARC Policy Enforcement (SPF + DKIM Alignment Validation)** | ServMail Security | Validate DMARC `p=quarantine`/`p=reject` policy alignment between SPF envelope-from domain and DKIM `d=` header domain before delivering or relaying outbound messages | [ ] |
-| ML.G2 | **Inbound Email Webhook Router** | ServMail Inbound | Parse incoming SMTP messages and route them to configurable HTTP webhook endpoints based on recipient address pattern matching; enables "email as a workflow trigger" use cases | [ ] |
-| ML.G3 | **Email Template DSL with Partials, Loops & Conditional Blocks** | ServMail Templates | Extend the template engine with `{{#each items}}`, `{{#if condition}}`, and `{{> partial_name}}` support for reusable transactional email component composition | [ ] |
-| ML.G4 | **Bounce & Complaint Handling with Automatic Suppression List** | ServMail Delivery | Parse SMTP bounce DSNs and ISP Feedback Loop (FBL) complaint notifications; automatically add bounced and complained addresses to a suppression list to protect sender reputation | [ ] |
-| ML.G5 | **One-Click Unsubscribe (RFC 8058) & List Management** | ServMail Compliance | Auto-inject `List-Unsubscribe` and `List-Unsubscribe-Post` headers; handle one-click unsubscribe webhooks; maintain per-sender suppression lists with full audit history | [ ] |
-| ML.G6 | **Email Delivery Analytics Dashboard (Open, Click, Bounce Rates)** | ServConsole UI | Stream per-campaign delivery, open-pixel tracking, click-through, and bounce event metrics into ServConsole for deliverability health monitoring and alert thresholds | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| ML.G1 | **DMARC Policy Enforcement (SPF + DKIM Alignment Validation)** | ServMail Security | Validate DMARC `p=quarantine`/`p=reject` policy alignment between SPF envelope-from domain and DKIM `d=` header domain before delivering or relaying outbound messages | [ ] | OSS |
+| ML.G2 | **Inbound Email Webhook Router** | ServMail Inbound | Parse incoming SMTP messages and route them to configurable HTTP webhook endpoints based on recipient address pattern matching; enables "email as a workflow trigger" use cases | [ ] | OSS |
+| ML.G3 | **Email Template DSL with Partials, Loops & Conditional Blocks** | ServMail Templates | Extend the template engine with `{{#each items}}`, `{{#if condition}}`, and `{{> partial_name}}` support for reusable transactional email component composition | [ ] | OSS |
+| ML.G4 | **Bounce & Complaint Handling with Automatic Suppression List** | ServMail Delivery | Parse SMTP bounce DSNs and ISP Feedback Loop (FBL) complaint notifications; automatically add bounced and complained addresses to a suppression list to protect sender reputation | [ ] | OSS |
+| ML.G5 | **One-Click Unsubscribe (RFC 8058) & List Management** | ServMail Compliance | Auto-inject `List-Unsubscribe` and `List-Unsubscribe-Post` headers; handle one-click unsubscribe webhooks; maintain per-sender suppression lists with full audit history | [ ] | OSS |
+| ML.G6 | **Email Delivery Analytics Dashboard (Open, Click, Bounce Rates)** | ServConsole UI | Stream per-campaign delivery, open-pixel tracking, click-through, and bounce event metrics into ServConsole for deliverability health monitoring and alert thresholds | [ ] | OSS |
 
 ---
 
@@ -833,14 +833,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServPool implements an adaptive connection pool with LRU eviction, dynamic max-connection scaling, a wait queue for pool saturation, and per-dialect connection management.
 > **What is Missing**: Read/write split routing (primary for writes, replicas for reads), pre-checkout connection health validation (no heartbeat ping before returning stale connections), automatic connection leak detection, per-query latency histograms, and prepared statement caching.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| SP.G1 | **Read/Write Split Router (Primary for Writes, Replica for Reads)** | ServPool Routing | Detect read vs. write SQL intent (SELECT vs. INSERT/UPDATE/DELETE) and route queries to appropriate replica or primary connections; configure per-replica weights for read load distribution | [ ] |
-| SP.G2 | **Pre-Checkout Connection Health Validation (Ping & Validation Query)** | ServPool Health | Execute a configurable lightweight validation query (e.g. `SELECT 1`) before returning a pooled connection to the caller; immediately discard and replace stale, closed, or broken connections | [ ] |
-| SP.G3 | **Automatic Connection Leak Detection & Forced Reclaim** | ServPool Safety | Track connections checked out beyond a configurable `maxHoldDuration`; log a stack trace warning and forcibly reclaim leaked connections to prevent pool exhaustion under load | [ ] |
-| SP.G4 | **Per-Query Execution Time Histogram & Slow Query Logger** | ServPool Telemetry | Wrap every query execution with nanosecond timing; maintain P50/P95/P99 latency histograms per query fingerprint and log queries exceeding a configurable slow-query threshold | [ ] |
-| SP.G5 | **Multi-Dialect Prepared Statement Cache** | ServPool Cache | Cache parsed and compiled prepared statements per-connection-per-dialect (PostgreSQL, MySQL, SQLite); reduce repeated parse overhead on high-throughput transactional workloads | [ ] |
-| SP.G6 | **Pool Utilization & Saturation Alerting in ServConsole** | ServConsole UI | Stream real-time pool utilization (active/idle/waiting connection counts) to ServConsole; alert operators when pool saturation or wait queue depth exceeds configurable thresholds | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SP.G1 | **Read/Write Split Router (Primary for Writes, Replica for Reads)** | ServPool Routing | Detect read vs. write SQL intent (SELECT vs. INSERT/UPDATE/DELETE) and route queries to appropriate replica or primary connections; configure per-replica weights for read load distribution | [ ] | OSS |
+| SP.G2 | **Pre-Checkout Connection Health Validation (Ping & Validation Query)** | ServPool Health | Execute a configurable lightweight validation query (e.g. `SELECT 1`) before returning a pooled connection to the caller; immediately discard and replace stale, closed, or broken connections | [ ] | OSS |
+| SP.G3 | **Automatic Connection Leak Detection & Forced Reclaim** | ServPool Safety | Track connections checked out beyond a configurable `maxHoldDuration`; log a stack trace warning and forcibly reclaim leaked connections to prevent pool exhaustion under load | [ ] | OSS |
+| SP.G4 | **Per-Query Execution Time Histogram & Slow Query Logger** | ServPool Telemetry | Wrap every query execution with nanosecond timing; maintain P50/P95/P99 latency histograms per query fingerprint and log queries exceeding a configurable slow-query threshold | [ ] | OSS |
+| SP.G5 | **Multi-Dialect Prepared Statement Cache** | ServPool Cache | Cache parsed and compiled prepared statements per-connection-per-dialect (PostgreSQL, MySQL, SQLite); reduce repeated parse overhead on high-throughput transactional workloads | [ ] | OSS |
+| SP.G6 | **Pool Utilization & Saturation Alerting in ServConsole** | ServConsole UI | Stream real-time pool utilization (active/idle/waiting connection counts) to ServConsole; alert operators when pool saturation or wait queue depth exceeds configurable thresholds | [ ] | OSS |
 
 ---
 
@@ -849,14 +849,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServTunnel implements HTTP request tunneling with subdomain routing, a request inspector UI, OTel integration, and webhook forwarding.
 > **What is Missing**: WebSocket connection multiplexing over a single tunnel pipe, JWT/API-key auth gating on inbound tunnel connections (currently unauthenticated), request/response body capture with replay UI in ServConsole, persistent reconnect with exponential backoff, and per-tunnel bandwidth throttling.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| TN.G1 | **WebSocket Connection Multiplexing over a Single Tunnel Pipe** | ServTunnel Protocol | Multiplex multiple concurrent WebSocket connections from different clients over a single persistent tunnel connection using a lightweight stream framing header protocol | [ ] |
-| TN.G2 | **JWT / API-Key Auth Gating on Tunnel Endpoint Connections** | ServTunnel Auth | Require JWT bearer tokens or API keys before accepting inbound HTTP connections on any tunnel endpoint; integrate with ServAuth for token validation and scope enforcement | [ ] |
-| TN.G3 | **Full Request & Response Body Capture with Replay UI in ServConsole** | ServTunnel Inspector | Capture complete request/response pairs (headers, body, timing, status) and expose them in a ServConsole tunnel inspector tab; allow one-click replay of any captured request for debugging | [ ] |
-| TN.G4 | **Persistent Tunnel Reconnect with Exponential Backoff & Jitter** | ServTunnel Client | Implement automatic reconnect logic in the tunnel client with exponential backoff and jitter; maintain tunnel availability and re-register subdomain routing across transient network interruptions | [ ] |
-| TN.G5 | **Per-Tunnel Bandwidth Throttling & Rate Limiting** | ServTunnel Policy | Enforce configurable bandwidth limits (bytes/second) per tunnel connection to prevent a single heavy client from saturating the shared tunnel relay infrastructure | [ ] |
-| TN.G6 | **Shareable Tunnel URLs with Expiry & One-Time Access Tokens** | ServTunnel Sharing | Generate shareable tunnel URLs with configurable TTL expiry and single-use access tokens for secure, time-limited collaboration on local development services | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| TN.G1 | **WebSocket Connection Multiplexing over a Single Tunnel Pipe** | ServTunnel Protocol | Multiplex multiple concurrent WebSocket connections from different clients over a single persistent tunnel connection using a lightweight stream framing header protocol | [ ] | OSS |
+| TN.G2 | **JWT / API-Key Auth Gating on Tunnel Endpoint Connections** | ServTunnel Auth | Require JWT bearer tokens or API keys before accepting inbound HTTP connections on any tunnel endpoint; integrate with ServAuth for token validation and scope enforcement | [ ] | OSS |
+| TN.G3 | **Full Request & Response Body Capture with Replay UI in ServConsole** | ServTunnel Inspector | Capture complete request/response pairs (headers, body, timing, status) and expose them in a ServConsole tunnel inspector tab; allow one-click replay of any captured request for debugging | [ ] | OSS |
+| TN.G4 | **Persistent Tunnel Reconnect with Exponential Backoff & Jitter** | ServTunnel Client | Implement automatic reconnect logic in the tunnel client with exponential backoff and jitter; maintain tunnel availability and re-register subdomain routing across transient network interruptions | [ ] | OSS |
+| TN.G5 | **Per-Tunnel Bandwidth Throttling & Rate Limiting** | ServTunnel Policy | Enforce configurable bandwidth limits (bytes/second) per tunnel connection to prevent a single heavy client from saturating the shared tunnel relay infrastructure | [ ] | **EE** |
+| TN.G6 | **Shareable Tunnel URLs with Expiry & One-Time Access Tokens** | ServTunnel Sharing | Generate shareable tunnel URLs with configurable TTL expiry and single-use access tokens for secure, time-limited collaboration on local development services | [ ] | OSS |
 
 ---
 
@@ -865,14 +865,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: Serv-lang compiles `.serv` schema definitions to Go and TypeScript with full LSP IntelliSense, an import system, async runtime, WASM compilation support, and a plugin architecture.
 > **What is Missing**: A Rust code-generation target (for high-performance edge services), a Python code-generation target (for ML/AI service consumers using FastAPI/Pydantic), a zero-install WASM browser playground for frictionless evaluation, multi-file schema cross-import type resolution, and a breaking change detector (`serv diff`).
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| SL.G1 | **Rust Code-Generation Target (`serv generate --lang rust`)** | Serv-lang Codegen | Add a Rust backend code-generator producing idiomatic Rust `struct` definitions, `serde` derive macros, trait implementations, and `axum` server stubs from `.serv` schema files | [ ] |
-| SL.G2 | **Python Code-Generation Target (`serv generate --lang python`)** | Serv-lang Codegen | Add a Python code-generator producing Pydantic v2 model definitions and FastAPI router stubs from `.serv` schema files; targeting ML/AI teams building LLM service consumers | [ ] |
-| SL.G3 | **Zero-Install WASM Browser Playground (`playground.servverse.dev`)** | Serv-lang Runtime | Compile the Serv-lang compiler toolchain to WebAssembly and host an interactive browser IDE where developers write, compile, and preview `.serv` definitions without any local installation | [ ] |
-| SL.G4 | **Multi-File Schema Import System with Cross-File Type Resolution** | Serv-lang Compiler | Implement cross-file type imports (`import "auth.serv"`) with a full dependency graph resolver; allow large service definitions to be cleanly split across multiple `.serv` schema files | [ ] |
-| SL.G5 | **Breaking Change Detector (`serv diff old.serv new.serv`)** | Serv-lang Tooling | Add a `serv diff` command that compares two `.serv` schema versions and outputs a structured compatibility report: new fields (safe), renamed fields (warning), removed fields (breaking) | [ ] |
-| SL.G6 | **`async` Task & `concurrent {}` Language Primitives** | Serv-lang Parser | Add `async task` and `concurrent { }` block keywords to the Serv-lang grammar enabling declarative concurrent step execution within service handlers, compiled to goroutines in Go | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SL.G1 | **Rust Code-Generation Target (`serv generate --lang rust`)** | Serv-lang Codegen | Add a Rust backend code-generator producing idiomatic Rust `struct` definitions, `serde` derive macros, trait implementations, and `axum` server stubs from `.serv` schema files | [ ] | OSS |
+| SL.G2 | **Python Code-Generation Target (`serv generate --lang python`)** | Serv-lang Codegen | Add a Python code-generator producing Pydantic v2 model definitions and FastAPI router stubs from `.serv` schema files; targeting ML/AI teams building LLM service consumers | [ ] | OSS |
+| SL.G3 | **Zero-Install WASM Browser Playground (`playground.servverse.dev`)** | Serv-lang Runtime | Compile the Serv-lang compiler toolchain to WebAssembly and host an interactive browser IDE where developers write, compile, and preview `.serv` definitions without any local installation | [ ] | OSS |
+| SL.G4 | **Multi-File Schema Import System with Cross-File Type Resolution** | Serv-lang Compiler | Implement cross-file type imports (`import "auth.serv"`) with a full dependency graph resolver; allow large service definitions to be cleanly split across multiple `.serv` schema files | [ ] | OSS |
+| SL.G5 | **Breaking Change Detector (`serv diff old.serv new.serv`)** | Serv-lang Tooling | Add a `serv diff` command that compares two `.serv` schema versions and outputs a structured compatibility report: new fields (safe), renamed fields (warning), removed fields (breaking) | [ ] | OSS |
+| SL.G6 | **`async` Task & `concurrent {}` Language Primitives** | Serv-lang Parser | Add `async task` and `concurrent { }` block keywords to the Serv-lang grammar enabling declarative concurrent step execution within service handlers, compiled to goroutines in Go | [ ] | OSS |
 
 ---
 
@@ -881,14 +881,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServGateway has a Smart AI cost router, token-per-minute throttling, eBPF XDP DDoS bypass, semantic prompt caching, WAF, GraphQL federation, WASM hot-reload registry, and OIDC enforcement.
 > **What is Missing**: A native Model Context Protocol (MCP) server that auto-exposes Servverse services as strongly-typed AI agent tools, LLM streaming SSE response passthrough, per-agent-session context tracking, tool call audit logging with cost attribution, multi-model provider fallback chains, and prompt injection detection.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| SG.A1 | **Native MCP Tool Registry (Auto-Expose Servverse Services as AI Agent Tools)** | ServGateway MCP | Implement a native MCP server at `/mcp` that auto-discovers and exposes registered ServStore buckets, ServQueue topics, and Serv-lang services as typed MCP tools consumable by Claude, GPT-4o, and local Ollama agents | [ ] |
-| SG.A2 | **LLM Streaming SSE Response Passthrough (Server-Sent Events)** | ServGateway Proxy | Implement transparent proxy passthrough of streaming SSE LLM completions; preserve chunk ordering and correctly handle chunked transfer encoding for real-time token streaming to browser clients | [ ] |
-| SG.A3 | **AI Agent Session Context Tracker (Multi-Turn Conversation State)** | ServGateway Agent | Maintain per-agent-session conversation context windows across sequential MCP tool calls; inject conversation history into each upstream LLM request automatically based on session ID header | [ ] |
-| SG.A4 | **Tool Call Audit Log & Per-Session AI Cost Attribution** | ServGateway Audit | Log every MCP tool call with agent ID, tool name, input arguments, response status, and token cost attribution; expose searchable audit history in ServConsole cost attribution dashboard | [ ] |
-| SG.A5 | **Multi-Model Provider Fallback Chain (GPT-4o → Claude → Ollama)** | ServGateway Fallback | Configure ordered fallback chains across AI providers; automatically retry failed or rate-limited requests against the next provider with context adaptation for different model API formats | [ ] |
-| SG.A6 | **Prompt Injection Detection & Input Sanitization Guard** | ServGateway Security | Detect and block prompt injection attacks (system prompt override, jailbreak patterns) using embedding-based cosine similarity scoring against known attack signatures before forwarding to LLMs | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SG.A1 | **Native MCP Tool Registry (Auto-Expose Servverse Services as AI Agent Tools)** | ServGateway MCP | Implement a native MCP server at `/mcp` that auto-discovers and exposes registered ServStore buckets, ServQueue topics, and Serv-lang services as typed MCP tools consumable by Claude, GPT-4o, and local Ollama agents | [ ] | OSS |
+| SG.A2 | **LLM Streaming SSE Response Passthrough (Server-Sent Events)** | ServGateway Proxy | Implement transparent proxy passthrough of streaming SSE LLM completions; preserve chunk ordering and correctly handle chunked transfer encoding for real-time token streaming to browser clients | [ ] | OSS |
+| SG.A3 | **AI Agent Session Context Tracker (Multi-Turn Conversation State)** | ServGateway Agent | Maintain per-agent-session conversation context windows across sequential MCP tool calls; inject conversation history into each upstream LLM request automatically based on session ID header | [ ] | **EE** |
+| SG.A4 | **Tool Call Audit Log & Per-Session AI Cost Attribution** | ServGateway Audit | Log every MCP tool call with agent ID, tool name, input arguments, response status, and token cost attribution; expose searchable audit history in ServConsole cost attribution dashboard | [ ] | **EE** |
+| SG.A5 | **Multi-Model Provider Fallback Chain (GPT-4o → Claude → Ollama)** | ServGateway Fallback | Configure ordered fallback chains across AI providers; automatically retry failed or rate-limited requests against the next provider with context adaptation for different model API formats | [ ] | **EE** |
+| SG.A6 | **Prompt Injection Detection & Input Sanitization Guard** | ServGateway Security | Detect and block prompt injection attacks (system prompt override, jailbreak patterns) using embedding-based cosine similarity scoring against known attack signatures before forwarding to LLMs | [ ] | OSS |
 
 ---
 
@@ -897,14 +897,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServStore provides full S3 API compatibility, DuckDB SQL analytics, streaming S3 Select, OPFS browser sync, CoW bucket branching, WebTorrent P2P seeding, CRDT geo-replication, WORM locking, and FIPS KMS encryption.
 > **What is Missing**: An embedded HNSW vector index engine for semantic similarity search over stored object embeddings (currently requires external Qdrant/Pinecone), automatic embedding generation on text object upload, hybrid keyword + vector search, and per-bucket vector index namespace management.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| SS.A1 | **Embedded HNSW Vector Index Engine (In-Process Similarity Search)** | ServStore Vector | Implement an HNSW (Hierarchical Navigable Small World) vector index engine embedded directly in `servstored`; store and query float32 embedding vectors with configurable M and efConstruction graph parameters | [ ] |
-| SS.A2 | **Automatic Embedding Generation for Text Objects on PUT** | ServStore Embedding | When an object with `Content-Type: text/*` is uploaded, call a configured embedding model endpoint (local Ollama or OpenAI) to auto-generate and store a float32 vector alongside object metadata | [ ] |
-| SS.A3 | **Hybrid Keyword + Vector Semantic Search API** | ServStore Search | Expose a `/api/v1/search` endpoint combining BM25 keyword relevance scoring with HNSW cosine similarity for hybrid semantic + lexical ranked search over bucket object content | [ ] |
-| SS.A4 | **Per-Bucket Vector Index Namespace Management** | ServStore Namespaces | Maintain isolated per-bucket HNSW vector index namespaces; support API-driven creation, rebuilding, and deletion of vector indexes independently from object storage lifecycle | [ ] |
-| SS.A5 | **ANN Query API with k, Score Threshold & Metadata Filters** | ServStore Query | Expose `GET /api/v1/vectors/{bucket}/search?k=10&min_score=0.80&tag=finance` for top-k nearest neighbor retrieval with minimum score thresholding and metadata predicate pre-filtering | [ ] |
-| SS.A6 | **Persistent mmap-Backed HNSW Graph with Incremental Node Insertion** | ServStore Persistence | Persist HNSW graph state to disk using memory-mapped files; support incremental online insertion of new vector nodes without requiring full graph rebuild on each new object PUT | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SS.A1 | **Embedded HNSW Vector Index Engine (In-Process Similarity Search)** | ServStore Vector | Implement an HNSW (Hierarchical Navigable Small World) vector index engine embedded directly in `servstored`; store and query float32 embedding vectors with configurable M and efConstruction graph parameters | [ ] | OSS |
+| SS.A2 | **Automatic Embedding Generation for Text Objects on PUT** | ServStore Embedding | When an object with `Content-Type: text/*` is uploaded, call a configured embedding model endpoint (local Ollama or OpenAI) to auto-generate and store a float32 vector alongside object metadata | [ ] | OSS |
+| SS.A3 | **Hybrid Keyword + Vector Semantic Search API** | ServStore Search | Expose a `/api/v1/search` endpoint combining BM25 keyword relevance scoring with HNSW cosine similarity for hybrid semantic + lexical ranked search over bucket object content | [ ] | OSS |
+| SS.A4 | **Per-Bucket Vector Index Namespace Management** | ServStore Namespaces | Maintain isolated per-bucket HNSW vector index namespaces; support API-driven creation, rebuilding, and deletion of vector indexes independently from object storage lifecycle | [ ] | OSS |
+| SS.A5 | **ANN Query API with k, Score Threshold & Metadata Filters** | ServStore Query | Expose `GET /api/v1/vectors/{bucket}/search?k=10&min_score=0.80&tag=finance` for top-k nearest neighbor retrieval with minimum score thresholding and metadata predicate pre-filtering | [ ] | OSS |
+| SS.A6 | **Persistent mmap-Backed HNSW Graph with Incremental Node Insertion** | ServStore Persistence | Persist HNSW graph state to disk using memory-mapped files; support incremental online insertion of new vector nodes without requiring full graph rebuild on each new object PUT | [ ] | OSS |
 
 ---
 
@@ -913,14 +913,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServConsole implements OTel trace waterfall dashboards, hash ring visualizers, SQL workbench, alert management, topology views, and a launcher for all Servverse services.
 > **What is Missing**: An embedded eBPF flamegraph profiling visualization tab, a Chaos Engineering control panel (for triggering and monitoring fault injection experiments across modules), an embedded AI assistant chat panel, unified global search across all Servverse resources, and a cost attribution breakdown dashboard.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| CC.G1 | **eBPF Flamegraph Profiling Tab with OTel Trace Correlation** | ServConsole Profiler | Add a Profiling tab rendering interactive SVG flamegraphs from ServTrace eBPF profiling data; automatically correlate captured flamegraph stack samples with the active OTel trace span being inspected | [ ] |
-| CC.G2 | **Chaos Engineering Control Panel** | ServConsole Chaos | Provide a UI panel for initiating and monitoring chaos experiments: inject latency, drop packets, kill service replicas, or simulate clock skew; visualize real-time impact on service topology error rates | [ ] |
-| CC.G3 | **Unified Global Search Across All Servverse Resources (⌘K)** | ServConsole Search | Implement a `cmd+K`-style universal command palette searching across trace IDs, object keys, queue topics, job names, service instances, and alert events; returning ranked contextual results | [ ] |
-| CC.G4 | **Embedded AI Assistant Chat Panel (Powered by ServGate MCP)** | ServConsole AI | Embed a conversational AI assistant that answers questions about the running system, explains trace anomalies, suggests performance optimizations, and executes SQL queries via ServGate MCP tool calls | [ ] |
-| CC.G5 | **Cost Attribution Dashboard (Per-Service Egress, Storage & AI Token Spend)** | ServConsole Cost | Aggregate egress bandwidth, object storage bytes, AI token consumption, and ServQueue message throughput per service/team; render a cost attribution breakdown with budget alert thresholds | [ ] |
-| CC.G6 | **Theme Customization, Pinned Dashboard Widgets & Keyboard Shortcuts** | ServConsole UX | Persist user preferences for dark/light theme, dashboard widget layout (drag-to-reorder), pinned quick-access shortcuts to frequently viewed resources, and configurable keyboard shortcut bindings | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| CC.G1 | **eBPF Flamegraph Profiling Tab with OTel Trace Correlation** | ServConsole Profiler | Add a Profiling tab rendering interactive SVG flamegraphs from ServTrace eBPF profiling data; automatically correlate captured flamegraph stack samples with the active OTel trace span being inspected | [ ] | OSS |
+| CC.G2 | **Chaos Engineering Control Panel** | ServConsole Chaos | Provide a UI panel for initiating and monitoring chaos experiments: inject latency, drop packets, kill service replicas, or simulate clock skew; visualize real-time impact on service topology error rates | [ ] | OSS |
+| CC.G3 | **Unified Global Search Across All Servverse Resources (⌘K)** | ServConsole Search | Implement a `cmd+K`-style universal command palette searching across trace IDs, object keys, queue topics, job names, service instances, and alert events; returning ranked contextual results | [ ] | OSS |
+| CC.G4 | **Embedded AI Assistant Chat Panel (Powered by ServGate MCP)** | ServConsole AI | Embed a conversational AI assistant that answers questions about the running system, explains trace anomalies, suggests performance optimizations, and executes SQL queries via ServGate MCP tool calls | [ ] | **EE** |
+| CC.G5 | **Cost Attribution Dashboard (Per-Service Egress, Storage & AI Token Spend)** | ServConsole Cost | Aggregate egress bandwidth, object storage bytes, AI token consumption, and ServQueue message throughput per service/team; render a cost attribution breakdown with budget alert thresholds | [ ] | **EE** |
+| CC.G6 | **Theme Customization, Pinned Dashboard Widgets & Keyboard Shortcuts** | ServConsole UX | Persist user preferences for dark/light theme, dashboard widget layout (drag-to-reorder), pinned quick-access shortcuts to frequently viewed resources, and configurable keyboard shortcut bindings | [ ] | OSS |
 
 ---
 
@@ -929,14 +929,14 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: ServQueue provides STOMP, MQTT, Kafka-protocol compatibility, WASM stream processing, CRDT geo-replication, OPFS browser queuing, Dead Letter Queues, ServConsole admin UI, and enterprise encryption.
 > **What is Missing**: A Schema Registry for enforcing Avro/JSON Schema/Protobuf message contracts at the broker (currently no schema validation), a DLQ browser with one-click replay in ServConsole, per-consumer-group lag dashboards with partition-level offset inspection, Kafka-style log compaction, and W3C trace context propagation through messages.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| SQ.G1 | **Embedded Schema Registry for Message Contract Enforcement** | ServQueue Schema | Implement an embedded Schema Registry validating producer messages against registered Avro/JSON Schema/Protobuf contracts before routing; reject incompatible messages with structured schema validation errors | [ ] |
-| SQ.G2 | **DLQ Browser & One-Click Replay in ServConsole** | ServConsole UI | Render a DLQ inspector in ServConsole showing failed message payloads, error reasons, retry counts, and original topic metadata; allow operators to replay individual or bulk DLQ messages back into the source topic | [ ] |
-| SQ.G3 | **Consumer Group Lag Dashboard with Partition-Level Offset Inspection** | ServConsole UI | Display per-consumer-group, per-partition message lag (offset delta between latest produced and latest committed); surface groups falling behind their SLA processing rate with configurable lag alerts | [ ] |
-| SQ.G4 | **Topic Log Compaction Policy Engine (Key-Based Compaction & Retention)** | ServQueue Storage | Implement Kafka-style log compaction for topics with `cleanup.policy=compact`; retain only the latest record per message key; configurable time-based and size-based retention policies alongside compaction | [ ] |
-| SQ.G5 | **Per-Message W3C Trace Context Propagation (OTel traceparent)** | ServQueue Tracing | Inject W3C `traceparent` headers into each message at produce time; extract and continue the distributed trace on the consumer side; visualize full producer-to-consumer message flow in ServTrace | [ ] |
-| SQ.G6 | **Multi-Tab Browser OPFS Queue Leader Election via navigator.locks** | ServQueue OPFS | Implement browser multi-tab leader election using the Web Locks API (`navigator.locks`) so only one browser tab acts as OPFS queue primary; other tabs register as followers consuming via BroadcastChannel | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SQ.G1 | **Embedded Schema Registry for Message Contract Enforcement** | ServQueue Schema | Implement an embedded Schema Registry validating producer messages against registered Avro/JSON Schema/Protobuf contracts before routing; reject incompatible messages with structured schema validation errors | [ ] | OSS |
+| SQ.G2 | **DLQ Browser & One-Click Replay in ServConsole** | ServConsole UI | Render a DLQ inspector in ServConsole showing failed message payloads, error reasons, retry counts, and original topic metadata; allow operators to replay individual or bulk DLQ messages back into the source topic | [ ] | OSS |
+| SQ.G3 | **Consumer Group Lag Dashboard with Partition-Level Offset Inspection** | ServConsole UI | Display per-consumer-group, per-partition message lag (offset delta between latest produced and latest committed); surface groups falling behind their SLA processing rate with configurable lag alerts | [ ] | OSS |
+| SQ.G4 | **Topic Log Compaction Policy Engine (Key-Based Compaction & Retention)** | ServQueue Storage | Implement Kafka-style log compaction for topics with `cleanup.policy=compact`; retain only the latest record per message key; configurable time-based and size-based retention policies alongside compaction | [ ] | OSS |
+| SQ.G5 | **Per-Message W3C Trace Context Propagation (OTel traceparent)** | ServQueue Tracing | Inject W3C `traceparent` headers into each message at produce time; extract and continue the distributed trace on the consumer side; visualize full producer-to-consumer message flow in ServTrace | [ ] | OSS |
+| SQ.G6 | **Multi-Tab Browser OPFS Queue Leader Election via navigator.locks** | ServQueue OPFS | Implement browser multi-tab leader election using the Web Locks API (`navigator.locks`) so only one browser tab acts as OPFS queue primary; other tabs register as followers consuming via BroadcastChannel | [ ] | OSS |
 
 ---
 
@@ -945,11 +945,11 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 > **Current State**: All Servverse modules are individually excellent standalone daemons. Operating a complete stack requires running 7+ separate processes with manual inter-service networking configuration.
 > **What is Missing**: A unified single-binary runtime (`servd`) embedding all modules with zero-copy shared memory channels, automatic WireGuard cluster mesh for zero-trust inter-node networking, a cross-cutting Chaos Injection Engine for automated resilience validation, a unified cluster admin CLI (`servctl`), rollup health API, and official Docker Compose + Helm chart distribution.
 
-| # | Item | Component | Description | Status |
-|---|------|-----------|-------------|--------|
-| PL.G1 | **Single-Binary `servd` Unified Runtime (Embedded Monolith Mode)** | Platform Runtime | Build `servd` embedding ServGate, ServStore, ServQueue, ServCache, ServAuth, ServCron, and ServMesh; use zero-copy shared-memory channels for inter-module communication; scale from laptop dev mode to distributed cluster deployment | [ ] |
-| PL.G2 | **Automatic WireGuard Cluster Mesh Between `servd` Nodes** | Platform Network | Implement automatic WireGuard mesh key exchange between `servd` cluster peers using a DHT-based peer discovery protocol; establish encrypted kernel-level tunnels between all nodes without manual certificate provisioning | [ ] |
-| PL.G3 | **Unified Chaos Injection Engine (Network, CPU, Memory, Disk, Clock Skew)** | Platform Chaos | Expose a Chaos Engineering API (`/api/v1/chaos`) on `servd` supporting: network latency/packet-drop injection, CPU stress, memory pressure, disk I/O throttling, and clock skew simulation; controlled per-node and per-service via `servctl` | [ ] |
-| PL.G4 | **`servctl` Cluster-Wide Administration CLI** | Platform CLI | Build `servctl` — a unified cluster administration CLI: `servctl cluster status`, `servctl chaos inject --service=servstore --type=latency --duration=60s`, `servctl deploy canary`, `servctl trace query --service=api` | [ ] |
-| PL.G5 | **Unified Health, Readiness & Rollup Metrics API** | Platform Observability | Expose `/api/v1/health` rollup on `servd` aggregating health status and key metrics across all embedded modules; consumable by Kubernetes liveness/readiness probes and external monitoring systems (Datadog, Grafana) | [ ] |
-| PL.G6 | **Official Docker Compose & Production Helm Chart Distribution** | Platform Distribution | Publish an official multi-service `docker-compose.yml` (local dev) and a production-grade `helm chart` deploying the complete Servverse stack to Kubernetes with a single `helm install servverse` command | [ ] |
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| PL.G1 | **Single-Binary `servd` Unified Runtime (Embedded Monolith Mode)** | Platform Runtime | Build `servd` embedding ServGate, ServStore, ServQueue, ServCache, ServAuth, ServCron, and ServMesh; use zero-copy shared-memory channels for inter-module communication; scale from laptop dev mode to distributed cluster deployment | [ ] | OSS |
+| PL.G2 | **Automatic WireGuard Cluster Mesh Between `servd` Nodes** | Platform Network | Implement automatic WireGuard mesh key exchange between `servd` cluster peers using a DHT-based peer discovery protocol; establish encrypted kernel-level tunnels between all nodes without manual certificate provisioning | [ ] | **EE** |
+| PL.G3 | **Unified Chaos Injection Engine (Network, CPU, Memory, Disk, Clock Skew)** | Platform Chaos | Expose a Chaos Engineering API (`/api/v1/chaos`) on `servd` supporting: network latency/packet-drop injection, CPU stress, memory pressure, disk I/O throttling, and clock skew simulation; controlled per-node and per-service via `servctl` | [ ] | OSS |
+| PL.G4 | **`servctl` Cluster-Wide Administration CLI** | Platform CLI | Build `servctl` — a unified cluster administration CLI: `servctl cluster status`, `servctl chaos inject --service=servstore --type=latency --duration=60s`, `servctl deploy canary`, `servctl trace query --service=api` | [ ] | OSS |
+| PL.G5 | **Unified Health, Readiness & Rollup Metrics API** | Platform Observability | Expose `/api/v1/health` rollup on `servd` aggregating health status and key metrics across all embedded modules; consumable by Kubernetes liveness/readiness probes and external monitoring systems (Datadog, Grafana) | [ ] | OSS |
+| PL.G6 | **Official Docker Compose & Production Helm Chart Distribution** | Platform Distribution | Publish an official multi-service `docker-compose.yml` (local dev) and a production-grade `helm chart` deploying the complete Servverse stack to Kubernetes with a single `helm install servverse` command | [ ] | OSS |
