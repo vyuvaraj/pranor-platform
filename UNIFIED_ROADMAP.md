@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **648** | **71** | **90%** | ██████████████████░░ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **652** | **67** | **91%** | ███████████████████░ |
 
 
 ---
@@ -773,10 +773,10 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 |---|------|-----------|-------------|--------|:---:|
 | SM.G1 | **Automatic WireGuard Kernel Tunnel Mesh Between Nodes** | ServMesh Network | Auto-provision WireGuard encrypted kernel-level tunnels between ServMesh peers using a DHT-based key exchange protocol; eliminates manual TLS certificate provisioning for inter-service traffic | [ ] | **EE** |
 | SM.G2 | **SPIFFE/SPIRE mTLS Workload Identity Attestation** | ServMesh Identity | Issue short-lived SPIFFE SVIDs (X.509 certificates) to each registered service instance; enforce mTLS workload identity verification on all service-to-service calls within the mesh | [ ] | **EE** |
-| SM.G3 | **Latency-Aware P2C Load Balancing & Locality Preference** | ServMesh LB | Replace round-robin with Power-of-Two-Choices (P2C) latency-weighted load balancing; prefer same-zone or same-region replicas to minimize cross-datacenter latency and egress cost | [ ] | OSS |
-| SM.G4 | **Distributed Global Rate Limiting via ServCache Token Buckets** | ServMesh RateLimit | Implement distributed token-bucket rate limiting shared across all ServMesh nodes via ServCache; prevent upstream overload cascades from triggering inter-service retry storms | [ ] | OSS |
-| SM.G5 | **Live Real-Time Service Topology Graph in ServConsole** | ServConsole UI | Render an animated, force-directed service dependency graph in ServConsole showing live traffic flows, circuit breaker open/closed states, and per-edge P99 latency metrics | [ ] | OSS |
-| SM.G6 | **Chaos Fault Injection API (Latency, Error Rate, Partition Simulation)** | ServMesh Chaos | Expose a Chaos Engineering REST API that injects simulated network delays, configurable error rates, and service partition failures into ServMesh routing for resilience validation | [ ] | OSS |
+| SM.G3 | **Latency-Aware P2C Load Balancing & Locality Preference** | ServMesh LB | Replace round-robin with Power-of-Two-Choices (P2C) latency-weighted load balancing; prefer same-zone or same-region replicas to minimize cross-datacenter latency and egress cost | [x] | OSS |
+| SM.G4 | **Distributed Global Rate Limiting via ServCache Token Buckets** | ServMesh RateLimit | Implement distributed token-bucket rate limiting shared across all ServMesh nodes via ServCache; prevent upstream overload cascades from triggering inter-service retry storms | [x] | OSS |
+| SM.G5 | **Live Real-Time Service Topology Graph in ServConsole** | ServConsole UI | Render an animated, force-directed service dependency graph in ServConsole showing live traffic flows, circuit breaker open/closed states, and per-edge P99 latency metrics | [x] | OSS |
+| SM.G6 | **Chaos Fault Injection API (Latency, Error Rate, Partition Simulation)** | ServMesh Chaos | Expose a Chaos Engineering REST API that injects simulated network delays, configurable error rates, and service partition failures into ServMesh routing for resilience validation | [x] | OSS |
 
 ---
 
