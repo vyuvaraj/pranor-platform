@@ -465,17 +465,17 @@
           </ul>
         </div>
         <div class="tab-panel" id="panel-servqueue">
-          <h3>ServQueue — WASM-enabled Broker</h3>
-          <p class="panel-desc">Distributed STOMP-compliant message broker with OPFS browser event persistence, server-side WASM transforms, and guaranteed delivery.</p>
+          <h3>ServQueue — Multi-Protocol Stream Engine</h3>
+          <p class="panel-desc">Multi-protocol message broker with dual CLI binaries, inline WASM stream processing, point-in-time replay, and CRDT active-active geo-replication.</p>
           <ul class="feature-list">
-            <li><strong>OPFS Browser Queue & WASM Embedded:</strong> Local-first event persistence in browser Web Workers (`FileSystemSyncAccessHandle`) via `@servverse/queue-wasm`.</li>
-            <li><strong>Offline Outbox Sync Relay:</strong> Automatic sequence replay of offline event streams to remote clusters upon network reconnection.</li>
-            <li><strong>Consumer Groups:</strong> Partition-assigned load balancing across subscribers.</li>
-            <li><strong>Delayed Messages:</strong> Timer-wheel delivery via STOMP headers.</li>
-            <li><strong>Compute-in-Queue:</strong> Inline WASM transform pipelines on topic events.</li>
-            <li><strong>Dead Letter Queues:</strong> Auto-capture failed events with metadata diagnostics.</li>
-            <li><strong>Deduplication:</strong> Sliding-window dedup by message hash.</li>
-            <li><strong>Raft Clustering:</strong> HA consensus with automatic partition management.</li>
+            <li><strong>Dual-Binary Architecture:</strong> Dedicated <code>servqueued</code> server daemon (with embedded Web Admin UI) + <code>servqueue</code> management CLI.</li>
+            <li><strong>Multi-Protocol Listeners:</strong> Native STOMP (<code>:61613</code>), MQTT v5.0 Gateway (<code>:1883</code>), Kafka Wire Protocol Adapter (<code>:9092</code>), and REST (<code>:8082</code>).</li>
+            <li><strong>Point-in-Time Event Replay:</strong> Seek consumer offsets to arbitrary past timestamps (<code>seekToTime</code>) via CLI or API.</li>
+            <li><strong>Active-Active Geo-Replication:</strong> Multi-region cluster mirroring with Last-Write-Wins (LWW) CRDT conflict resolution.</li>
+            <li><strong>K8s Operator & KEDA Scaler:</strong> Custom <code>ServQueueCluster</code> CRD controller and KEDA topic lag auto-scaling.</li>
+            <li><strong>Compute-in-Queue:</strong> Inline WASM transform pipelines on topic events via <code>wazero</code>.</li>
+            <li><strong>Multi-Language SDKs:</strong> Standalone Go, TypeScript/Node.js, Python, and Browser WASM SDKs.</li>
+            <li><strong>OPFS Browser Queue:</strong> Local-first event persistence in Web Workers (`FileSystemSyncAccessHandle`) via `@servverse/queue-wasm`.</li>
           </ul>
         </div>
         <div class="tab-panel" id="panel-servstore">
