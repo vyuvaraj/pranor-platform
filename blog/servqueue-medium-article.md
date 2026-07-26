@@ -1,140 +1,139 @@
-# I Built a Message Broker With Inline WASM Stream Processing — From Scratch
+# ServQueue v2: Evolving Our WASM Message Broker into a Monorepo Stream Engine
 
-*How ServQueue evolved into a monorepo distribution featuring dual-CLI binaries, STOMP & MQTT & Kafka protocol compatibility, point-in-time event replay, embedded Web Admin UI, and CRDT active-active geo-replication.*
-
----
-
-## The Stream Processing & Ecosystem Evolution
-
-Message brokers like RabbitMQ, NATS, or Kafka do an excellent job of delivering bytes from producer to consumer. But traditional brokers are fundamentally passive pipelines: transforming messages or routing across protocol boundaries requires deploying complex stream processors (Apache Flink, Kafka Streams) or external bridge containers.
-
-**ServQueue** was built to solve this natively within the **Servverse monorepo** ecosystem (`github.com/vyuvaraj/serv/packages/ServQueue`). It combines **Compute-in-Queue** (inline WASM transform execution), zero-dependency deployment, protocol adapters, and automated cloud-native operations into a single platform.
+*From a single-binary WASM broker to a multi-protocol streaming engine featuring dual CLI binaries, MQTT v5.0, Kafka compatibility, point-in-time replay, and CRDT active-active geo-replication.*
 
 ---
 
-## What is ServQueue?
+> 💡 **Note**: This is **Part 2** of the ServQueue series. If you missed Part 1 on how we built inline WASM stream processing from scratch, check out [Part 1: I Built a Message Broker With Inline WASM Stream Processing From Scratch](https://medium.com/@yuvamca002/i-built-a-message-broker-with-inline-wasm-stream-processing-from-scratch-2196a391cfac).
 
-ServQueue is a high-performance message broker written in Go as part of the unified **Servverse** monorepo. It features a clean **Daemon/Client separation**:
+---
 
-* **`servqueued`**: Single zero-dependency server daemon hosting the log storage engine, STOMP server (`:61613`), HTTP REST API (`:8082`/`:9092`), MQTT v5.0 gateway (`:1883`), Kafka wire protocol adapter (`:9092`), and an embedded Web Admin UI (`http://localhost:9092/ui`).
-* **`servqueue`**: Lightweight client CLI for administrative tasks (`status`, `topics`, `publish`, `consume`, `tail`, `seek`).
+## Why ServQueue Needed to Evolve
+
+In Part 1, we introduced ServQueue: a Go-based message broker executing inline WebAssembly (WASM) filters inside the dispatch loop.
+
+While the core WASM stream processing engine worked seamlessly, running it in real-world infrastructure revealed key operational challenges:
+
+1. **Mixed Binary Responsibilities**: The client CLI commands and broker server daemon were bundled together, making daemon deployment in Docker/K8s heavier than necessary.
+2. **Protocol Barriers**: Developers wanted IoT devices to stream telemetry via MQTT and existing microservices to produce via Kafka without needing external bridge proxy containers.
+3. **Disaster Recovery**: Consumers needed the ability to rewind and replay stream history back to exact timestamps (`seekToTime`) rather than just raw offset numbers.
+4. **Cross-Cloud Active-Active Sync**: Distributed clusters across multiple cloud regions required conflict-free multi-primary event mirroring.
+
+Here is how we addressed these challenges in **ServQueue v2** and migrated to the unified **Serv monorepo** (`github.com/vyuvaraj/serv`).
+
+---
+
+## 1. Monorepo Migration & The Daemon / CLI Split
+
+We merged standalone services into the unified **Serv monorepo** (`github.com/vyuvaraj/serv/packages/ServQueue`). As part of this migration, we strictly separated server runtime logic from client administration tooling:
+
+* **`servqueued` (Server Daemon)**: Zero-dependency background service hosting the WAL log engine, WASM execution runner, protocol adapters, Prometheus metrics (`/metrics`), and an embedded Web Admin UI served at `http://localhost:9092/ui/` via Go `embed`.
+* **`servqueue` (Client CLI)**: Fast-booting administrative binary for operators and scripts (`status`, `topics`, `publish`, `consume`, `tail`, `seek`).
 
 ```
-Producer ➔ [ Publish (STOMP / MQTT / Kafka / REST) ]
-                  │
-                  ▼
-         ( ServQueue Topic ) ➔ [ WASM Transform Sandbox ] ➔ [ Dispatch ] ➔ Consumer
-                  │                        │
-                  │               (Failed / Dropped)
-                  │                        │
-                  ▼                        ▼
-       ( CRDT Geo-Mirror )     ( Dead Letter Queue )
+                              ┌────────────────────────────────────────┐
+                              │               servqueued               │
+┌──────────────┐              │ ┌──────────┐  ┌──────────┐ ┌─────────┐ │              ┌──────────────┐
+│  STOMP /     │  publish     │ │  STOMP   │  │   MQTT   │ │  Kafka  │ │   dispatch   │  Consumers   │
+│  MQTT /      ├─────────────►│ │  :61613  │  │  :1883   │ │  :9092  │ ├─────────────►│  (Subscribers│
+│  Kafka Client│              │ └────┬─────┘  └────┬─────┘ └────┬────┘ │              └──────────────┘
+└──────────────┘              │      └───────────┼────────────┘      │
+                              │                  ▼                   │
+                              │     [ WASM Stream Processor ]        │
+                              │                  │                   │
+                              │     [ Point-in-Time Replay ]         │
+                              │                  │                   │
+                              │    [ CRDT Active-Active Sync ]       │
+                              └────────────────────────────────────────┘
 ```
 
 ---
 
-## Key Differentiators & Advanced Features
+## 2. Multi-Protocol Compatibility: Speaking MQTT & Kafka Natively
 
-### 1. Compute-in-Queue (Inline WASM Transforms)
-Compile transform filters written in Go or Rust into WebAssembly (WASI) and upload them directly to topics using the HTTP management API:
+Rather than requiring users to deploy protocol translation bridges, `servqueued` implements native binary socket decoders for multiple industry wire protocols:
 
-```bash
-# Upload a compiled .wasm transform to the 'orders' topic
-curl -X POST http://localhost:8082/api/v1/topics/orders/transform \
-  --data-binary @my_transform.wasm
-```
+* **STOMP (`:61613`)**: Traditional text-oriented pub/sub frame parser.
+* **MQTT v5.0 Gateway (`:1883`)**: Decodes MQTT `CONNECT`, `PUBLISH`, `SUBSCRIBE`, and `PINGREQ` frames directly into ServQueue topics — allowing low-power IoT devices to publish directly into the broker.
+* **Kafka Compatibility Adapter (`:9092`)**: Decodes binary Kafka request headers (`Produce`, `Fetch`, `Metadata`), allowing standard Kafka client SDKs to publish directly to ServQueue without changing code.
 
-Messages pass through the sandboxed `wazero` WASM runner inline during dispatch, eliminating extra network hops.
+---
 
-### 2. Point-in-Time Event Replay (`seekToTime`)
-Seek consumer offsets to arbitrary past timestamps for disaster recovery or historical event replay:
+## 3. Point-in-Time Event Replay (`seekToTime`)
+
+When downstream consumers crash or data corruptions occur, seeking by relative offset count is error-prone. 
+
+ServQueue v2 introduces timestamp-based stream seeking (`seekToTime`). The log engine indexes entry timestamps, enabling instant seeks via the CLI or HTTP API:
 
 ```bash
 # Seek consumer offset to 15 minutes ago
-servqueue seek orders 15m
+servqueue seek orders.events 15m
 
-# Seek to explicit RFC3339 timestamp
-servqueue seek orders 2026-07-26T05:00:00Z
+# Seek to an explicit ISO-8601 timestamp
+servqueue seek orders.events 2026-07-26T05:00:00Z
 ```
 
-### 3. Protocol Adapters: Wire-level STOMP, MQTT v5.0, & Kafka
-Connect using standard existing client SDKs without changing client code:
-* **STOMP TCP Server** (`tcp://localhost:61613`): Native pub/sub subscription frames.
-* **MQTT v5.0 IoT Gateway** (`tcp://localhost:1883`): Native IoT device telemetry ingestion with `CONNECT`, `PUBLISH`, `SUBSCRIBE`, and `PUBACK`.
-* **Kafka Compatibility Adapter** (`tcp://localhost:9092`): Decodes Kafka binary protocol requests (`Produce`, `Fetch`, `Metadata`).
-
-### 4. Embedded Web Admin UI & ServConsole Queue Inspector
-* **Embedded UI**: Accessible directly at `http://localhost:9092/ui/` via Go `embed`, providing real-time stats, active topics, queue depth, consumer lag, and live stream tailing.
-* **ServConsole Integration**: Real-time consumer lag monitoring, outbox relay status, and stream inspection integrated directly into the central dashboard.
-
-### 5. Cross-Cloud Active-Active Geo-Replication (CRDT)
-Multi-region active-active cluster mirroring across cloud providers with Last-Write-Wins (LWW) CRDT conflict resolution.
-
-### 6. Cloud-Native & K8s Operations
-* **Kubernetes Operator**: Custom `ServQueueCluster` CRD for automated cluster provisioning and replica failover.
-* **KEDA Metrics Adapter**: Auto-scale consumer pods based on real-time topic lag.
-* **Storage Tiering & Auto-Compaction**: Automatic TTL background eviction and cold segment offloading to S3/ServStore.
-* **Prometheus Metrics**: Exposes native `/metrics` endpoint with ready-to-use Grafana dashboard templates (`grafana_dashboard.json`).
+The server returns the exact target offset and timestamp, allowing consumers to resume processing safely.
 
 ---
 
-## Multi-Language Client SDKs
+## 4. Cross-Cloud Active-Active Geo-Replication (CRDTs)
 
-ServQueue ships with standalone client SDKs in `packages/ServQueue/sdks/`:
+For multi-region deployments, ServQueue v2 introduces background cluster mirroring powered by **Last-Write-Wins (LWW) CRDTs**.
+
+When nodes in `us-east-1` and `eu-west-1` operate concurrently, the mirror engine resolves concurrent state updates across cluster boundaries without central locks, ensuring eventual consistency even across temporary network partitions.
+
+---
+
+## 5. Cloud-Native Operations & K8s Ecosystem
+
+To operationalize ServQueue in cloud environments, we built native Kubernetes controllers and monitoring exporters:
+
+* **Kubernetes Operator (`ServQueueCluster`)**: A custom CRD controller managing cluster replica deployment, state reconciliation, and automated pod failover.
+* **KEDA Metrics Scaler**: Exposes topic consumer lag metrics to Kubernetes Event-driven Autoscaling (KEDA) to scale consumer pod replicas dynamically.
+* **Prometheus & Grafana**: Native `/metrics` endpoint with pre-built Grafana dashboard templates (`grafana_dashboard.json`) tracking throughput, queue depth, consumer lag, and WASM transform execution latency.
+* **Automated Chaos Injector**: Built-in testing harness (`pkg/testing/chaos_injector.go`) for injecting network latency, partition failures, and disk corruption during integration testing.
+
+---
+
+## 6. Multi-Language SDKs
+
+ServQueue v2 provides official client packages under `packages/ServQueue/sdks/`:
 
 * **Go**: `import "github.com/vyuvaraj/serv/packages/ServQueue/sdks/go"`
 * **TypeScript / Node.js**: `const { ServQueueClient } = require('@servverse/queue-sdk');`
 * **Python**: `from servqueue import ServQueueClient`
-* **Browser WASM**: `@servverse/queue-wasm` for OPFS-backed embedded Web Worker event logs.
+* **Browser WASM**: `@servverse/queue-wasm` for embedded Web Worker event streaming using OPFS (`FileSystemSyncAccessHandle`).
 
 ---
 
-## Architecture Comparison
-
-| Feature | RabbitMQ | NATS JetStream | Kafka | ServQueue |
-|:---|:---|:---|:---|:---|
-| **Repository** | Separate | Separate | Separate | **Serv Monorepo** |
-| **Daemon / CLI Split** | Partial | `nats` CLI | `kafka-tools` | **`servqueued` / `servqueue`** |
-| **Compute-in-Queue** | ❌ (Plugins only) | ❌ | ❌ | **✅ (WASM WASI)** |
-| **Multi-Protocol** | AMQP/STOMP | NATS | Kafka | **STOMP, MQTT, Kafka, REST** |
-| **Point-in-Time Seek** | ❌ | Offset only | Offset/Timestamp | **`seekToTime` (CLI & REST)** |
-| **Embedded Admin UI** | Plugin | ❌ | External | **Built-in (`http://localhost:9092/ui`)** |
-| **CRDT Geo-Mirroring** | ❌ | ❌ | MirrorMaker 2 | **Native Active-Active CRDT** |
-| **K8s Operator & KEDA** | Third-party | Third-party | Strimzi | **Built-in Operator & KEDA** |
-
----
-
-## Quickstart (Monorepo Setup)
+## Quickstart with ServQueue v2
 
 ```bash
 # Clone the unified Serv monorepo
 git clone https://github.com/vyuvaraj/serv.git
 cd serv/packages/ServQueue
 
-# Build and run the daemon
+# Build and start the daemon (Web UI at http://localhost:9092/ui/)
 go build -o servqueued ./cmd/servqueued
 ./servqueued --port 9092
 
-# In another terminal, interact using the CLI
+# In another terminal, use the CLI
 go build -o servqueue ./cmd/servqueue
 ./servqueue status
-./servqueue topics create orders
-./servqueue publish orders '{"order_id": 1001, "total": 49.99}'
-./servqueue consume orders
-./servqueue seek orders 5m
+./servqueue topics create orders.created
+./servqueue publish orders.created '{"order_id": 1001, "amount": 99.99}'
+./servqueue seek orders.created 10m
 ```
 
 ---
 
-## Links & Ecosystem
+## Summary & What's Next
 
-- **Monorepo**: [github.com/vyuvaraj/serv](https://github.com/vyuvaraj/serv)
-- **ServQueue Package**: [packages/ServQueue](https://github.com/vyuvaraj/serv/tree/main/packages/ServQueue)
-- **Ecosystem Specs**: Check `UNIFIED_ROADMAP.md` in `servverse-repo`.
-- **License**: Apache 2.0
+ServQueue has grown from an experimental WASM pub/sub broker into a multi-protocol stream processing engine. By combining inline WASM transforms with native MQTT/Kafka protocol support, timestamp-based replay, and Kubernetes operator tooling, developers get the power of a modern event streaming platform with zero external dependencies.
 
----
-
-*Streamline your infrastructure. Run transformations near the data inside the broker, speak standard STOMP/MQTT/Kafka protocols, and scale seamlessly from embedded local-first PWAs to active-active cloud clusters.*
+* **Monorepo**: [github.com/vyuvaraj/serv](https://github.com/vyuvaraj/serv)
+* **Package Path**: `packages/ServQueue`
+* **License**: Apache 2.0
 
 *— Yuvaraj*
