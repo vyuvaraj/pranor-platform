@@ -101,6 +101,8 @@ Beyond server-side streaming, ServQueue extends event brokerage directly into th
 * **Embedded Web Worker Storage**: Powered by `@servverse/queue-wasm`, ServQueue runs an embedded event log inside browser Web Workers leveraging the Origin Private File System (`FileSystemSyncAccessHandle`) for high-throughput local disk storage.
 * **Offline Outbox & Reconnect Relay**: When a browser client loses network connectivity, published events are stored locally in the OPFS WAL. Upon network reconnection, an outbox relay automatically streams unacknowledged event ranges in exact sequence to the remote `servqueued` cluster.
 
+🔗 **Interactive Live Demo**: Test local-first browser queueing and outbox replay live in your browser: [Launch ServQueue OPFS Interactive Demo](https://vyuvaraj.github.io/servverse/playground/opfs_demo.html).
+
 ---
 
 ## 6. Cloud-Native Operations & K8s Ecosystem
