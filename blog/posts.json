@@ -151,5 +151,23 @@
     "badgeColor": "blue",
     "date": "2026-07-11",
     "readingTime": "7 min"
+  },
+  {
+    "slug": "servstore-v2-medium-article",
+    "title": "ServStore v2: Evolving Our S3 Engine into a Standalone Local-First P2P Analytical Store",
+    "excerpt": "Browser OPFS dual-sync, embedded DuckDB SQL analytics, Copy-on-Write bucket branching, and WebTorrent P2P seeding.",
+    "badge": "Infrastructure",
+    "badgeColor": "green",
+    "date": "2026-07-26",
+    "readingTime": "11 min"
+  },
+  {
+    "slug": "servgate-v2-medium-article",
+    "title": "ServGate v2: Evolving Our WASM API Gateway into a Standalone Edge AI & Kernel eBPF Engine",
+    "excerpt": "Universal Server/Browser WASM Engine, Smart AI Cost Router (saving 85%), TPM rate limiting, and eBPF XDP DDoS bypass.",
+    "badge": "Platform Layer",
+    "badgeColor": "blue",
+    "date": "2026-07-26",
+    "readingTime": "12 min"
   }
 ]
