@@ -121,6 +121,8 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 70: ServConsole — eBPF Flamegraph Profiler, Chaos Engine & Unified AI Assistant** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 5 | 1 | **83%** | ████████████████░░░░ |
+| **Phase 73: VS Code Extension Alignment** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+
 
 | **TOTAL ECOSYSTEM WORK** | **719** | **693** | **26** | **96%** | ███████████████████░ |
 
@@ -673,3 +675,20 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | PL.G4 | **`servctl` Cluster-Wide Administration CLI** | Platform CLI | Build `servctl` — a unified cluster administration CLI: `servctl cluster status`, `servctl chaos inject --service=servstore --type=latency --duration=60s`, `servctl deploy canary`, `servctl trace query --service=api` | [x] | OSS |
 | PL.G5 | **Unified Health, Readiness & Rollup Metrics API** | Platform Observability | Expose `/api/v1/health` rollup on `servd` aggregating health status and key metrics across all embedded modules; consumable by Kubernetes liveness/readiness probes and external monitoring systems (Datadog, Grafana) | [x] | OSS |
 | PL.G6 | **Official Docker Compose & Production Helm Chart Distribution** | Platform Distribution | Publish an official multi-service `docker-compose.yml` (local dev) and a production-grade `helm chart` deploying the complete Servverse stack to Kubernetes with a single `helm install servverse` command | [x] | OSS |
+
+
+---
+
+## Phase 73: VS Code Extension — Modern Ecosystem Alignment (Planned)
+
+> **Current State**: `serv-vscode` (v3.3.0) provides LSP client support, syntax highlighting, basic snippets, and exploratory panels.
+> **What is Missing**: Full syntax and snippet support for `async`/`concurrent` primitives, `servctl` CLI integration inside VS Code, `serv diff` breaking change detector integration, multi-target codegen context menus (Rust/Python), platform chaos injection controls, and direct ServConsole / WASM Playground deep-linking.
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| VS.G1 | **`async` / `concurrent` Syntax & Snippet Alignment** | VSCode Syntax | Update TextMate grammar (`serv.tmLanguage.json`) and snippets to fully support `async fn`, `async` call expressions, and `concurrent {}` parallel blocks | [ ] | OSS |
+| VS.G2 | **`servctl` Cluster Administration Integration** | VSCode Commands | Add VS Code command palette and sidebar actions for `servctl`: list services/nodes, restart services, apply configuration, and view `servd` health rollups | [ ] | OSS |
+| VS.G3 | **`serv diff` Breaking Change Detector Command** | VSCode Tooling | Add `Serv: Check Breaking API Changes` command running `serv diff` against git base branch (`main`) with inline diagnostic markers for field removals and type changes | [ ] | OSS |
+| VS.G4 | **Multi-Target Client Code Generation Context Menu** | VSCode Codegen | Add right-click context menu options on `.srv` files: `Serv: Generate Rust Client` (`--lang rust`) and `Serv: Generate Python Client` (`--lang python`) | [ ] | OSS |
+| VS.G5 | **Platform Chaos Injection Sidebar Control Panel** | VSCode Chaos | Add a Chaos Control View in the ServVerse sidebar to quickly trigger/abort network delay, CPU stress, and disk throttle experiments across cluster nodes | [ ] | OSS |
+| VS.G6 | **WASM Playground & ServConsole Deep-Link Export** | VSCode Integrations | Add `Serv: Export to WASM Playground` (opens snippet in `playground.servverse.dev`) and `Serv: Open in ServConsole` deep-linking commands | [ ] | OSS |
