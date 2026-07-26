@@ -108,7 +108,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 57: ServAuth — Session Management, Passkeys & Adaptive MFA** | 6 | 3 | 3 | **50%** | ██████████░░░░░░░░░░ |
 | **Phase 58: ServCache — Distributed Cluster Mode, Bloom Filters & Tiered TTL** | 6 | 5 | 1 | **83%** | ████████████████░░░░ |
 | **Phase 59: ServCron — DAG Job Chaining, Retry Policies & Cron-as-Code** | 6 | 6 | 0 | **100%** | ████████████████████ |
-| **Phase 60: ServFlow — Visual Workflow Designer, WASM Step Functions & Human Tasks** | 6 | 1 | 5 | **17%** | ███░░░░░░░░░░░░░░░░░ |
+| **Phase 60: ServFlow — Visual Workflow Designer, WASM Step Functions & Human Tasks** | 6 | 5 | 1 | **83%** | ████████████████░░░░ |
 | **Phase 61: ServMesh — WireGuard Overlay, mTLS Identity & Adaptive Load Balancing** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 62: ServCloud — Blue/Green Deploys, Preview URLs & Container Isolation** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 63: ServTrace — eBPF Continuous Profiling, Flamegraphs & SLO Burn Alerts** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **644** | **75** | **90%** | ██████████████████░░ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **648** | **71** | **90%** | ██████████████████░░ |
 
 
 ---
@@ -756,11 +756,11 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
 | SF.G1 | **Visual Drag-and-Drop Workflow Designer in ServConsole** | ServConsole UI | Build a canvas-based interactive workflow designer where developers can visually create, connect, and configure workflow task nodes without writing JSON/YAML definitions | [x] | OSS |
-| SF.G2 | **WASM Step Function Execution (Inline Compute per Task Node)** | ServFlow Engine | Allow individual workflow task steps to execute inline WebAssembly (WASM) bytecode rather than requiring remote HTTP endpoint callbacks; enables serverless compute-near-orchestration | [ ] | OSS |
+| SF.G2 | **WASM Step Function Execution (Inline Compute per Task Node)** | ServFlow Engine | Allow individual workflow task steps to execute inline WebAssembly (WASM) bytecode rather than requiring remote HTTP endpoint callbacks; enables serverless compute-near-orchestration | [x] | OSS |
 | SF.G3 | **Human Approval Task Gate (Async Pause + UI Approve/Reject)** | ServFlow Tasks | Implement a `human-task` step type that pauses workflow execution and presents an approval UI (email link or ServConsole panel) to designated reviewers before continuing | [ ] | **EE** |
-| SF.G4 | **Sub-Workflow Composition & Nested Workflow Invocation** | ServFlow Composition | Enable workflow task steps to invoke other named workflow definitions as sub-workflows, creating hierarchical multi-level pipeline structures with isolated instance tracking | [ ] | OSS |
-| SF.G5 | **Per-Execution OTel Span Attribution & Cost Tracking** | ServFlow Telemetry | Inject W3C `traceparent` context into each task step HTTP call; export OTel spans to ServTrace for full distributed tracing of workflow runs including step latencies | [ ] | OSS |
-| SF.G6 | **Dead Letter Workflow Queue & Manual Retry from ServConsole** | ServFlow DLQ | Capture permanently-failed workflow instances in a Dead Letter Queue; allow operators to inspect failure context and manually trigger selective re-execution from ServConsole | [ ] | OSS |
+| SF.G4 | **Sub-Workflow Composition & Nested Workflow Invocation** | ServFlow Composition | Enable workflow task steps to invoke other named workflow definitions as sub-workflows, creating hierarchical multi-level pipeline structures with isolated instance tracking | [x] | OSS |
+| SF.G5 | **Per-Execution OTel Span Attribution & Cost Tracking** | ServFlow Telemetry | Inject W3C `traceparent` context into each task step HTTP call; export OTel spans to ServTrace for full distributed tracing of workflow runs including step latencies | [x] | OSS |
+| SF.G6 | **Dead Letter Workflow Queue & Manual Retry from ServConsole** | ServFlow DLQ | Capture permanently-failed workflow instances in a Dead Letter Queue; allow operators to inspect failure context and manually trigger selective re-execution from ServConsole | [x] | OSS |
 
 ---
 
