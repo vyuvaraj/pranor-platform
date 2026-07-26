@@ -107,8 +107,8 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 
 | **Phase 57: ServAuth — Session Management, Passkeys & Adaptive MFA** | 6 | 3 | 3 | **50%** | ██████████░░░░░░░░░░ |
 | **Phase 58: ServCache — Distributed Cluster Mode, Bloom Filters & Tiered TTL** | 6 | 5 | 1 | **83%** | ████████████████░░░░ |
-| **Phase 59: ServCron — DAG Job Chaining, Retry Policies & Cron-as-Code** | 6 | 3 | 3 | **50%** | ██████████░░░░░░░░░░ |
-| **Phase 60: ServFlow — Visual Workflow Designer, WASM Step Functions & Human Tasks** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 59: ServCron — DAG Job Chaining, Retry Policies & Cron-as-Code** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 60: ServFlow — Visual Workflow Designer, WASM Step Functions & Human Tasks** | 6 | 1 | 5 | **17%** | ███░░░░░░░░░░░░░░░░░ |
 | **Phase 61: ServMesh — WireGuard Overlay, mTLS Identity & Adaptive Load Balancing** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 62: ServCloud — Blue/Green Deploys, Preview URLs & Container Isolation** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 63: ServTrace — eBPF Continuous Profiling, Flamegraphs & SLO Burn Alerts** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **640** | **79** | **89%** | ██████████████████░░ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **644** | **75** | **90%** | ██████████████████░░ |
 
 
 ---
@@ -741,10 +741,10 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 |---|------|-----------|-------------|--------|:---:|
 | CR.G1 | **DAG Job Chain Pipeline (Job-A → Job-B on Success/Failure)** | ServCron DAG | Extend the Job model with `OnSuccess` / `OnFailure` successor job references to form directed acyclic graph (DAG) execution pipelines across multiple HTTP callback steps | [x] | OSS |
 | CR.G2 | **Per-Job Retry Policy Engine (Exponential Backoff + Jitter)** | ServCron Retry | Add configurable per-job retry policies: max attempts, initial delay, exponential backoff multiplier, and random jitter; persist retry state across process restarts | [x] | OSS |
-| CR.G3 | **Failure Alert Webhooks & Slack / PagerDuty Notification Integration** | ServCron Alerts | Fire configurable webhook notifications (Slack, PagerDuty, custom URL) when a job exceeds its failure threshold or a DAG pipeline encounters a terminal failure | [ ] | OSS |
+| CR.G3 | **Failure Alert Webhooks & Slack / PagerDuty Notification Integration** | ServCron Alerts | Fire configurable webhook notifications (Slack, PagerDuty, custom URL) when a job exceeds its failure threshold or a DAG pipeline encounters a terminal failure | [x] | OSS |
 | CR.G4 | **Declarative YAML Cron-as-Code Definitions with Hot-Reload** | ServCron Config | Load job definitions from YAML configuration files (`jobs.yaml`) with file-watch hot-reload support; enables GitOps-style cron schedule management without API calls | [x] | OSS |
-| CR.G5 | **Timezone-Aware Cron Scheduling (IANA Zone Support)** | ServCron Scheduler | Support per-job IANA timezone specification (e.g. `America/New_York`) so jobs fire at correct local times regardless of server timezone; persist timezone in job definition | [ ] | OSS |
-| CR.G6 | **Job Execution History Gantt Timeline in ServConsole** | ServConsole UI | Render a visual execution timeline in ServConsole showing per-job run history, duration bars, status annotations, and failure counts with drill-down into audit log entries | [ ] | OSS |
+| CR.G5 | **Timezone-Aware Cron Scheduling (IANA Zone Support)** | ServCron Scheduler | Support per-job IANA timezone specification (e.g. `America/New_York`) so jobs fire at correct local times regardless of server timezone; persist timezone in job definition | [x] | OSS |
+| CR.G6 | **Job Execution History Gantt Timeline in ServConsole** | ServConsole UI | Render a visual execution timeline in ServConsole showing per-job run history, duration bars, status annotations, and failure counts with drill-down into audit log entries | [x] | OSS |
 
 ---
 
@@ -755,7 +755,7 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| SF.G1 | **Visual Drag-and-Drop Workflow Designer in ServConsole** | ServConsole UI | Build a canvas-based interactive workflow designer where developers can visually create, connect, and configure workflow task nodes without writing JSON/YAML definitions | [ ] | OSS |
+| SF.G1 | **Visual Drag-and-Drop Workflow Designer in ServConsole** | ServConsole UI | Build a canvas-based interactive workflow designer where developers can visually create, connect, and configure workflow task nodes without writing JSON/YAML definitions | [x] | OSS |
 | SF.G2 | **WASM Step Function Execution (Inline Compute per Task Node)** | ServFlow Engine | Allow individual workflow task steps to execute inline WebAssembly (WASM) bytecode rather than requiring remote HTTP endpoint callbacks; enables serverless compute-near-orchestration | [ ] | OSS |
 | SF.G3 | **Human Approval Task Gate (Async Pause + UI Approve/Reject)** | ServFlow Tasks | Implement a `human-task` step type that pauses workflow execution and presents an approval UI (email link or ServConsole panel) to designated reviewers before continuing | [ ] | **EE** |
 | SF.G4 | **Sub-Workflow Composition & Nested Workflow Invocation** | ServFlow Composition | Enable workflow task steps to invoke other named workflow definitions as sub-workflows, creating hierarchical multi-level pipeline structures with isolated instance tracking | [ ] | OSS |
