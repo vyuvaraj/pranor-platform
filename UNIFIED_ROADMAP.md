@@ -548,22 +548,6 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 
 ---
 
-## Phase 59: ServCron — DAG Job Chaining, Retry Policies & Cron-as-Code (Planned)
-
-> **Current State**: ServCron implements per-job HTTP callback scheduling with 5-field cron expressions, distributed leader election locking, ServQueue fan-out integration, failure counting, and audit logging.
-> **What is Missing**: Multi-step DAG job pipelines (Job A triggers Job B on success/failure), configurable per-job retry backoff strategies, failure alert webhooks (Slack/PagerDuty), declarative YAML cron-as-code file loading, timezone-aware scheduling, and a visual execution timeline in ServConsole.
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| CR.G1 | **DAG Job Chain Pipeline (Job-A → Job-B on Success/Failure)** | ServCron DAG | Extend the Job model with `OnSuccess` / `OnFailure` successor job references to form directed acyclic graph (DAG) execution pipelines across multiple HTTP callback steps | [x] | OSS |
-| CR.G2 | **Per-Job Retry Policy Engine (Exponential Backoff + Jitter)** | ServCron Retry | Add configurable per-job retry policies: max attempts, initial delay, exponential backoff multiplier, and random jitter; persist retry state across process restarts | [x] | OSS |
-| CR.G3 | **Failure Alert Webhooks & Slack / PagerDuty Notification Integration** | ServCron Alerts | Fire configurable webhook notifications (Slack, PagerDuty, custom URL) when a job exceeds its failure threshold or a DAG pipeline encounters a terminal failure | [x] | OSS |
-| CR.G4 | **Declarative YAML Cron-as-Code Definitions with Hot-Reload** | ServCron Config | Load job definitions from YAML configuration files (`jobs.yaml`) with file-watch hot-reload support; enables GitOps-style cron schedule management without API calls | [x] | OSS |
-| CR.G5 | **Timezone-Aware Cron Scheduling (IANA Zone Support)** | ServCron Scheduler | Support per-job IANA timezone specification (e.g. `America/New_York`) so jobs fire at correct local times regardless of server timezone; persist timezone in job definition | [x] | OSS |
-| CR.G6 | **Job Execution History Gantt Timeline in ServConsole** | ServConsole UI | Render a visual execution timeline in ServConsole showing per-job run history, duration bars, status annotations, and failure counts with drill-down into audit log entries | [x] | OSS |
-
----
-
 ## Phase 60: ServFlow — Visual Workflow Designer, WASM Step Functions & Human Tasks (Planned)
 
 > **Current State**: ServFlow implements a DAG workflow engine with task dependency resolution, time-travel replay snapshots, and ServQueue topic integration for async task dispatch.
@@ -628,38 +612,6 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 
 ---
 
-## Phase 64: ServMail — DMARC Enforcement, Inbound Webhooks & Email Template DSL (Planned)
-
-> **Current State**: ServMail implements SMTP ingestion, DKIM signing, a disk-backed sending queue, and basic Handlebars-style template rendering.
-> **What is Missing**: DMARC policy enforcement (SPF + DKIM alignment validation for outbound integrity), inbound email webhook routing (no ability to receive and process incoming mail), a full template DSL with partials and loops, bounce and complaint handling with automatic suppression list management, and email analytics in ServConsole.
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| ML.G1 | **DMARC Policy Enforcement (SPF + DKIM Alignment Validation)** | ServMail Security | Validate DMARC `p=quarantine`/`p=reject` policy alignment between SPF envelope-from domain and DKIM `d=` header domain before delivering or relaying outbound messages | [x] | OSS |
-| ML.G2 | **Inbound Email Webhook Router** | ServMail Inbound | Parse incoming SMTP messages and route them to configurable HTTP webhook endpoints based on recipient address pattern matching; enables "email as a workflow trigger" use cases | [x] | OSS |
-| ML.G3 | **Email Template DSL with Partials, Loops & Conditional Blocks** | ServMail Templates | Extend the template engine with `{{#each items}}`, `{{#if condition}}`, and `{{> partial_name}}` support for reusable transactional email component composition | [x] | OSS |
-| ML.G4 | **Bounce & Complaint Handling with Automatic Suppression List** | ServMail Delivery | Parse SMTP bounce DSNs and ISP Feedback Loop (FBL) complaint notifications; automatically add bounced and complained addresses to a suppression list to protect sender reputation | [x] | OSS |
-| ML.G5 | **One-Click Unsubscribe (RFC 8058) & List Management** | ServMail Compliance | Auto-inject `List-Unsubscribe` and `List-Unsubscribe-Post` headers; handle one-click unsubscribe webhooks; maintain per-sender suppression lists with full audit history | [x] | OSS |
-| ML.G6 | **Email Delivery Analytics Dashboard (Open, Click, Bounce Rates)** | ServConsole UI | Stream per-campaign delivery, open-pixel tracking, click-through, and bounce event metrics into ServConsole for deliverability health monitoring and alert thresholds | [x] | OSS |
-
----
-
-## Phase 65: ServPool — Adaptive Scaling, Read-Replica Routing & Connection Health (Planned)
-
-> **Current State**: ServPool implements an adaptive connection pool with LRU eviction, dynamic max-connection scaling, a wait queue for pool saturation, and per-dialect connection management.
-> **What is Missing**: Read/write split routing (primary for writes, replicas for reads), pre-checkout connection health validation (no heartbeat ping before returning stale connections), automatic connection leak detection, per-query latency histograms, and prepared statement caching.
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| SP.G1 | **Read/Write Split Router (Primary for Writes, Replica for Reads)** | ServPool Routing | Detect read vs. write SQL intent (SELECT vs. INSERT/UPDATE/DELETE) and route queries to appropriate replica or primary connections; configure per-replica weights for read load distribution | [x] | OSS |
-| SP.G2 | **Pre-Checkout Connection Health Validation (Ping & Validation Query)** | ServPool Health | Execute a configurable lightweight validation query (e.g. `SELECT 1`) before returning a pooled connection to the caller; immediately discard and replace stale, closed, or broken connections | [x] | OSS |
-| SP.G3 | **Automatic Connection Leak Detection & Forced Reclaim** | ServPool Safety | Track connections checked out beyond a configurable `maxHoldDuration`; log a stack trace warning and forcibly reclaim leaked connections to prevent pool exhaustion under load | [x] | OSS |
-| SP.G4 | **Per-Query Execution Time Histogram & Slow Query Logger** | ServPool Telemetry | Wrap every query execution with nanosecond timing; maintain P50/P95/P99 latency histograms per query fingerprint and log queries exceeding a configurable slow-query threshold | [x] | OSS |
-| SP.G5 | **Multi-Dialect Prepared Statement Cache** | ServPool Cache | Cache parsed and compiled prepared statements per-connection-per-dialect (PostgreSQL, MySQL, SQLite); reduce repeated parse overhead on high-throughput transactional workloads | [x] | OSS |
-| SP.G6 | **Pool Utilization & Saturation Alerting in ServConsole** | ServConsole UI | Stream real-time pool utilization (active/idle/waiting connection counts) to ServConsole; alert operators when pool saturation or wait queue depth exceeds configurable thresholds | [x] | OSS |
-
----
-
 ## Phase 66: ServTunnel — WebSocket Multiplexing, Replay Inspector & Auth Gating (Planned)
 
 > **Current State**: ServTunnel implements HTTP request tunneling with subdomain routing, a request inspector UI, OTel integration, and webhook forwarding.
@@ -673,22 +625,6 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | TN.G4 | **Persistent Tunnel Reconnect with Exponential Backoff & Jitter** | ServTunnel Client | Implement automatic reconnect logic in the tunnel client with exponential backoff and jitter; maintain tunnel availability and re-register subdomain routing across transient network interruptions | [x] | OSS |
 | TN.G5 | **Per-Tunnel Bandwidth Throttling & Rate Limiting** | ServTunnel Policy | Enforce configurable bandwidth limits (bytes/second) per tunnel connection to prevent a single heavy client from saturating the shared tunnel relay infrastructure | [ ] | **EE** |
 | TN.G6 | **Shareable Tunnel URLs with Expiry & One-Time Access Tokens** | ServTunnel Sharing | Generate shareable tunnel URLs with configurable TTL expiry and single-use access tokens for secure, time-limited collaboration on local development services | [x] | OSS |
-
----
-
-## Phase 67: Serv-lang — Rust & Python Code-Gen Targets & WASM Browser Playground (Planned)
-
-> **Current State**: Serv-lang compiles `.serv` schema definitions to Go and TypeScript with full LSP IntelliSense, an import system, async runtime, WASM compilation support, and a plugin architecture.
-> **What is Missing**: A Rust code-generation target (for high-performance edge services), a Python code-generation target (for ML/AI service consumers using FastAPI/Pydantic), a zero-install WASM browser playground for frictionless evaluation, multi-file schema cross-import type resolution, and a breaking change detector (`serv diff`).
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| SL.G1 | **Rust Code-Generation Target (`serv generate --lang rust`)** | Serv-lang Codegen | Add a Rust backend code-generator producing idiomatic Rust `struct` definitions, `serde` derive macros, trait implementations, and `axum` server stubs from `.serv` schema files | [x] | OSS |
-| SL.G2 | **Python Code-Generation Target (`serv generate --lang python`)** | Serv-lang Codegen | Add a Python code-generator producing Pydantic v2 model definitions and FastAPI router stubs from `.serv` schema files; targeting ML/AI teams building LLM service consumers | [x] | OSS |
-| SL.G3 | **Zero-Install WASM Browser Playground (`playground.servverse.dev`)** | Serv-lang Runtime | Compile the Serv-lang compiler toolchain to WebAssembly and host an interactive browser IDE where developers write, compile, and preview `.serv` definitions without any local installation | [x] | OSS |
-| SL.G4 | **Multi-File Schema Import System with Cross-File Type Resolution** | Serv-lang Compiler | Implement cross-file type imports (`import "auth.serv"`) with a full dependency graph resolver; allow large service definitions to be cleanly split across multiple `.serv` schema files | [x] | OSS |
-| SL.G5 | **Breaking Change Detector (`serv diff old.serv new.serv`)** | Serv-lang Tooling | Add a `serv diff` command that compares two `.serv` schema versions and outputs a structured compatibility report: new fields (safe), renamed fields (warning), removed fields (breaking) | [x] | OSS |
-| SL.G6 | **`async` Task & `concurrent {}` Language Primitives** | Serv-lang Parser | Add `async task` and `concurrent { }` block keywords to the Serv-lang grammar enabling declarative concurrent step execution within service handlers, compiled to goroutines in Go | [x] | OSS |
 
 ---
 
@@ -708,22 +644,6 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 
 ---
 
-## Phase 69: ServStore — Native HNSW Vector Index & Semantic Object Search (Planned)
-
-> **Current State**: ServStore provides full S3 API compatibility, DuckDB SQL analytics, streaming S3 Select, OPFS browser sync, CoW bucket branching, WebTorrent P2P seeding, CRDT geo-replication, WORM locking, and FIPS KMS encryption.
-> **What is Missing**: An embedded HNSW vector index engine for semantic similarity search over stored object embeddings (currently requires external Qdrant/Pinecone), automatic embedding generation on text object upload, hybrid keyword + vector search, and per-bucket vector index namespace management.
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| SS.A1 | **Embedded HNSW Vector Index Engine (In-Process Similarity Search)** | ServStore Vector | Implement an HNSW (Hierarchical Navigable Small World) vector index engine embedded directly in `servstored`; store and query float32 embedding vectors with configurable M and efConstruction graph parameters | [x] | OSS |
-| SS.A2 | **Automatic Embedding Generation for Text Objects on PUT** | ServStore Embedding | When an object with `Content-Type: text/*` is uploaded, call a configured embedding model endpoint (local Ollama or OpenAI) to auto-generate and store a float32 vector alongside object metadata | [x] | OSS |
-| SS.A3 | **Hybrid Keyword + Vector Semantic Search API** | ServStore Search | Expose a `/api/v1/search` endpoint combining BM25 keyword relevance scoring with HNSW cosine similarity for hybrid semantic + lexical ranked search over bucket object content | [x] | OSS |
-| SS.A4 | **Per-Bucket Vector Index Namespace Management** | ServStore Namespaces | Maintain isolated per-bucket HNSW vector index namespaces; support API-driven creation, rebuilding, and deletion of vector indexes independently from object storage lifecycle | [x] | OSS |
-| SS.A5 | **ANN Query API with k, Score Threshold & Metadata Filters** | ServStore Query | Expose `GET /api/v1/vectors/{bucket}/search?k=10&min_score=0.80&tag=finance` for top-k nearest neighbor retrieval with minimum score thresholding and metadata predicate pre-filtering | [x] | OSS |
-| SS.A6 | **Persistent mmap-Backed HNSW Graph with Incremental Node Insertion** | ServStore Persistence | Persist HNSW graph state to disk using memory-mapped files; support incremental online insertion of new vector nodes without requiring full graph rebuild on each new object PUT | [x] | OSS |
-
----
-
 ## Phase 70: ServConsole — eBPF Flamegraph Profiler, Chaos Engine UI & Unified AI Assistant (Planned)
 
 > **Current State**: ServConsole implements OTel trace waterfall dashboards, hash ring visualizers, SQL workbench, alert management, topology views, and a launcher for all Servverse services.
@@ -737,22 +657,6 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | CC.G4 | **Embedded AI Assistant Chat Panel (Powered by ServGate MCP)** | ServConsole AI | Embed a conversational AI assistant that answers questions about the running system, explains trace anomalies, suggests performance optimizations, and executes SQL queries via ServGate MCP tool calls | [ ] | **EE** |
 | CC.G5 | **Cost Attribution Dashboard (Per-Service Egress, Storage & AI Token Spend)** | ServConsole Cost | Aggregate egress bandwidth, object storage bytes, AI token consumption, and ServQueue message throughput per service/team; render a cost attribution breakdown with budget alert thresholds | [ ] | **EE** |
 | CC.G6 | **Theme Customization, Pinned Dashboard Widgets & Keyboard Shortcuts** | ServConsole UX | Persist user preferences for dark/light theme, dashboard widget layout (drag-to-reorder), pinned quick-access shortcuts to frequently viewed resources, and configurable keyboard shortcut bindings | [x] | OSS |
-
----
-
-## Phase 71: ServQueue — Schema Registry, DLQ Replay UI & Consumer Group Dashboard (Planned)
-
-> **Current State**: ServQueue provides STOMP, MQTT, Kafka-protocol compatibility, WASM stream processing, CRDT geo-replication, OPFS browser queuing, Dead Letter Queues, ServConsole admin UI, and enterprise encryption.
-> **What is Missing**: A Schema Registry for enforcing Avro/JSON Schema/Protobuf message contracts at the broker (currently no schema validation), a DLQ browser with one-click replay in ServConsole, per-consumer-group lag dashboards with partition-level offset inspection, Kafka-style log compaction, and W3C trace context propagation through messages.
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| SQ.G1 | **Embedded Schema Registry for Message Contract Enforcement** | ServQueue Schema | Implement an embedded Schema Registry validating producer messages against registered Avro/JSON Schema/Protobuf contracts before routing; reject incompatible messages with structured schema validation errors | [x] | OSS |
-| SQ.G2 | **DLQ Browser & One-Click Replay in ServConsole** | ServConsole UI | Render a DLQ inspector in ServConsole showing failed message payloads, error reasons, retry counts, and original topic metadata; allow operators to replay individual or bulk DLQ messages back into the source topic | [x] | OSS |
-| SQ.G3 | **Consumer Group Lag Dashboard with Partition-Level Offset Inspection** | ServConsole UI | Display per-consumer-group, per-partition message lag (offset delta between latest produced and latest committed); surface groups falling behind their SLA processing rate with configurable lag alerts | [x] | OSS |
-| SQ.G4 | **Topic Log Compaction Policy Engine (Key-Based Compaction & Retention)** | ServQueue Storage | Implement Kafka-style log compaction for topics with `cleanup.policy=compact`; retain only the latest record per message key; configurable time-based and size-based retention policies alongside compaction | [x] | OSS |
-| SQ.G5 | **Per-Message W3C Trace Context Propagation (OTel traceparent)** | ServQueue Tracing | Inject W3C `traceparent` headers into each message at produce time; extract and continue the distributed trace on the consumer side; visualize full producer-to-consumer message flow in ServTrace | [x] | OSS |
-| SQ.G6 | **Multi-Tab Browser OPFS Queue Leader Election via navigator.locks** | ServQueue OPFS | Implement browser multi-tab leader election using the Web Locks API (`navigator.locks`) so only one browser tab acts as OPFS queue primary; other tabs register as followers consuming via BroadcastChannel | [x] | OSS |
 
 ---
 
