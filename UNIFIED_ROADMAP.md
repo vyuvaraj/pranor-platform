@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **672** | **47** | **93%** | ███████████████████░ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **678** | **41** | **94%** | ████████████████████ |
 
 
 ---
@@ -668,11 +668,11 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
 | TN.G1 | **WebSocket Connection Multiplexing over a Single Tunnel Pipe** | ServTunnel Protocol | Multiplex multiple concurrent WebSocket connections from different clients over a single persistent tunnel connection using a lightweight stream framing header protocol | [x] | OSS |
-| TN.G2 | **JWT / API-Key Auth Gating on Tunnel Endpoint Connections** | ServTunnel Auth | Require JWT bearer tokens or API keys before accepting inbound HTTP connections on any tunnel endpoint; integrate with ServAuth for token validation and scope enforcement | [ ] | OSS |
-| TN.G3 | **Full Request & Response Body Capture with Replay UI in ServConsole** | ServTunnel Inspector | Capture complete request/response pairs (headers, body, timing, status) and expose them in a ServConsole tunnel inspector tab; allow one-click replay of any captured request for debugging | [ ] | OSS |
-| TN.G4 | **Persistent Tunnel Reconnect with Exponential Backoff & Jitter** | ServTunnel Client | Implement automatic reconnect logic in the tunnel client with exponential backoff and jitter; maintain tunnel availability and re-register subdomain routing across transient network interruptions | [ ] | OSS |
+| TN.G2 | **JWT / API-Key Auth Gating on Tunnel Endpoint Connections** | ServTunnel Auth | Require JWT bearer tokens or API keys before accepting inbound HTTP connections on any tunnel endpoint; integrate with ServAuth for token validation and scope enforcement | [x] | OSS |
+| TN.G3 | **Full Request & Response Body Capture with Replay UI in ServConsole** | ServTunnel Inspector | Capture complete request/response pairs (headers, body, timing, status) and expose them in a ServConsole tunnel inspector tab; allow one-click replay of any captured request for debugging | [x] | OSS |
+| TN.G4 | **Persistent Tunnel Reconnect with Exponential Backoff & Jitter** | ServTunnel Client | Implement automatic reconnect logic in the tunnel client with exponential backoff and jitter; maintain tunnel availability and re-register subdomain routing across transient network interruptions | [x] | OSS |
 | TN.G5 | **Per-Tunnel Bandwidth Throttling & Rate Limiting** | ServTunnel Policy | Enforce configurable bandwidth limits (bytes/second) per tunnel connection to prevent a single heavy client from saturating the shared tunnel relay infrastructure | [ ] | **EE** |
-| TN.G6 | **Shareable Tunnel URLs with Expiry & One-Time Access Tokens** | ServTunnel Sharing | Generate shareable tunnel URLs with configurable TTL expiry and single-use access tokens for secure, time-limited collaboration on local development services | [ ] | OSS |
+| TN.G6 | **Shareable Tunnel URLs with Expiry & One-Time Access Tokens** | ServTunnel Sharing | Generate shareable tunnel URLs with configurable TTL expiry and single-use access tokens for secure, time-limited collaboration on local development services | [x] | OSS |
 
 ---
 
@@ -683,8 +683,8 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| SL.G1 | **Rust Code-Generation Target (`serv generate --lang rust`)** | Serv-lang Codegen | Add a Rust backend code-generator producing idiomatic Rust `struct` definitions, `serde` derive macros, trait implementations, and `axum` server stubs from `.serv` schema files | [ ] | OSS |
-| SL.G2 | **Python Code-Generation Target (`serv generate --lang python`)** | Serv-lang Codegen | Add a Python code-generator producing Pydantic v2 model definitions and FastAPI router stubs from `.serv` schema files; targeting ML/AI teams building LLM service consumers | [ ] | OSS |
+| SL.G1 | **Rust Code-Generation Target (`serv generate --lang rust`)** | Serv-lang Codegen | Add a Rust backend code-generator producing idiomatic Rust `struct` definitions, `serde` derive macros, trait implementations, and `axum` server stubs from `.serv` schema files | [x] | OSS |
+| SL.G2 | **Python Code-Generation Target (`serv generate --lang python`)** | Serv-lang Codegen | Add a Python code-generator producing Pydantic v2 model definitions and FastAPI router stubs from `.serv` schema files; targeting ML/AI teams building LLM service consumers | [x] | OSS |
 | SL.G3 | **Zero-Install WASM Browser Playground (`playground.servverse.dev`)** | Serv-lang Runtime | Compile the Serv-lang compiler toolchain to WebAssembly and host an interactive browser IDE where developers write, compile, and preview `.serv` definitions without any local installation | [ ] | OSS |
 | SL.G4 | **Multi-File Schema Import System with Cross-File Type Resolution** | Serv-lang Compiler | Implement cross-file type imports (`import "auth.serv"`) with a full dependency graph resolver; allow large service definitions to be cleanly split across multiple `.serv` schema files | [ ] | OSS |
 | SL.G5 | **Breaking Change Detector (`serv diff old.serv new.serv`)** | Serv-lang Tooling | Add a `serv diff` command that compares two `.serv` schema versions and outputs a structured compatibility report: new fields (safe), renamed fields (warning), removed fields (breaking) | [ ] | OSS |
