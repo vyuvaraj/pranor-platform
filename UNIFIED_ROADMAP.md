@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **660** | **59** | **92%** | ████████████████████ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **664** | **55** | **92%** | ████████████████████ |
 
 
 ---
@@ -808,7 +808,7 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 | ST.G3 | **SLO Burn Rate Alert Engine (Implement SloBreachPredictor — Multi-Window)** | ServTrace SLO | Implement the declared `SloBreachPredictor` interface using Google SRE-style multi-window (1h + 6h) error budget burn rate; fire alerts when burn rate exceeds configured thresholds | [x] | OSS |
 | ST.G4 | **Trace Sampling Policy Manager (Head-Based & Tail-Based)** | ServTrace Sampling | Configure per-service head-based sampling rates; implement tail-based adaptive sampling that retrospectively retains 100% of traces containing errors or latency outliers above a P95 threshold | [ ] | **EE** |
 | ST.G5 | **Exemplar-Linked Prometheus Metrics & Histogram Correlation** | ServTrace Metrics | Embed OTel trace exemplars into Prometheus histogram buckets so ServConsole dashboards can jump from a P99 latency spike directly to a representative trace example with one click | [x] | OSS |
-| ST.G6 | **Critical Path Analyzer & Distributed Dependency Map** | ServTrace Analysis | Automatically compute the critical path across distributed trace spans; highlight the slowest causal dependency in each trace and visualize the full service call graph in ServConsole | [ ] | OSS |
+| ST.G6 | **Critical Path Analyzer & Distributed Dependency Map** | ServTrace Analysis | Automatically compute the critical path across distributed trace spans; highlight the slowest causal dependency in each trace and visualize the full service call graph in ServConsole | [x] | OSS |
 
 ---
 
@@ -819,9 +819,9 @@ The open-source core repositories (such as `ServGate`, `ServStore`, etc.) must o
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| ML.G1 | **DMARC Policy Enforcement (SPF + DKIM Alignment Validation)** | ServMail Security | Validate DMARC `p=quarantine`/`p=reject` policy alignment between SPF envelope-from domain and DKIM `d=` header domain before delivering or relaying outbound messages | [ ] | OSS |
-| ML.G2 | **Inbound Email Webhook Router** | ServMail Inbound | Parse incoming SMTP messages and route them to configurable HTTP webhook endpoints based on recipient address pattern matching; enables "email as a workflow trigger" use cases | [ ] | OSS |
-| ML.G3 | **Email Template DSL with Partials, Loops & Conditional Blocks** | ServMail Templates | Extend the template engine with `{{#each items}}`, `{{#if condition}}`, and `{{> partial_name}}` support for reusable transactional email component composition | [ ] | OSS |
+| ML.G1 | **DMARC Policy Enforcement (SPF + DKIM Alignment Validation)** | ServMail Security | Validate DMARC `p=quarantine`/`p=reject` policy alignment between SPF envelope-from domain and DKIM `d=` header domain before delivering or relaying outbound messages | [x] | OSS |
+| ML.G2 | **Inbound Email Webhook Router** | ServMail Inbound | Parse incoming SMTP messages and route them to configurable HTTP webhook endpoints based on recipient address pattern matching; enables "email as a workflow trigger" use cases | [x] | OSS |
+| ML.G3 | **Email Template DSL with Partials, Loops & Conditional Blocks** | ServMail Templates | Extend the template engine with `{{#each items}}`, `{{#if condition}}`, and `{{> partial_name}}` support for reusable transactional email component composition | [x] | OSS |
 | ML.G4 | **Bounce & Complaint Handling with Automatic Suppression List** | ServMail Delivery | Parse SMTP bounce DSNs and ISP Feedback Loop (FBL) complaint notifications; automatically add bounced and complained addresses to a suppression list to protect sender reputation | [ ] | OSS |
 | ML.G5 | **One-Click Unsubscribe (RFC 8058) & List Management** | ServMail Compliance | Auto-inject `List-Unsubscribe` and `List-Unsubscribe-Post` headers; handle one-click unsubscribe webhooks; maintain per-sender suppression lists with full audit history | [ ] | OSS |
 | ML.G6 | **Email Delivery Analytics Dashboard (Open, Click, Bounce Rates)** | ServConsole UI | Stream per-campaign delivery, open-pixel tracking, click-through, and bounce event metrics into ServConsole for deliverability health monitoring and alert thresholds | [ ] | OSS |
