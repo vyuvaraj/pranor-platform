@@ -122,7 +122,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM WORK** | **719** | **690** | **29** | **96%** | ███████████████████░ |
+| **TOTAL ECOSYSTEM WORK** | **719** | **693** | **26** | **96%** | ███████████████████░ |
 
 
 ---
@@ -732,11 +732,11 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
 | CC.G1 | **eBPF Flamegraph Profiling Tab with OTel Trace Correlation** | ServConsole Profiler | Add a Profiling tab rendering interactive SVG flamegraphs from ServTrace eBPF profiling data; automatically correlate captured flamegraph stack samples with the active OTel trace span being inspected | [x] | OSS |
-| CC.G2 | **Chaos Engineering Control Panel** | ServConsole Chaos | Provide a UI panel for initiating and monitoring chaos experiments: inject latency, drop packets, kill service replicas, or simulate clock skew; visualize real-time impact on service topology error rates | [ ] | OSS |
-| CC.G3 | **Unified Global Search Across All Servverse Resources (⌘K)** | ServConsole Search | Implement a `cmd+K`-style universal command palette searching across trace IDs, object keys, queue topics, job names, service instances, and alert events; returning ranked contextual results | [ ] | OSS |
+| CC.G2 | **Chaos Engineering Control Panel** | ServConsole Chaos | Provide a UI panel for initiating and monitoring chaos experiments: inject latency, drop packets, kill service replicas, or simulate clock skew; visualize real-time impact on service topology error rates | [x] | OSS |
+| CC.G3 | **Unified Global Search Across All Servverse Resources (⌘K)** | ServConsole Search | Implement a `cmd+K`-style universal command palette searching across trace IDs, object keys, queue topics, job names, service instances, and alert events; returning ranked contextual results | [x] | OSS |
 | CC.G4 | **Embedded AI Assistant Chat Panel (Powered by ServGate MCP)** | ServConsole AI | Embed a conversational AI assistant that answers questions about the running system, explains trace anomalies, suggests performance optimizations, and executes SQL queries via ServGate MCP tool calls | [ ] | **EE** |
 | CC.G5 | **Cost Attribution Dashboard (Per-Service Egress, Storage & AI Token Spend)** | ServConsole Cost | Aggregate egress bandwidth, object storage bytes, AI token consumption, and ServQueue message throughput per service/team; render a cost attribution breakdown with budget alert thresholds | [ ] | **EE** |
-| CC.G6 | **Theme Customization, Pinned Dashboard Widgets & Keyboard Shortcuts** | ServConsole UX | Persist user preferences for dark/light theme, dashboard widget layout (drag-to-reorder), pinned quick-access shortcuts to frequently viewed resources, and configurable keyboard shortcut bindings | [ ] | OSS |
+| CC.G6 | **Theme Customization, Pinned Dashboard Widgets & Keyboard Shortcuts** | ServConsole UX | Persist user preferences for dark/light theme, dashboard widget layout (drag-to-reorder), pinned quick-access shortcuts to frequently viewed resources, and configurable keyboard shortcut bindings | [x] | OSS |
 
 ---
 
