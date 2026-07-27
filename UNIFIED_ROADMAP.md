@@ -703,13 +703,13 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
 | **ServStore Differentiators** | | | | | |
-| ST.D1 | **`servstore bench` Built-in Performance Benchmarking Command** | ServStore CLI | Add built-in CLI benchmark tool `servstore bench --ops 10000 --concurrency 16 --object-size 4KB` measuring PUT/GET/LIST ops/sec, P50, P95, and P99 latencies without external dependencies | [ ] | OSS |
+| ST.D1 | **`servstore bench` Built-in Performance Benchmarking Command** | ServStore CLI | Add built-in CLI benchmark tool `servstore bench --ops 10000 --concurrency 16 --object-size 4KB` measuring PUT/GET/LIST ops/sec, P50, P95, and P99 latencies without external dependencies | [x] | OSS |
 | ST.D2 | **`servstore import` One-Command Cloud Migration Mirror** | ServStore Migration | Add built-in S3 migration command `servstore import --from s3://my-aws-bucket` to mirror external AWS S3/GCS buckets into ServStore seamlessly | [ ] | OSS |
 | ST.D3 | **Object Metadata SQL Query API Endpoint (`GET /{bucket}?sql=...`)** | ServStore Query | Allow querying object metadata like a database directly via SQL expressions (`SELECT key, size, last_modified FROM objects WHERE size > 1048576 ORDER BY last_modified DESC`) | [ ] | OSS |
 | ST.D4 | **Zero-Dependency Webhook & Event Notifications** | ServStore Events | Simple REST API subscription for object creation/deletion webhooks (`{"bucket":"uploads","events":["s3:ObjectCreated:*"],"webhook":"https://myapp.com/hook"}`) without requiring SQS or Kafka | [ ] | OSS |
 | ST.D5 | **`servstore serve-static` Instant Static Site Hosting** | ServStore Web | Turn any bucket into a static website host (`servstore serve-static --bucket my-site --port 3000`) with proper MIME detection, index.html fallback, and 404 handling | [ ] | OSS |
 | **ServGate Differentiators** | | | | | |
-| SG.D1 | **Upstream LLM Dispatch for Smart Router** | ServGate AI | Wire `smart_router.go` to execute real upstream HTTP completions to Ollama/OpenAI/Anthropic instead of returning stub mock responses | [ ] | OSS |
+| SG.D1 | **Upstream LLM Dispatch for Smart Router** | ServGate AI | Wire `smart_router.go` to execute real upstream HTTP completions to Ollama/OpenAI/Anthropic instead of returning stub mock responses | [x] | OSS |
 | SG.D2 | **`servgate dashboard` Terminal Live Traffic Dashboard (TUI)** | ServGate CLI | Build a terminal-based live htop-style dashboard showing real-time RPS, active connections, circuit breaker state, cache hit rate, and P99 latency per route | [ ] | OSS |
 | SG.D3 | **OpenAPI-Aware Request Validation & Route Enforcement** | ServGate Validation | Validate incoming request bodies, query params, and headers against OpenAPI 3.0 spec (`openapi_spec: ./openapi.yaml`) before proxying | [ ] | OSS |
 | SG.D4 | **Request/Response Recording & Shadow Diff Replay** | ServGate Replay | Record live traffic, replay against a candidate backend version, and compute structural diffs highlighting changed API responses before production deployment | [ ] | OSS |
@@ -717,7 +717,7 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | SG.D6 | **`servgate generate-config` Zero-Config Learn Mode** | ServGate Config | Run ServGate in learn mode to inspect unrouted traffic and auto-generate `config.json` with discovered routes, rate limits, and circuit breaker thresholds | [ ] | OSS |
 | **ServQueue Differentiators** | | | | | |
 | SQ.D1 | **Standalone Embedded Web Management UI (`/ui/`)** | ServQueue UI | Lightweight browser UI embedded directly in `servqueued` at `/ui/` showing active topics, consumer lag, DLQ browser with one-click replay, and schema registry | [ ] | OSS |
-| SQ.D2 | **Plain HTTP/SSE Consumer Protocol (`/api/v1/subscribe/...`)** | ServQueue API | Long-polling Server-Sent Events (SSE) consumer endpoint allowing any HTTP client to subscribe to topic streams without STOMP/Kafka drivers | [ ] | OSS |
+| SQ.D2 | **Plain HTTP/SSE Consumer Protocol (`/api/v1/subscribe/...`)** | ServQueue API | Long-polling Server-Sent Events (SSE) consumer endpoint allowing any HTTP client to subscribe to topic streams without STOMP/Kafka drivers | [x] | OSS |
 | SQ.D3 | **Delayed & Cron-Scheduled Message Engine** | ServQueue Scheduling | First-class delayed and cron-scheduled message publishing API (`{"topic":"reports","schedule":"0 9 * * MON"}`) using internal TimeWheel engine | [ ] | OSS |
 | SQ.D4 | **`servqueue benchmark` Built-in Queue Throughput Test** | ServQueue CLI | Add built-in CLI benchmark tool `servqueue benchmark --messages 100000 --producers 8 --consumers 4` measuring msg/sec throughput and latency percentiles | [ ] | OSS |
 | SQ.D5 | **SQLite-Backed Persistent Storage Mode** | ServQueue Storage | Offer single-file SQLite storage backend for single-node deployments providing ACID durability and SQL queryability over message history | [ ] | OSS |
@@ -734,7 +734,7 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 |---|------|-----------|-------------|--------|:---:|
 | **ServStore Concurrency & Memory Hardening** | | | | | |
 | ST.H1 | **Fine-Grained Per-Bucket/Key Striped Lock Manager** | ServStore Core | Replace global `sync.RWMutex` with a striped bucket/key lock manager to eliminate global write serialization and allow parallel `PutObject` calls across different keys | [ ] | OSS |
-| ST.H2 | **Zero-Memory-Copy Streaming `PutObject` Pipeline** | ServStore Storage | Replace `io.ReadAll` in `PutObject` with a streaming temp-file disk pipeline (`io.Copy`) to handle multi-GB object uploads with a constant ~64KB memory buffer | [ ] | OSS |
+| ST.H2 | **Zero-Memory-Copy Streaming `PutObject` Pipeline** | ServStore Storage | Replace `io.ReadAll` in `PutObject` with a streaming temp-file disk pipeline (`io.Copy`) to handle multi-GB object uploads with a constant ~64KB memory buffer | [x] | OSS |
 | ST.H3 | **Erasure Coding Quorum Write Confirmation Engine** | ServStore Erasure | Enforce synchronous Quorum write confirmations ($M+K$ shards verified) across cluster nodes before returning `200 OK` on erasure-coded uploads to prevent partial state corruption | [ ] | OSS |
 | ST.H4 | **High-Scale Prefix-Scan Iterator for `ListObjects`** | ServStore Index | Optimize PebbleDB key iteration for `ListObjects` with prefix seek bounds and keyspace caching for high-density buckets containing >1M objects | [ ] | OSS |
 | **ServGate AI Gateway Hardening & Accuracy** | | | | | |
