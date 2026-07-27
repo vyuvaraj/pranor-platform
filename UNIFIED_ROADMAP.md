@@ -95,9 +95,8 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 45: ServQueue Enterprise Commercial Feature Modularization & Build-Tag Gating** | 8 | 8 | 0 | **100%** | ████████████████████ |
 | **Phase 46: ServGateway Standalone Distribution & Edge AI Processing** | 8 | 8 | 0 | **100%** | ████████████████████ |
 | **Phase 47: ServGateway Sovereign Security, eBPF & Enterprise Ops** | 5 | 5 | 0 | **100%** | ████████████████████ |
-| **Phase 48: ServStore Standalone Distribution & S3 API Compatibility** | 8 | 8 | 0 | **100%** | ████████████████████ |
-| **Phase 49: ServStore Beyond-Enterprise Sovereign Security & Geo-Replication** | 5 | 5 | 0 | **100%** | ████████████████████ |
-| **Phase 50: ServGateway Smart Cost-Optimization AI Router & Speculative Pre-Fetching** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 73: VS Code Extension Modern Ecosystem Alignment** | 7 | 7 | 0 | **100%** | ████████████████████ |
+| **Phase 74: Developer Adoption & High-Impact Differentiators** | 17 | 0 | 17 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 51: ServStore Instant Copy-on-Write (CoW) Bucket Branching** | 5 | 5 | 0 | **100%** | ████████████████████ |
 | **Phase 52: ServStore Browser WebTorrent P2P Asset Seeding & OPFS Sharing** | 5 | 5 | 0 | **100%** | ████████████████████ |
 | **Phase 53: ServStore S3 Select Engine, Multi-Cloud Tiering & Interactive Console UI** | 5 | 5 | 0 | **100%** | ████████████████████ |
@@ -693,3 +692,33 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | VS.G5 | **Platform Chaos Injection Sidebar Control Panel** | VSCode Chaos | Add a Chaos Control View in the ServVerse sidebar to quickly trigger/abort network delay, CPU stress, and disk throttle experiments across cluster nodes | [x] | OSS |
 | VS.G6 | **WASM Playground & ServConsole Deep-Link Export** | VSCode Integrations | Add `Serv: Export to WASM Playground` (opens snippet in `playground.servverse.dev`) and `Serv: Open in ServConsole` deep-linking commands | [x] | OSS |
 | VS.G7 | **`servd` Unified Runtime Webview & Component Management Panel** | VSCode Webview | Upgrade `serv-vscode` sidebar panel and webview suite to support `servd` embedded monolith mode: auto-detect `servd` status via `/api/v1/servd/components`, provide a unified multi-tab `servd` Console Webview, and execute component actions via `servctl` | [x] | OSS |
+
+---
+
+## Phase 74: Developer Adoption & High-Impact Differentiators (Planned)
+
+> **Current State**: ServStore, ServGate, and ServQueue possess deep core features, but lack immediate 60-second time-to-value friction reducers (built-in benchmarking, migration import, SQL metadata queries, live terminal dashboards, plain HTTP/SSE & WebSocket pub/sub, embedded topic inspect UI, and scheduled messages).
+> **What is Missing**: 16 specific high-impact differentiators across ServStore (`servstore bench`, `servstore import`, SQL metadata query API, zero-dependency webhooks, `servstore serve-static`), ServGate (upstream LLM dispatch for smart router, `servgate dashboard` TUI, OpenAPI request validation, response diff replay, per-route cost dashboard, `servgate generate-config` learn mode), and ServQueue (embedded web UI at `/ui/`, HTTP/SSE consumer API, cron-scheduled messages, `servqueue benchmark`, SQLite storage backend, plain WebSocket pub/sub).
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| **ServStore Differentiators** | | | | | |
+| ST.D1 | **`servstore bench` Built-in Performance Benchmarking Command** | ServStore CLI | Add built-in CLI benchmark tool `servstore bench --ops 10000 --concurrency 16 --object-size 4KB` measuring PUT/GET/LIST ops/sec, P50, P95, and P99 latencies without external dependencies | [ ] | OSS |
+| ST.D2 | **`servstore import` One-Command Cloud Migration Mirror** | ServStore Migration | Add built-in S3 migration command `servstore import --from s3://my-aws-bucket` to mirror external AWS S3/GCS buckets into ServStore seamlessly | [ ] | OSS |
+| ST.D3 | **Object Metadata SQL Query API Endpoint (`GET /{bucket}?sql=...`)** | ServStore Query | Allow querying object metadata like a database directly via SQL expressions (`SELECT key, size, last_modified FROM objects WHERE size > 1048576 ORDER BY last_modified DESC`) | [ ] | OSS |
+| ST.D4 | **Zero-Dependency Webhook & Event Notifications** | ServStore Events | Simple REST API subscription for object creation/deletion webhooks (`{"bucket":"uploads","events":["s3:ObjectCreated:*"],"webhook":"https://myapp.com/hook"}`) without requiring SQS or Kafka | [ ] | OSS |
+| ST.D5 | **`servstore serve-static` Instant Static Site Hosting** | ServStore Web | Turn any bucket into a static website host (`servstore serve-static --bucket my-site --port 3000`) with proper MIME detection, index.html fallback, and 404 handling | [ ] | OSS |
+| **ServGate Differentiators** | | | | | |
+| SG.D1 | **Upstream LLM Dispatch for Smart Router** | ServGate AI | Wire `smart_router.go` to execute real upstream HTTP completions to Ollama/OpenAI/Anthropic instead of returning stub mock responses | [ ] | OSS |
+| SG.D2 | **`servgate dashboard` Terminal Live Traffic Dashboard (TUI)** | ServGate CLI | Build a terminal-based live htop-style dashboard showing real-time RPS, active connections, circuit breaker state, cache hit rate, and P99 latency per route | [ ] | OSS |
+| SG.D3 | **OpenAPI-Aware Request Validation & Route Enforcement** | ServGate Validation | Validate incoming request bodies, query params, and headers against OpenAPI 3.0 spec (`openapi_spec: ./openapi.yaml`) before proxying | [ ] | OSS |
+| SG.D4 | **Request/Response Recording & Shadow Diff Replay** | ServGate Replay | Record live traffic, replay against a candidate backend version, and compute structural diffs highlighting changed API responses before production deployment | [ ] | OSS |
+| SG.D5 | **Per-Route AI Token & Cost Attribution Dashboard** | ServGate FinOps | Live cost tracking dashboard showing real-time spend per route, request count, and financial savings generated via semantic caching and smart routing | [ ] | OSS |
+| SG.D6 | **`servgate generate-config` Zero-Config Learn Mode** | ServGate Config | Run ServGate in learn mode to inspect unrouted traffic and auto-generate `config.json` with discovered routes, rate limits, and circuit breaker thresholds | [ ] | OSS |
+| **ServQueue Differentiators** | | | | | |
+| SQ.D1 | **Standalone Embedded Web Management UI (`/ui/`)** | ServQueue UI | Lightweight browser UI embedded directly in `servqueued` at `/ui/` showing active topics, consumer lag, DLQ browser with one-click replay, and schema registry | [ ] | OSS |
+| SQ.D2 | **Plain HTTP/SSE Consumer Protocol (`/api/v1/subscribe/...`)** | ServQueue API | Long-polling Server-Sent Events (SSE) consumer endpoint allowing any HTTP client to subscribe to topic streams without STOMP/Kafka drivers | [ ] | OSS |
+| SQ.D3 | **Delayed & Cron-Scheduled Message Engine** | ServQueue Scheduling | First-class delayed and cron-scheduled message publishing API (`{"topic":"reports","schedule":"0 9 * * MON"}`) using internal TimeWheel engine | [ ] | OSS |
+| SQ.D4 | **`servqueue benchmark` Built-in Queue Throughput Test** | ServQueue CLI | Add built-in CLI benchmark tool `servqueue benchmark --messages 100000 --producers 8 --consumers 4` measuring msg/sec throughput and latency percentiles | [ ] | OSS |
+| SQ.D5 | **SQLite-Backed Persistent Storage Mode** | ServQueue Storage | Offer single-file SQLite storage backend for single-node deployments providing ACID durability and SQL queryability over message history | [ ] | OSS |
+| SQ.D6 | **Plain WebSocket Native Pub/Sub (`/ws/subscribe/...`)** | ServQueue Protocol | Native raw WebSocket pub/sub endpoint (`ws://localhost:9090/ws/subscribe/orders`) broadcasting JSON messages to frontend apps without STOMP framing | [ ] | OSS |
