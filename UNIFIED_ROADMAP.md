@@ -95,8 +95,8 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 | **Phase 45: ServQueue Enterprise Commercial Feature Modularization & Build-Tag Gating** | 8 | 8 | 0 | **100%** | ████████████████████ |
 | **Phase 46: ServGateway Standalone Distribution & Edge AI Processing** | 8 | 8 | 0 | **100%** | ████████████████████ |
 | **Phase 47: ServGateway Sovereign Security, eBPF & Enterprise Ops** | 5 | 5 | 0 | **100%** | ████████████████████ |
-| **Phase 73: VS Code Extension Modern Ecosystem Alignment** | 7 | 7 | 0 | **100%** | ████████████████████ |
 | **Phase 74: Developer Adoption & High-Impact Differentiators** | 17 | 0 | 17 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 75: Production Hardening & Scale Bottleneck Fixes** | 12 | 0 | 12 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 | **Phase 51: ServStore Instant Copy-on-Write (CoW) Bucket Branching** | 5 | 5 | 0 | **100%** | ████████████████████ |
 | **Phase 52: ServStore Browser WebTorrent P2P Asset Seeding & OPFS Sharing** | 5 | 5 | 0 | **100%** | ████████████████████ |
 | **Phase 53: ServStore S3 Select Engine, Multi-Cloud Tiering & Interactive Console UI** | 5 | 5 | 0 | **100%** | ████████████████████ |
@@ -722,3 +722,28 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | SQ.D4 | **`servqueue benchmark` Built-in Queue Throughput Test** | ServQueue CLI | Add built-in CLI benchmark tool `servqueue benchmark --messages 100000 --producers 8 --consumers 4` measuring msg/sec throughput and latency percentiles | [ ] | OSS |
 | SQ.D5 | **SQLite-Backed Persistent Storage Mode** | ServQueue Storage | Offer single-file SQLite storage backend for single-node deployments providing ACID durability and SQL queryability over message history | [ ] | OSS |
 | SQ.D6 | **Plain WebSocket Native Pub/Sub (`/ws/subscribe/...`)** | ServQueue Protocol | Native raw WebSocket pub/sub endpoint (`ws://localhost:9090/ws/subscribe/orders`) broadcasting JSON messages to frontend apps without STOMP framing | [ ] | OSS |
+
+---
+
+## Phase 75: Production Hardening & Scale Bottleneck Fixes (Planned)
+
+> **Current State**: ServStore, ServGate, and ServQueue are production-ready for small-to-medium workloads (<100 req/sec, <50 services), but exhibit key architectural bottlenecks when handling high-concurrency, multi-GB streaming uploads, deep AI vector indexing, or high-throughput consumer rebalancing.
+> **What is Missing**: 12 critical scale & concurrency hardening items across ServStore (fine-grained per-bucket/object read-write lock striping, zero-memory-copy streaming `PutObject` pipeline, Quorum write confirmation in erasure coding), ServGate (vector-indexed semantic cache, NLP entity recognition PII scrubber, advanced prompt injection classifier), and ServQueue (disk-persisted consumer offset log, lock-free consumer slice dispatching, durable subscription state, binary byte slice payload framing).
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| **ServStore Concurrency & Memory Hardening** | | | | | |
+| ST.H1 | **Fine-Grained Per-Bucket/Key Striped Lock Manager** | ServStore Core | Replace global `sync.RWMutex` with a striped bucket/key lock manager to eliminate global write serialization and allow parallel `PutObject` calls across different keys | [ ] | OSS |
+| ST.H2 | **Zero-Memory-Copy Streaming `PutObject` Pipeline** | ServStore Storage | Replace `io.ReadAll` in `PutObject` with a streaming temp-file disk pipeline (`io.Copy`) to handle multi-GB object uploads with a constant ~64KB memory buffer | [ ] | OSS |
+| ST.H3 | **Erasure Coding Quorum Write Confirmation Engine** | ServStore Erasure | Enforce synchronous Quorum write confirmations ($M+K$ shards verified) across cluster nodes before returning `200 OK` on erasure-coded uploads to prevent partial state corruption | [ ] | OSS |
+| ST.H4 | **High-Scale Prefix-Scan Iterator for `ListObjects`** | ServStore Index | Optimize PebbleDB key iteration for `ListObjects` with prefix seek bounds and keyspace caching for high-density buckets containing >1M objects | [ ] | OSS |
+| **ServGate AI Gateway Hardening & Accuracy** | | | | | |
+| SG.H1 | **Vector-Indexed HNSW Semantic Cache Engine** | ServGate AI | Upgrade linear TF-IDF prompt cache scan to an HNSW vector index with LRU memory eviction to maintain sub-millisecond cache lookups at 100K+ cached prompts | [ ] | OSS |
+| SG.H2 | **Advanced Multi-Turn Prompt Injection Classifier** | ServGate AI | Replace 4-regex pattern matcher with a multi-turn contextual prompt injection classifier detecting encoded, indirect, and adversarial jailbreak payloads | [ ] | OSS |
+| SG.H3 | **NLP Entity-Aware PII Redaction Engine** | ServGate AI | Extend regex PII scrubber with NLP named-entity recognition (NER) for contextual redaction of personal names, addresses, and sensitive organizations | [ ] | OSS |
+| SG.H4 | **Smart Model Complexity Classifier Engine** | ServGate AI | Replace naive word-count heuristic in `smart_router.go` with a multi-feature prompt complexity scoring engine evaluating code syntax, reasoning depth, and context length | [ ] | OSS |
+| **ServQueue Durable Messaging & Concurrency Scale** | | | | | |
+| SQ.H1 | **Disk-Persisted Consumer Offset Log & Acknowledgment Engine** | ServQueue Engine | Replace in-memory channel delivery with a disk-backed append-only consumer log and offset tracker to guarantee zero message loss on process crashes | [ ] | OSS |
+| SQ.H2 | **Lock-Free Broadcast & Subscriber Slice Dispatcher** | ServQueue Engine | Replace single-mutex `map[string][]chan string` with lock-free atomic subscriber channels to scale concurrent subscriber dispatching to 10,000+ topics | [ ] | OSS |
+| SQ.H3 | **Durable Consumer Subscription Reconnect Engine** | ServQueue Session | Persist consumer group offsets to disk so disconnected STOMP/MQTT/Kafka clients resume consumption seamlessly from their exact last offset | [ ] | OSS |
+| SQ.H4 | **Native Binary Payload (`[]byte`) Frame Pipeline** | ServQueue Protocol | Upgrade internal string message payloads to native `[]byte` slice framing to support Protobuf, Avro, and raw binary streams without base64 overhead | [ ] | OSS |
