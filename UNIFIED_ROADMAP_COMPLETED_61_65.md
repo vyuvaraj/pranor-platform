@@ -77,3 +77,22 @@
 | CL.G6 | **Deployment Approval Gate & Operator Confirm Flow** | ServCloud Safety | Add a mandatory operator approval gate for production tier deployments; send Slack/webhook notifications requesting explicit approval before traffic cutover is executed | [x] | **EE** |
 
 ---
+
+
+---
+
+## Phase 63: ServTrace — eBPF Continuous Profiling, Flamegraphs & SLO Burn Alerts (Completed)
+
+> **Current State**: ServTrace implements OTel span ingestion, trace storage, anomaly detection hooks, SLO breach predictor hooks, self-healing, and retention cleanup. The anomaly explainer and SLO predictor interfaces exist but have no concrete implementations.
+> **What is Missing**: Actual eBPF continuous CPU/memory profiling engine (the hooks are declared but not implemented), flamegraph rendering, automatic trace-to-flamegraph correlation, concrete SLO burn rate alerting, trace sampling policy management, and exemplar-linked Prometheus metrics.
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| ST.G1 | **eBPF Continuous CPU & Memory Flamegraph Profiler (Implement AnomalyExplainer)** | ServTrace Profiler | Implement the declared `AnomalyExplainer` interface using eBPF perf probes to capture goroutine CPU time and heap allocation hotspots; generate folded flamegraph stacks exposed via `/api/v1/profiles` | [x] | OSS |
+| ST.G2 | **OTel Trace-to-Flamegraph Automatic Correlation** | ServTrace Correlation | Automatically link eBPF flamegraph samples captured during a trace span's execution window; enable single-click drill-down from a slow OTel span to its kernel-level CPU hotspot in ServConsole | [x] | OSS |
+| ST.G3 | **SLO Burn Rate Alert Engine (Implement SloBreachPredictor — Multi-Window)** | ServTrace SLO | Implement the declared `SloBreachPredictor` interface using Google SRE-style multi-window (1h + 6h) error budget burn rate; fire alerts when burn rate exceeds configured thresholds | [x] | OSS |
+| ST.G4 | **Trace Sampling Policy Manager (Head-Based & Tail-Based)** | ServTrace Sampling | Configure per-service head-based sampling rates; implement tail-based adaptive sampling that retrospectively retains 100% of traces containing errors or latency outliers above a P95 threshold | [x] | **EE** |
+| ST.G5 | **Exemplar-Linked Prometheus Metrics & Histogram Correlation** | ServTrace Metrics | Embed OTel trace exemplars into Prometheus histogram buckets so ServConsole dashboards can jump from a P99 latency spike directly to a representative trace example with one click | [x] | OSS |
+| ST.G6 | **Critical Path Analyzer & Distributed Dependency Map** | ServTrace Analysis | Automatically compute the critical path across distributed trace spans; highlight the slowest causal dependency in each trace and visualize the full service call graph in ServConsole | [x] | OSS |
+
+---

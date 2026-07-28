@@ -547,60 +547,30 @@ All backlog tasks for Phase 62 have been fully completed, verified, and archived
 - For completed details of Phase 62: See [UNIFIED_ROADMAP_COMPLETED_61_65.md](UNIFIED_ROADMAP_COMPLETED_61_65.md).
 
 ---
-## Phase 63: ServTrace — eBPF Continuous Profiling, Flamegraphs & SLO Burn Alerts (Planned)
+## Phase 63: (Completed)
 
-> **Current State**: ServTrace implements OTel span ingestion, trace storage, anomaly detection hooks, SLO breach predictor hooks, self-healing, and retention cleanup. The anomaly explainer and SLO predictor interfaces exist but have no concrete implementations.
-> **What is Missing**: Actual eBPF continuous CPU/memory profiling engine (the hooks are declared but not implemented), flamegraph rendering, automatic trace-to-flamegraph correlation, concrete SLO burn rate alerting, trace sampling policy management, and exemplar-linked Prometheus metrics.
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| ST.G1 | **eBPF Continuous CPU & Memory Flamegraph Profiler (Implement AnomalyExplainer)** | ServTrace Profiler | Implement the declared `AnomalyExplainer` interface using eBPF perf probes to capture goroutine CPU time and heap allocation hotspots; generate folded flamegraph stacks exposed via `/api/v1/profiles` | [x] | OSS |
-| ST.G2 | **OTel Trace-to-Flamegraph Automatic Correlation** | ServTrace Correlation | Automatically link eBPF flamegraph samples captured during a trace span's execution window; enable single-click drill-down from a slow OTel span to its kernel-level CPU hotspot in ServConsole | [x] | OSS |
-| ST.G3 | **SLO Burn Rate Alert Engine (Implement SloBreachPredictor — Multi-Window)** | ServTrace SLO | Implement the declared `SloBreachPredictor` interface using Google SRE-style multi-window (1h + 6h) error budget burn rate; fire alerts when burn rate exceeds configured thresholds | [x] | OSS |
-| ST.G4 | **Trace Sampling Policy Manager (Head-Based & Tail-Based)** | ServTrace Sampling | Configure per-service head-based sampling rates; implement tail-based adaptive sampling that retrospectively retains 100% of traces containing errors or latency outliers above a P95 threshold | [ ] | **EE** |
-| ST.G5 | **Exemplar-Linked Prometheus Metrics & Histogram Correlation** | ServTrace Metrics | Embed OTel trace exemplars into Prometheus histogram buckets so ServConsole dashboards can jump from a P99 latency spike directly to a representative trace example with one click | [x] | OSS |
-| ST.G6 | **Critical Path Analyzer & Distributed Dependency Map** | ServTrace Analysis | Automatically compute the critical path across distributed trace spans; highlight the slowest causal dependency in each trace and visualize the full service call graph in ServConsole | [x] | OSS |
+All backlog tasks for Phase 63 have been fully completed, verified, and archived.
+- For completed details of Phase 63: See [UNIFIED_ROADMAP_COMPLETED_61_65.md](UNIFIED_ROADMAP_COMPLETED_61_65.md).
 
 ---
+## Phase 66: (Completed)
 
-## Phase 66: ServTunnel — WebSocket Multiplexing, Replay Inspector & Auth Gating (Planned)
-
-> **Current State**: ServTunnel implements HTTP request tunneling with subdomain routing, a request inspector UI, OTel integration, and webhook forwarding.
-> **What is Missing**: WebSocket connection multiplexing over a single tunnel pipe, JWT/API-key auth gating on inbound tunnel connections (currently unauthenticated), request/response body capture with replay UI in ServConsole, persistent reconnect with exponential backoff, and per-tunnel bandwidth throttling.
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| TN.G1 | **WebSocket Connection Multiplexing over a Single Tunnel Pipe** | ServTunnel Protocol | Multiplex multiple concurrent WebSocket connections from different clients over a single persistent tunnel connection using a lightweight stream framing header protocol | [x] | OSS |
-| TN.G2 | **JWT / API-Key Auth Gating on Tunnel Endpoint Connections** | ServTunnel Auth | Require JWT bearer tokens or API keys before accepting inbound HTTP connections on any tunnel endpoint; integrate with ServAuth for token validation and scope enforcement | [x] | OSS |
-| TN.G3 | **Full Request & Response Body Capture with Replay UI in ServConsole** | ServTunnel Inspector | Capture complete request/response pairs (headers, body, timing, status) and expose them in a ServConsole tunnel inspector tab; allow one-click replay of any captured request for debugging | [x] | OSS |
-| TN.G4 | **Persistent Tunnel Reconnect with Exponential Backoff & Jitter** | ServTunnel Client | Implement automatic reconnect logic in the tunnel client with exponential backoff and jitter; maintain tunnel availability and re-register subdomain routing across transient network interruptions | [x] | OSS |
-| TN.G5 | **Per-Tunnel Bandwidth Throttling & Rate Limiting** | ServTunnel Policy | Enforce configurable bandwidth limits (bytes/second) per tunnel connection to prevent a single heavy client from saturating the shared tunnel relay infrastructure | [ ] | **EE** |
-| TN.G6 | **Shareable Tunnel URLs with Expiry & One-Time Access Tokens** | ServTunnel Sharing | Generate shareable tunnel URLs with configurable TTL expiry and single-use access tokens for secure, time-limited collaboration on local development services | [x] | OSS |
+All backlog tasks for Phase 66 have been fully completed, verified, and archived.
+- For completed details of Phase 66: See [UNIFIED_ROADMAP_COMPLETED_66_70.md](UNIFIED_ROADMAP_COMPLETED_66_70.md).
 
 ---
-
 ## Phase 68: (Completed)
 
 All backlog tasks for Phase 68 have been fully completed, verified, and archived.
 - For completed details of Phase 68: See [UNIFIED_ROADMAP_COMPLETED_66_70.md](UNIFIED_ROADMAP_COMPLETED_66_70.md).
 
 ---
-## Phase 70: ServConsole — eBPF Flamegraph Profiler, Chaos Engine UI & Unified AI Assistant (Planned)
+## Phase 70: (Completed)
 
-> **Current State**: ServConsole implements OTel trace waterfall dashboards, hash ring visualizers, SQL workbench, alert management, topology views, and a launcher for all Servverse services.
-> **What is Missing**: An embedded eBPF flamegraph profiling visualization tab, a Chaos Engineering control panel (for triggering and monitoring fault injection experiments across modules), an embedded AI assistant chat panel, unified global search across all Servverse resources, and a cost attribution breakdown dashboard.
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| CC.G1 | **eBPF Flamegraph Profiling Tab with OTel Trace Correlation** | ServConsole Profiler | Add a Profiling tab rendering interactive SVG flamegraphs from ServTrace eBPF profiling data; automatically correlate captured flamegraph stack samples with the active OTel trace span being inspected | [x] | OSS |
-| CC.G2 | **Chaos Engineering Control Panel** | ServConsole Chaos | Provide a UI panel for initiating and monitoring chaos experiments: inject latency, drop packets, kill service replicas, or simulate clock skew; visualize real-time impact on service topology error rates | [x] | OSS |
-| CC.G3 | **Unified Global Search Across All Servverse Resources (⌘K)** | ServConsole Search | Implement a `cmd+K`-style universal command palette searching across trace IDs, object keys, queue topics, job names, service instances, and alert events; returning ranked contextual results | [x] | OSS |
-| CC.G4 | **Embedded AI Assistant Chat Panel (Powered by ServGate MCP)** | ServConsole AI | Embed a conversational AI assistant that answers questions about the running system, explains trace anomalies, suggests performance optimizations, and executes SQL queries via ServGate MCP tool calls | [ ] | **EE** |
-| CC.G5 | **Cost Attribution Dashboard (Per-Service Egress, Storage & AI Token Spend)** | ServConsole Cost | Aggregate egress bandwidth, object storage bytes, AI token consumption, and ServQueue message throughput per service/team; render a cost attribution breakdown with budget alert thresholds | [ ] | **EE** |
-| CC.G6 | **Theme Customization, Pinned Dashboard Widgets & Keyboard Shortcuts** | ServConsole UX | Persist user preferences for dark/light theme, dashboard widget layout (drag-to-reorder), pinned quick-access shortcuts to frequently viewed resources, and configurable keyboard shortcut bindings | [x] | OSS |
+All backlog tasks for Phase 70 have been fully completed, verified, and archived.
+- For completed details of Phase 70: See [UNIFIED_ROADMAP_COMPLETED_66_70.md](UNIFIED_ROADMAP_COMPLETED_66_70.md).
 
 ---
-
 ## Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine (Planned)
 
 > **Current State**: All Servverse modules are individually excellent standalone daemons. Operating a complete stack requires running 7+ separate processes with manual inter-service networking configuration.
