@@ -529,22 +529,12 @@ All backlog tasks for Phase 58 have been fully completed, verified, and archived
 - For completed details of Phase 58: See [UNIFIED_ROADMAP_COMPLETED_56_60.md](UNIFIED_ROADMAP_COMPLETED_56_60.md).
 
 ---
-## Phase 60: ServFlow — Visual Workflow Designer, WASM Step Functions & Human Tasks (Planned)
+## Phase 60: (Completed)
 
-> **Current State**: ServFlow implements a DAG workflow engine with task dependency resolution, time-travel replay snapshots, and ServQueue topic integration for async task dispatch.
-> **What is Missing**: A visual drag-and-drop workflow designer in ServConsole, WASM-compiled step function execution (currently HTTP-callback-only), human approval task gates with async wait, sub-workflow composition (nested workflow invocation), and per-execution cost and OTel span attribution.
-
-| # | Item | Component | Description | Status | Tier |
-|---|------|-----------|-------------|--------|:---:|
-| SF.G1 | **Visual Drag-and-Drop Workflow Designer in ServConsole** | ServConsole UI | Build a canvas-based interactive workflow designer where developers can visually create, connect, and configure workflow task nodes without writing JSON/YAML definitions | [x] | OSS |
-| SF.G2 | **WASM Step Function Execution (Inline Compute per Task Node)** | ServFlow Engine | Allow individual workflow task steps to execute inline WebAssembly (WASM) bytecode rather than requiring remote HTTP endpoint callbacks; enables serverless compute-near-orchestration | [x] | OSS |
-| SF.G3 | **Human Approval Task Gate (Async Pause + UI Approve/Reject)** | ServFlow Tasks | Implement a `human-task` step type that pauses workflow execution and presents an approval UI (email link or ServConsole panel) to designated reviewers before continuing | [ ] | **EE** |
-| SF.G4 | **Sub-Workflow Composition & Nested Workflow Invocation** | ServFlow Composition | Enable workflow task steps to invoke other named workflow definitions as sub-workflows, creating hierarchical multi-level pipeline structures with isolated instance tracking | [x] | OSS |
-| SF.G5 | **Per-Execution OTel Span Attribution & Cost Tracking** | ServFlow Telemetry | Inject W3C `traceparent` context into each task step HTTP call; export OTel spans to ServTrace for full distributed tracing of workflow runs including step latencies | [x] | OSS |
-| SF.G6 | **Dead Letter Workflow Queue & Manual Retry from ServConsole** | ServFlow DLQ | Capture permanently-failed workflow instances in a Dead Letter Queue; allow operators to inspect failure context and manually trigger selective re-execution from ServConsole | [x] | OSS |
+All backlog tasks for Phase 60 have been fully completed, verified, and archived.
+- For completed details of Phase 60: See [UNIFIED_ROADMAP_COMPLETED_56_60.md](UNIFIED_ROADMAP_COMPLETED_56_60.md).
 
 ---
-
 ## Phase 61: ServMesh — WireGuard Overlay, mTLS Identity & Adaptive Load Balancing (Planned)
 
 > **Current State**: ServMesh implements a library-level service registry with heartbeat TTL eviction, round-robin load balancing, circuit breaking, mutual TLS, and a topology inspection CLI.
