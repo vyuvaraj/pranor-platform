@@ -704,7 +704,7 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 |---|------|-----------|-------------|--------|:---:|
 | **ServStore Differentiators** | | | | | |
 | ST.D1 | **`servstore bench` Built-in Performance Benchmarking Command** | ServStore CLI | Add built-in CLI benchmark tool `servstore bench --ops 10000 --concurrency 16 --object-size 4KB` measuring PUT/GET/LIST ops/sec, P50, P95, and P99 latencies without external dependencies | [x] | OSS |
-| ST.D2 | **`servstore import` One-Command Cloud Migration Mirror** | ServStore Migration | Add built-in S3 migration command `servstore import --from s3://my-aws-bucket` to mirror external AWS S3/GCS buckets into ServStore seamlessly | [ ] | OSS |
+| ST.D2 | **`servstore import` One-Command Cloud Migration Mirror** | ServStore Migration | Add built-in S3 migration command `servstore import --from s3://my-aws-bucket` to mirror external AWS S3/GCS buckets into ServStore seamlessly | [x] | OSS |
 | ST.D3 | **Object Metadata SQL Query API Endpoint (`GET /{bucket}?sql=...`)** | ServStore Query | Allow querying object metadata like a database directly via SQL expressions (`SELECT key, size, last_modified FROM objects WHERE size > 1048576 ORDER BY last_modified DESC`) | [x] | OSS |
 | ST.D4 | **Zero-Dependency Webhook & Event Notifications** | ServStore Events | Simple REST API subscription for object creation/deletion webhooks (`{"bucket":"uploads","events":["s3:ObjectCreated:*"],"webhook":"https://myapp.com/hook"}`) without requiring SQS or Kafka | [x] | OSS |
 | ST.D5 | **`servstore serve-static` Instant Static Site Hosting** | ServStore Web | Turn any bucket into a static website host (`servstore serve-static --bucket my-site --port 3000`) with proper MIME detection, index.html fallback, and 404 handling | [x] | OSS |
@@ -712,7 +712,7 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | SG.D1 | **Upstream LLM Dispatch for Smart Router** | ServGate AI | Wire `smart_router.go` to execute real upstream HTTP completions to Ollama/OpenAI/Anthropic instead of returning stub mock responses | [x] | OSS |
 | SG.D2 | **`servgate dashboard` Terminal Live Traffic Dashboard (TUI)** | ServGate CLI | Build a terminal-based live htop-style dashboard showing real-time RPS, active connections, circuit breaker state, cache hit rate, and P99 latency per route | [x] | OSS |
 | SG.D3 | **OpenAPI-Aware Request Validation & Route Enforcement** | ServGate Validation | Validate incoming request bodies, query params, and headers against OpenAPI 3.0 spec (`openapi_spec: ./openapi.yaml`) before proxying | [x] | OSS |
-| SG.D4 | **Request/Response Recording & Shadow Diff Replay** | ServGate Replay | Record live traffic, replay against a candidate backend version, and compute structural diffs highlighting changed API responses before production deployment | [ ] | OSS |
+| SG.D4 | **Request/Response Recording & Shadow Diff Replay** | ServGate Replay | Record live traffic, replay against a candidate backend version, and compute structural diffs highlighting changed API responses before production deployment | [x] | OSS |
 | SG.D5 | **Per-Route AI Token & Cost Attribution Dashboard** | ServGate FinOps | Live cost tracking dashboard showing real-time spend per route, request count, and financial savings generated via semantic caching and smart routing | [ ] | OSS |
 | SG.D6 | **`servgate generate-config` Zero-Config Learn Mode** | ServGate Config | Run ServGate in learn mode to inspect unrouted traffic and auto-generate `config.json` with discovered routes, rate limits, and circuit breaker thresholds | [x] | OSS |
 | **ServQueue Differentiators** | | | | | |
@@ -758,9 +758,9 @@ All backlog tasks for Phase 44 have been fully completed, verified, and archived
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
 | **Serv-lang DX & Compiler Hardening** | | | | | |
-| SL.H1 | **Readable Generated Go Code & Source Line Annotations** | Serv-lang Codegen | Generate human-readable handler/cron names (`handleGET_api_tasks`) and inject `// line <file>:<line>` source map comments into generated Go code | [ ] | OSS |
-| SL.H2 | **Type-Aware Go Code Generator** | Serv-lang Codegen | Emit real Go types (`int`, `string`, structs) instead of generic `interface{}` to eliminate runtime type assertions and improve performance | [ ] | OSS |
-| SL.H3 | **Runtime Errors with `.serv` Source Context** | Serv-lang Runtime | Wrap runtime panic recovery and DB/HTTP library errors with `.serv` file, line, and route context instead of raw Go stacktraces | [ ] | OSS |
+| SL.H1 | **Readable Generated Go Code & Source Line Annotations** | Serv-lang Codegen | Generate human-readable handler/cron names (`handleGET_api_tasks`) and inject `// line <file>:<line>` source map comments into generated Go code | [x] | OSS |
+| SL.H2 | **Type-Aware Go Code Generator** | Serv-lang Codegen | Emit real Go types (`int`, `string`, structs) instead of generic `interface{}` to eliminate runtime type assertions and improve performance | [x] | OSS |
+| SL.H3 | **Runtime Errors with `.serv` Source Context** | Serv-lang Runtime | Wrap runtime panic recovery and DB/HTTP library errors with `.serv` file, line, and route context instead of raw Go stacktraces | [x] | OSS |
 | SL.H4 | **Migration State Tracking & Rollback Engine** | Serv-lang Storage | Track applied migrations in `_serv_migrations` table, prevent duplicate `ALTER TABLE` runs, and support `up {}` / `down {}` migration blocks | [x] | OSS |
 | SL.H5 | **Workspace-Wide LSP Go-to-Definition & References** | Serv-lang Tooling | Extend LSP to jump across imported files, perform multi-file `Find-All-References`, and propagate symbol renames | [ ] | OSS |
 | SL.H6 | **Non-Crashing Hot Reload with Inline Error Diagnostics** | Serv-lang CLI | Keep previous good binary serving traffic when `serv run --watch` encounters compilation errors, pushing diagnostics inline to terminal and LSP | [ ] | OSS |
