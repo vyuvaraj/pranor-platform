@@ -40,3 +40,22 @@
 
 
 
+
+
+---
+
+## Phase 68: ServGateway — Native MCP Tool Registry & AI Agent Routing (Completed)
+
+> **Current State**: ServGateway has a Smart AI cost router, token-per-minute throttling, eBPF XDP DDoS bypass, semantic prompt caching, WAF, GraphQL federation, WASM hot-reload registry, and OIDC enforcement.
+> **What is Missing**: A native Model Context Protocol (MCP) server that auto-exposes Servverse services as strongly-typed AI agent tools, LLM streaming SSE response passthrough, per-agent-session context tracking, tool call audit logging with cost attribution, multi-model provider fallback chains, and prompt injection detection.
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| SG.A1 | **Native MCP Tool Registry (Auto-Expose Servverse Services as AI Agent Tools)** | ServGateway MCP | Implement a native MCP server at `/mcp` that auto-discovers and exposes registered ServStore buckets, ServQueue topics, and Serv-lang services as typed MCP tools consumable by Claude, GPT-4o, and local Ollama agents | [x] | OSS |
+| SG.A2 | **LLM Streaming SSE Response Passthrough (Server-Sent Events)** | ServGateway Proxy | Implement transparent proxy passthrough of streaming SSE LLM completions; preserve chunk ordering and correctly handle chunked transfer encoding for real-time token streaming to browser clients | [x] | OSS |
+| SG.A3 | **AI Agent Session Context Tracker (Multi-Turn Conversation State)** | ServGateway Agent | Maintain per-agent-session conversation context windows across sequential MCP tool calls; inject conversation history into each upstream LLM request automatically based on session ID header | [x] | **EE** |
+| SG.A4 | **Tool Call Audit Log & Per-Session AI Cost Attribution** | ServGateway Audit | Log every MCP tool call with agent ID, tool name, input arguments, response status, and token cost attribution; expose searchable audit history in ServConsole cost attribution dashboard | [x] | **EE** |
+| SG.A5 | **Multi-Model Provider Fallback Chain (GPT-4o → Claude → Ollama)** | ServGateway Fallback | Configure ordered fallback chains across AI providers; automatically retry failed or rate-limited requests against the next provider with context adaptation for different model API formats | [x] | **EE** |
+| SG.A6 | **Prompt Injection Detection & Input Sanitization Guard** | ServGateway Security | Detect and block prompt injection attacks (system prompt override, jailbreak patterns) using embedding-based cosine similarity scoring against known attack signatures before forwarding to LLMs | [x] | OSS |
+
+---

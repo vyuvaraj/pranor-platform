@@ -20,3 +20,23 @@
 
 
 
+
+
+---
+
+## Phase 73: VS Code Extension — Modern Ecosystem Alignment (Completed)
+
+> **Current State**: `serv-vscode` (v3.3.0) provides LSP client support, syntax highlighting, basic snippets, and exploratory panels.
+> **What is Missing**: Full syntax and snippet support for `async`/`concurrent` primitives, `servctl` CLI integration inside VS Code, `serv diff` breaking change detector integration, multi-target codegen context menus (Rust/Python), platform chaos injection controls, and direct ServConsole / WASM Playground deep-linking.
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| VS.G1 | **`async` / `concurrent` Syntax & Snippet Alignment** | VSCode Syntax | Update TextMate grammar (`serv.tmLanguage.json`) and snippets to fully support `async fn`, `async` call expressions, and `concurrent {}` parallel blocks | [x] | OSS |
+| VS.G2 | **`servctl` Cluster Administration Integration** | VSCode Commands | Add VS Code command palette and sidebar actions for `servctl`: list services/nodes, restart services, apply configuration, and view `servd` health rollups | [x] | OSS |
+| VS.G3 | **`serv diff` Breaking Change Detector Command** | VSCode Tooling | Add `Serv: Check Breaking API Changes` command running `serv diff` against git base branch (`main`) with inline diagnostic markers for field removals and type changes | [x] | OSS |
+| VS.G4 | **Multi-Target Client Code Generation Context Menu** | VSCode Codegen | Add right-click context menu options on `.srv` files: `Serv: Generate Rust Client` (`--lang rust`) and `Serv: Generate Python Client` (`--lang python`) | [x] | OSS |
+| VS.G5 | **Platform Chaos Injection Sidebar Control Panel** | VSCode Chaos | Add a Chaos Control View in the ServVerse sidebar to quickly trigger/abort network delay, CPU stress, and disk throttle experiments across cluster nodes | [x] | OSS |
+| VS.G6 | **WASM Playground & ServConsole Deep-Link Export** | VSCode Integrations | Add `Serv: Export to WASM Playground` (opens snippet in `playground.servverse.dev`) and `Serv: Open in ServConsole` deep-linking commands | [x] | OSS |
+| VS.G7 | **`servd` Unified Runtime Webview & Component Management Panel** | VSCode Webview | Upgrade `serv-vscode` sidebar panel and webview suite to support `servd` embedded monolith mode: auto-detect `servd` status via `/api/v1/servd/components`, provide a unified multi-tab `servd` Console Webview, and execute component actions via `servctl` | [x] | OSS |
+
+---
