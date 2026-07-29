@@ -163,6 +163,9 @@ document.getElementById('btn-run').addEventListener('click', async () => {
                 printToTerminal("Analysis Warnings/Diagnostics:", "warning-msg");
                 printToTerminal(validation.analysisOutput, "warning-msg");
             }
+            if (validation.goCode) {
+                document.getElementById('codegen-body').textContent = validation.goCode;
+            }
         } catch (e) {
             console.error("Local compile check error: ", e);
         }

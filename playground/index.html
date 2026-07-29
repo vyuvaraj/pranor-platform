@@ -44,9 +44,19 @@
                 </div>
             </section>
 
+            <section class="codegen-section card">
+                <div class="card-header">
+                    <span class="terminal-title">Generated Go Output (Side-by-Side SL.H8)</span>
+                    <button id="btn-copy-go" class="btn-clear" title="Copy Go Code">Copy</button>
+                </div>
+                <div class="terminal-body" id="codegen-body" style="font-family: monospace; white-space: pre; overflow: auto; background: #1e1e1e; color: #9cdcfe; padding: 8px;">
+                    <div class="terminal-line system-msg">// Generated Go output will render here in real-time...</div>
+                </div>
+            </section>
+
             <section class="output-section card">
                 <div class="card-header">
-                    <span class="terminal-title">Terminal Output</span>
+                    <span class="terminal-title">Terminal Output & Live Server Requests</span>
                     <button id="btn-clear" class="btn-clear" title="Clear console">✕</button>
                 </div>
                 <div class="terminal-body" id="terminal">
