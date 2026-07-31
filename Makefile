@@ -1,7 +1,7 @@
 .PHONY: build-all test-all clean-all
 
 build-all:
-	cd .. && go build -o Serv-lang/serv.exe ./Serv-lang
+	cd .. && go build -o Serv-lang/pranor.exe ./Serv-lang
 	cd .. && go build -o ServGate/servgate.exe ./ServGate
 	cd .. && go build -o ServQueue/servqueue.exe ./ServQueue
 	cd .. && go build -o ServStore/servstore.exe ./ServStore

@@ -38,12 +38,12 @@ Runs all `test "name" { ... }` blocks and reports results.
 
 **With `--cover`:** Shows statement coverage percentage and saves a coverage profile to `.build/<hash>/coverage.out`.
 
-## serv lint
+## pranor lint
 
 Check syntax and perform static analysis without building.
 
 ```bash
-serv lint <file.pnr>
+pranor lint <file.pnr>
 ```
 
 **Analysis includes:**

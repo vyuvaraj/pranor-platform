@@ -93,7 +93,7 @@ Write-Ok "Installed $($binaries.Count) binaries:"
 $binaries | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
 
 # --- Test serv ---
-$servPath = Join-Path $BinDir "serv.exe"
+$servPath = Join-Path $BinDir "pranor.exe"
 if (Test-Path $servPath) {
     Write-Host ""
     Write-Ok "Servverse $Version installed successfully!"
@@ -101,9 +101,9 @@ if (Test-Path $servPath) {
     Write-Host "  Quick start:" -ForegroundColor White
     Write-Host "    servverse up          # Start all services" -ForegroundColor DarkGray
     Write-Host "    servverse status      # Check service health" -ForegroundColor DarkGray
-    Write-Host "    serv run app.srv      # Run a .srv file" -ForegroundColor DarkGray
+    Write-Host "    pranor run app.pnr      # Run a .pnr file" -ForegroundColor DarkGray
     Write-Host ""
     Write-Host "  Open a new terminal for PATH changes to take effect." -ForegroundColor Yellow
 } else {
-    Write-Err "Installation completed but serv.exe not found in $BinDir"
+    Write-Err "Installation completed but pranor.exe not found in $BinDir"
 }

@@ -141,13 +141,13 @@ To spin up the entire Pranor locally:
 
 ```bash
 # 1. Start Pranor Vault (Storage) on :8081
-./servstore.exe
+./pranorstore.exe
 
 # 2. Start Pranor Pulse (Broker) on :8082
-./servqueue.exe
+./pranorqueue.exe
 
 # 3. Start Pranor Gate (Gateway) on :8080
-./servgate.exe --config=config.json
+./pranorgate.exe --config=config.json
 
 # 4. Launch Pranor Console on :8083
 export SERVVERSE_DISCOVERY='{
@@ -155,7 +155,7 @@ export SERVVERSE_DISCOVERY='{
   "store":         "http://localhost:8081",
   "queue":         "http://localhost:8082"
 }'
-./servconsole.exe
+./pranorconsole.exe
 ```
 
 Open `http://localhost:8083` in your browser. You are now running a fully integrated, observable, programmable microservice platform.

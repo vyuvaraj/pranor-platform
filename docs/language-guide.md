@@ -1001,7 +1001,7 @@ policy rate_limit_policy (ctx) {
 | `pranor test <file>` | Run .pnr tests |
 | `pranor test --cover <file>` | Run tests with coverage |
 | `serv fmt <file>` | Format source file |
-| `serv lint <file>` | Lint and static analysis |
+| `pranor lint <file>` | Lint and static analysis |
 | `serv migrate` | Apply table DSL migrations |
 | `serv create "<prompt>"` | AI-powered scaffolding |
 | `serv add <go-package>` | Generate .pnr.d declaration |

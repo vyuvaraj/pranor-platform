@@ -225,12 +225,12 @@ cd Pranor Vault
 go build -o servstore ./cmd/servstore
 
 # Run (no auth, port 9000)
-./servstore
+./pranorstore
 
 # Or with full security
-./servstore --auth --access-key "mykey" --secret-key "mysecret" \
+./pranorstore --auth --access-key "mykey" --secret-key "mysecret" \
   --encryption-key "my-passphrase" \
-  --tls-cert ./server.crt --tls-key ./server.key
+  --tls-cert ./pranorer.crt --tls-key ./pranorer.key
 
 # Open web console
 # http://localhost:9000

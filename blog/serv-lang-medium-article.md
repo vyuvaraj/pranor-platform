@@ -163,7 +163,7 @@ Serv isn't a weekend project. It has:
 - **Multiple broker backends**: Kafka, NATS, RabbitMQ, MQTT, Redis Streams
 - **A test framework**: `test "name" { assert expr }` blocks that generate Go tests
 - **A formatter**: `serv fmt` with consistent 4-space indentation
-- **A linter**: `serv lint` for static analysis without building
+- **A linter**: `pranor lint` for static analysis without building
 - **A REPL**: `serv repl` for interactive exploration
 - **Python interop**: `extern fn` bindings to call Python scripts
 - **Go package FFI**: Import and use any Go package via declaration files

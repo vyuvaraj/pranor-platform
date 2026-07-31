@@ -203,7 +203,7 @@ cd Pranor Gate
 
 # Build and execute
 go build -o servgate.exe main.go
-./servgate.exe --config=config.json
+./pranorgate.exe --config=config.json
 ```
 
 The reverse proxy starts listening on `:8080`, ready to route traffic and execute sandboxed filters.

@@ -151,13 +151,13 @@ cd serv/packages/Pranor Vault
 
 # Build and start the daemon (Web UI at http://localhost:9001/ui/)
 go build -o servstored ./cmd/servstored
-./servstored --port 9000 --admin-port 9001
+./pranorstored --port 9000 --admin-port 9001
 
 # In another terminal, use the CLI
 go build -o servstore ./cmd/servstore
-./servstore status
-./servstore mb analytics-bucket
-./servstore branch create analytics-bucket feature-testing
+./pranorstore status
+./pranorstore mb analytics-bucket
+./pranorstore branch create analytics-bucket feature-testing
 ```
 
 ---

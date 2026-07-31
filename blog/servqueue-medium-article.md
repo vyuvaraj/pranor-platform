@@ -194,14 +194,14 @@ cd serv/packages/Pranor Pulse
 
 # Build and start the daemon (Web UI at http://localhost:8082/ui/)
 go build -o servqueued ./cmd/servqueued
-./servqueued --port 8082
+./pranorqueued --port 8082
 
 # In another terminal, use the CLI
 go build -o servqueue ./cmd/servqueue
-./servqueue status
-./servqueue topics create orders.created
-./servqueue publish orders.created '{"order_id": 1001, "amount": 99.99}'
-./servqueue seek orders.created 10m
+./pranorqueue status
+./pranorqueue topics create orders.created
+./pranorqueue publish orders.created '{"order_id": 1001, "amount": 99.99}'
+./pranorqueue seek orders.created 10m
 ```
 
 ---

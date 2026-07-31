@@ -99,7 +99,7 @@ export SERVVERSE_DISCOVERY='{
   "otlp_endpoint": "http://localhost:4318",
   "auth_token":    "gateway-secret-token"
 }'
-./servconsole.exe --port=8083
+./pranorconsole.exe --port=8083
 ```
 
 Pranor Console acts as a secure token forwarding reverse proxy. It passes through credentials to target systems behind the scenes, resolving Cross-Origin Resource Sharing (CORS) issues and securing your backend endpoints.
@@ -134,7 +134,7 @@ go build -o servconsole.exe main.go
 Run the console by pointing to your local running services:
 
 ```bash
-./servconsole.exe \
+./pranorconsole.exe \
   --port=8083 \
   --gate-url=http://localhost:8080 \
   --store-url=http://localhost:8081 \

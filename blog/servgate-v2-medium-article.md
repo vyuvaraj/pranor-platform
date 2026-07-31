@@ -125,13 +125,13 @@ cd serv/packages/Pranor Gate
 
 # Build and start the daemon (Web UI at http://localhost:8081/ui/)
 go build -o servgatewayd ./cmd/servgatewayd
-./servgatewayd --port 8080 --admin-port 8081
+./pranorgatewayd --port 8080 --admin-port 8081
 
 # In another terminal, use the CLI
 go build -o servgateway ./cmd/servgateway
-./servgateway status
-./servgateway routes list
-./servgateway routes add /api/v1/ai http://localhost:11434
+./pranorgateway status
+./pranorgateway routes list
+./pranorgateway routes add /api/v1/ai http://localhost:11434
 ```
 
 ---

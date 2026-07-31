@@ -19,7 +19,7 @@ services:
   # 2. Pranor Trace — Native OTLP/HTTP collector & trace API
   pranor-trace:
     build:
-      context: ../serv/trace
+      context: ../pranor/trace
     ports:
       - "8090:8090"
     networks:
@@ -35,7 +35,7 @@ services:
   # 3. Pranor Vault — S3-compatible Object Storage
   pranor-vault:
     build:
-      context: ../serv/vault
+      context: ../pranor/vault
     ports:
       - "8081:8081"
     command: ["--port", "8081", "--data-dir", "/data"]
@@ -55,7 +55,7 @@ services:
   # 4. Pranor Pulse — Message Broker (HTTP + STOMP)
   pranor-pulse:
     build:
-      context: ../serv/pulse
+      context: ../pranor/pulse
     ports:
       - "8082:8082"   # HTTP Admin API
       - "61613:61613" # STOMP TCP
@@ -75,7 +75,7 @@ services:
   # 5. Pranor Cache — Distributed Cache (memory or Redis backend)
   pranor-cache:
     build:
-      context: ../serv/cache
+      context: ../pranor/cache
     ports:
       - "8086:8086"
     environment:
@@ -96,7 +96,7 @@ services:
   # 6. Pranor Gate — API Gateway
   pranor-gate:
     build:
-      context: ../serv/gate
+      context: ../pranor/gate
     ports:
       - "8080:8080"
     environment:
@@ -115,7 +115,7 @@ services:
   # 7. Pranor Mesh — Service Mesh Registry
   pranor-mesh:
     build:
-      context: ../serv/mesh
+      context: ../pranor/mesh
     ports:
       - "8089:8089"
     environment:
@@ -134,7 +134,7 @@ services:
   # 8. Pranor Chrono — Distributed Scheduler
   pranor-chrono:
     build:
-      context: ../serv/chrono
+      context: ../pranor/chrono
     ports:
       - "8087:8087"
     environment:
@@ -154,7 +154,7 @@ services:
   # 9. Pranor Deploy — Deployment Orchestrator
   pranor-deploy:
     build:
-      context: ../serv/deploy
+      context: ../pranor/deploy
     ports:
       - "8085:8085"
     environment:
@@ -175,7 +175,7 @@ services:
   # 10. Pranor Tunnel — Tunnel Relay Server
   pranor-tunnel:
     build:
-      context: ../serv/tunnel
+      context: ../pranor/tunnel
     ports:
       - "8443:8443"
     environment:
@@ -196,7 +196,7 @@ services:
   # 11. Pranor Console — Observability Dashboard
   pranor-console:
     build:
-      context: ../serv/console
+      context: ../pranor/console
     ports:
       - "8083:8083"
     environment:
@@ -230,7 +230,7 @@ services:
   # 12. Pranor Hub — Package Registry
   pranor-hub:
     build:
-      context: ../serv/hub
+      context: ../pranor/hub
     ports:
       - "8088:8088"
     environment:
@@ -252,7 +252,7 @@ services:
   # 13. Pranor Auth — Authentication Service
   pranor-auth:
     build:
-      context: ../serv/auth
+      context: ../pranor/auth
     ports:
       - "8098:8098"
     environment:
@@ -274,7 +274,7 @@ services:
   # 14. Pranor Pool — Database Connection Pool Manager
   pranor-pool:
     build:
-      context: ../serv/pool
+      context: ../pranor/pool
     ports:
       - "8097:8097"
     environment:
@@ -296,7 +296,7 @@ services:
   # 15. Pranor Notify — Notification Gateway
   pranor-notify:
     build:
-      context: ../serv/notify
+      context: ../pranor/notify
     ports:
       - "8094:8094"
     environment:
@@ -318,7 +318,7 @@ services:
   # 16. Pranor Flow — Workflow Orchestrator
   pranor-flow:
     build:
-      context: ../serv/flow
+      context: ../pranor/flow
     ports:
       - "8096:8096"
     environment:
