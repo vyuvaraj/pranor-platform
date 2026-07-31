@@ -1,15 +1,15 @@
 #!/bin/sh
-# Servverse Installer for macOS/Linux
-# Usage: curl -fsSL https://raw.githubusercontent.com/vyuvaraj/servverse/main/scripts/install.sh | sh
+# Pranor Installer for macOS/Linux
+# Usage: curl -fsSL https://raw.githubusercontent.com/vyuvaraj/pranor/main/scripts/install.sh | sh
 
 set -e
 
-REPO="vyuvaraj/servverse"
-INSTALL_DIR="${SERVVERSE_HOME:-$HOME/.servverse}"
+REPO="vyuvaraj/pranor"
+INSTALL_DIR="${SERVVERSE_HOME:-$HOME/.pranor}"
 BIN_DIR="$INSTALL_DIR/bin"
 VERSION="${1:-latest}"
 
-info() { printf "  \033[36m[servverse]\033[0m %s\n" "$1"; }
+info() { printf "  \033[36m[pranor]\033[0m %s\n" "$1"; }
 ok()   { printf "  \033[32m[✓]\033[0m %s\n" "$1"; }
 err()  { printf "  \033[31m[✗]\033[0m %s\n" "$1"; exit 1; }
 
@@ -35,14 +35,14 @@ fi
 info "Version: $VERSION"
 
 # --- Download ---
-ASSET_NAME="servverse-${VERSION}-${OS}-${ARCH}.tar.gz"
+ASSET_NAME="pranor-${VERSION}-${OS}-${ARCH}.tar.gz"
 DOWNLOAD_URL="https://github.com/$REPO/releases/download/${VERSION}/${ASSET_NAME}"
 TEMP_FILE="/tmp/$ASSET_NAME"
 
 info "Downloading $ASSET_NAME..."
 if ! curl -fsSL "$DOWNLOAD_URL" -o "$TEMP_FILE" 2>/dev/null; then
     # Try without 'v' prefix
-    ASSET_NAME="servverse-$(echo $VERSION | sed 's/^v//')-${OS}-${ARCH}.tar.gz"
+    ASSET_NAME="pranor-$(echo $VERSION | sed 's/^v//')-${OS}-${ARCH}.tar.gz"
     DOWNLOAD_URL="https://github.com/$REPO/releases/download/${VERSION}/${ASSET_NAME}"
     curl -fsSL "$DOWNLOAD_URL" -o "$TEMP_FILE" || err "Download failed: $DOWNLOAD_URL"
 fi
@@ -66,7 +66,7 @@ esac
 if ! echo "$PATH" | grep -q "$BIN_DIR"; then
     if [ -n "$SHELL_RC" ]; then
         echo "" >> "$SHELL_RC"
-        echo "# Servverse" >> "$SHELL_RC"
+        echo "# Pranor" >> "$SHELL_RC"
         echo "export PATH=\"$BIN_DIR:\$PATH\"" >> "$SHELL_RC"
         ok "Added $BIN_DIR to PATH in $SHELL_RC"
     fi
@@ -81,12 +81,12 @@ ok "Installed $BINARY_COUNT binaries"
 
 if [ -x "$BIN_DIR/serv" ]; then
     echo ""
-    ok "Servverse $VERSION installed successfully!"
+    ok "Pranor $VERSION installed successfully!"
     echo ""
     echo "  Quick start:"
-    echo "    servverse up          # Start all services"
-    echo "    servverse status      # Check service health"
-    echo "    serv run app.srv      # Run a .srv file"
+    echo "    pranor up          # Start all services"
+    echo "    pranor status      # Check service health"
+    echo "    pranor run app.pnr      # Run a .pnr file"
     echo ""
     echo "  Restart your shell or run: export PATH=\"$BIN_DIR:\$PATH\""
 else

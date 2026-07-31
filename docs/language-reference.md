@@ -437,9 +437,9 @@ let sub = text[0:5]          // "hello"
 ## Imports & Modules
 
 ```serv
-// Import a local .srv module (relative path)
-import "models/user.srv"
-import { User, Role } from "models/user.srv"
+// Import a local .pnr module (relative path)
+import "models/user.pnr"
+import { User, Role } from "models/user.pnr"
 
 // Import from stdlib (no relative path needed)
 import { ok, notFound } from "stdlib/response"
@@ -450,8 +450,8 @@ import { hashPassword } from "stdlib/crypto"
 import uuid from "github.com/google/uuid"
 let id = uuid.New()
 
-// .srv extension is optional for stdlib imports
-import { maskEmail } from "stdlib/mask.srv"   // also works
+// .pnr extension is optional for stdlib imports
+import { maskEmail } from "stdlib/mask.pnr"   // also works
 ```
 
 **Import resolution order:**
@@ -516,7 +516,7 @@ let errors = validate(req.body, {
 
 ## Declarative Schema Migrations (`table`)
 
-Declare your database schema natively in `.srv` files. The compiler generates
+Declare your database schema natively in `.pnr` files. The compiler generates
 the SQL automatically; `serv migrate` applies it to the live database.
 
 ```serv

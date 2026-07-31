@@ -1,9 +1,9 @@
-# Servverse Meta-Package GoReleaser Config
+# Pranorverse Meta-Package GoReleaser Config
 #
-# Generates a virtual `servverse` .deb/.rpm meta-package that declares all
-# 16 Serv services as dependencies. Users can run:
-#   apt install servverse
-#   dnf install servverse
+# Generates a virtual `pranorverse` .deb/.rpm meta-package that declares all
+# 16 Pranor pranorices as dependencies. Users can run:
+#   apt install pranorverse
+#   dnf install pranorverse
 # and get the full stack installed.
 #
 # This config has NO build section (no binary to compile). It only produces
@@ -15,7 +15,7 @@
 
 version: 2
 
-project_name: servverse
+project_name: pranorverse
 
 # No builds — this is a pure meta-package (virtual package with dependencies only)
 builds:
@@ -23,48 +23,48 @@ builds:
     id: skip-build
 
 nfpms:
-  - id: servverse-meta
-    package_name: servverse
+  - id: pranorverse-meta
+    package_name: pranorverse
     # No binary to install — this is a dependency-only meta-package
     builds: []
     vendor: Yuvaraj
-    homepage: https://github.com/vyuvaraj/servverse-repo
+    homepage: https://github.com/vyuvaraj/pranorverse-repo
     maintainer: Yuvaraj <vyuvaraj@github.com>
     description: |
-      Servverse ecosystem meta-package.
-      Installing this package will install the complete Servverse platform:
-      Serv-lang compiler, ServGate, ServStore, ServQueue, ServCache, ServMesh,
-      ServConsole, ServTrace, ServAuth, ServCron, ServCloud, ServFlow,
-      ServPool, ServMail, ServTunnel, ServRegistry, and ServLock.
+      Pranorverse ecosystem meta-package.
+      Installing this package will install the complete Pranorverse platform:
+      Pranor-lang compiler, PranorGate, PranorStore, PranorQueue, PranorCache, PranorMesh,
+      PranorConsole, PranorTrace, PranorAuth, PranorCron, PranorCloud, PranorFlow,
+      PranorPool, PranorMail, PranorTunnel, PranorRegistry, and PranorLock.
     license: Apache-2.0
     formats:
       - deb
       - rpm
 
-    # Virtual package — declares all 16 service packages as dependencies.
-    # Each service publishes its own .deb/.rpm via its own GoReleaser config.
+    # Virtual package — declares all 16 pranorice packages as dependencies.
+    # Each pranorice publishes its own .deb/.rpm via its own GoReleaser config.
     dependencies:
-      - serv-lang
-      - servgate
-      - servstore
-      - servqueue
-      - servcache
-      - servmesh
-      - servconsole
-      - servtrace
-      - servauth
-      - servcron
-      - servcloud
-      - servflow
-      - servpool
-      - servmail
-      - servtunnel
-      - servregistry
-      - servlock
+      - pranor-lang
+      - pranorgate
+      - pranorstore
+      - pranorqueue
+      - pranorcache
+      - pranormesh
+      - pranorconsole
+      - pranortrace
+      - pranorauth
+      - pranorcron
+      - pranorcloud
+      - pranorflow
+      - pranorpool
+      - pranormail
+      - pranortunnel
+      - pranorregistry
+      - pranorlock
 
     contents:
       - src: scripts/postinstall-meta.sh
-        dst: /usr/share/doc/servverse/postinstall.sh
+        dst: /usr/share/doc/pranorverse/postinstall.sh
         type: doc
 
     scripts:

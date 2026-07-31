@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>pranorverse</id>
+    <version>1.7.0</version>
+    <title>PranorVerse Unified Ecosystem Setup</title>
+    <authors>Yuvaraj</authors>
+    <owners>Yuvaraj</owners>
+    <projectUrl>https://github.com/vyuvaraj/pranorverse-repo</projectUrl>
+    <licenseUrl>https://github.com/vyuvaraj/pranorverse-repo/blob/main/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The PranorVerse Developer Platform Unified Installer. Installs the 16 ecosystem components including Pranor-lang compiler, PranorGate, PranorStore, PranorQueue, PranorCache, PranorMesh, PranorConsole, PranorTrace, PranorAuth, PranorCron, PranorCloud, PranorFlow, PranorPool, PranorMail, PranorTunnel, PranorRegistry, and PranorLock.</description>
+    <summary>Pranorverse developer ecosystem unified package</summary>
+    <tags>pranorverse pranor-lang api-gateway s3 stomp message-broker micropranorices development</tags>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

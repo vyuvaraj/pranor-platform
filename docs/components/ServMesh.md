@@ -1,10 +1,10 @@
-# ServMesh — Library-Level Service Mesh
+# Pranor Mesh — Library-Level Service Mesh
 
-> **Status:** ✅ Production | **Port:** 8087 | **Repository:** [ServMesh](https://github.com/vyuvaraj/serv/tree/main/packages/ServMesh)
+> **Status:** ✅ Production | **Port:** 8087 | **Repository:** [Pranor Mesh](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Mesh)
 
 ## Overview
 
-ServMesh is a library-level service mesh that eliminates sidecar overhead. It provides service registry, round-robin load balancing, circuit breakers, mTLS between services, canary routing, and OpenTelemetry context propagation — all accessible via the `serv://` URL scheme.
+Pranor Mesh is a library-level service mesh that eliminates sidecar overhead. It provides service registry, round-robin load balancing, circuit breakers, mTLS between services, canary routing, and OpenTelemetry context propagation — all accessible via the `serv://` URL scheme.
 
 ## Key Features
 
@@ -21,8 +21,8 @@ ServMesh is a library-level service mesh that eliminates sidecar overhead. It pr
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `SERV_JWT_SECRET` | JWT verification secret | (required) |
-| `SERV_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
+| `PRANOR_JWT_SECRET` | JWT verification secret | (required) |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 | `SERVMESH_PORT` | HTTP listen port | `8087` |
 
 ## Endpoints
@@ -34,7 +34,7 @@ ServMesh is a library-level service mesh that eliminates sidecar overhead. It pr
 | `GET /api/v1/resolve/{name}` | Resolve service name to address |
 | `GET /api/v1/services` | List all registered services |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
 http.get("serv://user-service/users/123")

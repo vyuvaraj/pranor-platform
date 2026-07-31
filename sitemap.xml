@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://vyuvaraj.github.io/servverse/</loc><priority>1.0</priority></url>
-  <url><loc>https://vyuvaraj.github.io/servverse/blog.html?post=servverse-connecting-article</loc><priority>0.8</priority></url>
-  <url><loc>https://vyuvaraj.github.io/servverse/blog.html?post=serv-lang-medium-article</loc><priority>0.8</priority></url>
-  <url><loc>https://vyuvaraj.github.io/servverse/blog.html?post=servgate-medium-article</loc><priority>0.8</priority></url>
-  <url><loc>https://vyuvaraj.github.io/servverse/blog.html?post=servqueue-medium-article</loc><priority>0.8</priority></url>
-  <url><loc>https://vyuvaraj.github.io/servverse/blog.html?post=servstore-medium-article</loc><priority>0.8</priority></url>
-  <url><loc>https://vyuvaraj.github.io/servverse/blog.html?post=servconsole-medium-article</loc><priority>0.8</priority></url>
-  <url><loc>https://vyuvaraj.github.io/servverse/blog.html?post=servmesh-medium-article</loc><priority>0.7</priority></url>
-  <url><loc>https://vyuvaraj.github.io/servverse/blog.html?post=servtunnel-medium-article</loc><priority>0.7</priority></url>
-  <url><loc>https://vyuvaraj.github.io/servverse/blog.html?post=servcloud-medium-article</loc><priority>0.7</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/</loc><priority>1.0</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/blog.html?post=pranor-connecting-article</loc><priority>0.8</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/blog.html?post=pranor-medium-article</loc><priority>0.8</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/blog.html?post=servgate-medium-article</loc><priority>0.8</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/blog.html?post=servqueue-medium-article</loc><priority>0.8</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/blog.html?post=servstore-medium-article</loc><priority>0.8</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/blog.html?post=servconsole-medium-article</loc><priority>0.8</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/blog.html?post=servmesh-medium-article</loc><priority>0.7</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/blog.html?post=servtunnel-medium-article</loc><priority>0.7</priority></url>
+  <url><loc>https://vyuvaraj.github.io/pranor/blog.html?post=servcloud-medium-article</loc><priority>0.7</priority></url>
 </urlset>

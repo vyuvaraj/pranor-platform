@@ -1,10 +1,10 @@
-# Building a Production API Gateway with ServGate
+# Building a Production API Gateway with Pranor Gate
 
 > **Published:** July 2026 | **Reading Time:** ~12 min | **Tags:** `servgate`, `api-gateway`, `rate-limiting`, `routing`
 
 ---
 
-Every serious backend needs an API gateway. It's the single entry point that handles routing, auth enforcement, rate limiting, and request transformation before traffic ever hits your services. **ServGate** is the Servverse component that does exactly this — and it ships as a single Docker container with a file-based config.
+Every serious backend needs an API gateway. It's the single entry point that handles routing, auth enforcement, rate limiting, and request transformation before traffic ever hits your services. **Pranor Gate** is the Pranor component that does exactly this — and it ships as a single Docker container with a file-based config.
 
 ---
 
@@ -16,7 +16,7 @@ Without a gateway, each microservice handles:
 - CORS headers (always forgotten somewhere)
 - Request logging (siloed per service)
 
-ServGate centralizes all of this. Your upstream services focus on business logic. ServGate handles the rest.
+Pranor Gate centralizes all of this. Your upstream services focus on business logic. Pranor Gate handles the rest.
 
 ---
 
@@ -26,7 +26,7 @@ ServGate centralizes all of this. Your upstream services focus on business logic
 Client
   │
   ▼
-ServGate :8081
+Pranor Gate :8081
   ├── /api/users/*     → UserService :3000
   ├── /api/orders/*    → OrderService :3001
   ├── /api/products/*  → ProductService :3002
@@ -35,13 +35,13 @@ ServGate :8081
 
 ---
 
-## Step 1: Install ServGate
+## Step 1: Install Pranor Gate
 
 ```bash
 docker pull ghcr.io/vyuvaraj/servgate:latest
 ```
 
-Or download the binary from [releases](https://github.com/vyuvaraj/ServGate/releases/latest).
+Or download the binary from [releases](https://github.com/vyuvaraj/Pranor Gate/releases/latest).
 
 ---
 
@@ -117,7 +117,7 @@ routes:
 auth:
   jwt:
     secret: ${JWT_SECRET}
-    # Or delegate to ServAuth:
+    # Or delegate to Pranor Auth:
     # provider: servauth
     # endpoint: http://servauth:8086
 
@@ -134,7 +134,7 @@ middleware:
 
   tracing:
     enabled: true
-    # endpoint: http://servtrace:4317   # Send to ServTrace
+    # endpoint: http://servtrace:4317   # Send to Pranor Trace
 
 # Health check endpoint
 health:
@@ -144,7 +144,7 @@ health:
 
 ---
 
-## Step 3: Run ServGate
+## Step 3: Run Pranor Gate
 
 ```bash
 docker run -d \
@@ -167,7 +167,7 @@ curl http://localhost:8081/health
 
 ### Load Balancing
 
-ServGate can balance across multiple instances of the same service:
+Pranor Gate can balance across multiple instances of the same service:
 
 ```yaml
 upstreams:
@@ -205,7 +205,7 @@ routes:
     transform:
       request:
         add_headers:
-          X-Gateway: "ServGate"
+          X-Gateway: "Pranor Gate"
           X-Request-ID: "${request_id}"
         remove_headers:
           - Cookie    # Strip cookies before forwarding
@@ -227,9 +227,9 @@ routes:
 
 ---
 
-## Step 5: Monitor with ServConsole
+## Step 5: Monitor with Pranor Console
 
-If you're running ServConsole, ServGate will automatically report:
+If you're running Pranor Console, Pranor Gate will automatically report:
 - Request rates per route
 - Error rates and latency percentiles
 - Upstream health status
@@ -255,10 +255,10 @@ docker run -d -p 9000:9000 ghcr.io/vyuvaraj/servconsole:latest \
 
 ## What's Next?
 
-Now that traffic flows through your gateway, we need to make sure responses are fast. In the next post, we explore **ServCache** and distributed caching strategies for high-traffic APIs.
+Now that traffic flows through your gateway, we need to make sure responses are fast. In the next post, we explore **Pranor Cache** and distributed caching strategies for high-traffic APIs.
 
-➡️ [Distributed Caching Made Simple with ServCache](blog.html?post=04-caching-with-servcache)
+➡️ [Distributed Caching Made Simple with Pranor Cache](blog.html?post=04-caching-with-servcache)
 
 ---
 
-*Issues with ServGate? File a bug at [ServGate/issues](https://github.com/vyuvaraj/ServGate/issues).*
+*Issues with Pranor Gate? File a bug at [Pranor Gate/issues](https://github.com/vyuvaraj/Pranor Gate/issues).*

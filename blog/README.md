@@ -9,11 +9,11 @@ A collection of hands-on tutorials and deep-dive articles for building productio
 | # | Title | Topic | Reading Time |
 |---|-------|-------|-------------|
 | 1 | [Introducing Serv: The Modular Backend Ecosystem](blog.html?post=01-introducing-serv) | Overview | ~6 min |
-| 2 | [Getting Started with Serv-lang in 10 Minutes](blog.html?post=02-getting-started-serv-lang) | Serv-lang basics | ~10 min |
-| 3 | [Building a Production API Gateway with ServGate](blog.html?post=03-api-gateway-servgate) | ServGate deep dive | ~12 min |
-| 4 | [Distributed Caching Made Simple with ServCache](blog.html?post=04-caching-with-servcache) | ServCache patterns | ~10 min |
-| 5 | [Event-Driven Microservices with ServQueue](blog.html?post=05-event-driven-servqueue) | Queue & messaging | ~12 min |
-| 6 | [Full-Stack SaaS in Under an Hour with Servverse](blog.html?post=06-fullstack-saas-servverse) | End-to-end tutorial | ~20 min |
+| 2 | [Getting Started with Pranor in 10 Minutes](blog.html?post=02-getting-started-pranor) | Pranor basics | ~10 min |
+| 3 | [Building a Production API Gateway with Pranor Gate](blog.html?post=03-api-gateway-servgate) | Pranor Gate deep dive | ~12 min |
+| 4 | [Distributed Caching Made Simple with Pranor Cache](blog.html?post=04-caching-with-servcache) | Pranor Cache patterns | ~10 min |
+| 5 | [Event-Driven Microservices with Pranor Pulse](blog.html?post=05-event-driven-servqueue) | Queue & messaging | ~12 min |
+| 6 | [Full-Stack SaaS in Under an Hour with Pranor](blog.html?post=06-fullstack-saas-pranor) | End-to-end tutorial | ~20 min |
 
 ---
 
@@ -25,4 +25,4 @@ A collection of hands-on tutorials and deep-dive articles for building productio
 
 ---
 
-> 💡 All code examples in this series are available in the [servverse-repo](https://github.com/vyuvaraj/servverse-repo) and can be run with a single `docker run` command.
+> 💡 All code examples in this series are available in the [pranor-repo](https://github.com/vyuvaraj/pranor-repo) and can be run with a single `docker run` command.

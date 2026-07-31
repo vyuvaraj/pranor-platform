@@ -1,12 +1,12 @@
-# ServQueue — WASM-Enabled Multi-Protocol Message Broker
+# Pranor Pulse — WASM-Enabled Multi-Protocol Message Broker
 
-> **Status:** ✅ Production | **Ports:** `8082`/`9092` (HTTP & Admin UI), `61613` (STOMP), `1883` (MQTT v5.0), `9092` (Kafka) | **Repository:** [ServQueue](https://github.com/vyuvaraj/serv/tree/main/packages/ServQueue)
+> **Status:** ✅ Production | **Ports:** `8082`/`9092` (HTTP & Admin UI), `61613` (STOMP), `1883` (MQTT v5.0), `9092` (Kafka) | **Repository:** [Pranor Pulse](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Pulse)
 
 ---
 
 ## Overview
 
-ServQueue is a zero-dependency, high-performance message broker and event streaming engine written in Go as part of the unified **Serv monorepo**. It features a **Dual-Binary Architecture**:
+Pranor Pulse is a zero-dependency, high-performance message broker and event streaming engine written in Go as part of the unified **Serv monorepo**. It features a **Dual-Binary Architecture**:
 
 - **`servqueued`**: Server daemon hosting core storage, inline WASM stream transforms, multi-protocol listeners, Prometheus metrics, and an embedded Web Admin UI.
 - **`servqueue`**: Dedicated administrative CLI for publishing, consuming, topic management, stream tailing, and point-in-time replay.
@@ -27,9 +27,9 @@ ServQueue is a zero-dependency, high-performance message broker and event stream
 - **Cross-Cloud Active-Active Geo-Replication**: Multi-region cluster mirroring with Last-Write-Wins (LWW) CRDT conflict resolution.
 - **Embedded Web Admin UI**: Embedded via `go:embed` at `http://localhost:8082/ui/` or `http://localhost:9092/ui/`.
 - **Cloud-Native & Kubernetes Operations**:
-  - **Kubernetes Operator (`ServQueueCluster`)**: Custom CRD controller managing cluster replica deployment and failover.
+  - **Kubernetes Operator (`Pranor PulseCluster`)**: Custom CRD controller managing cluster replica deployment and failover.
   - **KEDA Metrics Scaler**: Exposes topic consumer lag metrics to Kubernetes Event-driven Autoscaling.
-  - **Automated Storage Tiering & Compaction**: TTL background eviction workers and cold segment offload to S3/ServStore.
+  - **Automated Storage Tiering & Compaction**: TTL background eviction workers and cold segment offload to S3/Pranor Vault.
   - **Automated Chaos Injector**: Built-in testing harness (`pkg/testing/chaos_injector.go`) for latency, network partition, and disk corruption testing.
 - **Multi-Language Client SDKs**: Standalone Go, TypeScript/Node.js, Python, and Browser WASM SDKs under `sdks/`.
 
@@ -90,7 +90,7 @@ servqueue dlq replay orders.created
 
 ### Go SDK
 ```go
-import "github.com/vyuvaraj/serv/packages/ServQueue/sdks/go"
+import "github.com/vyuvaraj/pranor/packages/Pranor Pulse/sdks/go"
 
 client := servqueue.NewClient("http://localhost:8082", "my-token")
 err := client.Publish("orders.created", `{"order_id": "1001"}`)
@@ -99,17 +99,17 @@ offset, err := client.SeekToTime("orders.created", "15m")
 
 ### TypeScript / Node.js SDK
 ```javascript
-const { ServQueueClient } = require('@servverse/queue-sdk');
+const { Pranor PulseClient } = require('@pranor/queue-sdk');
 
-const client = new ServQueueClient("http://localhost:8082", "my-token");
+const client = new Pranor PulseClient("http://localhost:8082", "my-token");
 await client.publish("orders.created", JSON.stringify({ order_id: "1001" }));
 ```
 
 ### Python SDK
 ```python
-from servqueue import ServQueueClient
+from servqueue import Pranor PulseClient
 
-client = ServQueueClient(base_url="http://localhost:8082")
+client = Pranor PulseClient(base_url="http://localhost:8082")
 client.publish("orders.created", '{"order_id": "1001"}')
 ```
 
@@ -118,14 +118,14 @@ client.publish("orders.created", '{"order_id": "1001"}')
 ## Production & Operational Guidelines
 
 ### WASM Safety & Resource Limits
-ServQueue runs isolated WebAssembly stream transform filters inside message streams using the `wazero` engine:
+Pranor Pulse runs isolated WebAssembly stream transform filters inside message streams using the `wazero` engine:
 * **Execution Timeout:** Each inline transform is bounded by a strict `50ms` timeout context.
 * **Memory Capping:** Sandboxed with a `16MB` memory allocation ceiling.
 
 ### Persistence & Storage Tiering
 * **Durability:** Every message is appended to the Write-Ahead Log (WAL) on disk before returning receipts.
-* **Storage Tiering:** Closed WAL segments are automatically offloaded to S3 / ServStore for infinite backlog retention, while TTL compaction workers purge expired records.
+* **Storage Tiering:** Closed WAL segments are automatically offloaded to S3 / Pranor Vault for infinite backlog retention, while TTL compaction workers purge expired records.
 
 ### Observability & Telemetry
-* **Prometheus Metrics:** ServQueue exposes metrics at `GET /metrics` and includes pre-built Grafana templates (`grafana_dashboard.json`).
+* **Prometheus Metrics:** Pranor Pulse exposes metrics at `GET /metrics` and includes pre-built Grafana templates (`grafana_dashboard.json`).
 * **OpenTelemetry Compatibility:** Propagates W3C Trace Context headers inside STOMP properties and OTLP spans across transform steps.

@@ -34,7 +34,7 @@ cron env("BACKUP_CRON") {
 }
 ```
 
-That's it. No main function. No imports. No boilerplate. Run `serv build scheduler.srv` and you get a native binary.
+That's it. No main function. No imports. No boilerplate. Run `pranor build scheduler.pnr` and you get a native binary.
 
 ---
 
@@ -140,7 +140,7 @@ The difference isn't that Serv can do things others can't — it's that infrastr
 Serv compiles through a classic pipeline:
 
 ```
-.srv source → Lexer → Parser (Pratt) → AST → Code Generator → Go source → Native binary
+.pnr source → Lexer → Parser (Pratt) → AST → Code Generator → Go source → Native binary
 ```
 
 The generated Go code uses a runtime library that provides HTTP routing, pub/sub adapters, cron scheduling, database access, caching, metrics, and structured logging. You write 15 lines of Serv; the compiler generates the 200 lines of Go you'd have written by hand.
@@ -189,15 +189,15 @@ If you're building:
 
 ```bash
 # Clone and build the compiler
-git clone https://github.com/vyuvaraj/Serv-lang.git
-cd Serv-lang
-go build -o serv.exe .
+git clone https://github.com/vyuvaraj/Pranor.git
+cd Pranor
+go build -o pranor.exe .
 
 # Run an example
-serv run examples/02_rest_api.srv
+pranor run examples/02_rest_api.pnr
 
 # Or build a native binary
-serv build examples/02_rest_api.srv -o my-api.exe
+pranor build examples/02_rest_api.pnr -o my-api.exe
 ./my-api.exe
 ```
 
@@ -211,7 +211,7 @@ Serv is open-source and actively developed. The roadmap includes:
 - **Package registry**: `serv install` for community modules
 - **More adapter backends**: MySQL, AWS SQS, GCP Pub/Sub, Meilisearch
 - **Enhanced LSP**: Full autocomplete and go-to-definition
-- **Deploy targets**: `serv deploy --target fly` / `--target railway` / `--target k8s`
+- **Deploy targets**: `pranor deploy --target fly` / `--target railway` / `--target k8s`
 
 The goal isn't to replace Go — it's to make Go the *compilation target* while you focus on what your service actually does.
 
@@ -219,7 +219,7 @@ The goal isn't to replace Go — it's to make Go the *compilation target* while 
 
 ## Links
 
-- **GitHub**: [github.com/vyuvaraj/Serv-lang](https://github.com/vyuvaraj/Serv-lang)
+- **GitHub**: [github.com/vyuvaraj/Pranor](https://github.com/vyuvaraj/Pranor)
 - **Language Reference**: Full docs in the repo under `docs/`
 - **License**: Open source
 

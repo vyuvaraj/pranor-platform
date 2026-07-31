@@ -1,10 +1,10 @@
-# Getting Started with Serv-lang in 10 Minutes
+# Getting Started with Pranor in 10 Minutes
 
-> **Published:** July 2026 | **Reading Time:** ~10 min | **Tags:** `serv-lang`, `tutorial`, `getting-started`, `go`
+> **Published:** July 2026 | **Reading Time:** ~10 min | **Tags:** `pranor`, `tutorial`, `getting-started`, `go`
 
 ---
 
-Serv-lang is a domain-specific language for defining backend services. It compiles to Go and integrates natively with the Servverse ecosystem. By the end of this post, you'll have a working service that handles HTTP routing, validation, caching, and auth — without touching a Kubernetes manifest.
+Pranor is a domain-specific language for defining backend services. It compiles to Go and integrates natively with the Pranor ecosystem. By the end of this post, you'll have a working service that handles HTTP routing, validation, caching, and auth — without touching a Kubernetes manifest.
 
 ---
 
@@ -18,18 +18,18 @@ Serv-lang is a domain-specific language for defining backend services. It compil
 
 **macOS / Linux:**
 ```bash
-curl -sSL https://raw.githubusercontent.com/vyuvaraj/Serv-lang/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/vyuvaraj/Pranor/main/install.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-irm https://raw.githubusercontent.com/vyuvaraj/Serv-lang/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/vyuvaraj/Pranor/main/install.ps1 | iex
 ```
 
 **Verify:**
 ```bash
 serv version
-# Serv-lang v0.2.0
+# Pranor v0.2.0
 ```
 
 ---
@@ -38,14 +38,14 @@ serv version
 
 ```bash
 mkdir my-api && cd my-api
-serv init
+pranor init
 ```
 
 This creates the following structure:
 
 ```
 my-api/
-├── main.srv          # Entry point
+├── main.pnr          # Entry point
 ├── services/          # Service definitions
 ├── models/            # Data models
 ├── serv.yaml          # Project config
@@ -56,7 +56,7 @@ my-api/
 
 ## Step 2: Define Your First Service
 
-Open `services/user.srv` and add:
+Open `services/user.pnr` and add:
 
 ```serv
 import store
@@ -125,24 +125,24 @@ store:
 
 cache:
   driver: memory          # In-memory cache for local dev
-  # driver: servcache     # Switch to ServCache in production
+  # driver: servcache     # Switch to Pranor Cache in production
   # endpoint: http://localhost:8082
 
 auth:
   driver: jwt
   secret: ${JWT_SECRET}
-  # driver: servauth      # Delegate to ServAuth in production
+  # driver: servauth      # Delegate to Pranor Auth in production
   # endpoint: http://localhost:8086
 ```
 
-> **Tip:** Serv-lang uses **driver abstraction** — switch from in-memory to ServCache with two config lines and zero code changes.
+> **Tip:** Pranor uses **driver abstraction** — switch from in-memory to Pranor Cache with two config lines and zero code changes.
 
 ---
 
 ## Step 4: Build and Run
 
 ```bash
-serv run
+pranor run
 ```
 
 Output:
@@ -181,7 +181,7 @@ curl http://localhost:3000/api/v1/users \
 
 ```bash
 # Compile to Go binary
-serv build
+pranor build
 
 # Or build a Docker image
 serv docker build --tag my-api:latest
@@ -215,7 +215,7 @@ In 10 minutes, you went from zero to:
 
 - ✅ A fully validated REST API with 4 endpoints
 - ✅ JWT authentication on every route
-- ✅ Cache layer (memory → ServCache in prod)
+- ✅ Cache layer (memory → Pranor Cache in prod)
 - ✅ SQLite persistence (swap to Postgres/MySQL in prod)
 - ✅ A Dockerized production binary
 
@@ -223,10 +223,10 @@ In 10 minutes, you went from zero to:
 
 ## What's Next?
 
-In the next post, we go deeper into **ServGate** — the API gateway that sits in front of all your services, handling routing, rate limiting, and auth forwarding.
+In the next post, we go deeper into **Pranor Gate** — the API gateway that sits in front of all your services, handling routing, rate limiting, and auth forwarding.
 
-➡️ [Building a Production API Gateway with ServGate](blog.html?post=03-api-gateway-servgate)
+➡️ [Building a Production API Gateway with Pranor Gate](blog.html?post=03-api-gateway-servgate)
 
 ---
 
-*Questions? Open a discussion in [Serv-lang](https://github.com/vyuvaraj/Serv-lang/discussions).*
+*Questions? Open a discussion in [Pranor](https://github.com/vyuvaraj/Pranor/discussions).*

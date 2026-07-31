@@ -1,10 +1,10 @@
 # ServDocs — Documentation Generator
 
-> **Status:** 🟢 Stable | **Port:** 8089 | **Repository:** [ServDocs](https://github.com/vyuvaraj/serv/tree/main/packages/ServDocs)
+> **Status:** 🟢 Stable | **Port:** 8089 | **Repository:** [ServDocs](https://github.com/vyuvaraj/pranor/tree/main/packages/ServDocs)
 
 ## Overview
 
-ServDocs is a CLI documentation generator that parses `.srv` source files to extract routes, structs, functions, and middleware chains. It produces interactive HTML documentation sites, OpenAPI 3.0 JSON specifications, and typed client SDKs for TypeScript, Dart, and Swift — all from a single parse pass.
+ServDocs is a CLI documentation generator that parses `.pnr` source files to extract routes, structs, functions, and middleware chains. It produces interactive HTML documentation sites, OpenAPI 3.0 JSON specifications, and typed client SDKs for TypeScript, Dart, and Swift — all from a single parse pass.
 
 ## Package Structure
 
@@ -17,7 +17,7 @@ main.go         — CLI orchestration (<100 lines)
 
 ## Key Features
 
-- `.srv` file parsing: routes, structs, functions, middleware chains
+- `.pnr` file parsing: routes, structs, functions, middleware chains
 - Interactive HTML documentation site (dark mode, live search, schema expand, versioned)
 - OpenAPI 3.0 JSON spec generation with path parameter normalization
 - Multi-language client SDK generation: TypeScript, Dart, Swift
@@ -47,10 +47,10 @@ main.go         — CLI orchestration (<100 lines)
 | `GET /healthz` | Liveness probe |
 | `GET /` | Generated documentation UI |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
-serv doc <file.srv>
+serv doc <file.pnr>
 ```
 
 ## Test Coverage

@@ -16,13 +16,13 @@ I wanted an object storage engine that *understands* its contents. One where you
 - **Time travel** — get the state of any object at any historical timestamp
 - **Compute near data** — run WASM transforms server-side without moving bytes across the network
 
-So I built ServStore.
+So I built Pranor Vault.
 
 ---
 
-## What ServStore Is
+## What Pranor Vault Is
 
-ServStore is a distributed, S3-compatible object storage engine written in Go. It speaks the AWS S3 REST API (Signature V4), so any S3 SDK or CLI works out of the box. But beyond the standard S3 feature set, it adds an AI-native storage layer.
+Pranor Vault is a distributed, S3-compatible object storage engine written in Go. It speaks the AWS S3 REST API (Signature V4), so any S3 SDK or CLI works out of the box. But beyond the standard S3 feature set, it adds an AI-native storage layer.
 
 **The standard stuff** (you'd expect from any serious object storage):
 - Full S3 REST API: PUT, GET, DELETE, HEAD, list, multipart uploads
@@ -54,7 +54,7 @@ ServStore is a distributed, S3-compatible object storage engine written in Go. I
 
 Most object storage is a dumb key-value store. You know the key, you get the object. You don't know the key? Good luck.
 
-ServStore automatically indexes text content on ingest. Upload a Markdown file, a text document, or anything with a `text/*` content type, and it gets TF-IDF indexed using cosine similarity ranking.
+Pranor Vault automatically indexes text content on ingest. Upload a Markdown file, a text document, or anything with a `text/*` content type, and it gets TF-IDF indexed using cosine similarity ranking.
 
 ```bash
 # Upload documents (indexed automatically)
@@ -71,7 +71,7 @@ The response is S3-compatible XML with ranked results. No Elasticsearch. No exte
 
 ## Time Travel — Get Any Object at Any Point in History
 
-Versioning in S3 gives you version IDs. You need to know which version you want. ServStore lets you ask a different question: *what did this object look like on January 1st?*
+Versioning in S3 gives you version IDs. You need to know which version you want. Pranor Vault lets you ask a different question: *what did this object look like on January 1st?*
 
 ```bash
 # Get object state at a specific timestamp
@@ -86,7 +86,7 @@ It resolves against version `LastModified` metadata. No extra storage overhead �
 
 The traditional pattern: download 500MB file → transform locally → upload result. Three network trips, latency, bandwidth cost.
 
-ServStore flips this. Upload a WASI-compatible `.wasm` binary, then execute it *server-side* against any object:
+Pranor Vault flips this. Upload a WASI-compatible `.wasm` binary, then execute it *server-side* against any object:
 
 ```bash
 # Build a WASM transform
@@ -107,7 +107,7 @@ Each WASM invocation gets a fresh, isolated `wazero` runtime — pure Go, no CGO
 ---
 ## Content-Addressed Storage & Cold Tiering
 
-Enable CAS on a bucket and ServStore deduplicates automatically. Objects are stored by their BLAKE3 hash with reference counting — data is only deleted when the last reference is removed.
+Enable CAS on a bucket and Pranor Vault deduplicates automatically. Objects are stored by their BLAKE3 hash with reference counting — data is only deleted when the last reference is removed.
 
 For cost optimization, cold storage tiering archives inactive CAS blocks to any S3-compatible backend (AWS Glacier, Backblaze B2, another MinIO cluster):
 
@@ -133,7 +133,7 @@ Transparent re-hydration. No API changes. Objects archived cold are fetched seam
 
 ## Distributed — Not Just Replicated
 
-ServStore isn't a single-node toy with "distributed" in the README. The clustering layer includes:
+Pranor Vault isn't a single-node toy with "distributed" in the README. The clustering layer includes:
 
 - **Raft consensus** for all metadata mutations — strong consistency, not eventual
 - **Gossip protocol** for node discovery and failure detection — nodes find each other and detect failures within seconds
@@ -154,11 +154,11 @@ Background rebalancing redistributes existing objects without downtime.
 
 ## Cloud-Native: Kubernetes Operator & Helm
 
-ServStore includes a full Kubernetes deployment story:
+Pranor Vault includes a full Kubernetes deployment story:
 
 ```yaml
 apiVersion: storage.servstore.io/v1alpha1
-kind: ServStoreCluster
+kind: Pranor VaultCluster
 metadata:
   name: my-storage
 spec:
@@ -198,7 +198,7 @@ No sidecar agents. No configuration. Start the binary and your observability sta
 
 ## How It Compares
 
-| Feature | AWS S3 | MinIO | ServStore |
+| Feature | AWS S3 | MinIO | Pranor Vault |
 |---------|--------|-------|-----------|
 | S3 API compatible | ✅ (native) | ✅ | ✅ |
 | Self-hostable | ❌ | ✅ | ✅ |
@@ -212,7 +212,7 @@ No sidecar agents. No configuration. Start the binary and your observability sta
 | Single binary | ❌ | ✅ | ✅ |
 | Open source | ❌ | ✅ (AGPL) | ✅ (Apache 2.0) |
 
-ServStore isn't trying to replace AWS S3 for everyone. It's for teams who want self-hosted object storage that does more than store bytes — storage that understands, searches, and transforms its contents.
+Pranor Vault isn't trying to replace AWS S3 for everyone. It's for teams who want self-hosted object storage that does more than store bytes — storage that understands, searches, and transforms its contents.
 
 ---
 
@@ -220,8 +220,8 @@ ServStore isn't trying to replace AWS S3 for everyone. It's for teams who want s
 
 ```bash
 # Clone and build
-git clone https://github.com/vyuvaraj/ServStore.git
-cd ServStore
+git clone https://github.com/vyuvaraj/Pranor Vault.git
+cd Pranor Vault
 go build -o servstore ./cmd/servstore
 
 # Run (no auth, port 9000)
@@ -252,23 +252,23 @@ The web console gives you drag-and-drop uploads, bucket management, versioning c
 
 ## Open Source vs. Enterprise Storage Features
 
-ServStore offers both free community-supported and commercial tiers:
+Pranor Vault offers both free community-supported and commercial tiers:
 
 * **Open Source (OSS)**: Pure S3 REST API compliance, object versioning, WORM locking, TF-IDF semantic text indexing, server-side WASM transforms (compute-near-data), and local storage pooling.
 * **Enterprise Edition (EE)**: Adds multi-region active-active database replication, distributed Raft clustering with cross-region consistency, Reed-Solomon erasure coding, auto-healing background scrubbers, and 24/7 SLA support.
 
-For enterprise scale deployments, reach out to the core team at **servverse@gmail.com**.
+For enterprise scale deployments, reach out to the core team at **pranor@gmail.com**.
 
 ---
 
 ## Links
 
-- **GitHub**: [github.com/vyuvaraj/ServStore](https://github.com/vyuvaraj/ServStore)
+- **GitHub**: [github.com/vyuvaraj/Pranor Vault](https://github.com/vyuvaraj/Pranor Vault)
 - **License**: Apache 2.0
 - **Language**: Pure Go, zero CGO dependencies
 
 ---
 
-*If you need object storage that goes beyond put-and-get — search, time travel, server-side compute — give ServStore a try. It's a single binary that runs anywhere Go compiles.*
+*If you need object storage that goes beyond put-and-get — search, time travel, server-side compute — give Pranor Vault a try. It's a single binary that runs anywhere Go compiles.*
 
 *— Yuvaraj*

@@ -1,23 +1,23 @@
-# Servverse Publication & Marketing Manifest
+# Pranor Publication & Marketing Manifest
 
-This document tracks the Medium article series, documentation layout, and marketing assets for the Servverse microservice ecosystem.
+This document tracks the Medium article series, documentation layout, and marketing assets for the Pranor microservice ecosystem.
 
 ---
 
-## 1. Hero Screenshots Manifest (`serv run`)
+## 1. Hero Screenshots Manifest (`pranor run`)
 
 To demonstrate the simplicity of the one-command developer loop, the following terminal outputs and dashboard visualization layouts have been compiled:
 
-* **Hero Terminal Output (`serv dev` / `serv run`)**:
+* **Hero Terminal Output (`pranor dev` / `pranor run`)**:
   ```bash
-  $ serv dev
-  [12:00:00] Starting Servverse Stack...
-  [12:00:01] ServRegistry listening on http://localhost:8089 (Heartbeat TTL: 10s)
-  [12:00:02] ServGate listening on http://localhost:8080 (Auth Secret Loaded)
-  [12:00:02] ServTrace listening on http://localhost:8090 (OTLP Endpoint active)
-  [12:00:03] ServConsole dashboard listening on http://localhost:3000
-  [12:00:04] ServTunnel mesh transport: mTLS handshake established successfully.
-  [12:00:05] ServCloud deploying services...
+  $ pranor dev
+  [12:00:00] Starting Pranor Stack...
+  [12:00:01] Pranor Hub listening on http://localhost:8089 (Heartbeat TTL: 10s)
+  [12:00:02] Pranor Gate listening on http://localhost:8080 (Auth Secret Loaded)
+  [12:00:02] Pranor Trace listening on http://localhost:8090 (OTLP Endpoint active)
+  [12:00:03] Pranor Console dashboard listening on http://localhost:3000
+  [12:00:04] Pranor Tunnel mesh transport: mTLS handshake established successfully.
+  [12:00:05] Pranor Deploy deploying services...
   [12:00:06] Service 'user-service' deployed successfully on port 8086.
   [12:00:07] [SYSTEM_ALERT] Circuit breaker for target 'payment-service' changed to CLOSED.
   [12:00:08] All systems operational. Go to console: http://localhost:3000
@@ -32,47 +32,47 @@ To demonstrate the simplicity of the one-command developer loop, the following t
 
 All nine articles have been prepared and cross-linked. The publication sequence is detailed below:
 
-### Part 1: Servverse Architecture Overview
+### Part 1: Pranor Architecture Overview
 * **Title**: *Designing a Zero-Dependency Microservice Framework in Go*
-* **Summary**: Explains the core philosophy of zero external dependencies, how `ServShared` acts as the utility wrapper, and how the modules connect via OTel.
+* **Summary**: Explains the core philosophy of zero external dependencies, how `Pranor Core` acts as the utility wrapper, and how the modules connect via OTel.
 
-### Part 2: ServRegistry & Service Discovery
-* **Title**: *Distributed Service Discovery: Building ServRegistry from Scratch*
+### Part 2: Pranor Hub & Service Discovery
+* **Title**: *Distributed Service Discovery: Building Pranor Hub from Scratch*
 * **Summary**: Deep-dive into heartbeat TTL eviction loops, CA certificates distribution, and dynamic registry-lookup algorithms.
 
-### Part 3: ServGate & Dynamic Routing
+### Part 3: Pranor Gate & Dynamic Routing
 * **Title**: *Creating a High-Performance API Gateway with Dynamic Hot-Reloading*
-* **Summary**: Discusses reverse proxies, route tables stored on ServStore (S3), and hot-reloading configurations without server restarts.
+* **Summary**: Discusses reverse proxies, route tables stored on Pranor Vault (S3), and hot-reloading configurations without server restarts.
 
-### Part 4: ServMesh & Client-Side Resiliency
+### Part 4: Pranor Mesh & Client-Side Resiliency
 * **Title**: *Mesh Networks at the Client: Load Balancing and Circuit Breaking*
 * **Summary**: Implementation details of mTLS transport tunnels, custom HTTP `RoundTrippers` with round-robin, and state transitions to `Open` (tripped).
 
-### Part 5: ServTrace & Gantt Chart Visualizations
+### Part 5: Pranor Trace & Gantt Chart Visualizations
 * **Title**: *Distributed Tracing: Implementing OTel Ingestion & Waterfall UIs*
-* **Summary**: How ServTrace accepts OTLP trace payloads, builds hierarchical span trees, and renders interactive Gantt charts.
+* **Summary**: How Pranor Trace accepts OTLP trace payloads, builds hierarchical span trees, and renders interactive Gantt charts.
 
-### Part 6: ServStore & Cold Tier Storage
+### Part 6: Pranor Vault & Cold Tier Storage
 * **Title**: *Scalable Observability: Eviction Policies & S3 Cold Tier Archiving*
-* **Summary**: How ServTrace handles high-scale memory eviction by archiving inactive trace payloads to S3-compatible cold tier stores.
+* **Summary**: How Pranor Trace handles high-scale memory eviction by archiving inactive trace payloads to S3-compatible cold tier stores.
 
-### Part 7: ServQueue & Message Brokerage
+### Part 7: Pranor Pulse & Message Brokerage
 * **Title**: *High-Throughput Pub/Sub: Creating a Zero-Config Message Broker*
 * **Summary**: Custom TCP-based messaging queue protocol with partitioned consumer offsets.
 
-### Part 8: ServCron & Distributed Scheduling
+### Part 8: Pranor Chrono & Distributed Scheduling
 * **Title**: *Distributed Crons: Reliable Scheduling Across Microservices*
 * **Summary**: Cron execution loops using leader-election registries.
 
-### Part 9: ServCloud & In-Process Isolation
+### Part 9: Pranor Deploy & In-Process Isolation
 * **Title**: *Next-Gen Application Hosting: WASM and Docker Sandboxing*
-* **Summary**: The future of ServCloud, deploying services compiled to WASM in-process and orchestrating isolated Docker runtimes.
+* **Summary**: The future of Pranor Deploy, deploying services compiled to WASM in-process and orchestrating isolated Docker runtimes.
 
 ---
 
 ## 3. VS Code Extension & Links
-* All component articles prominently link to the **Servverse Developer Tools** VS Code extension.
+* All component articles prominently link to the **Pranor Developer Tools** VS Code extension.
 * VS Code extension provides:
-  * Syntax highlighting for `.srv` files.
+  * Syntax highlighting for `.pnr` files.
   * Real-time telemetry feed from the console inside the editor sidebar.
-  * Right-click deploy to local ServCloud.
+  * Right-click deploy to local Pranor Deploy.

@@ -1,10 +1,10 @@
-# ServCache — Distributed Caching Layer
+# Pranor Cache — Distributed Caching Layer
 
-> **Status:** ✅ Production | **Port:** 8084 | **Repository:** [ServCache](https://github.com/vyuvaraj/serv/tree/main/packages/ServCache)
+> **Status:** ✅ Production | **Port:** 8084 | **Repository:** [Pranor Cache](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Cache)
 
 ## Overview
 
-ServCache is a distributed cache with pluggable Redis and in-memory adapters. It provides automatic key namespacing, TTL-based eviction, and full OpenTelemetry tracing for cache operations.
+Pranor Cache is a distributed cache with pluggable Redis and in-memory adapters. It provides automatic key namespacing, TTL-based eviction, and full OpenTelemetry tracing for cache operations.
 
 ## Key Features
 
@@ -22,7 +22,7 @@ ServCache is a distributed cache with pluggable Redis and in-memory adapters. It
 |----------|-------------|---------|
 | `SERVCACHE_PORT` | HTTP listen port | `8084` |
 | `SERVCACHE_REDIS_URL` | Redis connection URL | (in-memory fallback) |
-| `SERV_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints
 
@@ -34,7 +34,7 @@ ServCache is a distributed cache with pluggable Redis and in-memory adapters. It
 | `DELETE /api/v1/delete/{key}` | Delete a cached key |
 | `POST /api/v1/clear` | Clear all keys in namespace |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
 cache "redis://localhost:6379"

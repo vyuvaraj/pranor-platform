@@ -1,9 +1,9 @@
 #!/bin/bash
-# build-macos-pkg.sh - Builds a macOS installer package containing Servverse binaries.
+# build-macos-pkg.sh - Builds a macOS installer package containing Pranor binaries.
 set -e
 
 VERSION="1.7.0"
-IDENTIFIER="com.yuvaraj.servverse"
+IDENTIFIER="com.yuvaraj.pranor"
 PKG_DIR="dist/macos-pkg"
 BIN_DIR="${PKG_DIR}/usr/local/bin"
 
@@ -12,13 +12,13 @@ mkdir -p "${BIN_DIR}"
 
 # Download and extract macOS production binaries from the tag release
 tag="${GITHUB_REF_NAME}"
-echo "Downloading servverse-${tag}-darwin-amd64.tar.gz..."
-gh release download "${tag}" -p "servverse-${tag}-darwin-amd64.tar.gz" --dir dist
-tar -xzf "dist/servverse-${tag}-darwin-amd64.tar.gz" -C dist/
+echo "Downloading pranor-${tag}-darwin-amd64.tar.gz..."
+gh release download "${tag}" -p "pranor-${tag}-darwin-amd64.tar.gz" --dir dist
+tar -xzf "dist/pranor-${tag}-darwin-amd64.tar.gz" -C dist/
 
 # Copy binaries into package layout
 echo "Copying production binaries..."
-cp -r dist/servverse-${tag}-darwin-amd64/* "${BIN_DIR}/"
+cp -r dist/pranor-${tag}-darwin-amd64/* "${BIN_DIR}/"
 
 echo "Building raw package..."
 pkgbuild --root "${PKG_DIR}" \

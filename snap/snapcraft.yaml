@@ -1,26 +1,26 @@
-name: servverse
+name: pranorverse
 version: '1.7.0'
 summary: Unified developer platform ecosystem
 description: |
-  ServVerse provides a complete microservice developer toolkit: compiler, API Gateway, S3 storage, broker, trace collector and more.
+  PranorVerse provides a complete micropranorice developer toolkit: compiler, API Gateway, S3 storage, broker, trace collector and more.
 confinement: strict
 base: core22
 
 apps:
   compiler:
-    command: bin/serv
+    command: bin/pranor
     plugs: [home, network]
   gateway:
-    command: bin/servgate
+    command: bin/pranorgate
     plugs: [network, network-bind]
   store:
-    command: bin/servstore
+    command: bin/pranorstore
     plugs: [network, network-bind]
   queue:
-    command: bin/servqueue
+    command: bin/pranorqueue
     plugs: [network, network-bind]
   console:
-    command: bin/servconsole
+    command: bin/pranorconsole
     plugs: [network, network-bind]
 
 parts:
@@ -28,8 +28,8 @@ parts:
     plugin: dump
     source: .
     organize:
-      serv: bin/serv
-      servgate: bin/servgate
-      servstore: bin/servstore
-      servqueue: bin/servqueue
-      servconsole: bin/servconsole
+      pranor: bin/pranor
+      pranorgate: bin/pranorgate
+      pranorstore: bin/pranorstore
+      pranorqueue: bin/pranorqueue
+      pranorconsole: bin/pranorconsole

@@ -26,7 +26,7 @@ const (
 )
 
 func main() {
-	fmt.Println("🚀 Starting Servverse Ecosystem Workload Generator...")
+	fmt.Println("🚀 Starting Pranor Ecosystem Workload Generator...")
 	fmt.Println("Press Ctrl+C to stop.")
 
 	// Pre-setup steps (e.g. define a workflow, publish stdlib, etc.)
@@ -91,11 +91,11 @@ func setupEcosystem() {
 		fmt.Printf("  [SETUP] Warning: could not define workflow in ServFlow: %v\n", err)
 	}
 
-	// 2. Put a mock bucket in ServStore
+	// 2. Put a mock bucket in PranorVault
 	resp, err = client.Post(storeURL+"/src-bucket", "application/json", nil)
 	if err == nil {
 		resp.Body.Close()
-		fmt.Println("  [SETUP] Created bucket 'src-bucket' in ServStore successfully.")
+		fmt.Println("  [SETUP] Created bucket 'src-bucket' in PranorVault successfully.")
 	}
 }
 
@@ -183,7 +183,7 @@ func simulateVectorSearchActivity(client *http.Client) {
 		"top_k":  3,
 	}
 	body, _ := json.Marshal(payload)
-	// ServStore serves vector endpoints
+	// PranorVault serves vector endpoints
 	resp, err := client.Post(storeURL+"/api/search", "application/json", bytes.NewReader(body))
 	if err == nil {
 		io.Copy(io.Discard, resp.Body)

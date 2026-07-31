@@ -1,6 +1,6 @@
-# Servverse Enterprise End User License Agreement (EULA)
+# Pranor Enterprise End User License Agreement (EULA)
 
-This End User License Agreement ("Agreement") is a legal agreement between you (either an individual or a single entity) and the Servverse Project Maintainers ("Licensor") for the Servverse Enterprise Edition software and premium WASM plugins ("Software").
+This End User License Agreement ("Agreement") is a legal agreement between you (either an individual or a single entity) and the Pranor Project Maintainers ("Licensor") for the Pranor Enterprise Edition software and premium WASM plugins ("Software").
 
 BY INSTALLING, COPYING, OR OTHERWISE USING THE SOFTWARE, YOU AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE, DO NOT INSTALL OR USE THE SOFTWARE.
 
@@ -23,7 +23,7 @@ Licensor grants you a non-exclusive, non-transferable, limited commercial licens
 ## 3. Restrictions
 
 You agree not to:
-* Sublicense, lease, rent, or distribute the proprietary components of the Software (including `servverse-ee` source code and premium pre-compiled WASM modules) to any third party.
+* Sublicense, lease, rent, or distribute the proprietary components of the Software (including `pranor-ee` source code and premium pre-compiled WASM modules) to any third party.
 * Modify, overwrite, or bypass the cryptographic licensing verification mechanisms embedded in the Software.
 * Use the Software in any manner that violates applicable local or international laws.
 

@@ -1,27 +1,27 @@
-# Distributed Caching Made Simple with ServCache
+# Distributed Caching Made Simple with Pranor Cache
 
 > **Published:** July 2026 | **Reading Time:** ~10 min | **Tags:** `servcache`, `caching`, `performance`, `redis-alternative`
 
 ---
 
-Caching is one of the highest-leverage performance improvements available to any backend. A well-placed cache can reduce database load by 90% and cut p99 latency from seconds to milliseconds. **ServCache** is the Servverse cache server — a Redis-compatible key-value store with clustering, TTL, and namespacing built in.
+Caching is one of the highest-leverage performance improvements available to any backend. A well-placed cache can reduce database load by 90% and cut p99 latency from seconds to milliseconds. **Pranor Cache** is the Pranor cache server — a Redis-compatible key-value store with clustering, TTL, and namespacing built in.
 
 ---
 
-## What Makes ServCache Different From Redis?
+## What Makes Pranor Cache Different From Redis?
 
-| Feature | Redis | ServCache |
+| Feature | Redis | Pranor Cache |
 |---------|-------|-----------|
 | Protocol | RESP | REST + gRPC |
-| Auth | ACL files | JWT / API key (same as rest of Servverse) |
+| Auth | ACL files | JWT / API key (same as rest of Pranor) |
 | Namespacing | Conventions only | First-class namespaces |
-| Dashboard | External tool | Built into ServConsole |
+| Dashboard | External tool | Built into Pranor Console |
 | Clustering | Redis Cluster (complex) | Raft-based, auto-discovery |
 | Binary | External install | Single Docker image |
 
 ---
 
-## Step 1: Start ServCache
+## Step 1: Start Pranor Cache
 
 ```bash
 # Standalone (single node)
@@ -42,7 +42,7 @@ curl http://localhost:8082/health
 
 ## Step 2: Basic Operations via REST API
 
-> 💡 **Note:** While we showcase the **REST API** using standard `curl` commands below for ease of demonstration, ServCache also exposes a high-performance **gRPC** interface for low-overhead client access within your service grid.
+> 💡 **Note:** While we showcase the **REST API** using standard `curl` commands below for ease of demonstration, Pranor Cache also exposes a high-performance **gRPC** interface for low-overhead client access within your service grid.
 
 ### Set a Value
 
@@ -105,9 +105,9 @@ This is extremely useful for multi-tenant systems where you need to clear one te
 
 ---
 
-## Step 4: Use with Serv-lang
+## Step 4: Use with Pranor
 
-When your `serv.yaml` sets the cache driver to `servcache`, Serv-lang handles all cache calls transparently:
+When your `serv.yaml` sets the cache driver to `servcache`, Pranor handles all cache calls transparently:
 
 ```yaml
 # serv.yaml
@@ -123,20 +123,20 @@ In your service file:
 ```serv
 service ProductService {
   route GET /products/:id {
-    cache ttl=5m key="product:{id}"    # ServCache handles this
+    cache ttl=5m key="product:{id}"    # Pranor Cache handles this
     return store.get(Product, id)
   }
 }
 ```
 
-On first request: DB query, result stored in ServCache for 5 minutes.
+On first request: DB query, result stored in Pranor Cache for 5 minutes.
 On subsequent requests: Served from cache in <1ms.
 
 ---
 
 ## Step 5: Clustering for High Availability
 
-For production, run 3 nodes. ServCache uses Raft consensus for leader election:
+For production, run 3 nodes. Pranor Cache uses Raft consensus for leader election:
 
 ```yaml
 # docker-compose.yml
@@ -185,7 +185,7 @@ curl http://localhost:8082/cluster
 # {"leader":"node-1","nodes":["node-1","node-2","node-3"],"quorum":"healthy"}
 ```
 
-With 3 nodes, ServCache can survive one node failure without any downtime.
+With 3 nodes, Pranor Cache can survive one node failure without any downtime.
 
 ---
 
@@ -205,7 +205,7 @@ Best for: Frequently read data with acceptable staleness (e.g., product catalog,
 
 ### Pattern 2: Event-Driven Invalidation
 
-Invalidate on write events via ServQueue:
+Invalidate on write events via Pranor Pulse:
 
 ```serv
 service OrderService {
@@ -253,10 +253,10 @@ In benchmarks on a t3.medium (2 vCPU, 4 GB RAM):
 
 ## What's Next?
 
-Caching helps with read performance. But for async workflows and service decoupling, you need a message queue. In the next post, we build an event-driven microservice architecture with **ServQueue**.
+Caching helps with read performance. But for async workflows and service decoupling, you need a message queue. In the next post, we build an event-driven microservice architecture with **Pranor Pulse**.
 
-➡️ [Event-Driven Microservices with ServQueue](blog.html?post=05-event-driven-servqueue)
+➡️ [Event-Driven Microservices with Pranor Pulse](blog.html?post=05-event-driven-servqueue)
 
 ---
 
-*Spotted a bug or have a cache pattern to share? Open a [discussion](https://github.com/vyuvaraj/ServCache/discussions).*
+*Spotted a bug or have a cache pattern to share? Open a [discussion](https://github.com/vyuvaraj/Pranor Cache/discussions).*

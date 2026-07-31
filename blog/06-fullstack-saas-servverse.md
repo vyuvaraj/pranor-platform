@@ -1,10 +1,10 @@
-# Full-Stack SaaS in Under an Hour with Servverse
+# Full-Stack SaaS in Under an Hour with Pranor
 
 > **Published:** July 2026 | **Reading Time:** ~20 min | **Tags:** `tutorial`, `saas`, `full-stack`, `docker-compose`
 
 ---
 
-This is the capstone tutorial of the Serv blog series. We'll build a complete SaaS application — a project management tool — using 8 Servverse components, from scratch to a running Docker Compose stack.
+This is the capstone tutorial of the Serv blog series. We'll build a complete SaaS application — a project management tool — using 8 Pranor components, from scratch to a running Docker Compose stack.
 
 **What we're building:** A multi-tenant project management API (think simplified Linear or Jira backend) with:
 - User authentication and multi-tenancy
@@ -20,16 +20,16 @@ This is the capstone tutorial of the Serv blog series. We'll build a complete Sa
 
 | Service | Role |
 |---------|------|
-| **ServGate** | API gateway — routing, auth, rate limiting |
-| **ServAuth** | Authentication — JWT, signup, login, org management |
-| **ServCache** | Caching — task lists, user sessions |
-| **ServQueue** | Events — task created, comment added, reminders |
-| **ServStore** | File storage — task attachments |
-| **ServMail** | Transactional email — invites, reminders |
-| **ServCron** | Scheduler — daily digest, overdue task reminders |
-| **ServTrace** | Observability — distributed traces, latency |
+| **Pranor Gate** | API gateway — routing, auth, rate limiting |
+| **Pranor Auth** | Authentication — JWT, signup, login, org management |
+| **Pranor Cache** | Caching — task lists, user sessions |
+| **Pranor Pulse** | Events — task created, comment added, reminders |
+| **Pranor Vault** | File storage — task attachments |
+| **Pranor Notify** | Transactional email — invites, reminders |
+| **Pranor Chrono** | Scheduler — daily digest, overdue task reminders |
+| **Pranor Trace** | Observability — distributed traces, latency |
 
-Plus our custom **AppService** written in Serv-lang.
+Plus our custom **AppService** written in Pranor.
 
 ---
 
@@ -39,14 +39,14 @@ Plus our custom **AppService** written in Serv-lang.
 taskflow/
 ├── app/
 │   ├── services/
-│   │   ├── task.srv
-│   │   ├── project.srv
-│   │   ├── comment.srv
-│   │   └── notification.srv
+│   │   ├── task.pnr
+│   │   ├── project.pnr
+│   │   ├── comment.pnr
+│   │   └── notification.pnr
 │   ├── models/
-│   │   ├── user.srv
-│   │   ├── project.srv
-│   │   └── task.srv
+│   │   ├── user.pnr
+│   │   ├── project.pnr
+│   │   └── task.pnr
 │   └── serv.yaml
 ├── config/
 │   ├── servgate.yaml
@@ -58,7 +58,7 @@ taskflow/
 
 ## Step 1: Define the Data Models
 
-`app/models/task.srv`:
+`app/models/task.pnr`:
 ```serv
 model Project {
   id:          string   @id
@@ -100,7 +100,7 @@ model Comment {
 
 ## Step 2: Define the Services
 
-`app/services/task.srv`:
+`app/services/task.pnr`:
 ```serv
 import store
 import cache
@@ -251,7 +251,7 @@ mail:
 
 ## Step 4: Set Up Scheduled Jobs
 
-`app/services/notification.srv`:
+`app/services/notification.pnr`:
 ```serv
 import cron
 import queue
@@ -296,7 +296,7 @@ cron.schedule("0 * * * *", "overdue-check") {
 
 ## Step 5: Wire Up Email Notifications
 
-`app/services/notification.srv` (continued):
+`app/services/notification.pnr` (continued):
 ```serv
 import mail
 
@@ -354,7 +354,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
 
-  # Servverse components
+  # Pranor components
   servgate:
     image: ghcr.io/vyuvaraj/servgate:latest
     ports: ["80:8081"]
@@ -459,11 +459,11 @@ docker compose logs -f app servgate
 curl http://localhost/health
 ```
 
-Open ServConsole at `http://localhost:9000` to see:
-- Live request throughput via ServGate
-- Cache hit rates in ServCache
-- Queue depths and consumer lag in ServQueue
-- Distributed traces in ServTrace
+Open Pranor Console at `http://localhost:9000` to see:
+- Live request throughput via Pranor Gate
+- Cache hit rates in Pranor Cache
+- Queue depths and consumer lag in Pranor Pulse
+- Distributed traces in Pranor Trace
 
 ---
 
@@ -473,29 +473,29 @@ In under an hour, you have:
 
 - ✅ **Multi-tenant REST API** with JWT auth and org isolation
 - ✅ **Caching** on all read-heavy endpoints
-- ✅ **Event-driven notifications** via ServQueue → ServMail
-- ✅ **File uploads** via ServStore
-- ✅ **Scheduled jobs** (daily digest, overdue checks) via ServCron
-- ✅ **Full observability** — traces, metrics, logs via ServTrace + ServConsole
+- ✅ **Event-driven notifications** via Pranor Pulse → Pranor Notify
+- ✅ **File uploads** via Pranor Vault
+- ✅ **Scheduled jobs** (daily digest, overdue checks) via Pranor Chrono
+- ✅ **Full observability** — traces, metrics, logs via Pranor Trace + Pranor Console
 - ✅ **One-command deploy** with Docker Compose
 
-The complete source code is available in [servverse-repo/examples/taskflow](https://github.com/vyuvaraj/servverse-repo/tree/main/examples/taskflow).
+The complete source code is available in [pranor-repo/examples/taskflow](https://github.com/vyuvaraj/pranor-repo/tree/main/examples/taskflow).
 
 ---
 
 ## Series Wrap-Up
 
-This series covered the entire Servverse developer journey:
+This series covered the entire Pranor developer journey:
 
 | Post | Topic |
 |------|-------|
 | [1 — Introducing Serv](blog.html?post=01-introducing-serv) | Ecosystem overview |
-| [2 — Serv-lang in 10 min](blog.html?post=02-getting-started-serv-lang) | First service |
-| [3 — ServGate](blog.html?post=03-api-gateway-servgate) | API gateway deep dive |
-| [4 — ServCache](blog.html?post=04-caching-with-servcache) | Distributed caching |
-| [5 — ServQueue](blog.html?post=05-event-driven-servqueue) | Event-driven architecture |
+| [2 — Pranor in 10 min](blog.html?post=02-getting-started-pranor) | First service |
+| [3 — Pranor Gate](blog.html?post=03-api-gateway-servgate) | API gateway deep dive |
+| [4 — Pranor Cache](blog.html?post=04-caching-with-servcache) | Distributed caching |
+| [5 — Pranor Pulse](blog.html?post=05-event-driven-servqueue) | Event-driven architecture |
 | **6 — Full-Stack SaaS** | **This post** |
 
 ---
 
-*Want more? Star [servverse-repo](https://github.com/vyuvaraj/servverse-repo) and watch for new posts. Feedback? Open a [discussion](https://github.com/vyuvaraj/servverse-repo/discussions).*
+*Want more? Star [pranor-repo](https://github.com/vyuvaraj/pranor-repo) and watch for new posts. Feedback? Open a [discussion](https://github.com/vyuvaraj/pranor-repo/discussions).*

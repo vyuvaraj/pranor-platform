@@ -1,10 +1,10 @@
-# ServConsole — Unified Observability Dashboard
+# Pranor Console — Unified Observability Dashboard
 
-> **Status:** ✅ Production | **Port:** 8083 | **Repository:** [ServConsole](https://github.com/vyuvaraj/serv/tree/main/packages/ServConsole)
+> **Status:** ✅ Production | **Port:** 8083 | **Repository:** [Pranor Console](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Console)
 
 ## Overview
 
-Single-binary glassmorphic web dashboard providing unified observability, administration, and operations for all Servverse components. Reverse-proxies to connected services, aggregates health, and provides real-time metrics via WebSocket push.
+Single-binary glassmorphic web dashboard providing unified observability, administration, and operations for all Pranor components. Reverse-proxies to connected services, aggregates health, and provides real-time metrics via WebSocket push.
 
 ## Key Features
 
@@ -15,7 +15,7 @@ Single-binary glassmorphic web dashboard providing unified observability, admini
 - SQL query workbench (SQLite, PostgreSQL, MySQL, Oracle)
 - DB schema inspector and migration auditing
 - Gateway route editor with WASM hot-swap UI
-- Consistent hash ring visualization (ServStore)
+- Consistent hash ring visualization (Pranor Vault)
 - RBAC-based access control (viewer/operator/admin)
 - OIDC/OAuth2 SSO login
 - Alerting engine with Slack/email/webhook notifications
@@ -38,8 +38,8 @@ Single-binary glassmorphic web dashboard providing unified observability, admini
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `SERVVERSE_DISCOVERY` | JSON manifest or file path for service URLs | (uses CLI flags) |
-| `SERV_JWT_SECRET` | Shared JWT secret for console auth | (required for SSO) |
-| `SERV_OTLP_ENDPOINT` | OTel collector | (disabled) |
+| `PRANOR_JWT_SECRET` | Shared JWT secret for console auth | (required for SSO) |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector | (disabled) |
 
 ## CLI Flags
 
@@ -64,7 +64,7 @@ servconsole \
 | `GET /healthz` | Liveness probe |
 | `GET /api/status` | Aggregated service health |
 | `GET /api/events` | WebSocket event stream |
-| `GET /api/routes` | ServGate route management |
+| `GET /api/routes` | Pranor Gate route management |
 | `GET /api/traces/replay` | Trace request replay |
 | `GET /api/alerts` | Alert list + ack |
 | `GET /api/logs` | Log aggregation query |

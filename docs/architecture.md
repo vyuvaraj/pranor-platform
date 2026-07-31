@@ -1,22 +1,22 @@
-# Servverse Architecture
+# Pranor Architecture
 
 ## Layers
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                       DEVELOPER TOOLS                               │
-│  Serv-lang Compiler │ VS Code LSP │ ServDocs │ ServRegistry         │
+│  Pranor Compiler │ VS Code LSP │ ServDocs │ Pranor Hub         │
 ├─────────────────────────────────────────────────────────────────────┤
 │                       PLATFORM LAYER                                │
-│  ServGate │ ServMesh │ ServCloud │ ServTunnel │ ServConsole          │
+│  Pranor Gate │ Pranor Mesh │ Pranor Deploy │ Pranor Tunnel │ Pranor Console          │
 ├─────────────────────────────────────────────────────────────────────┤
 │                     INFRASTRUCTURE LAYER                            │
-│  ServStore │ ServQueue │ ServCache │ ServPool │ ServAuth               │
-│  ServMail  │ ServCron  │ ServFlow                                   │
+│  Pranor Vault │ Pranor Pulse │ Pranor Cache │ Pranor Pool │ Pranor Auth               │
+│  Pranor Notify  │ Pranor Chrono  │ Pranor Flow                                   │
 ├─────────────────────────────────────────────────────────────────────┤
 │                     FOUNDATION                                      │
-│  ServShared (common library — health, OTel, JWT, logging)           │
-│  ServTrace (distributed tracing backend)                            │
+│  Pranor Core (common library — health, OTel, JWT, logging)           │
+│  Pranor Trace (distributed tracing backend)                            │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -24,41 +24,41 @@
 
 ```mermaid
 graph TD
-    Client[External Client] -->|HTTPS| ServGate
-    ServGate -->|route + proxy| ServMesh
-    ServMesh -->|resolve + LB| Services[Service Instances]
+    Client[External Client] -->|HTTPS| Pranor Gate
+    Pranor Gate -->|route + proxy| Pranor Mesh
+    Pranor Mesh -->|resolve + LB| Services[Service Instances]
     
-    Services -->|persist| ServStore
-    Services -->|enqueue| ServQueue
-    Services -->|cache| ServCache
-    Services -->|query| ServPool
-    Services -->|authenticate| ServAuth
-    Services -->|notify| ServMail
-    Services -->|schedule| ServCron
-    Services -->|workflow| ServFlow
+    Services -->|persist| Pranor Vault
+    Services -->|enqueue| Pranor Pulse
+    Services -->|cache| Pranor Cache
+    Services -->|query| Pranor Pool
+    Services -->|authenticate| Pranor Auth
+    Services -->|notify| Pranor Notify
+    Services -->|schedule| Pranor Chrono
+    Services -->|workflow| Pranor Flow
     
-    Services -.->|traces| ServTrace
-    ServTrace -->|cold tier| ServStore
-    ServCron -->|triggers| Services
-    ServQueue -->|delivers| Services
-    ServMail -->|DLQ retry| ServQueue
-    ServFlow -->|events| ServQueue
-    ServFlow -->|checkpoints| ServStore
-    ServAuth -->|users| ServStore
+    Services -.->|traces| Pranor Trace
+    Pranor Trace -->|cold tier| Pranor Vault
+    Pranor Chrono -->|triggers| Services
+    Pranor Pulse -->|delivers| Services
+    Pranor Notify -->|DLQ retry| Pranor Pulse
+    Pranor Flow -->|events| Pranor Pulse
+    Pranor Flow -->|checkpoints| Pranor Vault
+    Pranor Auth -->|users| Pranor Vault
     
-    ServConsole -->|aggregates| ServGate
-    ServConsole -->|aggregates| ServStore
-    ServConsole -->|aggregates| ServQueue
-    ServConsole -->|aggregates| ServTrace
-    ServConsole -->|aggregates| ServAuth
-    ServConsole -->|aggregates| ServPool
-    ServConsole -->|aggregates| ServMail
-    ServConsole -->|aggregates| ServFlow
-    ServConsole -->|aggregates| ServTunnel
+    Pranor Console -->|aggregates| Pranor Gate
+    Pranor Console -->|aggregates| Pranor Vault
+    Pranor Console -->|aggregates| Pranor Pulse
+    Pranor Console -->|aggregates| Pranor Trace
+    Pranor Console -->|aggregates| Pranor Auth
+    Pranor Console -->|aggregates| Pranor Pool
+    Pranor Console -->|aggregates| Pranor Notify
+    Pranor Console -->|aggregates| Pranor Flow
+    Pranor Console -->|aggregates| Pranor Tunnel
     
-    ServCloud -->|deploys| Services
-    ServCloud -->|registers routes| ServGate
-    ServRegistry -->|stores packages| ServStore
+    Pranor Deploy -->|deploys| Services
+    Pranor Deploy -->|registers routes| Pranor Gate
+    Pranor Hub -->|stores packages| Pranor Vault
 ```
 
 ## Service Discovery
@@ -90,15 +90,15 @@ All services locate each other via the `SERVVERSE_DISCOVERY` environment variabl
 
 ## Shared Conventions
 
-All services follow these patterns (enforced by ServShared):
+All services follow these patterns (enforced by Pranor Core):
 
 | Convention | Implementation |
 |------------|----------------|
 | Health probe | `GET /healthz` → 200 OK |
 | Readiness probe | `GET /readyz` → 200 OK |
 | Error format | `{"error": "msg", "code": "ERR_CODE", "trace_id": "..."}` |
-| Auth | Bearer JWT verified via `SERV_JWT_SECRET` |
-| Tracing | OTel spans exported to `SERV_OTLP_ENDPOINT` |
+| Auth | Bearer JWT verified via `PRANOR_JWT_SECRET` |
+| Tracing | OTel spans exported to `PRANOR_OTLP_ENDPOINT` |
 | Logging | Structured JSON to stdout |
 | Shutdown | Graceful on SIGTERM (drain + 5s timeout) |
 | API versioning | `/api/v1/` prefix on all management endpoints |
@@ -108,8 +108,8 @@ All services follow these patterns (enforced by ServShared):
 | Pattern | Used By |
 |---------|---------|
 | HTTP REST (sync) | All services for API calls |
-| STOMP TCP (async) | ServQueue for pub/sub messaging |
-| WebSocket (push) | ServConsole for real-time dashboards, ServTunnel for tunneling |
-| `serv://` resolver | ServMesh for inter-service calls |
-| S3 protocol | ServStore for object storage |
-| OTLP/HTTP | ServTrace for span ingestion |
+| STOMP TCP (async) | Pranor Pulse for pub/sub messaging |
+| WebSocket (push) | Pranor Console for real-time dashboards, Pranor Tunnel for tunneling |
+| `serv://` resolver | Pranor Mesh for inter-service calls |
+| S3 protocol | Pranor Vault for object storage |
+| OTLP/HTTP | Pranor Trace for span ingestion |

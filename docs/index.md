@@ -1,4 +1,4 @@
-# Servverse Documentation
+# Pranor Documentation
 
 > The complete reference for the Serv ecosystem — language, components, operations, and architecture.
 
@@ -20,7 +20,7 @@
 |-----|-------------|
 | [Language Reference](language-reference.md) | Detailed syntax specification and type system |
 | [Built-in Functions](builtins.md) | `log`, `db`, `cache`, `http`, `json`, `ai`, `store`, `broker` |
-| [Standard Library](stdlib.md) | 48 importable `.srv` modules (auth, jwt, retry, pagination, etc.) |
+| [Standard Library](stdlib.md) | 48 importable `.pnr` modules (auth, jwt, retry, pagination, etc.) |
 | [CLI Reference](cli.md) | All `serv` commands with flags and usage |
 
 ---
@@ -30,25 +30,25 @@
 | Doc | Description |
 |-----|-------------|
 | [Component Catalog](components/README.md) | All 16 services with status, ports, and architecture |
-| [ServGate](components/ServGate.md) | API Gateway — WASM middleware, AI routing, MCP support |
-| [ServStore](components/ServStore.md) | Object Storage — S3-compatible, semantic search, time-travel |
-| [ServQueue](components/ServQueue.md) | Message Broker — STOMP, WASM transforms, DLQ, tiered storage |
-| [ServConsole](components/ServConsole.md) | Dashboard — unified observability, SQL workbench, alerting |
-| [ServMesh](components/ServMesh.md) | Service Mesh — library-level, mTLS, circuit breaking |
-| [ServCache](components/ServCache.md) | Cache — Redis/in-memory, namespacing, TTL |
-| [ServCron](components/ServCron.md) | Scheduler — leader election, cron syntax, ServStore persistence |
-| [ServCloud](components/ServCloud.md) | Deployment — process orchestration, Docker, gateway sync |
-| [ServTrace](components/ServTrace.md) | Tracing — OTLP ingestion, waterfall UI, anomaly detection |
-| [ServTunnel](components/ServTunnel.md) | Tunneling — WebSocket relay, request inspection, subdomain routing |
-| [ServAuth](components/ServAuth.md) | Identity — OAuth2/OIDC, MFA, RBAC, social login |
-| [ServPool](components/ServPool.md) | Database Proxy — pooling, routing, query analytics |
-| [ServMail](components/ServMail.md) | Notifications — SMTP, Slack, SMS, templates |
-| [ServFlow](components/ServFlow.md) | Workflows — DAG execution, sagas, approval gates |
-| [ServRegistry](components/ServRegistry.md) | Packages — semver resolution, signing, ServStore backend |
-| [ServDocs](components/ServDocs.md) | Documentation — auto-generated from `.srv` source |
-| [ServShared](components/ServShared.md) | Common Library — health probes, OTel, JWT middleware |
-| [servlockctl](https://github.com/vyuvaraj/serv/tree/main/packages/servlockctl) | Lock CLI — distributed lock acquisition, renewal, and deadlock inspection |
-| [servsecretctl](https://github.com/vyuvaraj/serv/tree/main/packages/servsecretctl) | Secrets CLI — key rotation, secret injection, and Shamir unseal operations |
+| [Pranor Gate](components/Pranor Gate.md) | API Gateway — WASM middleware, AI routing, MCP support |
+| [Pranor Vault](components/Pranor Vault.md) | Object Storage — S3-compatible, semantic search, time-travel |
+| [Pranor Pulse](components/Pranor Pulse.md) | Message Broker — STOMP, WASM transforms, DLQ, tiered storage |
+| [Pranor Console](components/Pranor Console.md) | Dashboard — unified observability, SQL workbench, alerting |
+| [Pranor Mesh](components/Pranor Mesh.md) | Service Mesh — library-level, mTLS, circuit breaking |
+| [Pranor Cache](components/Pranor Cache.md) | Cache — Redis/in-memory, namespacing, TTL |
+| [Pranor Chrono](components/Pranor Chrono.md) | Scheduler — leader election, cron syntax, Pranor Vault persistence |
+| [Pranor Deploy](components/Pranor Deploy.md) | Deployment — process orchestration, Docker, gateway sync |
+| [Pranor Trace](components/Pranor Trace.md) | Tracing — OTLP ingestion, waterfall UI, anomaly detection |
+| [Pranor Tunnel](components/Pranor Tunnel.md) | Tunneling — WebSocket relay, request inspection, subdomain routing |
+| [Pranor Auth](components/Pranor Auth.md) | Identity — OAuth2/OIDC, MFA, RBAC, social login |
+| [Pranor Pool](components/Pranor Pool.md) | Database Proxy — pooling, routing, query analytics |
+| [Pranor Notify](components/Pranor Notify.md) | Notifications — SMTP, Slack, SMS, templates |
+| [Pranor Flow](components/Pranor Flow.md) | Workflows — DAG execution, sagas, approval gates |
+| [Pranor Hub](components/Pranor Hub.md) | Packages — semver resolution, signing, Pranor Vault backend |
+| [ServDocs](components/ServDocs.md) | Documentation — auto-generated from `.pnr` source |
+| [Pranor Core](components/Pranor Core.md) | Common Library — health probes, OTel, JWT middleware |
+| [servlockctl](https://github.com/vyuvaraj/pranor/tree/main/packages/servlockctl) | Lock CLI — distributed lock acquisition, renewal, and deadlock inspection |
+| [servsecretctl](https://github.com/vyuvaraj/pranor/tree/main/packages/servsecretctl) | Secrets CLI — key rotation, secret injection, and Shamir unseal operations |
 
 ---
 
@@ -67,19 +67,19 @@
 
 | Service | Port | Protocol |
 |---------|------|----------|
-| ServGate | 8080 | HTTP/HTTPS |
-| ServStore | 8081 | HTTP (S3) |
-| ServQueue | 8082 / 61613 | HTTP + STOMP |
-| ServConsole | 8083 | HTTP |
-| ServCache | 8084 | HTTP |
-| ServCron | 8085 | HTTP |
-| ServCloud | 8086 | HTTP |
-| ServMesh | 8087 | HTTP |
-| ServRegistry | 8088 | HTTP |
+| Pranor Gate | 8080 | HTTP/HTTPS |
+| Pranor Vault | 8081 | HTTP (S3) |
+| Pranor Pulse | 8082 / 61613 | HTTP + STOMP |
+| Pranor Console | 8083 | HTTP |
+| Pranor Cache | 8084 | HTTP |
+| Pranor Chrono | 8085 | HTTP |
+| Pranor Deploy | 8086 | HTTP |
+| Pranor Mesh | 8087 | HTTP |
+| Pranor Hub | 8088 | HTTP |
 | ServDocs | 8089 | HTTP |
-| ServTrace | 8090 | HTTP (OTLP) |
-| ServMail | 8094 | HTTP |
-| ServFlow | 8096 | HTTP |
-| ServPool | 8097 | HTTP |
-| ServAuth | 8098 | HTTP |
-| ServTunnel | 8443 | WebSocket |
+| Pranor Trace | 8090 | HTTP (OTLP) |
+| Pranor Notify | 8094 | HTTP |
+| Pranor Flow | 8096 | HTTP |
+| Pranor Pool | 8097 | HTTP |
+| Pranor Auth | 8098 | HTTP |
+| Pranor Tunnel | 8443 | WebSocket |

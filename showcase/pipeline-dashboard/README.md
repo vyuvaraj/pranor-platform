@@ -1,6 +1,6 @@
 # Pipeline Status Monitor Showcase App
 
-This is a showcase application written entirely in the **Serv Programming Language (`serv-lang`)**. It demonstrates how to build web applications with persistent database storage, background cron/every loops, and HTTP services using zero boilerplate.
+This is a showcase application written entirely in the **Serv Programming Language (`pranor`)**. It demonstrates how to build web applications with persistent database storage, background cron/every loops, and HTTP services using zero boilerplate.
 
 ## Architecture
 
@@ -18,13 +18,13 @@ To run the application locally in watch/hot-reload mode:
 cd pipeline-dashboard
 
 # Run the compiler dev server
-serv run main.srv --watch
+pranor run main.pnr --watch
 ```
 
 To compile the application into a standalone native binary:
 
 ```bash
-serv build main.srv -o pipeline-dashboard.exe
+pranor build main.pnr -o pipeline-dashboard.exe
 ./pipeline-dashboard.exe
 ```
 

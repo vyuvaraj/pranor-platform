@@ -1,10 +1,10 @@
-# ServPool — Database Connection Pooler & Query Router
+# Pranor Pool — Database Connection Pooler & Query Router
 
-> **Status:** 🟡 Stable | **Port:** 8097 | **Repository:** [ServPool](https://github.com/vyuvaraj/serv/tree/main/packages/ServPool)
+> **Status:** 🟡 Stable | **Port:** 8097 | **Repository:** [Pranor Pool](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Pool)
 
 ## Overview
 
-ServPool is a database proxy with connection pooling, read/write query routing, slow query detection, multi-dialect support (SQLite, PostgreSQL, Oracle, MongoDB), and query caching via ServCache for frequently executed queries.
+Pranor Pool is a database proxy with connection pooling, read/write query routing, slow query detection, multi-dialect support (SQLite, PostgreSQL, Oracle, MongoDB), and query caching via Pranor Cache for frequently executed queries.
 
 ## Key Features
 
@@ -12,7 +12,7 @@ ServPool is a database proxy with connection pooling, read/write query routing, 
 - Automatic read/write query routing (primary/replica)
 - Slow query detection and logging
 - Multi-dialect support: SQLite, PostgreSQL, Oracle, MongoDB
-- Query result caching via ServCache integration
+- Query result caching via Pranor Cache integration
 - Prepared statement management
 - Query metrics and pool statistics
 - Health-aware connection recycling
@@ -22,10 +22,10 @@ ServPool is a database proxy with connection pooling, read/write query routing, 
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `PORT` | HTTP listen port | `8097` |
-| `ServPool_PRIMARY_DSN` | Primary database connection string | (required) |
-| `ServPool_REPLICA_DSN` | Read replica connection string | (optional) |
-| `SERVCACHE_URL` | ServCache URL for query caching | (optional) |
-| `SERV_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
+| `Pranor Pool_PRIMARY_DSN` | Primary database connection string | (required) |
+| `Pranor Pool_REPLICA_DSN` | Read replica connection string | (optional) |
+| `SERVCACHE_URL` | Pranor Cache URL for query caching | (optional) |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints
 
@@ -36,8 +36,8 @@ ServPool is a database proxy with connection pooling, read/write query routing, 
 | `GET /api/v1/pool/stats` | Connection pool statistics |
 | `GET /api/v1/slow-queries` | List detected slow queries |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
-database "ServPool://pool/mydb"
+database "Pranor Pool://pool/mydb"
 ```

@@ -1,10 +1,10 @@
 # Component Maturity Analysis & Architectural Roadmap
 
-This document analyzes the external feedback regarding the maturity of **ServGate**, **ServQueue**, and **ServStore**, details the associated production risks, and proposes architectural mitigations divided into Open Source (OSS) and Enterprise (EE) domains.
+This document analyzes the external feedback regarding the maturity of **Pranor Gate**, **Pranor Pulse**, and **Pranor Vault**, details the associated production risks, and proposes architectural mitigations divided into Open Source (OSS) and Enterprise (EE) domains.
 
 ---
 
-## 1. ServGate (API Gateway)
+## 1. Pranor Gate (API Gateway)
 
 ### Gaps Identified & Detailed Feedback
 *   **Dynamic Upstream Discovery:** Currently relies on hardcoded JSON route maps. Production gateways require dynamic integration with service discovery registries (Consul, Kubernetes CoreDNS) to automatically detect when downstream services scale or crash.
@@ -25,7 +25,7 @@ This document analyzes the external feedback regarding the maturity of **ServGat
 
 ---
 
-## 2. ServQueue (Message Queue)
+## 2. Pranor Pulse (Message Queue)
 
 ### Gaps Identified & Detailed Feedback
 *   **WASM Resource Sandboxing & Throttling:** Running WebAssembly via Wazero is fast, but a faulty user script with an infinite loop or high memory allocation will drain CPU cores and crash the host broker process. Needs strict runtime limiters to terminate slow WASM execution cycles.
@@ -49,10 +49,10 @@ This document analyzes the external feedback regarding the maturity of **ServGat
 
 ---
 
-## 3. ServStore (State Store)
+## 3. Pranor Vault (State Store)
 
 ### Gaps Identified & Detailed Feedback
-*   **Formal Raft Consensus Verification:** Managing configuration tables requires linearizable consistency. ServStore needs a verified consensus library (such as `hashicorp/raft`) to manage state mutations safely and prevent silent database corruption during server restarts.
+*   **Formal Raft Consensus Verification:** Managing configuration tables requires linearizable consistency. Pranor Vault needs a verified consensus library (such as `hashicorp/raft`) to manage state mutations safely and prevent silent database corruption during server restarts.
 *   **RBAC & TLS Interconnect:** To run securely in shared environments, all service-to-service communication paths must enforce mandatory mutual TLS (mTLS) certificate handshakes, paired with distinct write/read permissions for separate network keys.
 
 ### Production Risk
@@ -66,7 +66,7 @@ This document analyzes the external feedback regarding the maturity of **ServGat
 
 ---
 
-## 4. Ecosystem & Shared Middleware (ServShared)
+## 4. Ecosystem & Shared Middleware (Pranor Core)
 
 ### Gaps Identified & Detailed Feedback
 *   **Naïve Error Propagation:** Critical error paths (such as database handshakes or network calls) are often handled by printing the error or immediately triggering a hard panic/exit, rather than using structured, resilient retry policies. 
@@ -75,7 +75,7 @@ This document analyzes the external feedback regarding the maturity of **ServGat
 *   Momentary network blips, database restarts, or transient timeouts will cause downstream microservices to crash completely instead of gracefully waiting and reconnecting.
 
 ### Mitigation Plan
-*   **[OSS] Resilient Retries:** Refactor `ServShared` database and HTTP client middleware to use standard retry adapters (e.g., exponential backoff) to recover from transient outages.
+*   **[OSS] Resilient Retries:** Refactor `Pranor Core` database and HTTP client middleware to use standard retry adapters (e.g., exponential backoff) to recover from transient outages.
 *   **[OSS] Structured Panic Recovery:** Enforce standard panic-recovery handlers in all HTTP and queue listeners to avoid dropping the process on individual request errors.
 
 ---
@@ -84,8 +84,8 @@ This document analyzes the external feedback regarding the maturity of **ServGat
 
 To gauge if the infrastructure is production-ready, verify the following capabilities:
 
-- [ ] **State Resiliency:** Can I pull the power cord on 1 out of 3 running ServStore nodes without corrupting active configurations?
-- [ ] **Edge Protection:** Does ServGate reject traffic smoothly with an HTTP 429 error when hit by a simulated DDoS attack?
-- [ ] **WASM Isolation:** Does ServQueue terminate a WASM data filter if it takes longer than 50ms to run?
+- [ ] **State Resiliency:** Can I pull the power cord on 1 out of 3 running Pranor Vault nodes without corrupting active configurations?
+- [ ] **Edge Protection:** Does Pranor Gate reject traffic smoothly with an HTTP 429 error when hit by a simulated DDoS attack?
+- [ ] **WASM Isolation:** Does Pranor Pulse terminate a WASM data filter if it takes longer than 50ms to run?
 - [ ] **Ecosystem Resilience:** Does a momentary network split or database connection timeout trigger an automatic retry (with backoff) rather than a hard crash/panic?
 

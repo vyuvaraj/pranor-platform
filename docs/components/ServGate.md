@@ -1,10 +1,10 @@
-# ServGate — Programmable API Gateway
+# Pranor Gate — Programmable API Gateway
 
-> **Status:** ✅ Production | **Port:** 8080 | **Repository:** [ServGate](https://github.com/vyuvaraj/serv/tree/main/packages/ServGate)
+> **Status:** ✅ Production | **Port:** 8080 | **Repository:** [Pranor Gate](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Gate)
 
 ## Overview
 
-ServGate is a WASM-programmable reverse proxy and API gateway with AI-native capabilities. Single binary, zero external dependencies.
+Pranor Gate is a WASM-programmable reverse proxy and API gateway with AI-native capabilities. Single binary, zero external dependencies.
 
 ## Key Features
 
@@ -48,8 +48,8 @@ ServGate is a WASM-programmable reverse proxy and API gateway with AI-native cap
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `SERV_JWT_SECRET` | JWT verification secret | (required) |
-| `SERV_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
+| `PRANOR_JWT_SECRET` | JWT verification secret | (required) |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 | `SERVGATE_CONFIG` | Path to config.json | `./config.json` |
 
 ## Endpoints
@@ -63,21 +63,21 @@ ServGate is a WASM-programmable reverse proxy and API gateway with AI-native cap
 | `POST /api/v1/middleware/upload` | Upload WASM middleware |
 | `GET /api/docs` | Interactive API playground |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
 server "8080"
-// Routes auto-register with ServGate on startup via /api/v1/routes/register
+// Routes auto-register with Pranor Gate on startup via /api/v1/routes/register
 ```
 
 ## Production & Operational Guidelines
 
 ### WASM Safety & Resource Limits
-ServGate runs isolated WebAssembly middleware filters via the wazero JIT compiler engine. The following safety ceilings are strictly enforced:
+Pranor Gate runs isolated WebAssembly middleware filters via the wazero JIT compiler engine. The following safety ceilings are strictly enforced:
 * **Execution Timeout:** Each WASM middleware execution context is bounded by a strict `50ms` timeout. Runaway loops or hung filters are automatically halted with a `504 Gateway Timeout` response returned to the client.
 * **Memory Isolation:** Each WASM instance is sandbox-capped at a `16MB` memory ceiling. Any out-of-bounds allocation immediately traps, shielding the host Go gateway process from memory exhaustion or segmentation faults.
 
 ### Standard Observability & Telemetry
-ServGate integrates seamlessly with standard DevOps monitoring stacks:
+Pranor Gate integrates seamlessly with standard DevOps monitoring stacks:
 * **Prometheus Metrics:** Native Prometheus metrics are exposed at `GET /metrics` covering request counts, latencies (p50/p90/p99), active circuit breaker statuses, and rate-limiting blocks.
-* **OpenTelemetry Compatibility:** Complete W3C context propagation is supported. Pass `SERV_OTLP_ENDPOINT` to export traces directly to standard collectors (e.g. Datadog, Jaeger, Grafana Tempo).
+* **OpenTelemetry Compatibility:** Complete W3C context propagation is supported. Pass `PRANOR_OTLP_ENDPOINT` to export traces directly to standard collectors (e.g. Datadog, Jaeger, Grafana Tempo).

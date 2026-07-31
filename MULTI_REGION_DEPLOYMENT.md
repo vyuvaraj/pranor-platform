@@ -1,6 +1,6 @@
 # Multi-Region Deployment Guide
 
-This guide describes the end-to-end architecture, configuration, and synchronization workflows for deploying the Servverse ecosystem across multiple geographic regions.
+This guide describes the end-to-end architecture, configuration, and synchronization workflows for deploying the Pranor ecosystem across multiple geographic regions.
 
 ---
 
@@ -9,33 +9,33 @@ This guide describes the end-to-end architecture, configuration, and synchroniza
 ```mermaid
 graph LR
     User([User Request]) --> DNS[Anycast DNS / Latency-Based Router]
-    DNS -->|US East| MeshA[ServMesh - Region A]
-    DNS -->|EU West| MeshB[ServMesh - Region B]
-    MeshA --> StoreA[(ServStore A)]
-    MeshB --> StoreB[(ServStore B)]
+    DNS -->|US East| MeshA[Pranor Mesh - Region A]
+    DNS -->|EU West| MeshB[Pranor Mesh - Region B]
+    MeshA --> StoreA[(Pranor Vault A)]
+    MeshB --> StoreB[(Pranor Vault B)]
     StoreA <-->|S3 Geo-Replication| StoreB
-    MeshA <-->|ServQueue Mirroring| MeshB
+    MeshA <-->|Pranor Pulse Mirroring| MeshB
 ```
 
 The multi-region setup focuses on three main pillars:
-1. **ServStore Replication**: Bi-directional asynchronous object synchronization.
-2. **ServQueue Mirroring**: Inter-region message topic mirroring.
-3. **ServMesh Geo-Routing**: Latency-based traffic management.
+1. **Pranor Vault Replication**: Bi-directional asynchronous object synchronization.
+2. **Pranor Pulse Mirroring**: Inter-region message topic mirroring.
+3. **Pranor Mesh Geo-Routing**: Latency-based traffic management.
 
 ---
 
-## 1. ServStore Geo-Replication
+## 1. Pranor Vault Geo-Replication
 
-To ensure object durability and low-latency local reads, ServStore objects are replicated asynchronously across regions:
+To ensure object durability and low-latency local reads, Pranor Vault objects are replicated asynchronously across regions:
 
 ### Primary-Secondary Configuration
 - **Write Path**: Clients write to their local regional bucket (e.g., `us-east-1` bucket).
-- **Sync Mechanism**: ServStore utilizes cross-region bucket replication rules configured at the object store level (e.g. AWS S3 Replication, Google Cloud Storage Object Replication).
+- **Sync Mechanism**: Pranor Vault utilizes cross-region bucket replication rules configured at the object store level (e.g. AWS S3 Replication, Google Cloud Storage Object Replication).
 - **Metadata Sync**: File records and catalog databases are synchronized via global replication clusters or write-through regional caches.
 
 ---
 
-## 2. ServQueue Mirroring
+## 2. Pranor Pulse Mirroring
 
 For event-driven architectures spanning regions, queues must mirror messages to ensure high availability:
 
@@ -46,14 +46,14 @@ For event-driven architectures spanning regions, queues must mirror messages to 
 
 ---
 
-## 3. ServMesh Geo-Routing & Failover
+## 3. Pranor Mesh Geo-Routing & Failover
 
-ServMesh acts as the geo-router, directing client requests to the nearest healthy service instance:
+Pranor Mesh acts as the geo-router, directing client requests to the nearest healthy service instance:
 
 ### Latency-Based Routing
-- Set up an Anycast DNS or latency-based DNS routing rule mapping to the external IP addresses of regional `ServGate` instances.
+- Set up an Anycast DNS or latency-based DNS routing rule mapping to the external IP addresses of regional `Pranor Gate` instances.
 - DNS routes traffic to the nearest geographic Gateway.
 
 ### Active-Passive Mesh Failover
 - **Health Checks**: Regional Gateways continuously ping local health check endpoints (`/health`).
-- **Failover**: If a regional service (e.g., `ServAuth` in Region A) goes down, `ServMesh` automatically routes the auth request to the healthy `ServAuth` instance in Region B via the mesh VPN tunnel.
+- **Failover**: If a regional service (e.g., `Pranor Auth` in Region A) goes down, `Pranor Mesh` automatically routes the auth request to the healthy `Pranor Auth` instance in Region B via the mesh VPN tunnel.

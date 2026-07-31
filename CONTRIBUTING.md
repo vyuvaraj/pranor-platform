@@ -1,6 +1,6 @@
-# Contributing to Servverse
+# Contributing to Pranor
 
-Welcome! We are excited that you want to contribute to the Servverse ecosystem. This document outlines the guidelines, code style standards, and processes for contributing to all repositories within the Servverse ecosystem.
+Welcome! We are excited that you want to contribute to the Pranor ecosystem. This document outlines the guidelines, code style standards, and processes for contributing to all repositories within the Pranor ecosystem.
 
 ---
 
@@ -12,7 +12,7 @@ Welcome! We are excited that you want to contribute to the Servverse ecosystem. 
 - **Comment Integrity**: Preserve all existing comments and documentation that are unrelated to your edits. Document public functions, types, and packages following idiomatic Go standards.
 
 ### API Consistency Guidelines
-All REST endpoints inside Servverse services must adhere to the following API rules:
+All REST endpoints inside Pranor services must adhere to the following API rules:
 - **Prefix**: Every endpoint must be versioned and start with the `/api/v1/` prefix.
 - **Standardized Error Format**: JSON error responses must include both `"error"` (internal code) and `"message"` (human-readable explanation) fields:
   ```json
@@ -36,7 +36,7 @@ All REST endpoints inside Servverse services must adhere to the following API ru
    - Use descriptive branch prefixes: `feature/` for new functionality, `bugfix/` for fixes, `docs/` for documentation updates, and `test/` for test suite additions.
 2. **Local Validation**:
    - Before opening a PR, run tests locally for your component: `go test -v ./...`
-   - Run the local CI checkers inside the `servverse-repo` directory if applicable:
+   - Run the local CI checkers inside the `pranor-repo` directory if applicable:
      - Coverage: `go run scripts/check_coverage.go`
      - API Consistency: `go run scripts/check_api_consistency.go`
 3. **Submitting**:
@@ -47,7 +47,7 @@ All REST endpoints inside Servverse services must adhere to the following API ru
 
 ## How to Add a Compiler Stdlib Module
 
-The `Serv-lang` standard library provides built-in functions accessible across services.
+The `Pranor` standard library provides built-in functions accessible across services.
 To add a new built-in function or package:
 1. **Define the signature**: Open the semantic analyzer in the compiler and register the new module/function name, return types, and parameter bounds.
 2. **Implement the runtime**: Add the underlying Go logic execution code in the interpreter/runtime engine.
@@ -58,11 +58,11 @@ To add a new built-in function or package:
 
 ## How to Write a WASM Plugin
 
-Servverse supports running serverless functions compiled to WebAssembly (WASM).
+Pranor supports running serverless functions compiled to WebAssembly (WASM).
 To write a custom WASM plugin:
 1. **Compilation**: Compile your Go, Rust, or C code into a WASM module targeting the WebAssembly System Interface (WASI).
 2. **Deployment**: Annotate your service definition header comments with runtime details:
    ```go
    // runtime: wasm
    ```
-3. **API Contracts**: WASM modules communicate via stdin/stdout stream pipelines or standard POSIX file descriptors managed by the `ServCloud` container isolation layer. Ensure your entrypoints handle input arguments and output results correctly.
+3. **API Contracts**: WASM modules communicate via stdin/stdout stream pipelines or standard POSIX file descriptors managed by the `Pranor Deploy` container isolation layer. Ensure your entrypoints handle input arguments and output results correctly.

@@ -1,5 +1,5 @@
 @echo off
-title Servverse Sandbox Control Plane
+title Pranor Sandbox Control Plane
 cls
 
 :: Check for Podman
@@ -66,10 +66,10 @@ echo.
 echo ==========================================================
 echo       SANDBOX SERVICES ONLINE
 echo ==========================================================
-echo  * ServConsole Dashboard : http://localhost:8083
-echo  * ServGate API Gateway  : http://localhost:8080
-echo  * ServRegistry Package  : http://localhost:8088
-echo  * ServTrace Engine      : http://localhost:8090
+echo  * Pranor Console Dashboard : http://localhost:8083
+echo  * Pranor Gate API Gateway  : http://localhost:8080
+echo  * Pranor Hub Package  : http://localhost:8088
+echo  * Pranor Trace Engine      : http://localhost:8090
 echo ==========================================================
 echo.
 echo [INFO] Launching automated workload generator to simulate live traffic...

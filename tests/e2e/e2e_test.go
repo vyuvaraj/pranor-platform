@@ -10,7 +10,7 @@ import (
 )
 
 func TestE2EFlow(t *testing.T) {
-	// 1. Setup mock ServStore (Object Storage)
+	// 1. Setup mock PranorVault (Object Storage)
 	var storeMu sync.Mutex
 	storedObjects := make(map[string][]byte)
 	storeServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -39,7 +39,7 @@ func TestE2EFlow(t *testing.T) {
 	}))
 	defer storeServer.Close()
 
-	// 2. Setup mock ServQueue (Message Broker)
+	// 2. Setup mock PranorPulse (Message Broker)
 	var queueMu sync.Mutex
 	receivedMessages := make([]string, 0)
 	queueServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -63,8 +63,8 @@ func TestE2EFlow(t *testing.T) {
 	}))
 	defer queueServer.Close()
 
-	// 3. Setup mock ServGate (API Gateway)
-	// ServGate proxies requests to ServQueue.
+	// 3. Setup mock PranorGate (API Gateway)
+	// PranorGate proxies requests to PranorPulse.
 	gateServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Verify traceparent header is generated or forwarded by Gate
 		traceparent := r.Header.Get("traceparent")
@@ -74,7 +74,7 @@ func TestE2EFlow(t *testing.T) {
 			r.Header.Set("traceparent", traceparent)
 		}
 
-		// Proxy request to ServQueue publish endpoint
+		// Proxy request to PranorPulse publish endpoint
 		req, _ := http.NewRequest("POST", queueServer.URL+"/api/v1/publish", r.Body)
 		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("traceparent", traceparent)
@@ -92,7 +92,7 @@ func TestE2EFlow(t *testing.T) {
 	}))
 	defer gateServer.Close()
 
-	// 4. Send request to ServGate
+	// 4. Send request to PranorGate
 	client := &http.Client{}
 	reqPayload := `{"message": "hello world through gate"}`
 	req, _ := http.NewRequest("POST", gateServer.URL+"/publish", strings.NewReader(reqPayload))
@@ -112,7 +112,7 @@ func TestE2EFlow(t *testing.T) {
 	}
 
 	// 5. Simulate the Consumer worker:
-	// Read message from ServQueue and write to ServStore S3
+	// Read message from PranorPulse and write to PranorVault S3
 	queueMu.Lock()
 	if len(receivedMessages) != 1 {
 		t.Fatalf("expected 1 message in queue, got %d", len(receivedMessages))
@@ -120,7 +120,7 @@ func TestE2EFlow(t *testing.T) {
 	msg := receivedMessages[0]
 	queueMu.Unlock()
 
-	// Upload to mock ServStore
+	// Upload to mock PranorVault
 	storeURL := storeServer.URL + "/test-bucket/queue-output.json"
 	storeReq, _ := http.NewRequest("PUT", storeURL, strings.NewReader(msg))
 	storeReq.Header.Set("Content-Type", "application/json")

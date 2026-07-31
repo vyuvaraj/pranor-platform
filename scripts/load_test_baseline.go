@@ -20,7 +20,7 @@ type Target struct {
 }
 
 func main() {
-	fmt.Println("⚡ Running Servverse Workspace Load Test Baselines...")
+	fmt.Println("⚡ Running Pranor Workspace Load Test Baselines...")
 
 	targets := []Target{
 		{

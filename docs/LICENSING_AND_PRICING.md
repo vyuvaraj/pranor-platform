@@ -1,12 +1,12 @@
-# ServQueue Licensing & Commercial Pricing Strategy
+# Pranor Pulse Licensing & Commercial Pricing Strategy
 
-This document outlines the official licensing strategy, dual-licensing policy, client SDK permissions, and commercial tiering model for **ServQueue**.
+This document outlines the official licensing strategy, dual-licensing policy, client SDK permissions, and commercial tiering model for **Pranor Pulse**.
 
 ---
 
 ## 1. Executive Summary & Licensing Recommendation
 
-ServQueue uses a **Dual-Licensing Open-Core Model** designed to maximize open-source developer adoption while building a defensible, high-margin enterprise business.
+Pranor Pulse uses a **Dual-Licensing Open-Core Model** designed to maximize open-source developer adoption while building a defensible, high-margin enterprise business.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -15,8 +15,8 @@ ServQueue uses a **Dual-Licensing Open-Core Model** designed to maximize open-so
           │                                 │                               │
           ▼                                 ▼                               ▼
 ┌───────────────────┐             ┌───────────────────┐           ┌───────────────────┐
-│ Client SDKs & OPFS│             │ ServQueue Server  │           │ ServQueue EE      │
-│  (@servverse/...) │             │   (`servqueued`)  │           │    (`serv-ee`)    │
+│ Client SDKs & OPFS│             │ Pranor Pulse Server  │           │ Pranor Pulse EE      │
+│  (@pranor/...) │             │   (`servqueued`)  │           │    (`serv-ee`)    │
 ├───────────────────┤             ├───────────────────┤           ├───────────────────┤
 │     Apache 2.0    │             │      AGPLv3       │           │    Commercial     │
 │   (Frictionless)  │             │ (Copyleft Core)   │           │ (Proprietary SLA) │
@@ -27,12 +27,12 @@ ServQueue uses a **Dual-Licensing Open-Core Model** designed to maximize open-so
 **Recommendation: RETAIN AGPLv3 for Server Engine, Use Apache 2.0 for Client SDKs.**
 
 - **Why keep AGPLv3 for `servqueued` server engine?**
-  1. **Hyperscaler Protection**: AGPLv3 prevents AWS, GCP, Azure, or third-party cloud vendors from hosting ServQueue as a managed cloud service without contributing modifications back to the open-source community.
-  2. **Strong Enterprise Commercial Conversion**: Companies that wish to embed or modify ServQueue within closed-source SaaS applications or multi-tenant platforms are required under AGPL to release their source code—or purchase a **ServQueue Enterprise Commercial License**.
+  1. **Hyperscaler Protection**: AGPLv3 prevents AWS, GCP, Azure, or third-party cloud vendors from hosting Pranor Pulse as a managed cloud service without contributing modifications back to the open-source community.
+  2. **Strong Enterprise Commercial Conversion**: Companies that wish to embed or modify Pranor Pulse within closed-source SaaS applications or multi-tenant platforms are required under AGPL to release their source code—or purchase a **Pranor Pulse Enterprise Commercial License**.
   3. **Industry Standard Precedent**: Successfully proven by infrastructure leaders such as **MinIO**, **Grafana**, **RabbitMQ**, and **MongoDB (originally)**.
 
-- **Why use Apache 2.0 / MIT for Client SDKs (`sdks/go`, `@servverse/queue-wasm`)?**
-  1. Frontend web apps, backend microservices, and mobile clients importing ServQueue libraries must **never** be subject to copyleft restrictions.
+- **Why use Apache 2.0 / MIT for Client SDKs (`sdks/go`, `@pranor/queue-wasm`)?**
+  1. Frontend web apps, backend microservices, and mobile clients importing Pranor Pulse libraries must **never** be subject to copyleft restrictions.
   2. Enables 100% frictionless integration into any proprietary enterprise application stack.
 
 ---
@@ -41,28 +41,28 @@ ServQueue uses a **Dual-Licensing Open-Core Model** designed to maximize open-so
 
 | Component | Repository Path | License | Commercial Exemption Option |
 |---|---|---|---|
-| **ServQueue Core Server Daemon (`servqueued`)** | `serv/packages/ServQueue` | **GNU AGPLv3** | Yes (Commercial License) |
-| **ServQueue Dual-CLI (`servqueue`)** | `serv/packages/ServQueue/cmd/servqueue` | **GNU AGPLv3** | Yes (Commercial License) |
-| **Local Browser OPFS WASM Engine (`@servverse/queue-wasm`)** | `serv/packages/ServQueue/pkg/opfs` | **Apache 2.0** | Included in Apache 2.0 |
-| **Go & Multi-Language Client SDKs** | `serv/packages/ServQueue/sdks/*` | **Apache 2.0** | Included in Apache 2.0 |
-| **ServConsole Web Inspector & Admin UI** | `servverse-repo/servconsole` | **GNU AGPLv3** | Yes (Commercial License) |
-| **ServQueue Enterprise Commercial Engine (`serv-ee`)** | `serv-ee/src/ServQueue` | **Commercial Proprietary** | Requires License Key |
+| **Pranor Pulse Core Server Daemon (`servqueued`)** | `serv/packages/Pranor Pulse` | **GNU AGPLv3** | Yes (Commercial License) |
+| **Pranor Pulse Dual-CLI (`servqueue`)** | `serv/packages/Pranor Pulse/cmd/servqueue` | **GNU AGPLv3** | Yes (Commercial License) |
+| **Local Browser OPFS WASM Engine (`@pranor/queue-wasm`)** | `serv/packages/Pranor Pulse/pkg/opfs` | **Apache 2.0** | Included in Apache 2.0 |
+| **Go & Multi-Language Client SDKs** | `serv/packages/Pranor Pulse/sdks/*` | **Apache 2.0** | Included in Apache 2.0 |
+| **Pranor Console Web Inspector & Admin UI** | `pranor-repo/servconsole` | **GNU AGPLv3** | Yes (Commercial License) |
+| **Pranor Pulse Enterprise Commercial Engine (`serv-ee`)** | `serv-ee/src/Pranor Pulse` | **Commercial Proprietary** | Requires License Key |
 
 ---
 
 ## 3. Commercial Tiers & Feature Matrix
 
-ServQueue is structured into three clear commercial tiers:
+Pranor Pulse is structured into three clear commercial tiers:
 
 | Feature / Module | Community (Free / AGPLv3) | Enterprise Tier ($30/core/mo) | Sovereign / Financial Tier ($60/core/mo) |
 |---|:---:|:---:|:---:|
 | **Core Broker Engine & STOMP / MQTT 5.0 Protocols** | ✅ | ✅ | ✅ |
-| **Local-First Browser OPFS WASM Queue (`@servverse/queue-wasm`)** | ✅ | ✅ | ✅ |
+| **Local-First Browser OPFS WASM Queue (`@pranor/queue-wasm`)** | ✅ | ✅ | ✅ |
 | **Point-in-Time Event Replay & Poison-Pill DLQ Engine** | ✅ | ✅ | ✅ |
 | **Prometheus `/metrics` & Basic Grafana Templates** | ✅ | ✅ | ✅ |
 | **Cross-Cloud Active-Active Geo-Replication (WAN Sync)** (`SQ.E15`) | ❌ | ✅ | ✅ |
 | **Kafka Wire Protocol Compatibility Adapter** (`SQ.E16`) | ❌ | ✅ | ✅ |
-| **Multi-Cloud S3 / ServStore Cold Tier Compaction** (`SQ.E20`) | ❌ | ✅ | ✅ |
+| **Multi-Cloud S3 / Pranor Vault Cold Tier Compaction** (`SQ.E20`) | ❌ | ✅ | ✅ |
 | **AWS EventBridge & Enterprise Signed Webhooks (HMAC)** (`SQ.E21`) | ❌ | ✅ | ✅ |
 | **FIPS 140-3 PKCS#11 HSM & Merkle Audit Ledger** (`SQ.E17`) | ❌ | ❌ | ✅ |
 | **Post-Quantum Cryptography (NIST Kyber768/Dilithium)** (`SQ.E17`) | ❌ | ❌ | ✅ |
@@ -85,7 +85,7 @@ Calculated based on the total number of vCPUs / CPU cores assigned to the `servq
 - **Sovereign & Defense Tier**: **$60 / vCPU Core / Month** (billed annually at **$720 / core / year**).
   - *Example:* A high-security 5-node cluster with 8 vCPUs per node (40 cores total) = **$28,800 / year**.
 
-### Model B: ServQueue Cloud (Managed Serverless SaaS)
+### Model B: Pranor Pulse Cloud (Managed Serverless SaaS)
 
 For organizations seeking a fully managed cloud service without infrastructure overhead:
 
@@ -102,7 +102,7 @@ In `serv-ee`, commercial feature modules are compiled behind the `//go:build ent
 
 ### License Key Validation Flow
 
-1. ServQueue Enterprise daemon startup:
+1. Pranor Pulse Enterprise daemon startup:
    ```bash
    servqueued-ee --config=/etc/servqueue/config.yaml --license-key=/etc/servqueue/license.lic
    ```

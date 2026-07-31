@@ -12,7 +12,7 @@ version: '3.8'
 services:
   # ── Core Infrastructure ─────────────────────────────────────────────────────
   serv-store:
-    image: servverse/servstore:latest
+    image: pranor/servstore:latest
     ports:
       - "8081:8081"
     environment:
@@ -25,7 +25,7 @@ services:
       interval: 10s
 
   serv-queue:
-    image: servverse/servqueue:latest
+    image: pranor/servqueue:latest
     ports:
       - "8082:8082"
     environment:
@@ -36,13 +36,13 @@ services:
 
   # ── Identity & Persistence (Phase 9/10) ─────────────────────────────────────
   serv-auth:
-    image: servverse/servauth:latest
+    image: pranor/servauth:latest
     ports:
       - "8098:8098"
     environment:
       - PORT=8098
-      - SERV_JWT_SECRET=my-jwt-shared-secret
-      - SERV_STORE_URL=http://serv-store:8081
+      - PRANOR_JWT_SECRET=my-jwt-shared-secret
+      - PRANOR_STORE_URL=http://serv-store:8081
     depends_on:
       - serv-store
     healthcheck:
@@ -50,7 +50,7 @@ services:
       interval: 10s
 
   serv-db:
-    image: servverse/ServPool:latest
+    image: pranor/Pranor Pool:latest
     ports:
       - "8097:8097"
     environment:
@@ -64,12 +64,12 @@ services:
 
   # ── Workflow Engine & Schedulers ────────────────────────────────────────────
   serv-flow:
-    image: servverse/servflow:latest
+    image: pranor/servflow:latest
     ports:
       - "8096:8096"
     environment:
       - PORT=8096
-      - SERV_STORE_URL=http://serv-store:8081
+      - PRANOR_STORE_URL=http://serv-store:8081
     depends_on:
       - serv-store
     healthcheck:
@@ -77,7 +77,7 @@ services:
       interval: 10s
 
   serv-mail:
-    image: servverse/servmail:latest
+    image: pranor/servmail:latest
     ports:
       - "8094:8094"
     environment:
@@ -90,12 +90,12 @@ services:
 
   # ── API Gateway & Ingress ───────────────────────────────────────────────────
   serv-gate:
-    image: servverse/servgate:latest
+    image: pranor/servgate:latest
     ports:
       - "8080:8080"
     environment:
       - PORT=8080
-      - SERV_JWT_SECRET=my-jwt-shared-secret
+      - PRANOR_JWT_SECRET=my-jwt-shared-secret
     depends_on:
       - serv-auth
     healthcheck:
@@ -109,5 +109,5 @@ volumes:
 
 ## Security Configurations (TLS / JWT Hardening)
 
-1. **Shared Secret Rotation**: Ensure `$SERV_JWT_SECRET` is synchronized between `serv-auth`, `serv-gate`, and your compiled `serv-lang` backend applications.
-2. **mTLS Client Authorization**: Enable server-to-server TLS verification by mounting client certificates inside containers and setting `SERV_MUTUAL_TLS=true` on your service mesh.
+1. **Shared Secret Rotation**: Ensure `$PRANOR_JWT_SECRET` is synchronized between `serv-auth`, `serv-gate`, and your compiled `pranor` backend applications.
+2. **mTLS Client Authorization**: Enable server-to-server TLS verification by mounting client certificates inside containers and setting `PRANOR_MUTUAL_TLS=true` on your service mesh.

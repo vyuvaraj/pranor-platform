@@ -1,10 +1,10 @@
-# ServTunnel — Secure Dev Tunneling
+# Pranor Tunnel — Secure Dev Tunneling
 
-> **Status:** ✅ Production | **Port:** 8443 | **Repository:** [ServTunnel](https://github.com/vyuvaraj/serv/tree/main/packages/ServTunnel)
+> **Status:** ✅ Production | **Port:** 8443 | **Repository:** [Pranor Tunnel](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Tunnel)
 
 ## Overview
 
-ServTunnel provides secure development tunneling with WebSocket relay, subdomain-based routing, request inspection, TLS termination, custom domain support, and OpenTelemetry propagation for end-to-end observability through tunnels.
+Pranor Tunnel provides secure development tunneling with WebSocket relay, subdomain-based routing, request inspection, TLS termination, custom domain support, and OpenTelemetry propagation for end-to-end observability through tunnels.
 
 ## Key Features
 
@@ -22,8 +22,8 @@ ServTunnel provides secure development tunneling with WebSocket relay, subdomain
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `SERVTUNNEL_PORT` | HTTPS listen port | `8443` |
-| `SERVTUNNEL_DOMAIN` | Wildcard domain for tunnels | `*.servverse.net` |
-| `SERV_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
+| `SERVTUNNEL_DOMAIN` | Wildcard domain for tunnels | `*.pranor.net` |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints
 
@@ -34,9 +34,9 @@ ServTunnel provides secure development tunneling with WebSocket relay, subdomain
 | `GET /api/inspect` | View request inspection log |
 | `POST /api/inspect/{id}/replay` | Replay a captured request |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
 serv tunnel 8080
-// → public HTTPS URL: https://<subdomain>.servverse.net
+// → public HTTPS URL: https://<subdomain>.pranor.net
 ```

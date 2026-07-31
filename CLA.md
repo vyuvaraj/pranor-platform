@@ -1,6 +1,6 @@
-# Servverse Contributor License Agreement (CLA)
+# Pranor Contributor License Agreement (CLA)
 
-Thank you for your interest in contributing to the Servverse open-source project ("Project"). This Contributor License Agreement ("Agreement") is between you (either an individual or a legal entity) and the Project maintainers.
+Thank you for your interest in contributing to the Pranor open-source project ("Project"). This Contributor License Agreement ("Agreement") is between you (either an individual or a legal entity) and the Project maintainers.
 
 Please read this document carefully before submitting any contributions. By contributing to this Project, you agree to the terms outlined below.
 

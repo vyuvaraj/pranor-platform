@@ -20,7 +20,7 @@ func TestDockerComposeE2E(t *testing.T) {
 	// 1. Build and start services using Docker Compose
 	t.Log("Starting services with docker-compose...")
 	cmd := exec.Command("docker-compose", "up", "-d", "--build")
-	cmd.Dir = "../.." // servverse-repo directory
+	cmd.Dir = "../.." // pranor-repo directory
 	if output, err := cmd.CombinedOutput(); err != nil {
 		t.Fatalf("failed to run docker-compose up: %v\nOutput: %s", err, string(output))
 	}

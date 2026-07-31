@@ -16,7 +16,7 @@ func TestCrossComponentConformance(t *testing.T) {
 
 	// Mock component server endpoints
 	components := []string{
-		"ServAuth", "ServStore", "ServGate", "ServQueue", "ServCache",
+		"ServAuth", "PranorVault", "PranorGate", "PranorPulse", "ServCache",
 		"ServMesh", "ServCloud", "ServTrace", "ServMail", "ServPool",
 		"ServTunnel", "Serv-lang", "ServConsole", "ServCron", "ServFlow",
 	}

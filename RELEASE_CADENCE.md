@@ -1,6 +1,6 @@
 # Monthly Release Cadence & Versioning Strategy
 
-This document outlines the versioning strategy, release cadence, and branch management workflows for all components in the Servverse ecosystem.
+This document outlines the versioning strategy, release cadence, and branch management workflows for all components in the Pranor ecosystem.
 
 ---
 

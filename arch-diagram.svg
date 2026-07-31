@@ -28,11 +28,11 @@
 
   <!-- ═══════════════════ DEVELOPER LAYER ═══════════════════ -->
   <rect x="100" y="30" width="155" height="60" rx="12" fill="rgba(168,85,247,0.06)" stroke="url(#grad-lang)" stroke-width="1.5" filter="url(#glow-purple)"/>
-  <text x="177" y="55" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">Serv-lang</text>
+  <text x="177" y="55" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor</text>
   <text x="177" y="72" fill="hsl(250,100%,75%)" font-size="9" font-family="monospace" text-anchor="middle">Compiler + LSP + CLI</text>
 
   <rect x="285" y="30" width="140" height="60" rx="12" fill="rgba(168,85,247,0.03)" stroke="rgba(168,85,247,0.3)" stroke-width="1"/>
-  <text x="355" y="55" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServRegistry</text>
+  <text x="355" y="55" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Hub</text>
   <text x="355" y="72" fill="hsl(250,100%,75%)" font-size="9" font-family="monospace" text-anchor="middle">:8088 · Packages</text>
 
   <rect x="455" y="30" width="120" height="60" rx="12" fill="rgba(168,85,247,0.03)" stroke="rgba(168,85,247,0.3)" stroke-width="1"/>
@@ -45,60 +45,60 @@
   <text x="142" y="162" fill="#fff" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Client</text>
   <text x="142" y="178" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Browser / SDK</text>
 
-  <!-- ServGate -->
+  <!-- Pranor Gate -->
   <rect x="230" y="120" width="155" height="90" rx="14" fill="rgba(6,182,212,0.05)" stroke="url(#grad-gate)" stroke-width="2" filter="url(#glow-blue)"/>
-  <text x="307" y="147" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">ServGate</text>
+  <text x="307" y="147" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Gate</text>
   <text x="307" y="163" fill="hsl(190,100%,65%)" font-size="9" font-family="monospace" text-anchor="middle">:8080 · API Gateway</text>
   <text x="307" y="183" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">WASM · AI Guard · MCP</text>
   <text x="307" y="197" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Rate Limit · GraphQL</text>
 
-  <!-- ServMesh -->
+  <!-- Pranor Mesh -->
   <rect x="420" y="130" width="135" height="70" rx="12" fill="rgba(6,182,212,0.03)" stroke="rgba(6,182,212,0.3)" stroke-width="1"/>
-  <text x="487" y="157" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServMesh</text>
+  <text x="487" y="157" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Mesh</text>
   <text x="487" y="173" fill="hsl(190,100%,65%)" font-size="9" font-family="monospace" text-anchor="middle">:8087 · Service Mesh</text>
   <text x="487" y="190" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Discovery · Circuit Breaker</text>
 
-  <!-- ServTunnel -->
+  <!-- Pranor Tunnel -->
   <rect x="590" y="130" width="125" height="70" rx="12" fill="rgba(6,182,212,0.03)" stroke="rgba(6,182,212,0.3)" stroke-width="1"/>
-  <text x="652" y="157" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServTunnel</text>
+  <text x="652" y="157" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Tunnel</text>
   <text x="652" y="173" fill="hsl(190,100%,65%)" font-size="9" font-family="monospace" text-anchor="middle">:8443 · Dev Tunnel</text>
   <text x="652" y="190" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">WebSocket · Subdomain</text>
 
-  <!-- ServCloud -->
+  <!-- Pranor Deploy -->
   <rect x="750" y="130" width="125" height="70" rx="12" fill="rgba(6,182,212,0.03)" stroke="rgba(6,182,212,0.3)" stroke-width="1"/>
-  <text x="812" y="157" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServCloud</text>
+  <text x="812" y="157" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Deploy</text>
   <text x="812" y="173" fill="hsl(190,100%,65%)" font-size="9" font-family="monospace" text-anchor="middle">:8086 · PaaS Deploy</text>
   <text x="812" y="190" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Docker · Route Sync</text>
 
   <!-- ═══════════════════ INFRASTRUCTURE LAYER ═══════════════════ -->
   <!-- Row 1: Core Storage & Messaging -->
   <rect x="100" y="285" width="170" height="95" rx="14" fill="rgba(16,185,129,0.05)" stroke="url(#grad-store)" stroke-width="1.5" filter="url(#glow-green)"/>
-  <text x="185" y="312" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">ServStore</text>
+  <text x="185" y="312" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Vault</text>
   <text x="185" y="328" fill="hsl(145,90%,60%)" font-size="9" font-family="monospace" text-anchor="middle">:8081 · S3 Storage</text>
   <text x="185" y="348" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Raft · Erasure Coding</text>
   <text x="185" y="363" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Semantic Search · WASM</text>
 
   <rect x="295" y="285" width="170" height="95" rx="14" fill="rgba(245,158,11,0.05)" stroke="url(#grad-queue)" stroke-width="1.5" filter="url(#glow-orange)"/>
-  <text x="380" y="312" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">ServQueue</text>
+  <text x="380" y="312" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Pulse</text>
   <text x="380" y="328" fill="hsl(40,95%,60%)" font-size="9" font-family="monospace" text-anchor="middle">:8082 · STOMP Broker</text>
   <text x="380" y="348" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">WASM Transforms · DLQ</text>
   <text x="380" y="363" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Consumer Groups · Raft</text>
 
   <rect x="490" y="285" width="135" height="95" rx="12" fill="rgba(16,185,129,0.03)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
-  <text x="557" y="312" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServCache</text>
+  <text x="557" y="312" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Cache</text>
   <text x="557" y="328" fill="hsl(145,90%,60%)" font-size="9" font-family="monospace" text-anchor="middle">:8084 · Cache</text>
   <text x="557" y="348" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Redis / In-Memory</text>
   <text x="557" y="363" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">TTL Eviction · OTel</text>
 
   <rect x="650" y="285" width="135" height="95" rx="12" fill="rgba(245,158,11,0.03)" stroke="rgba(245,158,11,0.3)" stroke-width="1"/>
-  <text x="717" y="312" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServCron</text>
+  <text x="717" y="312" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Chrono</text>
   <text x="717" y="328" fill="hsl(40,95%,60%)" font-size="9" font-family="monospace" text-anchor="middle">:8085 · Scheduler</text>
   <text x="717" y="348" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Redis Leader Election</text>
   <text x="717" y="363" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Cron + Interval Jobs</text>
 
   <!-- Row 2: Application Services -->
   <rect x="100" y="405" width="135" height="85" rx="12" fill="rgba(16,185,129,0.03)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
-  <text x="167" y="430" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServAuth</text>
+  <text x="167" y="430" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Auth</text>
   <text x="167" y="446" fill="hsl(145,90%,60%)" font-size="9" font-family="monospace" text-anchor="middle">:8098 · Identity</text>
   <text x="167" y="465" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">OAuth2 · MFA · RBAC</text>
   <text x="167" y="479" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">JWT · Social Login</text>
@@ -110,30 +110,30 @@
   <text x="327" y="479" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Multi-Dialect · Cache</text>
 
   <rect x="420" y="405" width="135" height="85" rx="12" fill="rgba(245,158,11,0.03)" stroke="rgba(245,158,11,0.3)" stroke-width="1"/>
-  <text x="487" y="430" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServMail</text>
+  <text x="487" y="430" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Notify</text>
   <text x="487" y="446" fill="hsl(40,95%,60%)" font-size="9" font-family="monospace" text-anchor="middle">:8094 · Notifications</text>
   <text x="487" y="465" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">SMTP · Slack · SMS</text>
   <text x="487" y="479" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Templates · DLQ Retry</text>
 
   <rect x="580" y="405" width="135" height="85" rx="12" fill="rgba(245,158,11,0.03)" stroke="rgba(245,158,11,0.3)" stroke-width="1"/>
-  <text x="647" y="430" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServFlow</text>
+  <text x="647" y="430" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Flow</text>
   <text x="647" y="446" fill="hsl(40,95%,60%)" font-size="9" font-family="monospace" text-anchor="middle">:8096 · Workflows</text>
   <text x="647" y="465" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">DAG · Sagas · Approval</text>
   <text x="647" y="479" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Durable Checkpoints</text>
 
   <!-- ═══════════════════ OBSERVABILITY LAYER ═══════════════════ -->
   <rect x="200" y="595" width="200" height="80" rx="14" fill="rgba(245,158,11,0.05)" stroke="rgba(245,158,11,0.4)" stroke-width="1.5" filter="url(#glow-orange)"/>
-  <text x="300" y="622" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">ServConsole</text>
+  <text x="300" y="622" fill="#fff" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Console</text>
   <text x="300" y="638" fill="hsl(40,95%,60%)" font-size="9" font-family="monospace" text-anchor="middle">:8083 · Unified Dashboard</text>
   <text x="300" y="658" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">AI Observatory · SQL · Alerts · SLO</text>
 
   <rect x="440" y="595" width="160" height="80" rx="12" fill="rgba(245,158,11,0.03)" stroke="rgba(245,158,11,0.25)" stroke-width="1"/>
-  <text x="520" y="622" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServTrace</text>
+  <text x="520" y="622" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Trace</text>
   <text x="520" y="638" fill="hsl(40,95%,60%)" font-size="9" font-family="monospace" text-anchor="middle">:8090 · Tracing</text>
   <text x="520" y="658" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">OTLP Ingestion · Waterfall</text>
 
   <rect x="640" y="595" width="145" height="80" rx="12" fill="rgba(16,185,129,0.03)" stroke="rgba(16,185,129,0.25)" stroke-width="1"/>
-  <text x="712" y="622" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">ServShared</text>
+  <text x="712" y="622" fill="#fff" font-size="12" font-family="sans-serif" font-weight="700" text-anchor="middle">Pranor Core</text>
   <text x="712" y="638" fill="hsl(145,90%,60%)" font-size="9" font-family="monospace" text-anchor="middle">Go Library</text>
   <text x="712" y="658" fill="hsl(220,15%,55%)" font-size="8" font-family="sans-serif" text-anchor="middle">Health · OTel · JWT · Log</text>
 

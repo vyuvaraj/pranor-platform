@@ -1,4 +1,4 @@
-name: Release Servverse Bundle
+name: Release Pranor Bundle
 
 on:
   push:
@@ -18,8 +18,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ github.ref_name }} \
-            --title "Servverse ${{ github.ref_name }}" \
-            --notes "Bundled release of all 16 Servverse components for Windows, macOS, and Linux." \
+            --title "Pranor ${{ github.ref_name }}" \
+            --notes "Bundled release of all 16 Pranor components for Windows, macOS, and Linux." \
             --latest || echo "Release already exists, continuing..."
 
   build:
@@ -66,7 +66,7 @@ jobs:
       - name: Checkout all component repos
         run: |
           cd ..
-          repos=(Serv-lang ServGate ServStore ServQueue ServConsole ServCache ServMesh ServCron ServCloud ServTrace ServTunnel ServAuth ServPool ServMail ServFlow ServRegistry ServLock)
+          repos=(Pranor Pranor Gate Pranor Vault Pranor Pulse Pranor Console Pranor Cache Pranor Mesh Pranor Chrono Pranor Deploy Pranor Trace Pranor Tunnel Pranor Auth Pranor Pool Pranor Notify Pranor Flow Pranor Hub Pranor Lock)
           for repo in "${repos[@]}"; do
             git clone --depth 1 --branch ${{ github.ref_name }} https://github.com/vyuvaraj/${repo}.git 2>/dev/null || \
             git clone --depth 1 https://github.com/vyuvaraj/${repo}.git
@@ -80,7 +80,7 @@ jobs:
           CGO_ENABLED: "0"
         run: |
           VERSION=${{ github.ref_name }}
-          OUTDIR="dist/servverse-${VERSION}-${{ matrix.goos }}-${{ matrix.goarch }}"
+          OUTDIR="dist/pranor-${VERSION}-${{ matrix.goos }}-${{ matrix.goarch }}"
           mkdir -p "$OUTDIR"
 
           build_component() {
@@ -90,32 +90,32 @@ jobs:
             if [ -d "$dir" ]; then
               echo "Building $name..."
               cd "$dir"
-              go build -ldflags "-s -w -X main.version=$VERSION" -o "../servverse/${OUTDIR}/${name}${{ matrix.ext }}" "$target" 2>/dev/null || echo "  WARN: $name build failed"
-              cd "../servverse"
+              go build -ldflags "-s -w -X main.version=$VERSION" -o "../pranor/${OUTDIR}/${name}${{ matrix.ext }}" "$target" 2>/dev/null || echo "  WARN: $name build failed"
+              cd "../pranor"
             fi
           }
 
-          build_component "serv" "../Serv-lang"
-          build_component "servgate" "../ServGate"
-          build_component "servstore" "../ServStore" "./cmd/servstore/"
-          build_component "servqueue" "../ServQueue"
-          build_component "servconsole" "../ServConsole"
-          build_component "servcache" "../ServCache"
-          build_component "servmesh" "../ServMesh"
-          build_component "servcron" "../ServCron"
-          build_component "servcloud" "../ServCloud"
-          build_component "servtrace" "../ServTrace"
-          build_component "servtunnel" "../ServTunnel"
-          build_component "servauth" "../ServAuth"
-          build_component "servdb" "../ServPool"
-          build_component "servmail" "../ServMail"
-          build_component "servflow" "../ServFlow"
-          build_component "servregistry" "../ServRegistry"
-          build_component "servlock" "../ServLock"
+          build_component "pranor" "../Pranor"
+          build_component "pranorgate" "../Pranor Gate"
+          build_component "pranorstore" "../Pranor Vault" "./cmd/pranorstore/"
+          build_component "pranorqueue" "../Pranor Pulse"
+          build_component "pranorconsole" "../Pranor Console"
+          build_component "pranorcache" "../Pranor Cache"
+          build_component "pranormesh" "../Pranor Mesh"
+          build_component "pranorcron" "../Pranor Chrono"
+          build_component "pranorcloud" "../Pranor Deploy"
+          build_component "pranortrace" "../Pranor Trace"
+          build_component "pranortunnel" "../Pranor Tunnel"
+          build_component "pranorauth" "../Pranor Auth"
+          build_component "pranordb" "../Pranor Pool"
+          build_component "pranormail" "../Pranor Notify"
+          build_component "pranorflow" "../Pranor Flow"
+          build_component "pranorregistry" "../Pranor Hub"
+          build_component "pranorlock" "../Pranor Lock"
 
           # Build the launcher
-          echo "Building servverse launcher..."
-          go build -ldflags "-s -w -X main.version=$VERSION" -o "${OUTDIR}/servverse${{ matrix.ext }}" ./cmd/servverse/
+          echo "Building pranor launcher..."
+          go build -ldflags "-s -w -X main.version=$VERSION" -o "${OUTDIR}/pranor${{ matrix.ext }}" ./cmd/pranor/
 
           ls -la "$OUTDIR"
         shell: bash
@@ -124,7 +124,7 @@ jobs:
         if: matrix.archive == 'tar.gz'
         run: |
           VERSION=${{ github.ref_name }}
-          DIR="servverse-${VERSION}-${{ matrix.goos }}-${{ matrix.goarch }}"
+          DIR="pranor-${VERSION}-${{ matrix.goos }}-${{ matrix.goarch }}"
           cd dist
           tar -czf "${DIR}.tar.gz" "$DIR"
         shell: bash
@@ -133,7 +133,7 @@ jobs:
         if: matrix.archive == 'zip'
         run: |
           VERSION=${{ github.ref_name }}
-          DIR="servverse-${VERSION}-${{ matrix.goos }}-${{ matrix.goarch }}"
+          DIR="pranor-${VERSION}-${{ matrix.goos }}-${{ matrix.goarch }}"
           cd dist
           7z a "${DIR}.zip" "$DIR"
         shell: bash
@@ -143,7 +143,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release upload ${{ github.ref_name }} \
-            dist/servverse-${{ github.ref_name }}-${{ matrix.goos }}-${{ matrix.goarch }}.${{ matrix.archive }} \
+            dist/pranor-${{ github.ref_name }}-${{ matrix.goos }}-${{ matrix.goarch }}.${{ matrix.archive }} \
             --clobber
         shell: bash
 
@@ -159,10 +159,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           $tag = "${{ github.ref_name }}"
-          gh release download $tag -p "servverse-${tag}-windows-amd64.zip" --dir dist
-          Expand-Archive -Path "dist/servverse-${tag}-windows-amd64.zip" -DestinationPath "dist/extracted" -Force
+          gh release download $tag -p "pranor-${tag}-windows-amd64.zip" --dir dist
+          Expand-Archive -Path "dist/pranor-${tag}-windows-amd64.zip" -DestinationPath "dist/extracted" -Force
           New-Item -ItemType Directory -Path "dist/bin" -Force | Out-Null
-          $binaries = Get-ChildItem "dist/extracted/servverse-${tag}-windows-amd64/*.exe"
+          $binaries = Get-ChildItem "dist/extracted/pranor-${tag}-windows-amd64/*.exe"
           foreach ($file in $binaries) {
             Copy-Item -Path $file.FullName -Destination "dist/bin/$($file.Name)" -Force
             Write-Host "  Staged: $($file.Name)"
@@ -173,13 +173,13 @@ jobs:
 
       - name: Build Installer Package
         run: |
-          iscc servverse.iss
+          iscc pranor.iss
 
       - name: Upload Installer to Release Assets
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: dist/ServVerse-windows-setup.exe
+          files: dist/PranorVerse-windows-setup.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -199,14 +199,14 @@ jobs:
 
       - name: Notarize Package (Simulated)
         run: |
-          echo "Submitting to Apple Developer Notarization Service..."
-          echo "xcrun notarytool submit dist/ServVerse-macos-setup.pkg --apple-id '${{ secrets.APPLE_ID }}' --password '${{ secrets.APPLE_NOTARY_PASSWORD }}' --team-id '${{ secrets.APPLE_TEAM_ID }}' --wait"
+          echo "Submitting to Apple Developer Notarization Pranorice..."
+          echo "xcrun notarytool submit dist/PranorVerse-macos-setup.pkg --apple-id '${{ secrets.APPLE_ID }}' --password '${{ secrets.APPLE_NOTARY_PASSWORD }}' --team-id '${{ secrets.APPLE_TEAM_ID }}' --wait"
           echo "Notarization successful!"
 
       - name: Upload macOS Package to Release Assets
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: dist/ServVerse-macos-setup.pkg
+          files: dist/PranorVerse-macos-setup.pkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

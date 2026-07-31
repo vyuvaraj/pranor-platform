@@ -1,7 +1,7 @@
 goos: windows
 goarch: amd64
-pkg: github.com/vyuvaraj/ServShared
+pkg: github.com/vyuvaraj/Pranor Core
 cpu: 13th Gen Intel(R) Core(TM) i7-13850HX
 BenchmarkTokenGenerationAndVerification-28    	  305745	      4006 ns/op	    3088 B/op	      55 allocs/op
 PASS
-ok  	github.com/vyuvaraj/ServShared	1.397s
+ok  	github.com/vyuvaraj/Pranor Core	1.397s

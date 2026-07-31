@@ -1,7 +1,7 @@
 # Serv Unified Ecosystem Roadmap & Architect Analysis
 
 
-> Single source of truth for the **Serv** ecosystem: Serv-lang, ServGate, ServStore, ServQueue, ServConsole, ServCache, ServMesh, ServCron, ServCloud, ServTrace, ServTunnel, ServAuth, ServPool, ServMail, ServFlow, and the Servverse vision.  
+> Single source of truth for the **Serv** ecosystem: Pranor, Pranor Gate, Pranor Vault, Pranor Pulse, Pranor Console, Pranor Cache, Pranor Mesh, Pranor Chrono, Pranor Deploy, Pranor Trace, Pranor Tunnel, Pranor Auth, Pranor Pool, Pranor Notify, Pranor Flow, and the Pranor vision.  
 
 > Last updated: July 9, 2026
 
@@ -17,11 +17,11 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 
 - For completed details of Phases 1 to 5: Refer to the git history and repository CHANGELOG.
 
-- For completed details of Phases 6 to 10: See [UNIFIED_ROADMAP_COMPLETED_6_10.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_6_10.md).
+- For completed details of Phases 6 to 10: See [UNIFIED_ROADMAP_COMPLETED_6_10.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_6_10.md).
 
-- For completed details of Phases 11 to 15: See [UNIFIED_ROADMAP_COMPLETED_11_15.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_11_15.md).
+- For completed details of Phases 11 to 15: See [UNIFIED_ROADMAP_COMPLETED_11_15.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_11_15.md).
 
-- For completed details of Phase 16-19: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
+- For completed details of Phase 16-19: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
 
 - For completed details of Phase 31-35: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](UNIFIED_ROADMAP_COMPLETED_31_35.md).
 
@@ -79,51 +79,51 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 
 | **Phase 29: LSP IntelliSense & Developer Tooling** | 16 | 16 | 0 | **100%** |
 
-| **Phase 30: ServLock & ServSecret Hardening** | 10 | 10 | 0 | **100%** | ████████████████████ |
+| **Phase 30: Pranor Lock & Pranor Secret Hardening** | 10 | 10 | 0 | **100%** | ████████████████████ |
 
-| **Phase 31: ServLock & ServSecret Ecosystem Integration** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 31: Pranor Lock & Pranor Secret Ecosystem Integration** | 5 | 5 | 0 | **100%** | ████████████████████ |
 
-| **Phase 32: ServLock & ServSecret Standalone & Hardening** | 8 | 8 | 0 | **100%** | ████████████████████ |
+| **Phase 32: Pranor Lock & Pranor Secret Standalone & Hardening** | 8 | 8 | 0 | **100%** | ████████████████████ |
 
-| **Phase 33: ServLock & ServSecret Advanced Capabilities** | 10 | 10 | 0 | **100%** | ████████████████████ |
+| **Phase 33: Pranor Lock & Pranor Secret Advanced Capabilities** | 10 | 10 | 0 | **100%** | ████████████████████ |
 
-| **Phase 34: ServLock & ServSecret Enterprise & UI** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 34: Pranor Lock & Pranor Secret Enterprise & UI** | 6 | 6 | 0 | **100%** | ████████████████████ |
 
-| **Phase 35: Serv-lang Language Ergonomics** | 40 | 40 | 0 | **100%** | ████████████████████ |
-| **Phase 39: ServQueue Embedded & OPFS Browser Queue** | 6 | 6 | 0 | **100%** | ████████████████████ |
-| **Phase 40: ServQueue Browser WASM Hardening & Multi-Tab Resilience** | 6 | 6 | 0 | **100%** | ████████████████████ |
-| **Phase 41: ServQueue Next-Gen Enterprise Stream Engine** | 8 | 8 | 0 | **100%** | ████████████████████ |
-| **Phase 42: ServQueue Beyond-Enterprise Security & Sovereign Stream Engine** | 8 | 8 | 0 | **100%** | ████████████████████ |
-| **Phase 43: ServQueue Standalone Distribution, Dual-CLI & ServConsole Suite** | 8 | 8 | 0 | **100%** | ████████████████████ |
-| **Phase 44: ServQueue Cloud-Native Ecosystem & Enterprise Operations** | 8 | 8 | 0 | **100%** | ████████████████████ |
-| **Phase 45: ServQueue Enterprise Commercial Feature Modularization & Build-Tag Gating** | 8 | 8 | 0 | **100%** | ████████████████████ |
-| **Phase 46: ServGateway Standalone Distribution & Edge AI Processing** | 8 | 8 | 0 | **100%** | ████████████████████ |
-| **Phase 47: ServGateway Sovereign Security, eBPF & Enterprise Ops** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 35: Pranor Language Ergonomics** | 40 | 40 | 0 | **100%** | ████████████████████ |
+| **Phase 39: Pranor Pulse Embedded & OPFS Browser Queue** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 40: Pranor Pulse Browser WASM Hardening & Multi-Tab Resilience** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 41: Pranor Pulse Next-Gen Enterprise Stream Engine** | 8 | 8 | 0 | **100%** | ████████████████████ |
+| **Phase 42: Pranor Pulse Beyond-Enterprise Security & Sovereign Stream Engine** | 8 | 8 | 0 | **100%** | ████████████████████ |
+| **Phase 43: Pranor Pulse Standalone Distribution, Dual-CLI & Pranor Console Suite** | 8 | 8 | 0 | **100%** | ████████████████████ |
+| **Phase 44: Pranor Pulse Cloud-Native Ecosystem & Enterprise Operations** | 8 | 8 | 0 | **100%** | ████████████████████ |
+| **Phase 45: Pranor Pulse Enterprise Commercial Feature Modularization & Build-Tag Gating** | 8 | 8 | 0 | **100%** | ████████████████████ |
+| **Phase 46: Pranor Gateway Standalone Distribution & Edge AI Processing** | 8 | 8 | 0 | **100%** | ████████████████████ |
+| **Phase 47: Pranor Gateway Sovereign Security, eBPF & Enterprise Ops** | 5 | 5 | 0 | **100%** | ████████████████████ |
 | **Phase 74: Developer Adoption & High-Impact Differentiators** | 17 | 17 | 0 | **100%** | ████████████████████ |
 | **Phase 75: Production Hardening & Scale Bottleneck Fixes** | 12 | 12 | 0 | **100%** | ████████████████████ |
-| **Phase 76: Serv-lang Compiler & Developer Experience Hardening** | 10 | 10 | 0 | **100%** | ████████████████████ |
-| **Phase 51: ServStore Instant Copy-on-Write (CoW) Bucket Branching** | 5 | 5 | 0 | **100%** | ████████████████████ |
-| **Phase 52: ServStore Browser WebTorrent P2P Asset Seeding & OPFS Sharing** | 5 | 5 | 0 | **100%** | ████████████████████ |
-| **Phase 53: ServStore S3 Select Engine, Multi-Cloud Tiering & Interactive Console UI** | 5 | 5 | 0 | **100%** | ████████████████████ |
-| **Phase 54: ServStore Enterprise Multi-Cloud Lifecycle & Sovereign Archiving** | 5 | 5 | 0 | **100%** | ████████████████████ |
-| **Phase 55: ServGateway WASM Plugin Hot-Reload Registry, GraphQL Federation & WAF** | 5 | 5 | 0 | **100%** | ████████████████████ |
-| **Phase 56: ServGateway Enterprise WAF, Remote WASM Sync & OAuth2 Engine** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 76: Pranor Compiler & Developer Experience Hardening** | 10 | 10 | 0 | **100%** | ████████████████████ |
+| **Phase 51: Pranor Vault Instant Copy-on-Write (CoW) Bucket Branching** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 52: Pranor Vault Browser WebTorrent P2P Asset Seeding & OPFS Sharing** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 53: Pranor Vault S3 Select Engine, Multi-Cloud Tiering & Interactive Console UI** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 54: Pranor Vault Enterprise Multi-Cloud Lifecycle & Sovereign Archiving** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 55: Pranor Gateway WASM Plugin Hot-Reload Registry, GraphQL Federation & WAF** | 5 | 5 | 0 | **100%** | ████████████████████ |
+| **Phase 56: Pranor Gateway Enterprise WAF, Remote WASM Sync & OAuth2 Engine** | 5 | 5 | 0 | **100%** | ████████████████████ |
 
-| **Phase 57: ServAuth — Session Management, Passkeys & Adaptive MFA** | 6 | 6 | 0 | **100%** | ████████████████████ |
-| **Phase 58: ServCache — Distributed Cluster Mode, Bloom Filters & Tiered TTL** | 6 | 6 | 0 | **100%** | ████████████████████ |
-| **Phase 59: ServCron — DAG Job Chaining, Retry Policies & Cron-as-Code** | 6 | 6 | 0 | **100%** | ████████████████████ |
-| **Phase 60: ServFlow — Visual Workflow Designer, WASM Step Functions & Human Tasks** | 6 | 5 | 1 | **83%** | ████████████████░░░░ |
-| **Phase 61: ServMesh — WireGuard Overlay, mTLS Identity & Adaptive Load Balancing** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 62: ServCloud — Blue/Green Deploys, Preview URLs & Container Isolation** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 63: ServTrace — eBPF Continuous Profiling, Flamegraphs & SLO Burn Alerts** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 64: ServMail — DMARC Enforcement, Inbound Webhooks & Email Template DSL** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 65: ServPool — Adaptive Scaling, Read-Replica Routing & Connection Health** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
-| **Phase 66: ServTunnel — WebSocket Multiplexing, Replay Inspector & Auth Gating** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 67: Serv-lang — Rust & Python Code-Gen Targets & WASM Browser Playground** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 68: ServGateway — Native MCP Tool Registry & AI Agent Routing** | 6 | 6 | 0 | **100%** | ████████████████████ |
-| **Phase 69: ServStore — Native HNSW Vector Index & Semantic Object Search** | 6 | 6 | 0 | **100%** | ████████████████████ |
-| **Phase 70: ServConsole — eBPF Flamegraph Profiler, Chaos Engine & Unified AI Assistant** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 71: ServQueue — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
+| **Phase 57: Pranor Auth — Session Management, Passkeys & Adaptive MFA** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 58: Pranor Cache — Distributed Cluster Mode, Bloom Filters & Tiered TTL** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 59: Pranor Chrono — DAG Job Chaining, Retry Policies & Cron-as-Code** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 60: Pranor Flow — Visual Workflow Designer, WASM Step Functions & Human Tasks** | 6 | 5 | 1 | **83%** | ████████████████░░░░ |
+| **Phase 61: Pranor Mesh — WireGuard Overlay, mTLS Identity & Adaptive Load Balancing** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 62: Pranor Deploy — Blue/Green Deploys, Preview URLs & Container Isolation** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 63: Pranor Trace — eBPF Continuous Profiling, Flamegraphs & SLO Burn Alerts** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 64: Pranor Notify — DMARC Enforcement, Inbound Webhooks & Email Template DSL** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 65: Pranor Pool — Adaptive Scaling, Read-Replica Routing & Connection Health** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
+| **Phase 66: Pranor Tunnel — WebSocket Multiplexing, Replay Inspector & Auth Gating** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 67: Pranor — Rust & Python Code-Gen Targets & WASM Browser Playground** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 68: Pranor Gateway — Native MCP Tool Registry & AI Agent Routing** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 69: Pranor Vault — Native HNSW Vector Index & Semantic Object Search** | 6 | 6 | 0 | **100%** | ████████████████████ |
+| **Phase 70: Pranor Console — eBPF Flamegraph Profiler, Chaos Engine & Unified AI Assistant** | 6 | 0 | 6 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 71: Pranor Pulse — Schema Registry, Dead Letter Replay UI & Consumer Group Dashboard** | 6 | 2 | 4 | **33%** | ███████░░░░░░░░░░░░░ |
 | **Phase 72: Unified Platform — Single-Binary `servd`, WireGuard Mesh & Chaos Injection Engine** | 6 | 6 | 0 | **100%** | ████████████████████ |
 | **Phase 73: VS Code Extension — Modern Ecosystem Alignment** | 7 | 7 | 0 | **100%** | ████████████████████ |
 | **Phase 77: End-to-End Integration Testing & Conformance Suites** | 6 | 6 | 0 | **100%** | ████████████████████ |
@@ -144,7 +144,7 @@ All items in Phases 1 through 14 have been fully implemented, verified, and push
 All backlog and component enhancement items for Phase 15 have been fully completed, verified, and pushed.
 
 
-- For completed details of Phase 15: See [UNIFIED_ROADMAP_COMPLETED_11_15.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_11_15.md).
+- For completed details of Phase 15: See [UNIFIED_ROADMAP_COMPLETED_11_15.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_11_15.md).
 
 
 ---
@@ -159,55 +159,55 @@ graph TD
 
 %% CLI & Compiler Connector
 
-ServCLI["Serv-lang CLI"] -->|compiles & deploys| ServCloud
+ServCLI["Pranor CLI"] -->|compiles & deploys| Pranor Deploy
 
 ServCLI -->|runs tests| ServLocal
 
 
 %% Gateway Edge Layer
 
-ServGate["ServGate (API Gateway)"] -->|proxies client requests| ServMesh
+Pranor Gate["Pranor Gate (API Gateway)"] -->|proxies client requests| Pranor Mesh
 
-ServGate -->|reports traffic metrics| ServCloud
+Pranor Gate -->|reports traffic metrics| Pranor Deploy
 
 
 %% Service Mesh Layer
 
-ServMesh["ServMesh (Service Mesh)"] -->|routes traffic| ServMeshInstances["Service Instances"]
+Pranor Mesh["Pranor Mesh (Service Mesh)"] -->|routes traffic| Pranor MeshInstances["Service Instances"]
 
-ServMeshInstances -->|registers to| ServRegistry
+Pranor MeshInstances -->|registers to| Pranor Hub
 
-ServMeshInstances -->|publishes traces| ServTrace
+Pranor MeshInstances -->|publishes traces| Pranor Trace
 
-ServMeshInstances -->|accesses cache| ServCache
+Pranor MeshInstances -->|accesses cache| Pranor Cache
 
-ServMeshInstances -->|enqueues tasks| ServQueue
+Pranor MeshInstances -->|enqueues tasks| Pranor Pulse
 
-ServMeshInstances -->|schedules jobs| ServCron
+Pranor MeshInstances -->|schedules jobs| Pranor Chrono
 
-ServMeshInstances -->|sends mail| ServMail
+Pranor MeshInstances -->|sends mail| Pranor Notify
 
 
 %% Control Plane & Orchestrator
 
-ServCloud["ServCloud (Orchestrator)"] -->|orchestrates processes| ServMeshInstances
+Pranor Deploy["Pranor Deploy (Orchestrator)"] -->|orchestrates processes| Pranor MeshInstances
 
-ServCloud -->|manages routing rules| ServMesh
+Pranor Deploy -->|manages routing rules| Pranor Mesh
 
-ServCloud -->|reads metrics & autoscales| ServGate
+Pranor Deploy -->|reads metrics & autoscales| Pranor Gate
 
 
 %% Auxiliary Core Services
 
-ServCron -->|triggers target HTTP hooks| ServMeshInstances
+Pranor Chrono -->|triggers target HTTP hooks| Pranor MeshInstances
 
-ServQueue -->|dispatches messages to| ServMeshInstances
+Pranor Pulse -->|dispatches messages to| Pranor MeshInstances
 
-ServTrace -->|stores & indexes telemetry| ServStore
+Pranor Trace -->|stores & indexes telemetry| Pranor Vault
 
-ServRegistry -->|indexes service packages| ServStore
+Pranor Hub -->|indexes service packages| Pranor Vault
 
-ServStore["ServStore (S3 Storage)"]
+Pranor Vault["Pranor Vault (S3 Storage)"]
 
 ```
 
@@ -225,44 +225,44 @@ ServStore["ServStore (S3 Storage)"]
 
 |-----------|-------|----------------|----------|---------------|-----------|----------|---------|
 
-| **Serv-lang** | ?? 112 funcs | ?? compiler/, runtime/, lsp/, stdlib/ | ?? Null safety, type checking | ?? OTel codegen | ? N/A | ? N/A | **Production** |
+| **Pranor** | ?? 112 funcs | ?? compiler/, runtime/, lsp/, stdlib/ | ?? Null safety, type checking | ?? OTel codegen | ? N/A | ? N/A | **Production** |
 
-| **ServStore** | ?? 93 funcs | ?? cmd/ + 11 packages | ?? SigV4 + TLS + OIDC + LDAP | ?? OTel + slog | ?? A+ Zero-config | ? Federation + cold tier | **Production** |
+| **Pranor Vault** | ?? 93 funcs | ?? cmd/ + 11 packages | ?? SigV4 + TLS + OIDC + LDAP | ?? OTel + slog | ?? A+ Zero-config | ? Federation + cold tier | **Production** |
 
-| **ServGate** | ?? 50 funcs | ?? 3 packages (proxy, wasm, otel) | ?? JWT + mTLS + ACME + policy | ?? OTel + access logs | ?? A- config.json | ? AI cache + LLM routing | **Production** |
+| **Pranor Gate** | ?? 50 funcs | ?? 3 packages (proxy, wasm, otel) | ?? JWT + mTLS + ACME + policy | ?? OTel + access logs | ?? A- config.json | ? AI cache + LLM routing | **Production** |
 
-| **ServConsole** | ?? 56 funcs | ?? 12 packages | ?? OIDC + RBAC + JWT | ?? OTel | ? Aggregator | ? SLO, cost, runbooks, exec | **Production** |
+| **Pranor Console** | ?? 56 funcs | ?? 12 packages | ?? OIDC + RBAC + JWT | ?? OTel | ? Aggregator | ? SLO, cost, runbooks, exec | **Production** |
 
-| **ServCache** | ?? 46 funcs | ?? 3 packages | ?? Token auth | ?? OTel | ?? A Standalone flag | ? Namespace isolation | **Production** |
+| **Pranor Cache** | ?? 46 funcs | ?? 3 packages | ?? Token auth | ?? OTel | ?? A Standalone flag | ? Namespace isolation | **Production** |
 
-| **ServFlow** | ?? 43 funcs | ?? 3 packages (engine, handlers, storage) | ?? JWT | ?? OTel | ?? A Standalone flag | ? Saga hooks | **Production** |
+| **Pranor Flow** | ?? 43 funcs | ?? 3 packages (engine, handlers, storage) | ?? JWT | ?? OTel | ?? A Standalone flag | ? Saga hooks | **Production** |
 
-| **ServPool** | ?? 40 funcs | ?? 4 packages | ?? JWT | ?? OTel | ?? B+ docs only | ? N/A | **Production** |
+| **Pranor Pool** | ?? 40 funcs | ?? 4 packages | ?? JWT | ?? OTel | ?? B+ docs only | ? N/A | **Production** |
 
-| **ServMesh** | ?? 37 funcs | ?? 7 packages | ?? mTLS + JWT + auto-rotate | ?? OTel | ?? B+ needs services | ? N/A | **Production** |
+| **Pranor Mesh** | ?? 37 funcs | ?? 7 packages | ?? mTLS + JWT + auto-rotate | ?? OTel | ?? B+ needs services | ? N/A | **Production** |
 
-| **ServTunnel** | ?? 37 funcs | ?? 6 packages | ?? TLS + token + rate limit | ?? OTel | ?? A- generic tunnel | ? Federation | **Production** |
+| **Pranor Tunnel** | ?? 37 funcs | ?? 6 packages | ?? TLS + token + rate limit | ?? OTel | ?? A- generic tunnel | ? Federation | **Production** |
 
-| **ServQueue** | ?? 36 funcs | ?? 5 packages | ?? TLS + STOMP auth | ?? OTel + spans | ?? A Zero-config | ? Federation + semantic route | **Production** |
+| **Pranor Pulse** | ?? 36 funcs | ?? 5 packages | ?? TLS + STOMP auth | ?? OTel + spans | ?? A Zero-config | ? Federation + semantic route | **Production** |
 
-| **ServMail** | ?? 34 funcs | ?? 5 packages | ?? JWT | ?? OTel | ?? A Standalone flag | ? N/A | **Production** |
+| **Pranor Notify** | ?? 34 funcs | ?? 5 packages | ?? JWT | ?? OTel | ?? A Standalone flag | ? N/A | **Production** |
 
-| **ServDocs** | ?? 34 funcs | ?? 3 packages (generator, openapi, parser) | ? N/A | ? N/A | ?? B+ .srv-specific | ? N/A | **Stable** |
+| **ServDocs** | ?? 34 funcs | ?? 3 packages (generator, openapi, parser) | ? N/A | ? N/A | ?? B+ .pnr-specific | ? N/A | **Stable** |
 
-| **ServCloud** | ?? 31 funcs | ?? 3 packages | ?? JWT | ?? OTel | ?? B Serv-specific | ? Autoscale | **Stable** |
+| **Pranor Deploy** | ?? 31 funcs | ?? 3 packages | ?? JWT | ?? OTel | ?? B Serv-specific | ? Autoscale | **Stable** |
 
-| **ServShared** | ?? 30 funcs | ?? 4 packages (datafabric, middleware, outbox, policy) | ?? JWT + mTLS + tenant | ?? OTel init | ? Library | ? Tenant isolation | **Production** |
+| **Pranor Core** | ?? 30 funcs | ?? 4 packages (datafabric, middleware, outbox, policy) | ?? JWT + mTLS + tenant | ?? OTel init | ? Library | ? Tenant isolation | **Production** |
 
-| **ServTrace** | ?? 17 funcs | ?? 2 packages | ?? Basic auth | ?? Self-traces | ?? A- OTLP collector | ? Cold tier, NL, anomaly | **Stable** |
+| **Pranor Trace** | ?? 17 funcs | ?? 2 packages | ?? Basic auth | ?? Self-traces | ?? A- OTLP collector | ? Cold tier, NL, anomaly | **Stable** |
 
-| **ServAuth** | ?? 16 funcs | ?? 6 packages | ?? bcrypt + AES + MFA + OIDC | ?? OTel | ?? B No standalone flag | ? Stuffing detection | **Stable** |
+| **Pranor Auth** | ?? 16 funcs | ?? 6 packages | ?? bcrypt + AES + MFA + OIDC | ?? OTel | ?? B No standalone flag | ? Stuffing detection | **Stable** |
 
-| **ServCron** | ?? 13 funcs | ?? 3 packages | ?? JWT + Redis lease | ?? OTel | ?? A Standalone flag | ? N/A | **Stable** |
+| **Pranor Chrono** | ?? 13 funcs | ?? 3 packages | ?? JWT + Redis lease | ?? OTel | ?? A Standalone flag | ? N/A | **Stable** |
 
-| **ServRegistry** | ?? 12 funcs | ?? 4 packages (registry, resolution, signing, web) | ?? JWT + crypto signing | ?? OTel | ?? B+ Standalone flag | ? N/A | **Stable** |
+| **Pranor Hub** | ?? 12 funcs | ?? 4 packages (registry, resolution, signing, web) | ?? JWT + crypto signing | ?? OTel | ?? B+ Standalone flag | ? N/A | **Stable** |
 
-| **ServLock** | ?? 2 funcs | ?? 2 packages (handlers, storage) | ?? JWT | ?? Basic | ?? B+ Embedded | ? N/A | **Beta** |
-| **ServSecret** | ?? 2 funcs | ?? 2 packages (handlers, storage) | ?? AES-GCM + JWT | ?? Basic | ?? B+ Standalone | ? N/A | **Beta** |
+| **Pranor Lock** | ?? 2 funcs | ?? 2 packages (handlers, storage) | ?? JWT | ?? Basic | ?? B+ Embedded | ? N/A | **Beta** |
+| **Pranor Secret** | ?? 2 funcs | ?? 2 packages (handlers, storage) | ?? AES-GCM + JWT | ?? Basic | ?? B+ Standalone | ? N/A | **Beta** |
 
 ### Summary
 
@@ -271,11 +271,11 @@ ServStore["ServStore (S3 Storage)"]
 
 |--------|-------|-----------|
 
-| **Production** | 13 | Serv-lang, ServStore, ServGate, ServConsole, ServCache, ServFlow, ServPool, ServMesh, ServTunnel, ServQueue, ServMail, ServShared |
+| **Production** | 13 | Pranor, Pranor Vault, Pranor Gate, Pranor Console, Pranor Cache, Pranor Flow, Pranor Pool, Pranor Mesh, Pranor Tunnel, Pranor Pulse, Pranor Notify, Pranor Core |
 
-| **Stable** | 6 | ServDocs, ServCloud, ServTrace, ServAuth, ServCron, ServRegistry |
+| **Stable** | 6 | ServDocs, Pranor Deploy, Pranor Trace, Pranor Auth, Pranor Chrono, Pranor Hub |
 
-| **Beta** | 2 | ServLock, ServSecret |
+| **Beta** | 2 | Pranor Lock, Pranor Secret |
 
 **Legend:** ?? Strong | ?? Adequate | ?? Needs work | ? Not applicable | ? EE features gated
 
@@ -288,7 +288,7 @@ ServStore["ServStore (S3 Storage)"]
 
 All backlog tasks for Phase 16 have been fully completed, verified, and archived.
 
-- For completed details of Phase 16: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
+- For completed details of Phase 16: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
 
 
 ---
@@ -299,7 +299,7 @@ All backlog tasks for Phase 16 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 17 have been fully completed, verified, and archived.
 
-- For completed details of Phase 17: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
+- For completed details of Phase 17: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
 
 
 ---
@@ -310,7 +310,7 @@ All backlog tasks for Phase 17 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 18 have been fully completed, verified, and archived.
 
-- For completed details of Phase 18: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
+- For completed details of Phase 18: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
 
 
 ---
@@ -321,7 +321,7 @@ All backlog tasks for Phase 18 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 19 have been fully completed, verified, and archived.
 
-- For completed details of Phase 19: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
+- For completed details of Phase 19: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
 
 
 ---
@@ -332,7 +332,7 @@ All backlog tasks for Phase 19 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 20 have been fully completed, verified, and archived.
 
-- For completed details of Phase 20: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
+- For completed details of Phase 20: See [UNIFIED_ROADMAP_COMPLETED_16_20.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_16_20.md).
 
 
 ## Phase 21: Enterprise Ecosystem Scale & Next-Gen Capabilities (Completed)
@@ -340,7 +340,7 @@ All backlog tasks for Phase 20 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 21 have been fully completed, verified, and archived.
 
-- For completed details of Phase 21: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_21_25.md).
+- For completed details of Phase 21: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_21_25.md).
 
 
 ## Phase 22: Quality, Credibility & Code Health (Completed)
@@ -348,20 +348,20 @@ All backlog tasks for Phase 21 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 22 have been fully completed, verified, and archived.
 
-- For completed details of Phase 22: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_21_25.md).
+- For completed details of Phase 22: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_21_25.md).
 
 
 ## Phase 23: Developer Adoption & Growth (Pending)
 
 > **Context:** The platform is feature-complete but has zero external users. This phase focuses on removing friction, building community, and proving production-readiness.
 
-- For completed details of Phase 23: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_21_25.md).
+- For completed details of Phase 23: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_21_25.md).
 
 ### Pending / Deferred Items
 
 | # | Item | Component | Description | Status |
 |---|------|-----------|-------------|--------|
-| AG.4 | **10-minute demo video** | servverse-repo | Screen recording: install → write service → deploy → observe in console. Hosted on YouTube + embedded in GitHub Pages | [Deferred] |
+| AG.4 | **10-minute demo video** | pranor-repo | Screen recording: install → write service → deploy → observe in console. Hosted on YouTube + embedded in GitHub Pages | [Deferred] |
 | AG.5 | **Discord/community server** | - | Developer community for questions, showcases, and contributors | [Deferred] |
 | AG.12 | **Customer pilot program** | - | Find 2-3 teams to run in staging. Gather real feedback on DX, performance, gaps | [Deferred] |
 
@@ -370,7 +370,7 @@ All backlog tasks for Phase 22 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 24 have been fully completed, verified, and archived.
 
-- For completed details of Phase 24: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_21_25.md).
+- For completed details of Phase 24: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_21_25.md).
 
 
 ---
@@ -379,7 +379,7 @@ All backlog tasks for Phase 24 have been fully completed, verified, and archived
 ## Phase 24.1: Standalone Hardening to A+ (Completed)
 
 All backlog tasks for Phase 24.1 have been fully completed, verified, and archived.
-- For completed details of Phase 24.1: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_21_25.md).
+- For completed details of Phase 24.1: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_21_25.md).
 
 ---
 
@@ -389,7 +389,7 @@ All backlog tasks for Phase 24.1 have been fully completed, verified, and archiv
 
 All backlog tasks for Phase 25 (D.1 - D.60) have been fully completed, verified, and archived.
 
-- For completed details of Phase 25: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///c:/Mine/try/serv/servverse-repo/UNIFIED_ROADMAP_COMPLETED_21_25.md).
+- For completed details of Phase 25: See [UNIFIED_ROADMAP_COMPLETED_21_25.md](file:///c:/Mine/try/serv/pranor-repo/UNIFIED_ROADMAP_COMPLETED_21_25.md).
 
 
 
@@ -401,13 +401,13 @@ All backlog tasks for Phase 25 (D.1 - D.60) have been fully completed, verified,
 ## Phase 26: Competitive Differentiation (Completed)
 
 All backlog tasks for Phase 26 have been fully completed, verified, and archived.
-- For completed details of Phase 26: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_26_30.md).
+- For completed details of Phase 26: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_26_30.md).
 
 ## Phase 27: v1.0 Release Readiness (Pending)
 
 > **Goal:** Close the consistency gaps identified in the API maturity audit. These are mechanical fixes (not design changes) required to confidently tag v1.0.0.
 
-- For completed details of Phase 27: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_26_30.md).
+- For completed details of Phase 27: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_26_30.md).
 
 ### Pending / Deferred Items
 
@@ -420,7 +420,7 @@ All backlog tasks for Phase 26 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 28 have been fully completed, verified, and archived.
 
-- For completed details of Phase 28: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_26_30.md).
+- For completed details of Phase 28: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_26_30.md).
 
 
 ## Phase 29: LSP IntelliSense & Developer Tooling (Completed)
@@ -428,33 +428,33 @@ All backlog tasks for Phase 28 have been fully completed, verified, and archived
 
 All backlog tasks for Phase 29 have been fully completed, verified, and archived.
 
-- For completed details of Phase 29: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_26_30.md).
+- For completed details of Phase 29: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_26_30.md).
 
-## Phase 30: ServLock & ServSecret Hardening (Completed)
+## Phase 30: Pranor Lock & Pranor Secret Hardening (Completed)
 
 All backlog tasks for Phase 30 have been fully completed, verified, and archived.
 
-- For completed details of Phase 30: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_26_30.md).
+- For completed details of Phase 30: See [UNIFIED_ROADMAP_COMPLETED_26_30.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_26_30.md).
 
-## Phase 31: ServLock & ServSecret Ecosystem Integration (Completed)
+## Phase 31: Pranor Lock & Pranor Secret Ecosystem Integration (Completed)
 
 All backlog tasks for Phase 31 have been fully completed, verified, and archived.
 
-- For completed details of Phase 31: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_31_35.md).
+- For completed details of Phase 31: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_31_35.md).
 
-## Phase 32: ServLock & ServSecret Standalone & Hardening (Completed)
+## Phase 32: Pranor Lock & Pranor Secret Standalone & Hardening (Completed)
 
 All backlog tasks for Phase 32 have been fully completed, verified, and archived.
 
-- For completed details of Phase 32: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_31_35.md).
+- For completed details of Phase 32: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_31_35.md).
 
-## Phase 33: ServLock & ServSecret Advanced Capabilities (Completed)
+## Phase 33: Pranor Lock & Pranor Secret Advanced Capabilities (Completed)
 
 All backlog tasks for Phase 33 have been fully completed, verified, and archived.
 
-- For completed details of Phase 33: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](file:///F:/Don/servverse/servverse/UNIFIED_ROADMAP_COMPLETED_31_35.md).
+- For completed details of Phase 33: See [UNIFIED_ROADMAP_COMPLETED_31_35.md](file:///F:/Don/pranor/pranor/UNIFIED_ROADMAP_COMPLETED_31_35.md).
 
-## Phase 34: ServLock & ServSecret Enterprise & UI (Completed)
+## Phase 34: Pranor Lock & Pranor Secret Enterprise & UI (Completed)
 
 All backlog tasks for Phase 34 have been fully completed, verified, and archived.
 
@@ -469,7 +469,7 @@ All backlog tasks for Phase 34 have been fully completed, verified, and archived
 All backlog tasks for Phase 36 have been fully completed, verified, and archived.
 - For completed details of Phase 36: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
 
-## Phase 37: Serv-lang Niche Positioning & DX Evolution (Completed)
+## Phase 37: Pranor Niche Positioning & DX Evolution (Completed)
 
 All backlog tasks for Phase 37 have been fully completed, verified, and archived.
 - For completed details of Phase 37: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
@@ -481,42 +481,42 @@ All backlog tasks for Phase 38 have been fully completed, verified, and archived
 
 ---
 
-## Phase 39: ServQueue Embedded & OPFS Browser Event Streaming (Completed)
+## Phase 39: Pranor Pulse Embedded & OPFS Browser Event Streaming (Completed)
 
 All backlog tasks for Phase 39 have been fully completed, verified, and archived.
 - For completed details of Phase 39: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
 
 ---
 
-## Phase 40: ServQueue Browser WASM Hardening & Multi-Tab Resilience (Completed)
+## Phase 40: Pranor Pulse Browser WASM Hardening & Multi-Tab Resilience (Completed)
 
 All backlog tasks for Phase 40 have been fully completed, verified, and archived.
 - For completed details of Phase 40: See [UNIFIED_ROADMAP_COMPLETED_36_40.md](UNIFIED_ROADMAP_COMPLETED_36_40.md).
 
 ---
 
-## Phase 41: ServQueue Next-Gen Enterprise Stream Engine (Completed)
+## Phase 41: Pranor Pulse Next-Gen Enterprise Stream Engine (Completed)
 
 All backlog tasks for Phase 41 have been fully completed, verified, and archived.
 - For completed details of Phase 41: See [UNIFIED_ROADMAP_COMPLETED_41_45.md](UNIFIED_ROADMAP_COMPLETED_41_45.md).
 
 ---
 
-## Phase 42: ServQueue Beyond-Enterprise Security & Sovereign Stream Engine (Completed)
+## Phase 42: Pranor Pulse Beyond-Enterprise Security & Sovereign Stream Engine (Completed)
 
 All backlog tasks for Phase 42 have been fully completed, verified, and archived.
 - For completed details of Phase 42: See [UNIFIED_ROADMAP_COMPLETED_41_45.md](UNIFIED_ROADMAP_COMPLETED_41_45.md).
 
 ---
 
-## Phase 43: ServQueue Standalone Distribution, Dual-CLI & ServConsole Suite (Completed)
+## Phase 43: Pranor Pulse Standalone Distribution, Dual-CLI & Pranor Console Suite (Completed)
 
 All backlog tasks for Phase 43 have been fully completed, verified, and archived.
 - For completed details of Phase 43: See [UNIFIED_ROADMAP_COMPLETED_41_45.md](UNIFIED_ROADMAP_COMPLETED_41_45.md).
 
 ---
 
-## Phase 44: ServQueue Cloud-Native Ecosystem & Enterprise Operations (Completed)
+## Phase 44: Pranor Pulse Cloud-Native Ecosystem & Enterprise Operations (Completed)
 
 All backlog tasks for Phase 44 have been fully completed, verified, and archived.
 - For completed details of Phase 44: See [UNIFIED_ROADMAP_COMPLETED_41_45.md](UNIFIED_ROADMAP_COMPLETED_41_45.md).
@@ -620,44 +620,44 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 ## Phase 78: Third-Party Ecosystem Integrations & Connectors (Planned)
 
-> **Goal**: Make Servverse work with existing tools, not just instead of them. Reduce switching cost.
+> **Goal**: Make Pranor work with existing tools, not just instead of them. Reduce switching cost.
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| EC.1 | **Terraform Provider for Servverse** | servverse-repo | `terraform-provider-servverse` enabling declarative management of buckets, topics, routes, cron jobs, and workflow definitions. Publish on Terraform Registry. | [ ] | OSS |
-| EC.2 | **Prometheus Remote Write Receiver in ServTrace** | ServTrace | Accept Prometheus `remote_write` protocol — lets existing Prometheus scrapers forward metrics to ServTrace without changing their config. | [ ] | OSS |
-| EC.3 | **Grafana Data Source Plugin** | ServTrace, ServQueue | Grafana plugin that queries ServTrace spans and ServQueue metrics natively. Users keep Grafana as their dashboard but backed by Servverse telemetry. | [ ] | OSS |
-| EC.4 | **GitHub Actions for Serv Deployments** | servverse-repo | `servverse/deploy-action@v1` — CI action that builds a `.srv` app, pushes to ServRegistry, and triggers blue/green deploy on ServCloud. Publish on GitHub Marketplace. | [ ] | OSS |
-| EC.5 | **OpenTelemetry Collector Exporter** | ServTrace | Implement an OTel Collector exporter so teams using the standard OTel Collector can route traces/metrics to ServTrace without code changes. | [ ] | OSS |
-| EC.6 | **VS Code Dev Container + Codespaces Template** | servverse-repo | One-click GitHub Codespaces template: opens with Servverse pre-installed, sample app deployed, ServConsole accessible in forwarded port. Zero-install evaluation. | [ ] | OSS |
+| EC.1 | **Terraform Provider for Pranor** | pranor-repo | `terraform-provider-pranor` enabling declarative management of buckets, topics, routes, cron jobs, and workflow definitions. Publish on Terraform Registry. | [ ] | OSS |
+| EC.2 | **Prometheus Remote Write Receiver in Pranor Trace** | Pranor Trace | Accept Prometheus `remote_write` protocol — lets existing Prometheus scrapers forward metrics to Pranor Trace without changing their config. | [ ] | OSS |
+| EC.3 | **Grafana Data Source Plugin** | Pranor Trace, Pranor Pulse | Grafana plugin that queries Pranor Trace spans and Pranor Pulse metrics natively. Users keep Grafana as their dashboard but backed by Pranor telemetry. | [ ] | OSS |
+| EC.4 | **GitHub Actions for Serv Deployments** | pranor-repo | `pranor/deploy-action@v1` — CI action that builds a `.pnr` app, pushes to Pranor Hub, and triggers blue/green deploy on Pranor Deploy. Publish on GitHub Marketplace. | [ ] | OSS |
+| EC.5 | **OpenTelemetry Collector Exporter** | Pranor Trace | Implement an OTel Collector exporter so teams using the standard OTel Collector can route traces/metrics to Pranor Trace without code changes. | [ ] | OSS |
+| EC.6 | **VS Code Dev Container + Codespaces Template** | pranor-repo | One-click GitHub Codespaces template: opens with Pranor pre-installed, sample app deployed, Pranor Console accessible in forwarded port. Zero-install evaluation. | [ ] | OSS |
 
 ---
 
 ## Phase 79: Developer Experience Polish & Onboarding Automation (Planned)
 
-> **Goal**: Make the first 5 minutes frictionless for someone who's never seen Servverse.
+> **Goal**: Make the first 5 minutes frictionless for someone who's never seen Pranor.
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| DX.1 | **Interactive CLI Wizard (`servverse quickstart`)** | servverse-repo | Guided setup: asks what you need (API + DB? Queue? Auth?), generates minimal config, starts only required services. Like `npm init` for infrastructure. | [ ] | OSS |
-| DX.2 | **serv playground hosted at `playground.servverse.dev`** | Serv-lang | Zero-install browser IDE showing: editor (left), generated Go (center), running output (right). Pre-loaded with 5 example templates. Share button generates URL. | [ ] | OSS |
-| DX.3 | **Unified Error Code Registry with Fix Suggestions** | All | Every error across all services gets a unique code (SRV-E001 through SRV-E999). CLI shows Error `SRV-E042`: see `https://docs.servverse.dev/errors/SRV-E042` with fix steps. | [ ] | OSS |
-| DX.4 | **`servverse doctor` Health Diagnostic** | servverse-repo | Single command that checks: Go version, port availability, disk space, Docker running, all binaries present, config valid. Outputs pass/fail with fix suggestions. | [ ] | OSS |
-| DX.5 | **Auto-Generated CLI Reference Docs from Source** | All | `go generate` step that produces markdown CLI reference from flag definitions. Published at `docs.servverse.dev/cli`. Always current. | [ ] | OSS |
-| DX.6 | **`serv create my-api --template rest+auth+queue`** | Serv-lang | Scaffold generator: creates a project with sensible defaults for common patterns (REST API, background worker, webhook processor, full-stack). Like `rails new`. | [ ] | OSS |
+| DX.1 | **Interactive CLI Wizard (`pranor quickstart`)** | pranor-repo | Guided setup: asks what you need (API + DB? Queue? Auth?), generates minimal config, starts only required services. Like `npm init` for infrastructure. | [ ] | OSS |
+| DX.2 | **serv playground hosted at `playground.pranor.dev`** | Pranor | Zero-install browser IDE showing: editor (left), generated Go (center), running output (right). Pre-loaded with 5 example templates. Share button generates URL. | [ ] | OSS |
+| DX.3 | **Unified Error Code Registry with Fix Suggestions** | All | Every error across all services gets a unique code (SRV-E001 through SRV-E999). CLI shows Error `SRV-E042`: see `https://docs.pranor.dev/errors/SRV-E042` with fix steps. | [ ] | OSS |
+| DX.4 | **`pranor doctor` Health Diagnostic** | pranor-repo | Single command that checks: Go version, port availability, disk space, Docker running, all binaries present, config valid. Outputs pass/fail with fix suggestions. | [ ] | OSS |
+| DX.5 | **Auto-Generated CLI Reference Docs from Source** | All | `go generate` step that produces markdown CLI reference from flag definitions. Published at `docs.pranor.dev/cli`. Always current. | [ ] | OSS |
+| DX.6 | **`serv create my-api --template rest+auth+queue`** | Pranor | Scaffold generator: creates a project with sensible defaults for common patterns (REST API, background worker, webhook processor, full-stack). Like `rails new`. | [ ] | OSS |
 
 ---
 
 ## Phase 80: Go-to-Market Readiness & Community Foundation (Planned)
 
-> **Goal**: Everything a potential adopter needs to evaluate, trust, and adopt Servverse.
+> **Goal**: Everything a potential adopter needs to evaluate, trust, and adopt Pranor.
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| GTM.1 | **10-Minute Demo Video (YouTube + GitHub Pages embed)** | servverse-repo | Screen recording: install (scoop/brew) → `serv create task-api` → add route → `servverse up` → hit API → see trace in console → deploy to ServCloud. Professional narration. | [ ] | — |
-| GTM.2 | **Comparison Landing Pages** | servverse-repo | "ServStore vs MinIO", "ServGate vs Kong", "ServQueue vs RabbitMQ" — honest feature matrices showing where Servverse wins (simplicity, unified) and loses (raw throughput, community size). | [ ] | — |
-| GTM.3 | **Public Roadmap Board (GitHub Projects or Linear)** | servverse-repo | Transparent roadmap where users can vote on features, see what's next, and understand release cadence. Builds trust. | [ ] | — |
-| GTM.4 | **"Built with Servverse" Showcase Gallery** | servverse-repo | Page showing 3-5 real applications built on Servverse (even your own internal tools count). Each with architecture diagram, lines of code, and deployment stats. | [ ] | — |
+| GTM.1 | **10-Minute Demo Video (YouTube + GitHub Pages embed)** | pranor-repo | Screen recording: install (scoop/brew) → `serv create task-api` → add route → `pranor up` → hit API → see trace in console → deploy to Pranor Deploy. Professional narration. | [ ] | — |
+| GTM.2 | **Comparison Landing Pages** | pranor-repo | "Pranor Vault vs MinIO", "Pranor Gate vs Kong", "Pranor Pulse vs RabbitMQ" — honest feature matrices showing where Pranor wins (simplicity, unified) and loses (raw throughput, community size). | [ ] | — |
+| GTM.3 | **Public Roadmap Board (GitHub Projects or Linear)** | pranor-repo | Transparent roadmap where users can vote on features, see what's next, and understand release cadence. Builds trust. | [ ] | — |
+| GTM.4 | **"Built with Pranor" Showcase Gallery** | pranor-repo | Page showing 3-5 real applications built on Pranor (even your own internal tools count). Each with architecture diagram, lines of code, and deployment stats. | [ ] | — |
 | GTM.5 | **Discord Community Launch** | — | Create Discord with channels: `#general`, `#help`, `#showcase`, `#contributors`, `#releases`. Bot that posts new releases automatically. Pin the quickstart guide. | [ ] | — |
 | GTM.6 | **Show HN + r/selfhosted + r/golang Launch Posts** | — | Craft a compelling "Show HN" title: *"Serv – A unified backend platform (API gateway + S3 store + message queue + auth + 10 more) in one Go binary."* Time for a weekday morning. | [ ] | — |
 
@@ -666,9 +666,9 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 ---
 
-## Phase 81: Rebrand — Serv/Servverse → Pranor (Planned)
+## Phase 81: Rebrand — Serv/Pranor → Pranor (Planned)
 
-> **Goal:** Rename the entire ecosystem from "Serv/Servverse" to "Pranor" with a consistent product naming convention. This is a full rebrand affecting code, binaries, documentation, packaging, CI/CD, and community assets.
+> **Goal:** Rename the entire ecosystem from "Serv/Pranor" to "Pranor" with a consistent product naming convention. This is a full rebrand affecting code, binaries, documentation, packaging, CI/CD, and community assets.
 >
 > **New brand:** Pranor (from Sanskrit "prana" — life force)
 > **New CLI:** `pranor`
@@ -683,29 +683,29 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Current Name | New Name | New Description |
 |---|---|---|---|
-| 1 | Serv-lang | **Pranor** (CLI + Compiler) | Language runtime, compiler, CLI |
-| 2 | ServGate | **Pranor Gate** | API Gateway & Ingress Router |
-| 3 | ServQueue | **Pranor Pulse** | Async Event Broker & Message Queue |
-| 4 | ServCron | **Pranor Chrono** | Scheduled Tasks & Cron Runner |
-| 5 | ServAuth | **Pranor Auth** | Identity, Security & Access Control |
-| 6 | ServStore | **Pranor Store** | S3-compatible Object Storage & Vector Search |
-| 7 | ServRegistry | **Pranor Registry** | Package Management & Module Registry |
-| 8 | ServCache | **Pranor Cache** | Distributed Cache Engine |
-| 9 | ServMesh | **Pranor Mesh** | Service Discovery & Load Balancing |
-| 10 | ServTrace | **Pranor Trace** | Distributed Tracing Engine |
-| 11 | ServConsole | **Pranor Console** | Observability Dashboard |
-| 12 | ServPool | **Pranor Pool** | Database Connection Proxy |
-| 13 | ServMail | **Pranor Notify** | Email, Slack, SMS Notification Gateway |
-| 14 | ServFlow | **Pranor Flow** | Workflow Engine & Saga Orchestrator |
-| 15 | ServCloud | **Pranor Deploy** | Docker/K8s Deployment Pipeline |
-| 16 | ServTunnel | **Pranor Tunnel** | WebSocket Dev Tunneling |
-| 17 | ServShared | **Pranor Core** | Shared Libraries, Health, Retry, OTel |
-| 18 | ServLock | **Pranor Lock** | Distributed Locking |
-| 19 | ServSecret | **Pranor Secret** | Secret Management & Key Unsealing |
-| 20 | ServPlatform | **Pranor Platform** (merge into Core or keep) | Platform bootstrap |
+| 1 | Pranor | **Pranor** (CLI + Compiler) | Language runtime, compiler, CLI |
+| 2 | Pranor Gate | **Pranor Gate** | API Gateway & Ingress Router |
+| 3 | Pranor Pulse | **Pranor Pulse** | Async Event Broker & Message Queue |
+| 4 | Pranor Chrono | **Pranor Chrono** | Scheduled Tasks & Cron Runner |
+| 5 | Pranor Auth | **Pranor Auth** | Identity, Security & Access Control |
+| 6 | Pranor Vault | **Pranor Store** | S3-compatible Object Storage & Vector Search |
+| 7 | Pranor Hub | **Pranor Registry** | Package Management & Module Registry |
+| 8 | Pranor Cache | **Pranor Cache** | Distributed Cache Engine |
+| 9 | Pranor Mesh | **Pranor Mesh** | Service Discovery & Load Balancing |
+| 10 | Pranor Trace | **Pranor Trace** | Distributed Tracing Engine |
+| 11 | Pranor Console | **Pranor Console** | Observability Dashboard |
+| 12 | Pranor Pool | **Pranor Pool** | Database Connection Proxy |
+| 13 | Pranor Notify | **Pranor Notify** | Email, Slack, SMS Notification Gateway |
+| 14 | Pranor Flow | **Pranor Flow** | Workflow Engine & Saga Orchestrator |
+| 15 | Pranor Deploy | **Pranor Deploy** | Docker/K8s Deployment Pipeline |
+| 16 | Pranor Tunnel | **Pranor Tunnel** | WebSocket Dev Tunneling |
+| 17 | Pranor Core | **Pranor Core** | Shared Libraries, Health, Retry, OTel |
+| 18 | Pranor Lock | **Pranor Lock** | Distributed Locking |
+| 19 | Pranor Secret | **Pranor Secret** | Secret Management & Key Unsealing |
+| 20 | Pranor Platform | **Pranor Platform** (merge into Core or keep) | Platform bootstrap |
 | 21 | servlockctl | **pranor lock** (subcommand) | CLI for distributed locks |
 | 22 | servsecretctl | **pranor secret** (subcommand) | CLI for secret injection |
-| 23 | Servverse (ecosystem) | **Pranor** | No "verse" suffix needed |
+| 23 | Pranor (ecosystem) | **Pranor** | No "verse" suffix needed |
 | 24 | serv-ee | **pranor-ee** | Enterprise Edition |
 
 ---
@@ -716,13 +716,13 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| R.1 | **Rename monorepo** | `serv/` → `pranor/` | Rename the root repository directory and GitHub repo from `github.com/vyuvaraj/serv` to `github.com/vyuvaraj/pranor` | [ ] |
+| R.1 | **Rename monorepo** | `serv/` → `pranor/` | Rename the root repository directory and GitHub repo from `github.com/vyuvaraj/pranor` to `github.com/vyuvaraj/pranor` | [ ] |
 | R.2 | **Rename go.work** | `go.work` | Update all `use` directives from `./packages/Serv*` to `./packages/pranor-*` | [ ] |
-| R.3 | **Rename package directories** | `/packages/` | Rename all 22 package directories (e.g., `ServGate` → `pranor-gate`, `Serv-lang` → `pranor-lang`) | [ ] |
-| R.4 | **Update all go.mod files** | Every package | Change `module github.com/vyuvaraj/serv/packages/ServXxx` → `module github.com/vyuvaraj/pranor/packages/pranor-xxx` | [ ] |
+| R.3 | **Rename package directories** | `/packages/` | Rename all 22 package directories (e.g., `Pranor Gate` → `pranor-gate`, `Pranor` → `pranor-lang`) | [ ] |
+| R.4 | **Update all go.mod files** | Every package | Change `module github.com/vyuvaraj/pranor/packages/ServXxx` → `module github.com/vyuvaraj/pranor/packages/pranor-xxx` | [ ] |
 | R.5 | **Update all replace directives** | Every go.mod | Fix all `replace` directives to reference new paths | [ ] |
-| R.6 | **Update all import statements** | Every .go file | Find/replace all `github.com/vyuvaraj/serv/packages/Serv*` imports | [ ] |
-| R.7 | **Update cross-package references** | Every .go file | Internal references between packages (e.g., ServShared imported by ServGate) | [ ] |
+| R.6 | **Update all import statements** | Every .go file | Find/replace all `github.com/vyuvaraj/pranor/packages/Serv*` imports | [ ] |
+| R.7 | **Update cross-package references** | Every .go file | Internal references between packages (e.g., Pranor Core imported by Pranor Gate) | [ ] |
 | R.8 | **Verify `go build ./...`** | Root | Ensure the entire workspace compiles after rename | [ ] |
 | R.9 | **Verify `go test ./...`** | Root | Ensure all tests pass after rename | [ ] |
 
@@ -734,18 +734,18 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| C.1 | **Rename CLI binary** | Serv-lang | `serv` → `pranor` (output binary name in build scripts) | [ ] |
-| C.2 | **Rename LSP binary** | Serv-lang | `serv-lsp` → `pranor-lsp` | [ ] |
-| C.3 | **Update file extension** | Compiler, LSP | `.srv` → `.pnr` (scanner/lexer file detection, glob patterns) | [ ] |
+| C.1 | **Rename CLI binary** | Pranor | `serv` → `pranor` (output binary name in build scripts) | [ ] |
+| C.2 | **Rename LSP binary** | Pranor | `pranor-lsp` → `pranor-lsp` | [ ] |
+| C.3 | **Update file extension** | Compiler, LSP | `.pnr` → `.pnr` (scanner/lexer file detection, glob patterns) | [ ] |
 | C.4 | **Update generated go.mod** | cmd_build.go | Change `module serv-build` → `module pranor-build` in generated build directories | [ ] |
 | C.5 | **Update generated imports** | Codegen | Change `import "serv/runtime"` → `import "pranor/runtime"` in all emitted Go code | [ ] |
 | C.6 | **Update build cache filename** | Build system | `.serv-build-cache.json` → `.pranor-build-cache.json` | [ ] |
-| C.7 | **Update `serv init` scaffolding** | CLI | Template generates `main.pnr` instead of `main.srv`, references pranor in generated files | [ ] |
-| C.8 | **Update CLI command names** | All subcommands | `serv run` → `pranor run`, `serv build` → `pranor build`, etc. | [ ] |
-| C.9 | **Update LSP server name** | LSP | Internal server identifier `"serv-lsp"` → `"pranor-lsp"` | [ ] |
+| C.7 | **Update `pranor init` scaffolding** | CLI | Template generates `main.pnr` instead of `main.pnr`, references pranor in generated files | [ ] |
+| C.8 | **Update CLI command names** | All subcommands | `pranor run` → `pranor run`, `pranor build` → `pranor build`, etc. | [ ] |
+| C.9 | **Update LSP server name** | LSP | Internal server identifier `"pranor-lsp"` → `"pranor-lsp"` | [ ] |
 | C.10 | **Update stdlib references** | stdlib/ | Any stdlib file referencing "serv" in comments, module paths | [ ] |
 | C.11 | **Update runtime package** | runtime/ | Package-level constants, health check responses (`"service":"serv"` → `"service":"pranor"`) | [ ] |
-| C.12 | **Backward compat: support .srv** | Compiler | Optionally continue recognizing `.srv` files with a deprecation warning for 6 months | [ ] |
+| C.12 | **Backward compat: support .pnr** | Compiler | Optionally continue recognizing `.pnr` files with a deprecation warning for 6 months | [ ] |
 
 ---
 
@@ -755,16 +755,16 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| E.1 | **Rename SERV_HOME** | All | `SERV_HOME` → `PRANOR_HOME` | [ ] |
-| E.2 | **Rename SERV_OTLP_ENDPOINT** | ServTrace, ServShared | → `PRANOR_OTLP_ENDPOINT` | [ ] |
-| E.3 | **Rename SERV_JWT_SECRET** | ServAuth | → `PRANOR_JWT_SECRET` | [ ] |
-| E.4 | **Rename SERV_STORE_*** | ServStore | `SERV_STORE_ENDPOINT`, `SERV_STORE_ACCESS_KEY`, `SERV_STORE_SECRET_KEY` → `PRANOR_STORE_*` | [ ] |
-| E.5 | **Rename SERV_REGISTRY** | ServRegistry | → `PRANOR_REGISTRY` | [ ] |
-| E.6 | **Rename SERV_MESH_ADDR** | ServMesh | → `PRANOR_MESH_ADDR` | [ ] |
-| E.7 | **Rename SERV_MUTUAL_TLS** | ServMesh | → `PRANOR_MUTUAL_TLS` | [ ] |
-| E.8 | **Rename SERVVERSE_DISCOVERY** | ServMesh | → `PRANOR_DISCOVERY` | [ ] |
-| E.9 | **Backward compat: fallback** | All components | Read old `SERV_*` vars as fallback with deprecation log for 6 months | [ ] |
-| E.10 | **Update docker-compose.yml** | servverse-repo | All env vars, service names, network names | [ ] |
+| E.1 | **Rename PRANOR_HOME** | All | `PRANOR_HOME` → `PRANOR_HOME` | [ ] |
+| E.2 | **Rename PRANOR_OTLP_ENDPOINT** | Pranor Trace, Pranor Core | → `PRANOR_OTLP_ENDPOINT` | [ ] |
+| E.3 | **Rename PRANOR_JWT_SECRET** | Pranor Auth | → `PRANOR_JWT_SECRET` | [ ] |
+| E.4 | **Rename PRANOR_STORE_*** | Pranor Vault | `PRANOR_STORE_ENDPOINT`, `PRANOR_STORE_ACCESS_KEY`, `PRANOR_STORE_SECRET_KEY` → `PRANOR_STORE_*` | [ ] |
+| E.5 | **Rename PRANOR_REGISTRY** | Pranor Hub | → `PRANOR_REGISTRY` | [ ] |
+| E.6 | **Rename PRANOR_MESH_ADDR** | Pranor Mesh | → `PRANOR_MESH_ADDR` | [ ] |
+| E.7 | **Rename PRANOR_MUTUAL_TLS** | Pranor Mesh | → `PRANOR_MUTUAL_TLS` | [ ] |
+| E.8 | **Rename SERVVERSE_DISCOVERY** | Pranor Mesh | → `PRANOR_DISCOVERY` | [ ] |
+| E.9 | **Backward compat: fallback** | All components | Read old `PRANOR_*` vars as fallback with deprecation log for 6 months | [ ] |
+| E.10 | **Update docker-compose.yml** | pranor-repo | All env vars, service names, network names | [ ] |
 | E.11 | **Update all config file references** | configs/ | YAML/JSON config files referencing old env vars or service names | [ ] |
 
 ---
@@ -776,9 +776,9 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
 | D.1 | **Rename Docker service names** | docker-compose.yml | `servgate` → `pranor-gate`, `servstore` → `pranor-store`, etc. (14+ services) | [ ] |
-| D.2 | **Rename Docker network** | docker-compose.yml | `servverse-net` → `pranor-net` | [ ] |
+| D.2 | **Rename Docker network** | docker-compose.yml | `pranor-net` → `pranor-net` | [ ] |
 | D.3 | **Rename Docker image tags** | CI/CD, Dockerfiles | All image references from `serv*` to `pranor-*` | [ ] |
-| D.4 | **Update Kubernetes manifests** | ServCloud, configs/ | Deployment names, service names, ConfigMap keys | [ ] |
+| D.4 | **Update Kubernetes manifests** | Pranor Deploy, configs/ | Deployment names, service names, ConfigMap keys | [ ] |
 | D.5 | **Update Helm charts** (if any) | configs/ | Chart names, value references | [ ] |
 | D.6 | **Rename `servd` unified binary** | Phase 72 output | `servd` → `pranord` (the single-binary daemon) | [ ] |
 
@@ -790,11 +790,11 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| P.1 | **Rename custom URL scheme** | ServMesh | `serv://` protocol → `pranor://` (in client.go resolver) | [ ] |
-| P.2 | **Update health check responses** | ServShared | `"service":"serv"` → `"service":"pranor"` | [ ] |
+| P.1 | **Rename custom URL scheme** | Pranor Mesh | `serv://` protocol → `pranor://` (in client.go resolver) | [ ] |
+| P.2 | **Update health check responses** | Pranor Core | `"service":"serv"` → `"service":"pranor"` | [ ] |
 | P.3 | **Update migration table name** | Runtime | `_serv_migrations` → `_pranor_migrations` (with migration script for existing DBs) | [ ] |
-| P.4 | **Update internal service discovery JSON** | ServMesh | Service name keys in discovery maps | [ ] |
-| P.5 | **Backward compat: accept old scheme** | ServMesh | Accept both `serv://` and `pranor://` during transition period | [ ] |
+| P.4 | **Update internal service discovery JSON** | Pranor Mesh | Service name keys in discovery maps | [ ] |
+| P.5 | **Backward compat: accept old scheme** | Pranor Mesh | Accept both `serv://` and `pranor://` during transition period | [ ] |
 
 ---
 
@@ -805,12 +805,12 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
 | PK.1 | **Rename Homebrew tap repo** | homebrew-serv-repo | → `homebrew-pranor` | [ ] |
-| PK.2 | **Update Homebrew formula** | Formula/serv.rb | Class name `Serv` → `Pranor`, binary names, URLs, `SERV_HOME` → `PRANOR_HOME` | [ ] |
+| PK.2 | **Update Homebrew formula** | Formula/serv.rb | Class name `Serv` → `Pranor`, binary names, URLs, `PRANOR_HOME` → `PRANOR_HOME` | [ ] |
 | PK.3 | **Rename Scoop bucket repo** | scoop-serv | → `scoop-pranor` | [ ] |
 | PK.4 | **Update Scoop manifest** | bucket/serv.json | → `pranor.json`, binary names, URLs, env vars | [ ] |
 | PK.5 | **Update release artifact names** | CI/CD, GoReleaser | `serv-darwin-arm64.tar.gz` → `pranor-darwin-arm64.tar.gz` (all platforms) | [ ] |
 | PK.6 | **Update GoReleaser config** | `.goreleaser-meta.yml` | Binary names, archive names, project name | [ ] |
-| PK.7 | **Update Windows installer** | `servverse.iss`, `servverse.nuspec` | → `pranor.iss`, `pranor.nuspec` | [ ] |
+| PK.7 | **Update Windows installer** | `pranor.iss`, `pranor.nuspec` | → `pranor.iss`, `pranor.nuspec` | [ ] |
 | PK.8 | **Update Snap package** | snap/ | Snap name, binary references | [ ] |
 | PK.9 | **Update winget manifest** | winget/ | Package ID, binary references | [ ] |
 | PK.10 | **Update MSIX package** | msix/ | Package identity, binary references | [ ] |
@@ -823,21 +823,21 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| DOC.1 | **Update main README.md** | serv/ (monorepo) | Title, descriptions, all references to Serv/Servverse → Pranor | [ ] |
-| DOC.2 | **Update servverse-repo README** | servverse-repo | Full rebrand of ecosystem docs | [ ] |
+| DOC.1 | **Update main README.md** | serv/ (monorepo) | Title, descriptions, all references to Serv/Pranor → Pranor | [ ] |
+| DOC.2 | **Update pranor-repo README** | pranor-repo | Full rebrand of ecosystem docs | [ ] |
 | DOC.3 | **Update all package READMEs** | Every package | ~22 README files with package descriptions | [ ] |
-| DOC.4 | **Update CHANGELOG.md** | servverse-repo | Add rebrand entry, update header | [ ] |
-| DOC.5 | **Update index.html / docs site** | servverse-repo | Website title, branding, nav, all text references | [ ] |
-| DOC.6 | **Update blog posts** | blog/ | References to Servverse → Pranor | [ ] |
-| DOC.7 | **Update CONTRIBUTING.md** | servverse-repo | Build instructions, package naming | [ ] |
-| DOC.8 | **Update DEMO_SCRIPT.md** | servverse-repo | CLI commands, references | [ ] |
-| DOC.9 | **Update showcase_guide.md** | servverse-repo | All examples and commands | [ ] |
-| DOC.10 | **Update arch-diagram.svg** | servverse-repo | Component names in the architecture diagram | [ ] |
-| DOC.11 | **Update UNIFIED_ROADMAP.md** | servverse-repo | Header, all phase names referencing Serv* components | [ ] |
-| DOC.12 | **Update pipeline-dashboard** | pipeline-dashboard/ | Title "Servverse Pipeline Monitor" → "Pranor Pipeline Monitor", repo names in DB | [ ] |
+| DOC.4 | **Update CHANGELOG.md** | pranor-repo | Add rebrand entry, update header | [ ] |
+| DOC.5 | **Update index.html / docs site** | pranor-repo | Website title, branding, nav, all text references | [ ] |
+| DOC.6 | **Update blog posts** | blog/ | References to Pranor → Pranor | [ ] |
+| DOC.7 | **Update CONTRIBUTING.md** | pranor-repo | Build instructions, package naming | [ ] |
+| DOC.8 | **Update DEMO_SCRIPT.md** | pranor-repo | CLI commands, references | [ ] |
+| DOC.9 | **Update showcase_guide.md** | pranor-repo | All examples and commands | [ ] |
+| DOC.10 | **Update arch-diagram.svg** | pranor-repo | Component names in the architecture diagram | [ ] |
+| DOC.11 | **Update UNIFIED_ROADMAP.md** | pranor-repo | Header, all phase names referencing Serv* components | [ ] |
+| DOC.12 | **Update pipeline-dashboard** | pipeline-dashboard/ | Title "Pranor Pipeline Monitor" → "Pranor Pipeline Monitor", repo names in DB | [ ] |
 | DOC.13 | **Update VS Code extension** | Phase 73 output | Extension name, marketplace listing, package.json | [ ] |
 | DOC.14 | **Update generated client SDKs** | client.go, client.py, client.ts | Package names, comments, module names | [ ] |
-| DOC.15 | **Update LICENSE headers** (if branded) | All files | Any copyright lines mentioning "Servverse" | [ ] |
+| DOC.15 | **Update LICENSE headers** (if branded) | All files | Any copyright lines mentioning "Pranor" | [ ] |
 
 ---
 
@@ -847,14 +847,14 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| GH.1 | **Rename GitHub repo** | github.com/vyuvaraj/serv | → `github.com/vyuvaraj/pranor` (GitHub auto-redirects old URLs) | [ ] |
-| GH.2 | **Rename servverse-repo** | github.com/vyuvaraj/servverse-repo | → `github.com/vyuvaraj/pranor-platform` or similar | [ ] |
-| GH.3 | **Rename serv-ee repo** | github.com/vyuvaraj/serv-ee | → `github.com/vyuvaraj/pranor-ee` | [ ] |
+| GH.1 | **Rename GitHub repo** | github.com/vyuvaraj/pranor | → `github.com/vyuvaraj/pranor` (GitHub auto-redirects old URLs) | [ ] |
+| GH.2 | **Rename pranor-repo** | github.com/vyuvaraj/pranor-repo | → `github.com/vyuvaraj/pranor-platform` or similar | [ ] |
+| GH.3 | **Rename serv-ee repo** | github.com/vyuvaraj/pranor-ee | → `github.com/vyuvaraj/pranor-ee` | [ ] |
 | GH.4 | **Update GitHub Actions workflows** | .github/workflows/ | All references to old binary names, paths, repo names | [ ] |
 | GH.5 | **Update issue templates** | .github/ | References to old component names | [ ] |
-| GH.6 | **Update GitHub Pages config** | servverse-repo | Domain, CNAME, site references | [ ] |
+| GH.6 | **Update GitHub Pages config** | pranor-repo | Domain, CNAME, site references | [ ] |
 | GH.7 | **Set up URL redirects** | Old repos | Ensure old URLs redirect to new repos | [ ] |
-| GH.8 | **Update go.mod GitHub references** | All packages | Any `github.com/vyuvaraj/serv*` references in dependencies | [ ] |
+| GH.8 | **Update go.mod GitHub references** | All packages | Any `github.com/vyuvaraj/pranor*` references in dependencies | [ ] |
 
 ---
 
@@ -864,9 +864,9 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| PD.1 | **Rename dashboard title** | pipeline-dashboard | "Servverse Pipeline Monitor" → "Pranor Pipeline Monitor" | [ ] |
-| PD.2 | **Update repo list** | pipeline-dashboard/main.srv | Rename repo references (ServGate → pranor-gate, etc.) | [ ] |
-| PD.3 | **Rename main.srv** | pipeline-dashboard | → `main.pnr` | [ ] |
+| PD.1 | **Rename dashboard title** | pipeline-dashboard | "Pranor Pipeline Monitor" → "Pranor Pipeline Monitor" | [ ] |
+| PD.2 | **Update repo list** | pipeline-dashboard/main.pnr | Rename repo references (Pranor Gate → pranor-gate, etc.) | [ ] |
+| PD.3 | **Rename main.pnr** | pipeline-dashboard | → `main.pnr` | [ ] |
 | PD.4 | **Update start.ps1** | pipeline-dashboard | Binary and path references | [ ] |
 | PD.5 | **Rebuild pipeline-dashboard binary** | pipeline-dashboard | Recompile with new compiler output | [ ] |
 
@@ -926,8 +926,8 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | Item | Transition Period | Mechanism |
 |------|-----------------|-----------|
-| `.srv` file extension | 6 months | Compiler accepts both `.srv` and `.pnr`, emits deprecation warning for `.srv` |
-| `SERV_*` env vars | 6 months | All components check `PRANOR_*` first, fall back to `SERV_*` with warning |
+| `.pnr` file extension | 6 months | Compiler accepts both `.pnr` and `.pnr`, emits deprecation warning for `.pnr` |
+| `PRANOR_*` env vars | 6 months | All components check `PRANOR_*` first, fall back to `PRANOR_*` with warning |
 | `serv://` URL scheme | 6 months | Mesh accepts both `serv://` and `pranor://` |
 | `_serv_migrations` table | Permanent | Migration script renames table; code checks both names |
 | Old GitHub URLs | Permanent | GitHub auto-redirects after repo rename |
@@ -948,7 +948,7 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 - [ ] Scoop `scoop install pranor` works
 - [ ] `pranor-lsp` provides IntelliSense for `.pnr` files
 - [ ] Pipeline dashboard shows updated names
-- [ ] No references to "serv", "Serv", "SERV", or "servverse" remain in codebase (except backward compat fallbacks)
+- [ ] No references to "serv", "Serv", "SERV", or "pranor" remain in codebase (except backward compat fallbacks)
 
 ---
 

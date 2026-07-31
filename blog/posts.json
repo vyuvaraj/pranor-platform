@@ -9,8 +9,8 @@
     "readingTime": "6 min"
   },
   {
-    "slug": "02-getting-started-serv-lang",
-    "title": "Getting Started with Serv-lang in 10 Minutes",
+    "slug": "02-getting-started-pranor",
+    "title": "Getting Started with Pranor in 10 Minutes",
     "excerpt": "What if building a microservice was as simple as describing what it should do? Compile your first service.",
     "badge": "Tutorial",
     "badgeColor": "purple",
@@ -19,7 +19,7 @@
   },
   {
     "slug": "03-api-gateway-servgate",
-    "title": "Building a Production API Gateway with ServGate",
+    "title": "Building a Production API Gateway with Pranor Gate",
     "excerpt": "Sandboxed WASM middleware, PII redaction, prompt blocking, routing, and rate limiting at the edge.",
     "badge": "Tutorial",
     "badgeColor": "blue",
@@ -28,7 +28,7 @@
   },
   {
     "slug": "04-caching-with-servcache",
-    "title": "Distributed Caching Made Simple with ServCache",
+    "title": "Distributed Caching Made Simple with Pranor Cache",
     "excerpt": "Raft-based key-value caching, namespaces, clustering, invalidation patterns, and benchmark data.",
     "badge": "Tutorial",
     "badgeColor": "green",
@@ -37,7 +37,7 @@
   },
   {
     "slug": "05-event-driven-servqueue",
-    "title": "Event-Driven Microservices with ServQueue",
+    "title": "Event-Driven Microservices with Pranor Pulse",
     "excerpt": "STOMP messaging, sliding-window dedup, DLQs, webhooks, and fan-out message routing.",
     "badge": "Tutorial",
     "badgeColor": "orange",
@@ -45,17 +45,17 @@
     "readingTime": "12 min"
   },
   {
-    "slug": "06-fullstack-saas-servverse",
-    "title": "Full-Stack SaaS in Under an Hour with Servverse",
-    "excerpt": "A complete multi-tenant project management SaaS backend using 8+ Servverse components and docker-compose.",
+    "slug": "06-fullstack-saas-pranor",
+    "title": "Full-Stack SaaS in Under an Hour with Pranor",
+    "excerpt": "A complete multi-tenant project management SaaS backend using 8+ Pranor components and docker-compose.",
     "badge": "Tutorial",
     "badgeColor": "purple",
     "date": "2026-07-10",
     "readingTime": "20 min"
   },
   {
-    "slug": "servverse-connecting-article",
-    "title": "Building the Servverse: A Unified, AI-Native Backend Ecosystem",
+    "slug": "pranor-connecting-article",
+    "title": "Building the Pranor: A Unified, AI-Native Backend Ecosystem",
     "excerpt": "How a custom compiler, an S3 object store, a STOMP queue, an API gateway, and a glassmorphic console fit together.",
     "badge": "Ecosystem",
     "badgeColor": "purple",
@@ -63,7 +63,7 @@
     "readingTime": "12 min"
   },
   {
-    "slug": "serv-lang-medium-article",
+    "slug": "pranor-medium-article",
     "title": "I Built a Programming Language for Backend Services — Here's Why",
     "excerpt": "What if building a microservice was as simple as describing what it should do?",
     "badge": "Developer Layer",
@@ -109,7 +109,7 @@
   },
   {
     "slug": "servmesh-medium-article",
-    "title": "ServMesh: Direct Library-Level Service Discovery",
+    "title": "Pranor Mesh: Direct Library-Level Service Discovery",
     "excerpt": "Resilient in-memory load balancing, heartbeats, and circuit breaking without sidecars.",
     "badge": "Ecosystem",
     "badgeColor": "purple",
@@ -118,7 +118,7 @@
   },
   {
     "slug": "servtunnel-medium-article",
-    "title": "ServTunnel: Multiplexed Dev Tunneling",
+    "title": "Pranor Tunnel: Multiplexed Dev Tunneling",
     "excerpt": "Exposing local microservices natively with subdomain routing and request debugging.",
     "badge": "Platform Layer",
     "badgeColor": "blue",
@@ -127,7 +127,7 @@
   },
   {
     "slug": "servcloud-medium-article",
-    "title": "ServCloud: Lightweight Process Orchestration PaaS",
+    "title": "Pranor Deploy: Lightweight Process Orchestration PaaS",
     "excerpt": "Deploying and running backend processes with dynamic gateway auto-routing sync.",
     "badge": "Orchestration",
     "badgeColor": "green",
@@ -136,7 +136,7 @@
   },
   {
     "slug": "servauth-medium-article",
-    "title": "Secure Identity & Access Management with ServAuth",
+    "title": "Secure Identity & Access Management with Pranor Auth",
     "excerpt": "Designing an identity server with JWKS, TOTP MFA, Social OAuth, and stuffing detection.",
     "badge": "Identity",
     "badgeColor": "purple",
@@ -145,7 +145,7 @@
   },
   {
     "slug": "servmail-cron-medium-article",
-    "title": "Scheduled Jobs & Reliable Mail Queues: ServCron and ServMail",
+    "title": "Scheduled Jobs & Reliable Mail Queues: Pranor Chrono and Pranor Notify",
     "excerpt": "Distributed leader elections, execution locks, disk-backed queues, and DKIM signing.",
     "badge": "Asynchronous",
     "badgeColor": "blue",
@@ -154,7 +154,7 @@
   },
   {
     "slug": "servstore-v2-medium-article",
-    "title": "ServStore v2: Evolving Our S3 Engine into a Standalone Local-First P2P Analytical Store",
+    "title": "Pranor Vault v2: Evolving Our S3 Engine into a Standalone Local-First P2P Analytical Store",
     "excerpt": "Browser OPFS dual-sync, embedded DuckDB SQL analytics, Copy-on-Write bucket branching, and WebTorrent P2P seeding.",
     "badge": "Infrastructure",
     "badgeColor": "green",
@@ -163,7 +163,7 @@
   },
   {
     "slug": "servgate-v2-medium-article",
-    "title": "ServGate v2: Evolving Our WASM API Gateway into a Standalone Edge AI & Kernel eBPF Engine",
+    "title": "Pranor Gate v2: Evolving Our WASM API Gateway into a Standalone Edge AI & Kernel eBPF Engine",
     "excerpt": "Universal Server/Browser WASM Engine, Smart AI Cost Router (saving 85%), TPM rate limiting, and eBPF XDP DDoS bypass.",
     "badge": "Platform Layer",
     "badgeColor": "blue",

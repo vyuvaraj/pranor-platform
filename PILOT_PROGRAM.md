@@ -9,8 +9,8 @@ Welcome to the **ServVerse Customer Pilot Program**. This guide outlines onboard
 The goal of this pilot is to evaluate the ServVerse unified ecosystem in real-world staging workloads before marking v1.0.0 stable.
 
 * **DX Friction Discovery**: Spot syntax bottlenecks, LSP editor latency, and deployment pipeline bugs.
-* **Performance Baseline**: Verify p99 response times under 20ms and evaluate connection pool (ServPool) behavior.
-* **Ecosystem Reliability**: Test zero-trust mTLS (ServMesh) and structured logging outputs under active loads.
+* **Performance Baseline**: Verify p99 response times under 20ms and evaluate connection pool (Pranor Pool) behavior.
+* **Ecosystem Reliability**: Test zero-trust mTLS (Pranor Mesh) and structured logging outputs under active loads.
 
 ---
 
@@ -30,7 +30,7 @@ graph TD
 Run the setup command on developer workstations:
 ```bash
 # Windows
-irm https://raw.githubusercontent.com/vyuvaraj/servverse-repo/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/vyuvaraj/pranor-repo/main/scripts/install.ps1 | iex
 ```
 
 ### Step 2: Configure Staging Cluster
@@ -48,7 +48,7 @@ $env:SERVVERSE_DISCOVERY="C:\Path\To\serv-discovery.json"
 ```
 
 ### Step 3: Connect Observability
-Configure ServConsole to forward metrics/spans to your existing dashboard endpoints (e.g. Datadog / Grafana Tempo):
+Configure Pranor Console to forward metrics/spans to your existing dashboard endpoints (e.g. Datadog / Grafana Tempo):
 ```yaml
 observability:
   otel_exporter_otlp_endpoint: "http://otel-collector.internal:4317"

@@ -1,10 +1,10 @@
-# ServShared — Common Service Library
+# Pranor Core — Common Service Library
 
-> **Status:** ✅ Production | **Used by:** All Servverse services | **Repository:** [ServShared](https://github.com/vyuvaraj/serv/tree/main/packages/ServShared)
+> **Status:** ✅ Production | **Used by:** All Pranor services | **Repository:** [Pranor Core](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Core)
 
 ## Overview
 
-ServShared is the common Go library imported by all Servverse services. It provides standardized health probes (`/healthz`, `/readyz`), OpenTelemetry tracer initialization, JWT authentication middleware, structured JSON logging, and service token generation utilities.
+Pranor Core is the common Go library imported by all Pranor services. It provides standardized health probes (`/healthz`, `/readyz`), OpenTelemetry tracer initialization, JWT authentication middleware, structured JSON logging, and service token generation utilities.
 
 ## Key Features
 
@@ -30,10 +30,10 @@ ServShared is the common Go library imported by all Servverse services. It provi
 
 ## Usage
 
-ServShared is not a standalone service — it is imported as a Go module by all Servverse services.
+Pranor Core is not a standalone service — it is imported as a Go module by all Pranor services.
 
 ```go
-import "github.com/vyuvaraj/ServShared/pkg/shared"
+import "github.com/vyuvaraj/Pranor Core/pkg/shared"
 
 // Health probes
 mux.HandleFunc("/healthz", shared.HealthzHandler)

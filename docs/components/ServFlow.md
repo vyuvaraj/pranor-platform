@@ -1,10 +1,10 @@
-# ServFlow — Workflow Orchestrator
+# Pranor Flow — Workflow Orchestrator
 
-> **Status:** 🟡 Stable | **Port:** 8096 | **Repository:** [ServFlow](https://github.com/vyuvaraj/serv/tree/main/packages/ServFlow)
+> **Status:** 🟡 Stable | **Port:** 8096 | **Repository:** [Pranor Flow](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Flow)
 
 ## Overview
 
-ServFlow is a workflow orchestrator with DAG-based execution, durable checkpointing, saga compensation and rollback, human approval gates, and event-triggered execution via ServQueue for building complex multi-step business processes.
+Pranor Flow is a workflow orchestrator with DAG-based execution, durable checkpointing, saga compensation and rollback, human approval gates, and event-triggered execution via Pranor Pulse for building complex multi-step business processes.
 
 ## Key Features
 
@@ -12,7 +12,7 @@ ServFlow is a workflow orchestrator with DAG-based execution, durable checkpoint
 - Durable checkpointing for crash recovery
 - Saga pattern with compensation/rollback steps
 - Human approval gates with timeout escalation
-- Event-triggered workflows via ServQueue
+- Event-triggered workflows via Pranor Pulse
 - Parallel step execution within DAG levels
 - Workflow versioning and migration
 - Execution history and audit trail
@@ -22,9 +22,9 @@ ServFlow is a workflow orchestrator with DAG-based execution, durable checkpoint
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `PORT` | HTTP listen port | `8096` |
-| `SERVSTORE_URL` | ServStore URL for state persistence | (required) |
-| `SERVQUEUE_URL` | ServQueue URL for event triggers | (required) |
-| `SERV_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
+| `SERVSTORE_URL` | Pranor Vault URL for state persistence | (required) |
+| `SERVQUEUE_URL` | Pranor Pulse URL for event triggers | (required) |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints
 
@@ -36,10 +36,10 @@ ServFlow is a workflow orchestrator with DAG-based execution, durable checkpoint
 | `POST /api/v1/workflows/{id}/approve` | Approve a pending gate |
 | `GET /api/v1/executions` | List workflow executions |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
-// Native workflow block syntax in .srv files
+// Native workflow block syntax in .pnr files
 workflow "order-fulfillment" {
     step "validate" { ... }
     step "charge" { compensate { ... } }

@@ -1,6 +1,6 @@
-# ServAuth — Identity & Access Provider
+# Pranor Auth — Identity & Access Provider
 
-> **Status:** 🟡 Stable | **Port:** 8098 | **Repository:** [ServAuth](https://github.com/vyuvaraj/serv/tree/main/packages/ServAuth)
+> **Status:** 🟡 Stable | **Port:** 8098 | **Repository:** [Pranor Auth](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Auth)
 
 ## Overview
 
@@ -22,16 +22,16 @@ Identity provider with OAuth2/OIDC token issuance, multi-tenant directories, MFA
 - Tenant JWT claim enforcement
 - Structured JSON logging + OTel tracing
 - Graceful shutdown on SIGTERM
-- ServStore-backed persistence
+- Pranor Vault-backed persistence
 
 ## Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `PORT` | Listen port | `8098` |
-| `SERV_JWT_SECRET` | JWT signing secret | (required) |
-| `SERVSTORE_URL` | ServStore endpoint for persistence | (optional) |
-| `SERV_OTLP_ENDPOINT` | OTel collector | (disabled) |
+| `PRANOR_JWT_SECRET` | JWT signing secret | (required) |
+| `SERVSTORE_URL` | Pranor Vault endpoint for persistence | (optional) |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector | (disabled) |
 
 ## Endpoints
 
@@ -47,7 +47,7 @@ Identity provider with OAuth2/OIDC token issuance, multi-tenant directories, MFA
 | `POST /oauth/token` | OAuth2 token endpoint |
 | `GET /.well-known/jwks.json` | JWKS public key |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
 auth "my-jwt-secret"

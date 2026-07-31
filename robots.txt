@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vyuvaraj.github.io/servverse/sitemap.xml
+Sitemap: https://vyuvaraj.github.io/pranor/sitemap.xml

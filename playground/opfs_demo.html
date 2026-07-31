@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServQueue OPFS Local-First Event Broker Demo</title>
+    <title>Pranor Pulse OPFS Local-First Event Broker Demo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
@@ -93,7 +93,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>⚡ ServQueue <span class="accent">Embedded OPFS Demo</span></h1>
+        <h1>⚡ Pranor Pulse <span class="accent">Embedded OPFS Demo</span></h1>
         <span class="badge">Origin Private File System + WASM</span>
     </div>
 
@@ -146,7 +146,7 @@
                 logMsg(`[Outbox Relay] No unsynced events pending in OPFS.`, 'info');
                 return;
             }
-            logMsg(`[Outbox Relay] Connecting WebTransport relay... Streaming offsets #1..#${offsetCounter} to backend ServQueue server.`, 'info');
+            logMsg(`[Outbox Relay] Connecting WebTransport relay... Streaming offsets #1..#${offsetCounter} to backend Pranor Pulse server.`, 'info');
             setTimeout(() => {
                 logMsg(`[Outbox ACK] Backend Server ACK received for offsets #1..#${offsetCounter}. Marked as synced in OPFS.`, 'success');
             }, 600);

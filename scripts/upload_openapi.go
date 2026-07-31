@@ -26,7 +26,7 @@ func main() {
 	bucket := "openapi-registry"
 	key := fmt.Sprintf("%s-openapi.json", serviceName)
 
-	fmt.Printf("Uploading %s spec to ServStore bucket %s/%s...\n", serviceName, bucket, key)
+	fmt.Printf("Uploading %s spec to PranorVault bucket %s/%s...\n", serviceName, bucket, key)
 	if err := sc.Put(bucket, key, data); err != nil {
 		fmt.Printf("Error uploading spec: %v\n", err)
 		os.Exit(1)

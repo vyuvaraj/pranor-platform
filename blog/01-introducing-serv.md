@@ -14,25 +14,25 @@ Modern applications need caching, queuing, authentication, rate limiting, tracin
 
 Serv is a modular, self-hosted backend ecosystem written in Go. Each component of your infrastructure — from API gateway to distributed cache — is a standalone, Docker-runnable service with sane defaults.
 
-The Servverse is the full collection of these components:
+The Pranor is the full collection of these components:
 
 | Service | Purpose |
 |---------|---------|
-| **ServGate** | API Gateway — routing, rate limiting, authentication proxy |
-| **ServCache** | Distributed key-value cache |
-| **ServQueue** | Message broker — pub/sub and task queues |
-| **ServAuth** | Authentication server — JWT, OAuth2, API keys |
-| **ServStore** | Object & blob storage |
-| **ServMesh** | Service mesh — load balancing, circuit breaking |
-| **ServCron** | Distributed cron scheduler |
-| **ServTrace** | Distributed tracing and observability |
-| **ServCloud** | Cloud-native resource manager |
-| **ServTunnel** | Secure tunneling & reverse proxy |
-| **ServPool** | Connection pooling — database proxying |
-| **ServMail** | Transactional email service |
-| **ServFlow** | Workflow orchestration engine |
-| **ServRegistry** | Service registry and discovery |
-| **ServConsole** | Unified admin dashboard |
+| **Pranor Gate** | API Gateway — routing, rate limiting, authentication proxy |
+| **Pranor Cache** | Distributed key-value cache |
+| **Pranor Pulse** | Message broker — pub/sub and task queues |
+| **Pranor Auth** | Authentication server — JWT, OAuth2, API keys |
+| **Pranor Vault** | Object & blob storage |
+| **Pranor Mesh** | Service mesh — load balancing, circuit breaking |
+| **Pranor Chrono** | Distributed cron scheduler |
+| **Pranor Trace** | Distributed tracing and observability |
+| **Pranor Deploy** | Cloud-native resource manager |
+| **Pranor Tunnel** | Secure tunneling & reverse proxy |
+| **Pranor Pool** | Connection pooling — database proxying |
+| **Pranor Notify** | Transactional email service |
+| **Pranor Flow** | Workflow orchestration engine |
+| **Pranor Hub** | Service registry and discovery |
+| **Pranor Console** | Unified admin dashboard |
 
 These aren't thin wrappers. Each one is a complete implementation with persistence, clustering support, and production-ready observability. 
 
@@ -53,11 +53,11 @@ docker run -p 8081:8081 ghcr.io/vyuvaraj/servgate:latest
 
 ### 2. Ecosystem Integration Is Optional
 
-Components *can* integrate with each other — ServGate can delegate auth to ServAuth, ServQueue can be observed by ServTrace — but none of this is mandatory. Integration is opt-in via environment variables.
+Components *can* integrate with each other — Pranor Gate can delegate auth to Pranor Auth, Pranor Pulse can be observed by Pranor Trace — but none of this is mandatory. Integration is opt-in via environment variables.
 
-### 3. Serv-lang for Service Logic
+### 3. Pranor for Service Logic
 
-For teams building business logic on top of the Servverse, **Serv-lang** is a domain-specific language that compiles down to Go. It gives you expressive service definitions with zero boilerplate.
+For teams building business logic on top of the Pranor, **Pranor** is a domain-specific language that compiles down to Go. It gives you expressive service definitions with zero boilerplate.
 
 ```serv
 service UserService {
@@ -101,10 +101,10 @@ Your backend infrastructure is live. No YAML manifests. No Helm charts.
 
 ## What's Next?
 
-In the next post, we'll write our first service using **Serv-lang** and see how it compiles, deploys, and routes in under 10 minutes.
+In the next post, we'll write our first service using **Pranor** and see how it compiles, deploys, and routes in under 10 minutes.
 
-➡️ [Getting Started with Serv-lang in 10 Minutes](blog.html?post=02-getting-started-serv-lang)
+➡️ [Getting Started with Pranor in 10 Minutes](blog.html?post=02-getting-started-pranor)
 
 ---
 
-*Found this useful? Star [servverse-repo](https://github.com/vyuvaraj/servverse-repo) and share with your team.*
+*Found this useful? Star [pranor-repo](https://github.com/vyuvaraj/pranor-repo) and share with your team.*

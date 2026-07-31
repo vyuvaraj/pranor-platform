@@ -1,15 +1,15 @@
-# yaml-language-server: $schema=https://aka.ms/winget-manifest.singleton.1.6.0.schema.json
+# yaml-language-pranorer: $schema=https://aka.ms/winget-manifest.singleton.1.6.0.schema.json
 
-PackageIdentifier: Yuvaraj.ServVerse
+PackageIdentifier: Yuvaraj.PranorVerse
 PackageVersion: 1.7.0
-PackageName: ServVerse
+PackageName: PranorVerse
 Publisher: Yuvaraj
 License: Apache-2.0
-ShortDescription: Unified installer for the ServVerse microservice development platform.
-Description: Installs the complete ServVerse developer platform including the Serv-lang compiler, ServGate API Gateway, ServStore S3 Engine, and more.
-Moniker: servverse
+ShortDescription: Unified installer for the PranorVerse micropranorice development platform.
+Description: Installs the complete PranorVerse developer platform including the Pranor-lang compiler, PranorGate API Gateway, PranorStore S3 Engine, and more.
+Moniker: pranorverse
 Tags:
-  - microservices
+  - micropranorices
   - api-gateway
   - development
   - s3
@@ -17,7 +17,7 @@ Tags:
 InstallerType: inno
 Installers:
   - Architecture: x64
-    InstallerUrl: https://github.com/vyuvaraj/servverse-repo/releases/download/v1.7.0/ServVerse-windows-setup.exe
+    InstallerUrl: https://github.com/vyuvaraj/pranorverse-repo/releases/download/v1.7.0/PranorVerse-windows-setup.exe
     InstallerSha256: 0000000000000000000000000000000000000000000000000000000000000000 # Placeholder - calculated upon build release
 ManifestType: singleton
 ManifestVersion: 1.6.0

@@ -2,12 +2,12 @@
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
          xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
          xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities">
-  <Identity Name="Yuvaraj.ServVerse"
+  <Identity Name="Yuvaraj.PranorVerse"
             ProcessorArchitecture="x64"
             Publisher="CN=Yuvaraj"
             Version="1.7.0.0" />
   <Properties>
-    <DisplayName>ServVerse</DisplayName>
+    <DisplayName>PranorVerse</DisplayName>
     <PublisherDisplayName>Yuvaraj</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -21,8 +21,8 @@
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
   <Applications>
-    <Application Id="ServVerseConsole" Executable="servconsole.exe" EntryPoint="Windows.FullTrustApplication">
-      <uap:VisualElements DisplayName="ServVerse Dashboard"
+    <Application Id="PranorVerseConsole" Executable="pranorconsole.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="PranorVerse Dashboard"
                           Description="Ecosystem Operations Panel"
                           BackgroundColor="#222222"
                           Square150x150Logo="Assets\Logo.png"

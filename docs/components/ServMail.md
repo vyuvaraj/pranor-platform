@@ -1,10 +1,10 @@
-# ServMail — Multi-Channel Notification Provider
+# Pranor Notify — Multi-Channel Notification Provider
 
-> **Status:** 🟡 Stable | **Port:** 8094 | **Repository:** [ServMail](https://github.com/vyuvaraj/serv/tree/main/packages/ServMail)
+> **Status:** 🟡 Stable | **Port:** 8094 | **Repository:** [Pranor Notify](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Notify)
 
 ## Overview
 
-ServMail is a multi-channel notification provider supporting SMTP email, Slack webhooks, and SMS delivery. It features Go-template rendering, delivery tracking, dead-letter queue retry via ServQueue, and per-channel rate limiting.
+Pranor Notify is a multi-channel notification provider supporting SMTP email, Slack webhooks, and SMS delivery. It features Go-template rendering, delivery tracking, dead-letter queue retry via Pranor Pulse, and per-channel rate limiting.
 
 ## Key Features
 
@@ -13,7 +13,7 @@ ServMail is a multi-channel notification provider supporting SMTP email, Slack w
 - SMS delivery via configurable providers
 - Go-template rendering for message bodies
 - Delivery tracking with status callbacks
-- Dead-letter queue retry via ServQueue
+- Dead-letter queue retry via Pranor Pulse
 - Per-channel rate limiting
 - Template management and versioning
 
@@ -24,8 +24,8 @@ ServMail is a multi-channel notification provider supporting SMTP email, Slack w
 | `PORT` | HTTP listen port | `8094` |
 | `SERVMAIL_SMTP_HOST` | SMTP server host | (required for email) |
 | `SERVMAIL_SLACK_WEBHOOK` | Slack webhook URL | (required for Slack) |
-| `SERVSTORE_URL` | ServStore URL for template storage | (optional) |
-| `SERV_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
+| `SERVSTORE_URL` | Pranor Vault URL for template storage | (optional) |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints
 
@@ -36,7 +36,7 @@ ServMail is a multi-channel notification provider supporting SMTP email, Slack w
 | `GET /api/v1/templates` | List available templates |
 | `GET /api/v1/tracking/{id}` | Get delivery status |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
 mail.send(to, template, data)

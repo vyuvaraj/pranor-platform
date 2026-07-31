@@ -1,17 +1,17 @@
-# ServCron — Distributed Job Scheduler
+# Pranor Chrono — Distributed Job Scheduler
 
-> **Status:** ✅ Production | **Port:** 8085 | **Repository:** [ServCron](https://github.com/vyuvaraj/serv/tree/main/packages/ServCron)
+> **Status:** ✅ Production | **Port:** 8085 | **Repository:** [Pranor Chrono](https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor Chrono)
 
 ## Overview
 
-ServCron is a distributed scheduling service with Redis lease-based leader election, cron pattern parsing, ServStore persistence for job definitions, REST APIs for management, and OpenTelemetry tracing for job execution visibility.
+Pranor Chrono is a distributed scheduling service with Redis lease-based leader election, cron pattern parsing, Pranor Vault persistence for job definitions, REST APIs for management, and OpenTelemetry tracing for job execution visibility.
 
 ## Key Features
 
 - Redis lease-based leader election for HA scheduling
 - Standard cron pattern parsing (5-field and extended)
 - Interval-based scheduling (`every` syntax)
-- ServStore persistence for job definitions
+- Pranor Vault persistence for job definitions
 - REST APIs for job CRUD and manual triggers
 - OpenTelemetry tracing per job execution
 - Distributed lock to prevent duplicate runs
@@ -22,8 +22,8 @@ ServCron is a distributed scheduling service with Redis lease-based leader elect
 |----------|-------------|---------|
 | `SERVCRON_PORT` | HTTP listen port | `8085` |
 | `SERVCRON_REDIS_URL` | Redis URL for leader election | (required) |
-| `SERVSTORE_URL` | ServStore URL for job persistence | (required) |
-| `SERV_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
+| `SERVSTORE_URL` | Pranor Vault URL for job persistence | (required) |
+| `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints
 
@@ -35,7 +35,7 @@ ServCron is a distributed scheduling service with Redis lease-based leader elect
 | `POST /api/v1/jobs/{id}/run` | Manually trigger a job |
 | `DELETE /api/v1/jobs/{id}` | Delete a job |
 
-## Serv-lang Integration
+## Pranor Integration
 
 ```srv
 every "5m" {

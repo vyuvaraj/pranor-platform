@@ -1,7 +1,7 @@
-# Servverse 10-Minute Demo Video — Script & Storyboard
+# Pranor 10-Minute Demo Video — Script & Storyboard
 
 > **AG.4** | Record: install → write service → deploy → observe in console  
-> Host on YouTube + embed in GitHub Pages / servverse-repo landing page  
+> Host on YouTube + embed in GitHub Pages / pranor-repo landing page  
 > Total runtime: ~10 minutes
 
 ---
@@ -11,7 +11,7 @@
 - [ ] Clean machine (or fresh VM / Docker Desktop) with no prior Serv installation
 - [ ] Terminal: Warp or iTerm2 (large font, dark theme)
 - [ ] VS Code open with the Serv LSP extension installed
-- [ ] ServConsole pre-seeded with a few traces from the showcase app
+- [ ] Pranor Console pre-seeded with a few traces from the showcase app
 - [ ] OBS or Loom ready; resolution 1920x1080; 60fps
 
 ---
@@ -19,16 +19,16 @@
 ## Scene 1 — One-Line Install (0:00 – 1:00)
 
 **Narration:**
-> "Getting started with Servverse takes exactly one command. Let's install the entire ecosystem on a fresh machine."
+> "Getting started with Pranor takes exactly one command. Let's install the entire ecosystem on a fresh machine."
 
 **Screen:** Full-screen terminal
 
 ```bash
 # macOS / Linux
-curl -fsSL https://raw.githubusercontent.com/vyuvaraj/servverse-repo/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/vyuvaraj/pranor-repo/main/scripts/install.sh | bash
 
 # Windows (PowerShell)
-irm https://raw.githubusercontent.com/vyuvaraj/servverse-repo/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/vyuvaraj/pranor-repo/main/scripts/install.ps1 | iex
 ```
 
 **Show:** Binary list printed after install — `servgate`, `servstore`, `servqueue`, `servconsole`, `serv` compiler, etc.
@@ -37,12 +37,12 @@ irm https://raw.githubusercontent.com/vyuvaraj/servverse-repo/main/scripts/insta
 
 ---
 
-## Scene 2 — Write a Service in Serv-lang (1:00 – 3:30)
+## Scene 2 — Write a Service in Pranor (1:00 – 3:30)
 
 **Narration:**
-> "Now let's build a real REST API. We'll use Serv-lang — a compiled language where infrastructure is syntax, not an import."
+> "Now let's build a real REST API. We'll use Pranor — a compiled language where infrastructure is syntax, not an import."
 
-**Screen:** VS Code, create `api.srv`
+**Screen:** VS Code, create `api.pnr`
 
 ```
 service OrderAPI {
@@ -81,7 +81,7 @@ service OrderAPI {
 > "Notice: `store`, `broker`, `cache` are keywords. Not imports. The compiler validates that these services exist at build time."
 
 ```bash
-serv build api.srv
+pranor build api.pnr
 ```
 
 **Show:** Fast compile output, zero errors.
@@ -93,7 +93,7 @@ serv build api.srv
 **Screen:** Split terminal — start ecosystem, then the service
 
 ```bash
-# Start the infrastructure (ServStore, ServQueue, ServConsole)
+# Start the infrastructure (Pranor Vault, Pranor Pulse, Pranor Console)
 docker-compose up -d
 
 # Run the compiled service
@@ -110,17 +110,17 @@ curl -X POST http://localhost:8080/orders \
 curl http://localhost:8080/orders/ord_001
 ```
 
-> "Order created, stored in ServStore, event published to ServQueue — all from 15 lines of code."
+> "Order created, stored in Pranor Vault, event published to Pranor Pulse — all from 15 lines of code."
 
 ---
 
-## Scene 4 — Deploy to ServCloud (4:30 – 5:30)
+## Scene 4 — Deploy to Pranor Deploy (4:30 – 5:30)
 
 **Narration:**
-> "Now let's deploy. ServCloud is our orchestrator — think systemd meets Kubernetes, but a single binary."
+> "Now let's deploy. Pranor Deploy is our orchestrator — think systemd meets Kubernetes, but a single binary."
 
 ```bash
-serv deploy api.srv --cloud localhost:7070 --name order-api
+pranor deploy api.pnr --cloud localhost:7070 --name order-api
 
 servcloud status
 ```
@@ -131,7 +131,7 @@ servcloud status
 
 ---
 
-## Scene 5 — Observe in ServConsole (5:30 – 8:00)
+## Scene 5 — Observe in Pranor Console (5:30 – 8:00)
 
 **Screen:** Browser -> http://localhost:9090
 
@@ -141,25 +141,25 @@ servcloud status
 2. **Click `order-api`** — request waterfall, OTel traces from the 3 curl calls
 3. **Expand a trace** — shows `route POST /orders` -> `store.put` -> `broker.publish` spans
 4. **Metrics panel** — RPS, p99 latency, error rate
-5. **ServQueue panel** — `order.created` topic, message count, consumer lag = 0
+5. **Pranor Pulse panel** — `order.created` topic, message count, consumer lag = 0
 
-> "ServConsole is not just dashboards — it's a control plane. Every service auto-reports telemetry with zero configuration."
+> "Pranor Console is not just dashboards — it's a control plane. Every service auto-reports telemetry with zero configuration."
 
 ---
 
 ## Scene 6 — Ecosystem Overview Montage (8:00 – 9:30)
 
 **Narration (voiceover):**
-> "In the last 8 minutes you saw Serv-lang compile, ServStore persist, ServQueue route events, and ServConsole observe everything. But the ecosystem goes deeper."
+> "In the last 8 minutes you saw Pranor compile, Pranor Vault persist, Pranor Pulse route events, and Pranor Console observe everything. But the ecosystem goes deeper."
 
 **Quick cuts (5-8 seconds each):**
 
 | Cut | Shows |
 |-----|-------|
-| ServGate config | AI prompt guard, WASM middleware, LLM routing |
-| ServAuth login flow | JWT, MFA, OIDC, magic links |
-| ServFlow DAG | Workflow definition and Mermaid visualization |
-| ServTrace waterfall | Cross-service trace with .srv source line mapping |
+| Pranor Gate config | AI prompt guard, WASM middleware, LLM routing |
+| Pranor Auth login flow | JWT, MFA, OIDC, magic links |
+| Pranor Flow DAG | Workflow definition and Mermaid visualization |
+| Pranor Trace waterfall | Cross-service trace with .pnr source line mapping |
 | VS Code extension | Sidebar health panel, CodeLens test runner |
 
 ---
@@ -169,10 +169,10 @@ servcloud status
 **Screen:** GitHub repo page
 
 **Narration:**
-> "Servverse is fully open source under Apache 2.0. Star the repo, try the showcase app, or join our Discord. Links in the description."
+> "Pranor is fully open source under Apache 2.0. Star the repo, try the showcase app, or join our Discord. Links in the description."
 
 **Lower-third text:**
-- github.com/vyuvaraj/servverse-repo
+- github.com/vyuvaraj/pranor-repo
 - star | docs | discord
 
 ---
@@ -184,6 +184,6 @@ servcloud status
 | **Music** | Royalty-free lo-fi (Pixabay or Uppbeat), -18 LUFS |
 | **Captions** | Auto-generated via YouTube, reviewed for technical terms |
 | **Chapters** | Add YouTube timestamps matching each scene above |
-| **Thumbnail** | Dark background, "10 min" badge, Servverse logo, terminal window |
+| **Thumbnail** | Dark background, "10 min" badge, Pranor logo, terminal window |
 | **Description** | Include install commands, repo link, showcase app link, Discord |
-| **Embed** | Add iframe to servverse-repo/index.html hero section |
+| **Embed** | Add iframe to pranor-repo/index.html hero section |

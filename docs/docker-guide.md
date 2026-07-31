@@ -4,25 +4,25 @@
 
 - **Podman Desktop** (with `podman compose` or `docker-compose` plugin) or **Docker Desktop**
 - At least **8 GB RAM** allocated to the container runtime
-- All component repos cloned as siblings to `servverse-repo/`:
+- All component repos cloned as siblings to `pranor-repo/`:
   ```
   serv/
-  ├── ServAuth/
-  ├── ServCache/
-  ├── ServCloud/
-  ├── ServConsole/
-  ├── ServCron/
-  ├── ServPool/
-  ├── ServFlow/
-  ├── ServGate/
-  ├── ServMail/
-  ├── ServMesh/
-  ├── ServQueue/
-  ├── ServRegistry/
-  ├── ServStore/
-  ├── ServTrace/
-  ├── ServTunnel/
-  └── servverse-repo/   ← you are here
+  ├── Pranor Auth/
+  ├── Pranor Cache/
+  ├── Pranor Deploy/
+  ├── Pranor Console/
+  ├── Pranor Chrono/
+  ├── Pranor Pool/
+  ├── Pranor Flow/
+  ├── Pranor Gate/
+  ├── Pranor Notify/
+  ├── Pranor Mesh/
+  ├── Pranor Pulse/
+  ├── Pranor Hub/
+  ├── Pranor Vault/
+  ├── Pranor Trace/
+  ├── Pranor Tunnel/
+  └── pranor-repo/   ← you are here
   ```
 
 ---
@@ -32,7 +32,7 @@
 ### Build and start all services
 
 ```bash
-cd servverse-repo
+cd pranor-repo
 podman compose up --build
 ```
 
@@ -69,17 +69,17 @@ podman compose up --build
 | # | Service | Port | Description |
 |---|---------|------|-------------|
 | 1 | Jaeger | 16686 | Trace UI |
-| 2 | ServTrace | 8090 | OTLP/HTTP collector & trace API |
-| 3 | ServStore | 8081 | S3-compatible object storage |
-| 4 | ServQueue | 8082 (HTTP), 61613 (STOMP) | Message broker |
-| 5 | ServCache | 8086 | Distributed cache |
-| 6 | ServGate | 8080 | API gateway / reverse proxy |
-| 7 | ServMesh | 8089 | Service mesh registry |
-| 8 | ServCron | 8087 | Distributed scheduler |
-| 9 | ServCloud | 8085 | Deployment orchestrator |
-| 10 | ServTunnel | 8443 | Tunnel relay server |
-| 11 | ServConsole | 8083 | Observability dashboard (Web UI) |
-| 12 | ServRegistry | 8088 | Package registry |
+| 2 | Pranor Trace | 8090 | OTLP/HTTP collector & trace API |
+| 3 | Pranor Vault | 8081 | S3-compatible object storage |
+| 4 | Pranor Pulse | 8082 (HTTP), 61613 (STOMP) | Message broker |
+| 5 | Pranor Cache | 8086 | Distributed cache |
+| 6 | Pranor Gate | 8080 | API gateway / reverse proxy |
+| 7 | Pranor Mesh | 8089 | Service mesh registry |
+| 8 | Pranor Chrono | 8087 | Distributed scheduler |
+| 9 | Pranor Deploy | 8085 | Deployment orchestrator |
+| 10 | Pranor Tunnel | 8443 | Tunnel relay server |
+| 11 | Pranor Console | 8083 | Observability dashboard (Web UI) |
+| 12 | Pranor Hub | 8088 | Package registry |
 
 ---
 
@@ -94,17 +94,17 @@ podman compose ps
 All services should show `healthy` status. Quick curl check:
 
 ```bash
-curl http://localhost:8080/healthz   # ServGate
-curl http://localhost:8081/healthz   # ServStore
-curl http://localhost:8082/healthz   # ServQueue
-curl http://localhost:8083/healthz   # ServConsole
-curl http://localhost:8085/healthz   # ServCloud
-curl http://localhost:8086/healthz   # ServCache
-curl http://localhost:8087/healthz   # ServCron
-curl http://localhost:8088/healthz   # ServRegistry
-curl http://localhost:8089/healthz   # ServMesh
-curl http://localhost:8090/healthz   # ServTrace
-curl http://localhost:8443/healthz   # ServTunnel
+curl http://localhost:8080/healthz   # Pranor Gate
+curl http://localhost:8081/healthz   # Pranor Vault
+curl http://localhost:8082/healthz   # Pranor Pulse
+curl http://localhost:8083/healthz   # Pranor Console
+curl http://localhost:8085/healthz   # Pranor Deploy
+curl http://localhost:8086/healthz   # Pranor Cache
+curl http://localhost:8087/healthz   # Pranor Chrono
+curl http://localhost:8088/healthz   # Pranor Hub
+curl http://localhost:8089/healthz   # Pranor Mesh
+curl http://localhost:8090/healthz   # Pranor Trace
+curl http://localhost:8443/healthz   # Pranor Tunnel
 curl http://localhost:16686/         # Jaeger UI
 ```
 
@@ -118,7 +118,7 @@ Open http://localhost:16686 in a browser. After other services have processed re
 
 ---
 
-### 2. ServTrace (OTLP Collector)
+### 2. Pranor Trace (OTLP Collector)
 
 ```bash
 # Send a test trace span via OTLP/HTTP
@@ -132,7 +132,7 @@ curl http://localhost:8090/api/traces
 
 ---
 
-### 3. ServStore (Object Storage)
+### 3. Pranor Vault (Object Storage)
 
 ```bash
 # Create a bucket
@@ -141,7 +141,7 @@ curl -X PUT http://localhost:8081/test-bucket
 # Upload an object
 curl -X PUT http://localhost:8081/test-bucket/hello.json \
   -H "Content-Type: application/json" \
-  -d '{"message": "hello from ServStore"}'
+  -d '{"message": "hello from Pranor Vault"}'
 
 # Download the object
 curl http://localhost:8081/test-bucket/hello.json
@@ -155,7 +155,7 @@ curl -X DELETE http://localhost:8081/test-bucket/hello.json
 
 ---
 
-### 4. ServQueue (Message Broker)
+### 4. Pranor Pulse (Message Broker)
 
 ```bash
 # Publish a message to a topic
@@ -175,7 +175,7 @@ curl http://localhost:8082/api/v1/stats
 
 ---
 
-### 5. ServCache (Distributed Cache)
+### 5. Pranor Cache (Distributed Cache)
 
 ```bash
 # Set a cache entry
@@ -195,7 +195,7 @@ curl http://localhost:8086/api/v1/stats
 
 ---
 
-### 6. ServGate (API Gateway)
+### 6. Pranor Gate (API Gateway)
 
 ```bash
 # Check gateway health
@@ -213,7 +213,7 @@ curl http://localhost:8080/api/v1/admin/metrics
 
 ---
 
-### 7. ServMesh (Service Mesh Registry)
+### 7. Pranor Mesh (Service Mesh Registry)
 
 ```bash
 # Register a service instance
@@ -235,7 +235,7 @@ curl -X DELETE http://localhost:8089/api/v1/deregister \
 
 ---
 
-### 8. ServCron (Distributed Scheduler)
+### 8. Pranor Chrono (Distributed Scheduler)
 
 ```bash
 # Schedule a job
@@ -255,16 +255,16 @@ curl -X DELETE http://localhost:8087/api/v1/jobs/cleanup
 
 ---
 
-### 9. ServCloud (Deployment Orchestrator)
+### 9. Pranor Deploy (Deployment Orchestrator)
 
 ```bash
 # Check available runtimes
 curl http://localhost:8085/api/v1/runtimes
 
-# Deploy a service (requires .srv file or config)
+# Deploy a service (requires .pnr file or config)
 curl -X POST http://localhost:8085/api/v1/deploy \
   -H "Content-Type: application/json" \
-  -d '{"name": "my-app", "source": "main.srv", "runtime": "go"}'
+  -d '{"name": "my-app", "source": "main.pnr", "runtime": "go"}'
 
 # List deployments
 curl http://localhost:8085/api/v1/deployments
@@ -275,7 +275,7 @@ curl http://localhost:8085/api/v1/deployments/my-app
 
 ---
 
-### 10. ServTunnel (Tunnel Relay Server)
+### 10. Pranor Tunnel (Tunnel Relay Server)
 
 ```bash
 # Check relay server status
@@ -289,7 +289,7 @@ curl http://localhost:8443/healthz
 
 ---
 
-### 11. ServConsole (Observability Dashboard)
+### 11. Pranor Console (Observability Dashboard)
 
 Open http://localhost:8083 in a browser. The dashboard provides:
 
@@ -313,7 +313,7 @@ curl http://localhost:8083/api/v1/metrics
 
 ---
 
-### 12. ServRegistry (Package Registry)
+### 12. Pranor Hub (Package Registry)
 
 ```bash
 # Publish a package (multipart form with tarball)
@@ -342,19 +342,19 @@ curl http://localhost:8088/api/packages/
 Run the existing e2e test suite (uses mock servers by default):
 
 ```bash
-cd servverse-repo/tests/e2e
+cd pranor-repo/tests/e2e
 go test -v ./...
 ```
 
 ### Manual integration flow (against live stack)
 
 ```bash
-# 1. Upload config to ServStore (no auth in local dev mode)
+# 1. Upload config to Pranor Vault (no auth in local dev mode)
 curl -X PUT http://localhost:8081/demo-bucket/config.json \
   -H "Content-Type: application/json" \
-  -d '{"app": "servverse-demo", "version": "1.0"}'
+  -d '{"app": "pranor-demo", "version": "1.0"}'
 
-# 2. Publish event to ServQueue (no auth in dev mode)
+# 2. Publish event to Pranor Pulse (no auth in dev mode)
 curl -X POST http://localhost:8082/api/v1/publish \
   -H "Content-Type: application/json" \
   -d '{"topic": "deployments", "payload": {"service": "demo", "action": "deploy"}}'
@@ -370,7 +370,7 @@ curl http://localhost:8080/healthz
 # 5. Check traces in Jaeger
 # Open http://localhost:16686, search for service "servstore" or "servqueue"
 
-# 6. View everything in ServConsole
+# 6. View everything in Pranor Console
 # Open http://localhost:8083
 ```
 
@@ -378,19 +378,19 @@ curl http://localhost:8080/healthz
 
 ## Authentication
 
-All services use the standardized `ServShared.AuthMiddleware` for JWT authentication. The behavior is controlled by a single environment variable:
+All services use the standardized `Pranor Core.AuthMiddleware` for JWT authentication. The behavior is controlled by a single environment variable:
 
 ### How it works
 
-- **`SERV_JWT_SECRET` not set (default in docker-compose)** → All requests pass through. No auth required.
-- **`SERV_JWT_SECRET` set to any value** → All API routes require a valid `Authorization: Bearer <jwt>` header.
+- **`PRANOR_JWT_SECRET` not set (default in docker-compose)** → All requests pass through. No auth required.
+- **`PRANOR_JWT_SECRET` set to any value** → All API routes require a valid `Authorization: Bearer <jwt>` header.
 - **`/healthz` and `/readyz`** → Always accessible without auth regardless of configuration.
 
 ### Auth requirements per service (local dev mode)
 
 | Service | Auth Required? |
 |---------|---------------|
-| All services | **No** — `SERV_JWT_SECRET` is unset in docker-compose |
+| All services | **No** — `PRANOR_JWT_SECRET` is unset in docker-compose |
 
 ### Enabling JWT auth (production)
 
@@ -399,13 +399,13 @@ Set the shared secret in docker-compose or as an environment variable:
 ```yaml
 # docker-compose.yml — add to each service:
 environment:
-  - SERV_JWT_SECRET=your-strong-production-secret
+  - PRANOR_JWT_SECRET=your-strong-production-secret
 ```
 
 Or run with an environment variable:
 
 ```bash
-SERV_JWT_SECRET=my-secret podman compose up
+PRANOR_JWT_SECRET=my-secret podman compose up
 ```
 
 ### Generating a token
@@ -416,7 +416,7 @@ Use any JWT library to sign a token with HMAC-SHA256 and the shared secret:
 {
   "username": "admin",
   "roles": ["admin"],
-  "iss": "servverse",
+  "iss": "pranor",
   "exp": 1750000000
 }
 ```
@@ -440,17 +440,17 @@ All component images are publicly available at:
 
 | Service | Registry Path |
 |---|---|
-| ServGate | `ghcr.io/vyuvaraj/servgate:latest` |
-| ServStore | `ghcr.io/vyuvaraj/servstore:latest` |
-| ServQueue | `ghcr.io/vyuvaraj/servqueue:latest` |
-| ServCache | `ghcr.io/vyuvaraj/servcache:latest` |
-| ServConsole | `ghcr.io/vyuvaraj/servconsole:latest` |
-| ServCron | `ghcr.io/vyuvaraj/servcron:latest` |
-| ServCloud | `ghcr.io/vyuvaraj/servcloud:latest` |
-| ServMesh | `ghcr.io/vyuvaraj/servmesh:latest` |
-| ServTrace | `ghcr.io/vyuvaraj/servtrace:latest` |
-| ServTunnel | `ghcr.io/vyuvaraj/servtunnel:latest` |
-| ServRegistry | `ghcr.io/vyuvaraj/servregistry:latest` |
+| Pranor Gate | `ghcr.io/vyuvaraj/servgate:latest` |
+| Pranor Vault | `ghcr.io/vyuvaraj/servstore:latest` |
+| Pranor Pulse | `ghcr.io/vyuvaraj/servqueue:latest` |
+| Pranor Cache | `ghcr.io/vyuvaraj/servcache:latest` |
+| Pranor Console | `ghcr.io/vyuvaraj/servconsole:latest` |
+| Pranor Chrono | `ghcr.io/vyuvaraj/servcron:latest` |
+| Pranor Deploy | `ghcr.io/vyuvaraj/servcloud:latest` |
+| Pranor Mesh | `ghcr.io/vyuvaraj/servmesh:latest` |
+| Pranor Trace | `ghcr.io/vyuvaraj/servtrace:latest` |
+| Pranor Tunnel | `ghcr.io/vyuvaraj/servtunnel:latest` |
+| Pranor Hub | `ghcr.io/vyuvaraj/servregistry:latest` |
 
 ### Running the Pre-built Stack (No Source Code Needed)
 
@@ -475,28 +475,28 @@ services:
     ports: ["8081:8081"]
     command: ["--port", "8081", "--data-dir", "/data"]
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://servtrace:8090
     depends_on: [servtrace]
 
   servqueue:
     image: ghcr.io/vyuvaraj/servqueue:latest
     ports: ["8082:8082", "61613:61613"]
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://servtrace:8090
     depends_on: [servtrace]
 
   servcache:
     image: ghcr.io/vyuvaraj/servcache:latest
     ports: ["8086:8086"]
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://servtrace:8090
     depends_on: [servtrace]
 
   servgate:
     image: ghcr.io/vyuvaraj/servgate:latest
     ports: ["8080:8080"]
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://servtrace:8090
     depends_on: [servtrace]
 
   # Add other services as needed...
@@ -548,7 +548,7 @@ netstat -ano | findstr :8080
 All Dockerfiles patch `go 1.26.x` → `go 1.24` at build time via `sed`. If a new dependency adds a higher Go version constraint, re-vendor locally:
 
 ```bash
-cd ../ServStore   # or whichever service
+cd ../Pranor Vault   # or whichever service
 set GOWORK=off
 go mod vendor
 # Then rebuild
@@ -561,12 +561,12 @@ podman compose build servstore --no-cache
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    ServConsole :8083                         │
+│                    Pranor Console :8083                         │
 │                 (Observability Dashboard)                    │
 └────────────┬───────────────┬────────────────────────────────┘
              │               │
      ┌───────▼───────┐ ┌────▼─────────┐
-     │ ServGate :8080│ │ Jaeger:16686 │
+     │ Pranor Gate :8080│ │ Jaeger:16686 │
      │ (API Gateway) │ │ (Trace UI)   │
      └───────┬───────┘ └──────────────┘
              │
@@ -583,4 +583,4 @@ podman compose build servstore --no-cache
     └────────┘  └────────┘  └────────┘  └───────┘
 ```
 
-All services communicate over the `servverse-net` Docker bridge network and export OpenTelemetry traces to Jaeger via the OTLP endpoint.
+All services communicate over the `pranor-net` Docker bridge network and export OpenTelemetry traces to Jaeger via the OTLP endpoint.
