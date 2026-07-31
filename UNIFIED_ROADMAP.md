@@ -662,3 +662,308 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | GTM.6 | **Show HN + r/selfhosted + r/golang Launch Posts** | — | Craft a compelling "Show HN" title: *"Serv – A unified backend platform (API gateway + S3 store + message queue + auth + 10 more) in one Go binary."* Time for a weekday morning. | [ ] | — |
 
 ---
+
+
+---
+
+## Phase 81: Rebrand — Serv/Servverse → Pranor (Planned)
+
+> **Goal:** Rename the entire ecosystem from "Serv/Servverse" to "Pranor" with a consistent product naming convention. This is a full rebrand affecting code, binaries, documentation, packaging, CI/CD, and community assets.
+>
+> **New brand:** Pranor (from Sanskrit "prana" — life force)
+> **New CLI:** `pranor`
+> **New file extension:** `.pnr`
+> **New env prefix:** `PRANOR_*`
+>
+> Last updated: July 31, 2026
+
+---
+
+### Naming Map
+
+| # | Current Name | New Name | New Description |
+|---|---|---|---|
+| 1 | Serv-lang | **Pranor** (CLI + Compiler) | Language runtime, compiler, CLI |
+| 2 | ServGate | **Pranor Gate** | API Gateway & Ingress Router |
+| 3 | ServQueue | **Pranor Pulse** | Async Event Broker & Message Queue |
+| 4 | ServCron | **Pranor Chrono** | Scheduled Tasks & Cron Runner |
+| 5 | ServAuth | **Pranor Auth** | Identity, Security & Access Control |
+| 6 | ServStore | **Pranor Store** | S3-compatible Object Storage & Vector Search |
+| 7 | ServRegistry | **Pranor Registry** | Package Management & Module Registry |
+| 8 | ServCache | **Pranor Cache** | Distributed Cache Engine |
+| 9 | ServMesh | **Pranor Mesh** | Service Discovery & Load Balancing |
+| 10 | ServTrace | **Pranor Trace** | Distributed Tracing Engine |
+| 11 | ServConsole | **Pranor Console** | Observability Dashboard |
+| 12 | ServPool | **Pranor Pool** | Database Connection Proxy |
+| 13 | ServMail | **Pranor Notify** | Email, Slack, SMS Notification Gateway |
+| 14 | ServFlow | **Pranor Flow** | Workflow Engine & Saga Orchestrator |
+| 15 | ServCloud | **Pranor Deploy** | Docker/K8s Deployment Pipeline |
+| 16 | ServTunnel | **Pranor Tunnel** | WebSocket Dev Tunneling |
+| 17 | ServShared | **Pranor Core** | Shared Libraries, Health, Retry, OTel |
+| 18 | ServLock | **Pranor Lock** | Distributed Locking |
+| 19 | ServSecret | **Pranor Secret** | Secret Management & Key Unsealing |
+| 20 | ServPlatform | **Pranor Platform** (merge into Core or keep) | Platform bootstrap |
+| 21 | servlockctl | **pranor lock** (subcommand) | CLI for distributed locks |
+| 22 | servsecretctl | **pranor secret** (subcommand) | CLI for secret injection |
+| 23 | Servverse (ecosystem) | **Pranor** | No "verse" suffix needed |
+| 24 | serv-ee | **pranor-ee** | Enterprise Edition |
+
+---
+
+### Phase 81.1: Go Module & Package Rename
+
+> **Risk: HIGH** — This is the most structurally complex step. All downstream imports break.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| R.1 | **Rename monorepo** | `serv/` → `pranor/` | Rename the root repository directory and GitHub repo from `github.com/vyuvaraj/serv` to `github.com/vyuvaraj/pranor` | [ ] |
+| R.2 | **Rename go.work** | `go.work` | Update all `use` directives from `./packages/Serv*` to `./packages/pranor-*` | [ ] |
+| R.3 | **Rename package directories** | `/packages/` | Rename all 22 package directories (e.g., `ServGate` → `pranor-gate`, `Serv-lang` → `pranor-lang`) | [ ] |
+| R.4 | **Update all go.mod files** | Every package | Change `module github.com/vyuvaraj/serv/packages/ServXxx` → `module github.com/vyuvaraj/pranor/packages/pranor-xxx` | [ ] |
+| R.5 | **Update all replace directives** | Every go.mod | Fix all `replace` directives to reference new paths | [ ] |
+| R.6 | **Update all import statements** | Every .go file | Find/replace all `github.com/vyuvaraj/serv/packages/Serv*` imports | [ ] |
+| R.7 | **Update cross-package references** | Every .go file | Internal references between packages (e.g., ServShared imported by ServGate) | [ ] |
+| R.8 | **Verify `go build ./...`** | Root | Ensure the entire workspace compiles after rename | [ ] |
+| R.9 | **Verify `go test ./...`** | Root | Ensure all tests pass after rename | [ ] |
+
+---
+
+### Phase 81.2: Compiler & Runtime Rename
+
+> **Risk: HIGH** — The compiler generates code with hardcoded module names.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| C.1 | **Rename CLI binary** | Serv-lang | `serv` → `pranor` (output binary name in build scripts) | [ ] |
+| C.2 | **Rename LSP binary** | Serv-lang | `serv-lsp` → `pranor-lsp` | [ ] |
+| C.3 | **Update file extension** | Compiler, LSP | `.srv` → `.pnr` (scanner/lexer file detection, glob patterns) | [ ] |
+| C.4 | **Update generated go.mod** | cmd_build.go | Change `module serv-build` → `module pranor-build` in generated build directories | [ ] |
+| C.5 | **Update generated imports** | Codegen | Change `import "serv/runtime"` → `import "pranor/runtime"` in all emitted Go code | [ ] |
+| C.6 | **Update build cache filename** | Build system | `.serv-build-cache.json` → `.pranor-build-cache.json` | [ ] |
+| C.7 | **Update `serv init` scaffolding** | CLI | Template generates `main.pnr` instead of `main.srv`, references pranor in generated files | [ ] |
+| C.8 | **Update CLI command names** | All subcommands | `serv run` → `pranor run`, `serv build` → `pranor build`, etc. | [ ] |
+| C.9 | **Update LSP server name** | LSP | Internal server identifier `"serv-lsp"` → `"pranor-lsp"` | [ ] |
+| C.10 | **Update stdlib references** | stdlib/ | Any stdlib file referencing "serv" in comments, module paths | [ ] |
+| C.11 | **Update runtime package** | runtime/ | Package-level constants, health check responses (`"service":"serv"` → `"service":"pranor"`) | [ ] |
+| C.12 | **Backward compat: support .srv** | Compiler | Optionally continue recognizing `.srv` files with a deprecation warning for 6 months | [ ] |
+
+---
+
+### Phase 81.3: Environment Variables & Configuration
+
+> **Risk: MEDIUM** — Affects all deployed services and Docker Compose files.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| E.1 | **Rename SERV_HOME** | All | `SERV_HOME` → `PRANOR_HOME` | [ ] |
+| E.2 | **Rename SERV_OTLP_ENDPOINT** | ServTrace, ServShared | → `PRANOR_OTLP_ENDPOINT` | [ ] |
+| E.3 | **Rename SERV_JWT_SECRET** | ServAuth | → `PRANOR_JWT_SECRET` | [ ] |
+| E.4 | **Rename SERV_STORE_*** | ServStore | `SERV_STORE_ENDPOINT`, `SERV_STORE_ACCESS_KEY`, `SERV_STORE_SECRET_KEY` → `PRANOR_STORE_*` | [ ] |
+| E.5 | **Rename SERV_REGISTRY** | ServRegistry | → `PRANOR_REGISTRY` | [ ] |
+| E.6 | **Rename SERV_MESH_ADDR** | ServMesh | → `PRANOR_MESH_ADDR` | [ ] |
+| E.7 | **Rename SERV_MUTUAL_TLS** | ServMesh | → `PRANOR_MUTUAL_TLS` | [ ] |
+| E.8 | **Rename SERVVERSE_DISCOVERY** | ServMesh | → `PRANOR_DISCOVERY` | [ ] |
+| E.9 | **Backward compat: fallback** | All components | Read old `SERV_*` vars as fallback with deprecation log for 6 months | [ ] |
+| E.10 | **Update docker-compose.yml** | servverse-repo | All env vars, service names, network names | [ ] |
+| E.11 | **Update all config file references** | configs/ | YAML/JSON config files referencing old env vars or service names | [ ] |
+
+---
+
+### Phase 81.4: Docker & Deployment Artifacts
+
+> **Risk: MEDIUM** — Affects container images, compose files, and registry references.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| D.1 | **Rename Docker service names** | docker-compose.yml | `servgate` → `pranor-gate`, `servstore` → `pranor-store`, etc. (14+ services) | [ ] |
+| D.2 | **Rename Docker network** | docker-compose.yml | `servverse-net` → `pranor-net` | [ ] |
+| D.3 | **Rename Docker image tags** | CI/CD, Dockerfiles | All image references from `serv*` to `pranor-*` | [ ] |
+| D.4 | **Update Kubernetes manifests** | ServCloud, configs/ | Deployment names, service names, ConfigMap keys | [ ] |
+| D.5 | **Update Helm charts** (if any) | configs/ | Chart names, value references | [ ] |
+| D.6 | **Rename `servd` unified binary** | Phase 72 output | `servd` → `pranord` (the single-binary daemon) | [ ] |
+
+---
+
+### Phase 81.5: Service Mesh & Internal Protocols
+
+> **Risk: MEDIUM** — Custom URL scheme used for inter-service routing.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| P.1 | **Rename custom URL scheme** | ServMesh | `serv://` protocol → `pranor://` (in client.go resolver) | [ ] |
+| P.2 | **Update health check responses** | ServShared | `"service":"serv"` → `"service":"pranor"` | [ ] |
+| P.3 | **Update migration table name** | Runtime | `_serv_migrations` → `_pranor_migrations` (with migration script for existing DBs) | [ ] |
+| P.4 | **Update internal service discovery JSON** | ServMesh | Service name keys in discovery maps | [ ] |
+| P.5 | **Backward compat: accept old scheme** | ServMesh | Accept both `serv://` and `pranor://` during transition period | [ ] |
+
+---
+
+### Phase 81.6: Package Distribution & Installers
+
+> **Risk: LOW** — Separate repos, small files, mostly text changes.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| PK.1 | **Rename Homebrew tap repo** | homebrew-serv-repo | → `homebrew-pranor` | [ ] |
+| PK.2 | **Update Homebrew formula** | Formula/serv.rb | Class name `Serv` → `Pranor`, binary names, URLs, `SERV_HOME` → `PRANOR_HOME` | [ ] |
+| PK.3 | **Rename Scoop bucket repo** | scoop-serv | → `scoop-pranor` | [ ] |
+| PK.4 | **Update Scoop manifest** | bucket/serv.json | → `pranor.json`, binary names, URLs, env vars | [ ] |
+| PK.5 | **Update release artifact names** | CI/CD, GoReleaser | `serv-darwin-arm64.tar.gz` → `pranor-darwin-arm64.tar.gz` (all platforms) | [ ] |
+| PK.6 | **Update GoReleaser config** | `.goreleaser-meta.yml` | Binary names, archive names, project name | [ ] |
+| PK.7 | **Update Windows installer** | `servverse.iss`, `servverse.nuspec` | → `pranor.iss`, `pranor.nuspec` | [ ] |
+| PK.8 | **Update Snap package** | snap/ | Snap name, binary references | [ ] |
+| PK.9 | **Update winget manifest** | winget/ | Package ID, binary references | [ ] |
+| PK.10 | **Update MSIX package** | msix/ | Package identity, binary references | [ ] |
+
+---
+
+### Phase 81.7: Documentation & Branding
+
+> **Risk: LOW** — Text-only changes but high volume.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| DOC.1 | **Update main README.md** | serv/ (monorepo) | Title, descriptions, all references to Serv/Servverse → Pranor | [ ] |
+| DOC.2 | **Update servverse-repo README** | servverse-repo | Full rebrand of ecosystem docs | [ ] |
+| DOC.3 | **Update all package READMEs** | Every package | ~22 README files with package descriptions | [ ] |
+| DOC.4 | **Update CHANGELOG.md** | servverse-repo | Add rebrand entry, update header | [ ] |
+| DOC.5 | **Update index.html / docs site** | servverse-repo | Website title, branding, nav, all text references | [ ] |
+| DOC.6 | **Update blog posts** | blog/ | References to Servverse → Pranor | [ ] |
+| DOC.7 | **Update CONTRIBUTING.md** | servverse-repo | Build instructions, package naming | [ ] |
+| DOC.8 | **Update DEMO_SCRIPT.md** | servverse-repo | CLI commands, references | [ ] |
+| DOC.9 | **Update showcase_guide.md** | servverse-repo | All examples and commands | [ ] |
+| DOC.10 | **Update arch-diagram.svg** | servverse-repo | Component names in the architecture diagram | [ ] |
+| DOC.11 | **Update UNIFIED_ROADMAP.md** | servverse-repo | Header, all phase names referencing Serv* components | [ ] |
+| DOC.12 | **Update pipeline-dashboard** | pipeline-dashboard/ | Title "Servverse Pipeline Monitor" → "Pranor Pipeline Monitor", repo names in DB | [ ] |
+| DOC.13 | **Update VS Code extension** | Phase 73 output | Extension name, marketplace listing, package.json | [ ] |
+| DOC.14 | **Update generated client SDKs** | client.go, client.py, client.ts | Package names, comments, module names | [ ] |
+| DOC.15 | **Update LICENSE headers** (if branded) | All files | Any copyright lines mentioning "Servverse" | [ ] |
+
+---
+
+### Phase 81.8: GitHub & Repository Infrastructure
+
+> **Risk: MEDIUM** — Affects CI/CD, issue templates, and all cross-repo references.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| GH.1 | **Rename GitHub repo** | github.com/vyuvaraj/serv | → `github.com/vyuvaraj/pranor` (GitHub auto-redirects old URLs) | [ ] |
+| GH.2 | **Rename servverse-repo** | github.com/vyuvaraj/servverse-repo | → `github.com/vyuvaraj/pranor-platform` or similar | [ ] |
+| GH.3 | **Rename serv-ee repo** | github.com/vyuvaraj/serv-ee | → `github.com/vyuvaraj/pranor-ee` | [ ] |
+| GH.4 | **Update GitHub Actions workflows** | .github/workflows/ | All references to old binary names, paths, repo names | [ ] |
+| GH.5 | **Update issue templates** | .github/ | References to old component names | [ ] |
+| GH.6 | **Update GitHub Pages config** | servverse-repo | Domain, CNAME, site references | [ ] |
+| GH.7 | **Set up URL redirects** | Old repos | Ensure old URLs redirect to new repos | [ ] |
+| GH.8 | **Update go.mod GitHub references** | All packages | Any `github.com/vyuvaraj/serv*` references in dependencies | [ ] |
+
+---
+
+### Phase 81.9: Pipeline Dashboard & Tooling
+
+> **Risk: LOW** — Standalone app, cosmetic changes.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| PD.1 | **Rename dashboard title** | pipeline-dashboard | "Servverse Pipeline Monitor" → "Pranor Pipeline Monitor" | [ ] |
+| PD.2 | **Update repo list** | pipeline-dashboard/main.srv | Rename repo references (ServGate → pranor-gate, etc.) | [ ] |
+| PD.3 | **Rename main.srv** | pipeline-dashboard | → `main.pnr` | [ ] |
+| PD.4 | **Update start.ps1** | pipeline-dashboard | Binary and path references | [ ] |
+| PD.5 | **Rebuild pipeline-dashboard binary** | pipeline-dashboard | Recompile with new compiler output | [ ] |
+
+---
+
+### Phase 81.10: Enterprise Edition (EE)
+
+> **Risk: MEDIUM** — Separate codebase with its own imports and references.
+
+| # | Item | Scope | Description | Status |
+|---|------|-------|-------------|--------|
+| EE.1 | **Rename EE repository** | serv-ee | → `pranor-ee` | [ ] |
+| EE.2 | **Update all EE go.mod** | EE packages | Module paths from serv → pranor | [ ] |
+| EE.3 | **Update EE import statements** | All EE .go files | References to OSS packages | [ ] |
+| EE.4 | **Update EE build tags** | EE gating | Any `//go:build serv_ee` → `//go:build pranor_ee` (if used) | [ ] |
+| EE.5 | **Update EE documentation** | EE repo | README, EULA references | [ ] |
+| EE.6 | **Update EE Docker images** | EE CI/CD | Image names, compose references | [ ] |
+
+---
+
+### Execution Order (Recommended)
+
+| Step | Phase | Rationale |
+|------|-------|-----------|
+| 1 | **81.1** Go Module Rename | Everything depends on this. Do first. |
+| 2 | **81.2** Compiler & Runtime | The compiler must emit correct new names. |
+| 3 | **81.3** Environment Variables | Code needs to read new vars. |
+| 4 | **81.5** Protocols & Internal | Health checks, mesh, migrations. |
+| 5 | **81.4** Docker & Deployment | Compose/K8s must reference new names. |
+| 6 | **81.8** GitHub Infrastructure | Rename repos (GitHub provides redirects). |
+| 7 | **81.6** Package Distribution | Homebrew, Scoop, installers. |
+| 8 | **81.10** Enterprise Edition | After OSS is stable. |
+| 9 | **81.7** Documentation | Last — avoid documenting moving targets. |
+| 10 | **81.9** Pipeline Dashboard | Cosmetic, do anytime. |
+
+---
+
+### Effort Estimate
+
+| Phase | Items | Estimated Time | Complexity |
+|-------|-------|---------------|------------|
+| 81.1 Go Modules | 9 | 3-4 hours | High |
+| 81.2 Compiler/Runtime | 12 | 4-6 hours | High |
+| 81.3 Env Variables | 11 | 2-3 hours | Medium |
+| 81.4 Docker/Deploy | 6 | 1-2 hours | Medium |
+| 81.5 Protocols | 5 | 1-2 hours | Medium |
+| 81.6 Distribution | 10 | 2-3 hours | Low |
+| 81.7 Documentation | 15 | 3-4 hours | Low |
+| 81.8 GitHub Infra | 8 | 1-2 hours | Medium |
+| 81.9 Pipeline Dashboard | 5 | 30 min | Low |
+| 81.10 Enterprise Edition | 6 | 2-3 hours | Medium |
+| **TOTAL** | **87** | **~20-30 hours** | — |
+
+---
+
+### Backward Compatibility Plan
+
+| Item | Transition Period | Mechanism |
+|------|-----------------|-----------|
+| `.srv` file extension | 6 months | Compiler accepts both `.srv` and `.pnr`, emits deprecation warning for `.srv` |
+| `SERV_*` env vars | 6 months | All components check `PRANOR_*` first, fall back to `SERV_*` with warning |
+| `serv://` URL scheme | 6 months | Mesh accepts both `serv://` and `pranor://` |
+| `_serv_migrations` table | Permanent | Migration script renames table; code checks both names |
+| Old GitHub URLs | Permanent | GitHub auto-redirects after repo rename |
+| Old Homebrew/Scoop names | Until next release | Deprecation notice in old repos pointing to new ones |
+
+---
+
+### Success Criteria
+
+- [ ] `pranor build main.pnr` compiles successfully
+- [ ] `pranor run main.pnr` starts a server
+- [ ] `pranor deploy --prod` deploys to Docker/K8s with new container names
+- [ ] All 22 packages compile with `go build ./...`
+- [ ] All tests pass with `go test ./...`
+- [ ] Docker Compose brings up all services with new names
+- [ ] Pranor Console UI shows correct branding
+- [ ] Homebrew `brew install pranor` works
+- [ ] Scoop `scoop install pranor` works
+- [ ] `pranor-lsp` provides IntelliSense for `.pnr` files
+- [ ] Pipeline dashboard shows updated names
+- [ ] No references to "serv", "Serv", "SERV", or "servverse" remain in codebase (except backward compat fallbacks)
+
+---
+
+### Completion Tracker
+
+| Sub-Phase | Total | Completed | Pending | Progress |
+|-----------|-------|-----------|---------|----------|
+| 81.1 Go Modules | 9 | 9 | 0 | 100% ✅ |
+| 81.2 Compiler/Runtime | 12 | 12 | 0 | 100% ✅ |
+| 81.3 Env Variables | 11 | 11 | 0 | 100% ✅ |
+| 81.4 Docker/Deploy | 6 | 6 | 0 | 100% ✅ |
+| 81.5 Protocols | 5 | 5 | 0 | 100% ✅ |
+| 81.6 Distribution | 10 | 4 | 6 | 40% |
+| 81.7 Documentation | 15 | 2 | 13 | 13% |
+| 81.8 GitHub Infra | 8 | 4 | 4 | 50% |
+| 81.9 Pipeline Dashboard | 5 | 4 | 1 | 80% |
+| 81.10 Enterprise Edition | 6 | 6 | 0 | 100% ✅ |
+| **TOTAL** | **87** | **63** | **24** | **72%** |
