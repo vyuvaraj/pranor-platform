@@ -1,7 +1,7 @@
 services:
   # ─── OBSERVABILITY ───────────────────────────────────────────────────────────
 
-  # 1. Jaeger — Distributed OTel Traces (fallback/comparison alongside ServTrace)
+  # 1. Jaeger — Distributed OTel Traces (fallback/comparison alongside Pranor Trace)
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
@@ -9,21 +9,21 @@ services:
       - "4317:4317"   # OTLP gRPC receiver
       - "4318:4318"   # OTLP HTTP receiver
     networks:
-      - servverse-net
+      - pranor-net
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:16686/"]
       interval: 5s
       timeout: 3s
       retries: 5
 
-  # 2. ServTrace — Native OTLP/HTTP collector & trace API
-  servtrace:
+  # 2. Pranor Trace — Native OTLP/HTTP collector & trace API
+  pranor-trace:
     build:
-      context: ../ServTrace
+      context: ../serv/trace
     ports:
       - "8090:8090"
     networks:
-      - servverse-net
+      - pranor-net
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8090/healthz"]
       interval: 5s
@@ -32,19 +32,19 @@ services:
 
   # ─── INFRASTRUCTURE ──────────────────────────────────────────────────────────
 
-  # 3. ServStore — S3-compatible Object Storage
-  servstore:
+  # 3. Pranor Vault — S3-compatible Object Storage
+  pranor-vault:
     build:
-      context: ../ServStore
+      context: ../serv/vault
     ports:
       - "8081:8081"
     command: ["--port", "8081", "--data-dir", "/data"]
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8081/healthz"]
@@ -52,19 +52,19 @@ services:
       timeout: 3s
       retries: 5
 
-  # 4. ServQueue — Message Broker (HTTP + STOMP)
-  servqueue:
+  # 4. Pranor Pulse — Message Broker (HTTP + STOMP)
+  pranor-pulse:
     build:
-      context: ../ServQueue
+      context: ../serv/pulse
     ports:
       - "8082:8082"   # HTTP Admin API
       - "61613:61613" # STOMP TCP
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8082/healthz"]
@@ -72,18 +72,18 @@ services:
       timeout: 3s
       retries: 5
 
-  # 5. ServCache — Distributed Cache (memory or Redis backend)
-  servcache:
+  # 5. Pranor Cache — Distributed Cache (memory or Redis backend)
+  pranor-cache:
     build:
-      context: ../ServCache
+      context: ../serv/cache
     ports:
       - "8086:8086"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8086/healthz"]
@@ -93,18 +93,18 @@ services:
 
   # ─── PLATFORM ────────────────────────────────────────────────────────────────
 
-  # 6. ServGate — API Gateway (uses local config.json baked into image)
-  servgate:
+  # 6. Pranor Gate — API Gateway
+  pranor-gate:
     build:
-      context: ../ServGate
+      context: ../serv/gate
     ports:
       - "8080:8080"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/healthz"]
@@ -112,18 +112,18 @@ services:
       timeout: 3s
       retries: 5
 
-  # 7. ServMesh — Service Mesh Registry
-  servmesh:
+  # 7. Pranor Mesh — Service Mesh Registry
+  pranor-mesh:
     build:
-      context: ../ServMesh
+      context: ../serv/mesh
     ports:
       - "8089:8089"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8089/healthz"]
@@ -131,19 +131,19 @@ services:
       timeout: 3s
       retries: 5
 
-  # 8. ServCron — Distributed Scheduler
-  servcron:
+  # 8. Pranor Chrono — Distributed Scheduler
+  pranor-chrono:
     build:
-      context: ../ServCron
+      context: ../serv/chrono
     ports:
       - "8087:8087"
     environment:
       - PORT=8087
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8087/healthz"]
@@ -151,20 +151,20 @@ services:
       timeout: 3s
       retries: 5
 
-  # 9. ServCloud — Deployment Orchestrator
-  servcloud:
+  # 9. Pranor Deploy — Deployment Orchestrator
+  pranor-deploy:
     build:
-      context: ../ServCloud
+      context: ../serv/deploy
     ports:
       - "8085:8085"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
-      servgate:
+      pranor-gate:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8085/healthz"]
@@ -172,18 +172,18 @@ services:
       timeout: 3s
       retries: 5
 
-  # 10. ServTunnel — Tunnel Relay Server
-  servtunnel:
+  # 10. Pranor Tunnel — Tunnel Relay Server
+  pranor-tunnel:
     build:
-      context: ../ServTunnel
+      context: ../serv/tunnel
     ports:
       - "8443:8443"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8443/healthz"]
@@ -193,31 +193,31 @@ services:
 
   # ─── MANAGEMENT ──────────────────────────────────────────────────────────────
 
-  # 11. ServConsole — Observability Dashboard
-  servconsole:
+  # 11. Pranor Console — Observability Dashboard
+  pranor-console:
     build:
-      context: ../ServConsole
+      context: ../serv/console
     ports:
       - "8083:8083"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
-      - SERVVERSE_DISCOVERY={"gate":"http://servgate:8080","store":"http://servstore:8081","queue":"http://servqueue:8082","cache":"http://servcache:8086","cron":"http://servcron:8087","mesh":"http://servmesh:8089","cloud":"http://servcloud:8085","tunnel":"http://servtunnel:8443","trace":"http://servtrace:8090","registry":"http://servregistry:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://servauth:8098","db":"http://ServPool:8097","mail":"http://servmail:8094","flow":"http://servflow:8096"}
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
+      - PRANOR_DISCOVERY={"gate":"http://pranor-gate:8080","vault":"http://pranor-vault:8081","pulse":"http://pranor-pulse:8082","cache":"http://pranor-cache:8086","chrono":"http://pranor-chrono:8087","mesh":"http://pranor-mesh:8089","deploy":"http://pranor-deploy:8085","tunnel":"http://pranor-tunnel:8443","trace":"http://pranor-trace:8090","hub":"http://pranor-hub:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://pranor-auth:8098","pool":"http://pranor-pool:8097","notify":"http://pranor-notify:8094","flow":"http://pranor-flow:8096"}
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
-      servstore:
+      pranor-vault:
         condition: service_healthy
-      servqueue:
+      pranor-pulse:
         condition: service_healthy
-      servgate:
+      pranor-gate:
         condition: service_healthy
-      servcache:
+      pranor-cache:
         condition: service_healthy
-      servcron:
+      pranor-chrono:
         condition: service_healthy
-      servmesh:
+      pranor-mesh:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8083/healthz"]
@@ -227,21 +227,21 @@ services:
 
   # ─── ECOSYSTEM ───────────────────────────────────────────────────────────────
 
-  # 12. ServRegistry — Package Registry
-  servregistry:
+  # 12. Pranor Hub — Package Registry
+  pranor-hub:
     build:
-      context: ../ServRegistry
+      context: ../serv/hub
     ports:
       - "8088:8088"
     environment:
-      - SERV_STORE_ENDPOINT=http://servstore:8081
-      - SERV_STORE_ACCESS_KEY=admin
-      - SERV_STORE_SECRET_KEY=admin123
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
+      - PRANOR_STORE_ENDPOINT=http://pranor-vault:8081
+      - PRANOR_STORE_ACCESS_KEY=admin
+      - PRANOR_STORE_SECRET_KEY=admin123
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servstore:
+      pranor-vault:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8088/healthz"]
@@ -249,21 +249,21 @@ services:
       timeout: 3s
       retries: 5
 
-  # 13. ServAuth — Authentication Service
-  servauth:
+  # 13. Pranor Auth — Authentication Service
+  pranor-auth:
     build:
-      context: ../ServAuth
+      context: ../serv/auth
     ports:
       - "8098:8098"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
-      - SERVVERSE_DISCOVERY={"gate":"http://servgate:8080","store":"http://servstore:8081","queue":"http://servqueue:8082","cache":"http://servcache:8086","cron":"http://servcron:8087","mesh":"http://servmesh:8089","cloud":"http://servcloud:8085","tunnel":"http://servtunnel:8443","trace":"http://servtrace:8090","registry":"http://servregistry:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://servauth:8098","db":"http://ServPool:8097","mail":"http://servmail:8094","flow":"http://servflow:8096"}
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
+      - PRANOR_DISCOVERY={"gate":"http://pranor-gate:8080","vault":"http://pranor-vault:8081","pulse":"http://pranor-pulse:8082","cache":"http://pranor-cache:8086","chrono":"http://pranor-chrono:8087","mesh":"http://pranor-mesh:8089","deploy":"http://pranor-deploy:8085","tunnel":"http://pranor-tunnel:8443","trace":"http://pranor-trace:8090","hub":"http://pranor-hub:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://pranor-auth:8098","pool":"http://pranor-pool:8097","notify":"http://pranor-notify:8094","flow":"http://pranor-flow:8096"}
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
-      servstore:
+      pranor-vault:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8098/healthz"]
@@ -271,21 +271,21 @@ services:
       timeout: 3s
       retries: 5
 
-  # 14. ServPool — Database Connection Pool Manager
-  ServPool:
+  # 14. Pranor Pool — Database Connection Pool Manager
+  pranor-pool:
     build:
-      context: ../ServPool
+      context: ../serv/pool
     ports:
       - "8097:8097"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
-      - SERVVERSE_DISCOVERY={"gate":"http://servgate:8080","store":"http://servstore:8081","queue":"http://servqueue:8082","cache":"http://servcache:8086","cron":"http://servcron:8087","mesh":"http://servmesh:8089","cloud":"http://servcloud:8085","tunnel":"http://servtunnel:8443","trace":"http://servtrace:8090","registry":"http://servregistry:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://servauth:8098","db":"http://ServPool:8097","mail":"http://servmail:8094","flow":"http://servflow:8096"}
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
+      - PRANOR_DISCOVERY={"gate":"http://pranor-gate:8080","vault":"http://pranor-vault:8081","pulse":"http://pranor-pulse:8082","cache":"http://pranor-cache:8086","chrono":"http://pranor-chrono:8087","mesh":"http://pranor-mesh:8089","deploy":"http://pranor-deploy:8085","tunnel":"http://pranor-tunnel:8443","trace":"http://pranor-trace:8090","hub":"http://pranor-hub:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://pranor-auth:8098","pool":"http://pranor-pool:8097","notify":"http://pranor-notify:8094","flow":"http://pranor-flow:8096"}
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
-      servstore:
+      pranor-vault:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8097/healthz"]
@@ -293,21 +293,21 @@ services:
       timeout: 3s
       retries: 5
 
-  # 15. ServMail — Template & Delivery Service
-  servmail:
+  # 15. Pranor Notify — Notification Gateway
+  pranor-notify:
     build:
-      context: ../ServMail
+      context: ../serv/notify
     ports:
       - "8094:8094"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
-      - SERVVERSE_DISCOVERY={"gate":"http://servgate:8080","store":"http://servstore:8081","queue":"http://servqueue:8082","cache":"http://servcache:8086","cron":"http://servcron:8087","mesh":"http://servmesh:8089","cloud":"http://servcloud:8085","tunnel":"http://servtunnel:8443","trace":"http://servtrace:8090","registry":"http://servregistry:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://servauth:8098","db":"http://ServPool:8097","mail":"http://servmail:8094","flow":"http://servflow:8096"}
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
+      - PRANOR_DISCOVERY={"gate":"http://pranor-gate:8080","vault":"http://pranor-vault:8081","pulse":"http://pranor-pulse:8082","cache":"http://pranor-cache:8086","chrono":"http://pranor-chrono:8087","mesh":"http://pranor-mesh:8089","deploy":"http://pranor-deploy:8085","tunnel":"http://pranor-tunnel:8443","trace":"http://pranor-trace:8090","hub":"http://pranor-hub:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://pranor-auth:8098","pool":"http://pranor-pool:8097","notify":"http://pranor-notify:8094","flow":"http://pranor-flow:8096"}
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
-      servstore:
+      pranor-vault:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8094/healthz"]
@@ -315,21 +315,21 @@ services:
       timeout: 3s
       retries: 5
 
-  # 16. ServFlow — Workflow Orchestrator
-  servflow:
+  # 16. Pranor Flow — Workflow Orchestrator
+  pranor-flow:
     build:
-      context: ../ServFlow
+      context: ../serv/flow
     ports:
       - "8096:8096"
     environment:
-      - SERV_OTLP_ENDPOINT=http://servtrace:8090
-      - SERVVERSE_DISCOVERY={"gate":"http://servgate:8080","store":"http://servstore:8081","queue":"http://servqueue:8082","cache":"http://servcache:8086","cron":"http://servcron:8087","mesh":"http://servmesh:8089","cloud":"http://servcloud:8085","tunnel":"http://servtunnel:8443","trace":"http://servtrace:8090","registry":"http://servregistry:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://servauth:8098","db":"http://ServPool:8097","mail":"http://servmail:8094","flow":"http://servflow:8096"}
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
+      - PRANOR_DISCOVERY={"gate":"http://pranor-gate:8080","vault":"http://pranor-vault:8081","pulse":"http://pranor-pulse:8082","cache":"http://pranor-cache:8086","chrono":"http://pranor-chrono:8087","mesh":"http://pranor-mesh:8089","deploy":"http://pranor-deploy:8085","tunnel":"http://pranor-tunnel:8443","trace":"http://pranor-trace:8090","hub":"http://pranor-hub:8088","otlp_endpoint":"http://jaeger:4318","auth":"http://pranor-auth:8098","pool":"http://pranor-pool:8097","notify":"http://pranor-notify:8094","flow":"http://pranor-flow:8096"}
     networks:
-      - servverse-net
+      - pranor-net
     depends_on:
-      servtrace:
+      pranor-trace:
         condition: service_healthy
-      servstore:
+      pranor-vault:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8096/healthz"]
@@ -338,5 +338,5 @@ services:
       retries: 5
 
 networks:
-  servverse-net:
+  pranor-net:
     driver: bridge
