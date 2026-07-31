@@ -20,3 +20,19 @@
 | SL.H10 | **Precise AST Token Position & Source Caret Reporter** | Serv-lang Parser | Propagate lexer line/column positions to AST nodes and format compiler errors with source code lines and caret pointers (`^`) | [x] | OSS |
 
 ---
+
+## Phase 77: End-to-End Integration Testing & Conformance Suites (Completed)
+
+> **Goal**: Prove the system works as advertised with automated conformance tests that run in CI and produce publishable badges.
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| IT.1 | **S3 Conformance Test Suite (Mint-compatible)** | ServStore | Run the open-source Mint S3 conformance suite against ServStore. Publish pass rate as CI badge. Target: 90%+ pass rate. | [x] | OSS |
+| IT.2 | **Cross-Component Integration Test Harness** | servverse-repo | Automated test that starts all 15 services via `servverse up`, runs a full user journey (deploy `.srv` app → hit API → see trace → check queue → verify cache), assert all pass. Run in CI on every push. | [x] | OSS |
+| IT.3 | **STOMP/Kafka/MQTT Protocol Conformance Tests** | ServQueue | Run standard protocol test suites: Apache ActiveMQ STOMP tests, Kafka protocol decoder tests, Eclipse Paho MQTT test suite. Publish conformance percentages. | [x] | OSS |
+| IT.4 | **Load Test Baseline with Published Results** | ServStore, ServGate, ServQueue | Run `servstore bench`, `servgate` performance tests, `servqueue benchmark` in CI. Publish baseline numbers in README badges. Detect regressions automatically. | [x] | OSS |
+| IT.5 | **Upgrade Path Smoke Test (v0.x → v1.0 data migration)** | All | Automated test: create data with current version, upgrade binary to next version, verify data still accessible. Catches breaking changes in storage format. | [x] | OSS |
+| IT.6 | **Chaos Engineering Regression Suite** | ServConsole, ServMesh | Inject network partitions, kill random services, verify the system recovers within SLA. Run weekly in CI. Publish mean-time-to-recovery. | [x] | OSS |
+
+---
+
