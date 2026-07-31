@@ -50,7 +50,7 @@ Pranor Gate is a WASM-programmable reverse proxy and API gateway with AI-native 
 |----------|-------------|---------|
 | `PRANOR_JWT_SECRET` | JWT verification secret | (required) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
-| `SERVGATE_CONFIG` | Path to config.json | `./config.json` |
+| `PRANOR_GATE_CONFIG` | Path to config.json | `./config.json` |
 
 ## Endpoints
 

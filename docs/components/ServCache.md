@@ -20,8 +20,8 @@ Pranor Cache is a distributed cache with pluggable Redis and in-memory adapters.
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `SERVCACHE_PORT` | HTTP listen port | `8084` |
-| `SERVCACHE_REDIS_URL` | Redis connection URL | (in-memory fallback) |
+| `PRANOR_CACHE_PORT` | HTTP listen port | `8084` |
+| `PRANOR_CACHE_REDIS_URL` | Redis connection URL | (in-memory fallback) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/vyuvaraj/ServShared"
+	"github.com/vyuvaraj/PranorCore"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	sc := ServShared.NewStoreClient()
+	sc := PranorCore.NewStoreClient()
 	bucket := "openapi-registry"
 	key := fmt.Sprintf("%s-openapi.json", serviceName)
 

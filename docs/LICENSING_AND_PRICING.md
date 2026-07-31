@@ -16,7 +16,7 @@ Pranor Pulse uses a **Dual-Licensing Open-Core Model** designed to maximize open
           ▼                                 ▼                               ▼
 ┌───────────────────┐             ┌───────────────────┐           ┌───────────────────┐
 │ Client SDKs & OPFS│             │ Pranor Pulse Server  │           │ Pranor Pulse EE      │
-│  (@pranor/...) │             │   (`servqueued`)  │           │    (`serv-ee`)    │
+│  (@pranor/...) │             │   (`pranor-pulsed`)  │           │    (`pranor-ee`)    │
 ├───────────────────┤             ├───────────────────┤           ├───────────────────┤
 │     Apache 2.0    │             │      AGPLv3       │           │    Commercial     │
 │   (Frictionless)  │             │ (Copyleft Core)   │           │ (Proprietary SLA) │
@@ -26,7 +26,7 @@ Pranor Pulse uses a **Dual-Licensing Open-Core Model** designed to maximize open
 ### Recommendation on AGPLv3 (GNU Affero General Public License)
 **Recommendation: RETAIN AGPLv3 for Server Engine, Use Apache 2.0 for Client SDKs.**
 
-- **Why keep AGPLv3 for `servqueued` server engine?**
+- **Why keep AGPLv3 for `pranor-pulsed` server engine?**
   1. **Hyperscaler Protection**: AGPLv3 prevents AWS, GCP, Azure, or third-party cloud vendors from hosting Pranor Pulse as a managed cloud service without contributing modifications back to the open-source community.
   2. **Strong Enterprise Commercial Conversion**: Companies that wish to embed or modify Pranor Pulse within closed-source SaaS applications or multi-tenant platforms are required under AGPL to release their source code—or purchase a **Pranor Pulse Enterprise Commercial License**.
   3. **Industry Standard Precedent**: Successfully proven by infrastructure leaders such as **MinIO**, **Grafana**, **RabbitMQ**, and **MongoDB (originally)**.
@@ -41,12 +41,12 @@ Pranor Pulse uses a **Dual-Licensing Open-Core Model** designed to maximize open
 
 | Component | Repository Path | License | Commercial Exemption Option |
 |---|---|---|---|
-| **Pranor Pulse Core Server Daemon (`servqueued`)** | `serv/packages/Pranor Pulse` | **GNU AGPLv3** | Yes (Commercial License) |
-| **Pranor Pulse Dual-CLI (`servqueue`)** | `serv/packages/Pranor Pulse/cmd/servqueue` | **GNU AGPLv3** | Yes (Commercial License) |
+| **Pranor Pulse Core Server Daemon (`pranor-pulsed`)** | `serv/packages/Pranor Pulse` | **GNU AGPLv3** | Yes (Commercial License) |
+| **Pranor Pulse Dual-CLI (`pranor-pulse`)** | `serv/packages/Pranor Pulse/cmd/pranor-pulse` | **GNU AGPLv3** | Yes (Commercial License) |
 | **Local Browser OPFS WASM Engine (`@pranor/queue-wasm`)** | `serv/packages/Pranor Pulse/pkg/opfs` | **Apache 2.0** | Included in Apache 2.0 |
 | **Go & Multi-Language Client SDKs** | `serv/packages/Pranor Pulse/sdks/*` | **Apache 2.0** | Included in Apache 2.0 |
-| **Pranor Console Web Inspector & Admin UI** | `pranor-repo/servconsole` | **GNU AGPLv3** | Yes (Commercial License) |
-| **Pranor Pulse Enterprise Commercial Engine (`serv-ee`)** | `serv-ee/src/Pranor Pulse` | **Commercial Proprietary** | Requires License Key |
+| **Pranor Console Web Inspector & Admin UI** | `pranor-repo/pranor-console` | **GNU AGPLv3** | Yes (Commercial License) |
+| **Pranor Pulse Enterprise Commercial Engine (`pranor-ee`)** | `pranor-ee/src/Pranor Pulse` | **Commercial Proprietary** | Requires License Key |
 
 ---
 
@@ -77,7 +77,7 @@ Pranor Pulse is structured into three clear commercial tiers:
 
 ### Model A: Per-Core CPU Subscription (Self-Hosted / On-Prem / Kubernetes)
 
-Calculated based on the total number of vCPUs / CPU cores assigned to the `servqueued-ee` instances.
+Calculated based on the total number of vCPUs / CPU cores assigned to the `pranor-pulsed-ee` instances.
 
 - **Community Tier**: **$0** (Free, AGPLv3 Open Source, Unlimited Cores).
 - **Enterprise Tier**: **$30 / vCPU Core / Month** (billed annually at **$360 / core / year**).
@@ -98,18 +98,18 @@ For organizations seeking a fully managed cloud service without infrastructure o
 
 ## 5. Technical License Key Enforcement & Verification
 
-In `serv-ee`, commercial feature modules are compiled behind the `//go:build enterprise` build tag.
+In `pranor-ee`, commercial feature modules are compiled behind the `//go:build enterprise` build tag.
 
 ### License Key Validation Flow
 
 1. Pranor Pulse Enterprise daemon startup:
    ```bash
-   servqueued-ee --config=/etc/servqueue/config.yaml --license-key=/etc/servqueue/license.lic
+   pranor-pulsed-ee --config=/etc/pranor-pulse/config.yaml --license-key=/etc/pranor-pulse/license.lic
    ```
 2. The daemon validates the cryptographically signed JWT / RSA license file:
    - **Payload Check**: Organization Name, Target Tier (`enterprise` vs `sovereign`), Max Core Limit, Expiration Date.
    - **Signature Verification**: Validated via offline public RSA key (no phone-home requirement for air-gapped sovereign environments).
-3. If valid, `serv-ee` features (`GeoReplication`, `KafkaAdapter`, `HSMUnsealer`, `eBPFXDP`) activate seamlessly.
+3. If valid, `pranor-ee` features (`GeoReplication`, `KafkaAdapter`, `HSMUnsealer`, `eBPFXDP`) activate seamlessly.
 
 ---
 

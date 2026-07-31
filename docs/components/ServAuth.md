@@ -30,7 +30,7 @@ Identity provider with OAuth2/OIDC token issuance, multi-tenant directories, MFA
 |----------|-------------|---------|
 | `PORT` | Listen port | `8098` |
 | `PRANOR_JWT_SECRET` | JWT signing secret | (required) |
-| `SERVSTORE_URL` | Pranor Vault endpoint for persistence | (optional) |
+| `PRANOR_VAULT_URL` | Pranor Vault endpoint for persistence | (optional) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector | (disabled) |
 
 ## Endpoints

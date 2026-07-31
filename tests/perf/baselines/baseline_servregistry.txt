@@ -1,7 +1,7 @@
 goos: windows
 goarch: amd64
-pkg: servregistry
+pkg: pranor-hub
 cpu: 13th Gen Intel(R) Core(TM) i7-13850HX
 BenchmarkPackageIndexLookup-28    	21566442	        54.01 ns/op	      11 B/op	       1 allocs/op
 PASS
-ok  	servregistry	3.115s
+ok  	pranor-hub	3.115s

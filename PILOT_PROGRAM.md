@@ -1,12 +1,12 @@
-# ServVerse Customer Pilot Program Playbook
+# Pranor Customer Pilot Program Playbook
 
-Welcome to the **ServVerse Customer Pilot Program**. This guide outlines onboarding steps, configuration guidelines, and feedback collection routines for our pilot engineering teams.
+Welcome to the **Pranor Customer Pilot Program**. This guide outlines onboarding steps, configuration guidelines, and feedback collection routines for our pilot engineering teams.
 
 ---
 
 ## 1. Program Milestones & Objectives
 
-The goal of this pilot is to evaluate the ServVerse unified ecosystem in real-world staging workloads before marking v1.0.0 stable.
+The goal of this pilot is to evaluate the Pranor unified ecosystem in real-world staging workloads before marking v1.0.0 stable.
 
 * **DX Friction Discovery**: Spot syntax bottlenecks, LSP editor latency, and deployment pipeline bugs.
 * **Performance Baseline**: Verify p99 response times under 20ms and evaluate connection pool (Pranor Pool) behavior.
@@ -44,7 +44,7 @@ Create an ecosystem discovery profile (`serv-discovery.json`):
 ```
 Set environment profiles:
 ```powershell
-$env:SERVVERSE_DISCOVERY="C:\Path\To\serv-discovery.json"
+$env:PRANOR_DISCOVERY="C:\Path\To\serv-discovery.json"
 ```
 
 ### Step 3: Connect Observability

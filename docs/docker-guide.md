@@ -1,4 +1,4 @@
-# ServVerse Docker Compose Guide
+# Pranor Docker Compose Guide
 
 ## Prerequisites
 
@@ -45,8 +45,8 @@ podman compose up --build -d
 ### Rebuild a single service after code changes
 
 ```bash
-podman compose build servstore --no-cache
-podman compose up -d servstore
+podman compose build pranor-vault --no-cache
+podman compose up -d pranor-vault
 ```
 
 ### Stop everything
@@ -241,7 +241,7 @@ curl -X DELETE http://localhost:8089/api/v1/deregister \
 # Schedule a job
 curl -X POST http://localhost:8087/api/v1/jobs \
   -H "Content-Type: application/json" \
-  -d '{"name": "cleanup", "schedule": "*/5 * * * *", "endpoint": "http://servstore:8081/healthz", "method": "GET"}'
+  -d '{"name": "cleanup", "schedule": "*/5 * * * *", "endpoint": "http://pranor-vault:8081/healthz", "method": "GET"}'
 
 # List all jobs
 curl http://localhost:8087/api/v1/jobs
@@ -283,8 +283,8 @@ curl http://localhost:8443/healthz
 
 # The tunnel relay accepts WebSocket connections at:
 # ws://localhost:8443/ws/connect
-# Use the servtunnel CLI client to establish a tunnel:
-# servtunnel client 3000 --relay ws://localhost:8443/ws/connect --subdomain myapp
+# Use the pranor-tunnel CLI client to establish a tunnel:
+# pranor-tunnel client 3000 --relay ws://localhost:8443/ws/connect --subdomain myapp
 ```
 
 ---
@@ -368,7 +368,7 @@ curl -X PUT http://localhost:8086/api/v1/cache/last-deploy \
 curl http://localhost:8080/healthz
 
 # 5. Check traces in Jaeger
-# Open http://localhost:16686, search for service "servstore" or "servqueue"
+# Open http://localhost:16686, search for service "pranor-vault" or "pranor-pulse"
 
 # 6. View everything in Pranor Console
 # Open http://localhost:8083
@@ -440,17 +440,17 @@ All component images are publicly available at:
 
 | Service | Registry Path |
 |---|---|
-| Pranor Gate | `ghcr.io/vyuvaraj/servgate:latest` |
-| Pranor Vault | `ghcr.io/vyuvaraj/servstore:latest` |
-| Pranor Pulse | `ghcr.io/vyuvaraj/servqueue:latest` |
-| Pranor Cache | `ghcr.io/vyuvaraj/servcache:latest` |
-| Pranor Console | `ghcr.io/vyuvaraj/servconsole:latest` |
-| Pranor Chrono | `ghcr.io/vyuvaraj/servcron:latest` |
-| Pranor Deploy | `ghcr.io/vyuvaraj/servcloud:latest` |
-| Pranor Mesh | `ghcr.io/vyuvaraj/servmesh:latest` |
-| Pranor Trace | `ghcr.io/vyuvaraj/servtrace:latest` |
-| Pranor Tunnel | `ghcr.io/vyuvaraj/servtunnel:latest` |
-| Pranor Hub | `ghcr.io/vyuvaraj/servregistry:latest` |
+| Pranor Gate | `ghcr.io/vyuvaraj/pranor-gate:latest` |
+| Pranor Vault | `ghcr.io/vyuvaraj/pranor-vault:latest` |
+| Pranor Pulse | `ghcr.io/vyuvaraj/pranor-pulse:latest` |
+| Pranor Cache | `ghcr.io/vyuvaraj/pranor-cache:latest` |
+| Pranor Console | `ghcr.io/vyuvaraj/pranor-console:latest` |
+| Pranor Chrono | `ghcr.io/vyuvaraj/pranor-chrono:latest` |
+| Pranor Deploy | `ghcr.io/vyuvaraj/pranor-deploy:latest` |
+| Pranor Mesh | `ghcr.io/vyuvaraj/pranor-mesh:latest` |
+| Pranor Trace | `ghcr.io/vyuvaraj/pranor-trace:latest` |
+| Pranor Tunnel | `ghcr.io/vyuvaraj/pranor-tunnel:latest` |
+| Pranor Hub | `ghcr.io/vyuvaraj/pranor-hub:latest` |
 
 ### Running the Pre-built Stack (No Source Code Needed)
 
@@ -466,38 +466,38 @@ services:
     image: jaegertracing/all-in-one:latest
     ports: ["16686:16686", "4317:4317", "4318:4318"]
 
-  servtrace:
-    image: ghcr.io/vyuvaraj/servtrace:latest
+  pranor-trace:
+    image: ghcr.io/vyuvaraj/pranor-trace:latest
     ports: ["8090:8090"]
 
-  servstore:
-    image: ghcr.io/vyuvaraj/servstore:latest
+  pranor-vault:
+    image: ghcr.io/vyuvaraj/pranor-vault:latest
     ports: ["8081:8081"]
     command: ["--port", "8081", "--data-dir", "/data"]
     environment:
-      - PRANOR_OTLP_ENDPOINT=http://servtrace:8090
-    depends_on: [servtrace]
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
+    depends_on: [pranor-trace]
 
-  servqueue:
-    image: ghcr.io/vyuvaraj/servqueue:latest
+  pranor-pulse:
+    image: ghcr.io/vyuvaraj/pranor-pulse:latest
     ports: ["8082:8082", "61613:61613"]
     environment:
-      - PRANOR_OTLP_ENDPOINT=http://servtrace:8090
-    depends_on: [servtrace]
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
+    depends_on: [pranor-trace]
 
-  servcache:
-    image: ghcr.io/vyuvaraj/servcache:latest
+  pranor-cache:
+    image: ghcr.io/vyuvaraj/pranor-cache:latest
     ports: ["8086:8086"]
     environment:
-      - PRANOR_OTLP_ENDPOINT=http://servtrace:8090
-    depends_on: [servtrace]
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
+    depends_on: [pranor-trace]
 
-  servgate:
-    image: ghcr.io/vyuvaraj/servgate:latest
+  pranor-gate:
+    image: ghcr.io/vyuvaraj/pranor-gate:latest
     ports: ["8080:8080"]
     environment:
-      - PRANOR_OTLP_ENDPOINT=http://servtrace:8090
-    depends_on: [servtrace]
+      - PRANOR_OTLP_ENDPOINT=http://pranor-trace:8090
+    depends_on: [pranor-trace]
 
   # Add other services as needed...
 ```
@@ -514,14 +514,14 @@ podman compose -f docker-compose.prod.yml up -d
 ### View logs for a specific service
 
 ```bash
-podman compose logs servstore
-podman compose logs -f servgate     # follow mode
+podman compose logs pranor-vault
+podman compose logs -f pranor-gate     # follow mode
 ```
 
 ### Restart a single service
 
 ```bash
-podman compose restart servcache
+podman compose restart pranor-cache
 ```
 
 ### Service won't start — check dependencies
@@ -552,7 +552,7 @@ cd ../Pranor Vault   # or whichever service
 set GOWORK=off
 go mod vendor
 # Then rebuild
-podman compose build servstore --no-cache
+podman compose build pranor-vault --no-cache
 ```
 
 ---

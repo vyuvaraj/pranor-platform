@@ -1,6 +1,6 @@
 # Building a Production API Gateway with Pranor Gate
 
-> **Published:** July 2026 | **Reading Time:** ~12 min | **Tags:** `servgate`, `api-gateway`, `rate-limiting`, `routing`
+> **Published:** July 2026 | **Reading Time:** ~12 min | **Tags:** `pranor-gate`, `api-gateway`, `rate-limiting`, `routing`
 
 ---
 
@@ -38,7 +38,7 @@ Pranor Gate :8081
 ## Step 1: Install Pranor Gate
 
 ```bash
-docker pull ghcr.io/vyuvaraj/servgate:latest
+docker pull ghcr.io/vyuvaraj/pranor-gate:latest
 ```
 
 Or download the binary from [releases](https://github.com/vyuvaraj/Pranor Gate/releases/latest).
@@ -47,7 +47,7 @@ Or download the binary from [releases](https://github.com/vyuvaraj/Pranor Gate/r
 
 ## Step 2: Create the Config File
 
-Create `servgate.yaml`:
+Create `pranor-gate.yaml`:
 
 ```yaml
 server:
@@ -118,8 +118,8 @@ auth:
   jwt:
     secret: ${JWT_SECRET}
     # Or delegate to Pranor Auth:
-    # provider: servauth
-    # endpoint: http://servauth:8086
+    # provider: pranor-auth
+    # endpoint: http://pranor-auth:8086
 
 # Global middleware
 middleware:
@@ -134,7 +134,7 @@ middleware:
 
   tracing:
     enabled: true
-    # endpoint: http://servtrace:4317   # Send to Pranor Trace
+    # endpoint: http://pranor-trace:4317   # Send to Pranor Trace
 
 # Health check endpoint
 health:
@@ -149,9 +149,9 @@ health:
 ```bash
 docker run -d \
   -p 8081:8081 \
-  -v $(pwd)/servgate.yaml:/app/servgate.yaml \
+  -v $(pwd)/pranor-gate.yaml:/app/pranor-gate.yaml \
   -e JWT_SECRET=your-secret-here \
-  ghcr.io/vyuvaraj/servgate:latest
+  ghcr.io/vyuvaraj/pranor-gate:latest
 ```
 
 Verify it's running:
@@ -236,8 +236,8 @@ If you're running Pranor Console, Pranor Gate will automatically report:
 - Rate limit hit counts
 
 ```bash
-docker run -d -p 9000:9000 ghcr.io/vyuvaraj/servconsole:latest \
-  -e SERVGATE_ENDPOINT=http://servgate:8081
+docker run -d -p 9000:9000 ghcr.io/vyuvaraj/pranor-console:latest \
+  -e PRANOR_GATE_ENDPOINT=http://pranor-gate:8081
 ```
 
 ---
@@ -257,7 +257,7 @@ docker run -d -p 9000:9000 ghcr.io/vyuvaraj/servconsole:latest \
 
 Now that traffic flows through your gateway, we need to make sure responses are fast. In the next post, we explore **Pranor Cache** and distributed caching strategies for high-traffic APIs.
 
-➡️ [Distributed Caching Made Simple with Pranor Cache](blog.html?post=04-caching-with-servcache)
+➡️ [Distributed Caching Made Simple with Pranor Cache](blog.html?post=04-caching-with-pranor-cache)
 
 ---
 

@@ -28,22 +28,22 @@ type APIIssue struct {
 
 func main() {
 	repos := []string{
-		"ServAuth",
-		"ServCache",
-		"ServCloud",
-		"ServConsole",
+		"PranorAuth",
+		"PranorCache",
+		"PranorDeploy",
+		"PranorConsole",
 		"ServDocs",
-		"ServFlow",
+		"PranorFlow",
 		"PranorGate",
-		"ServMail",
-		"ServMesh",
-		"ServPool",
+		"PranorNotify",
+		"PranorMesh",
+		"PranorPool",
 		"PranorPulse",
-		"ServRegistry",
-		"ServShared",
+		"PranorHub",
+		"PranorCore",
 		"PranorVault",
-		"ServTrace",
-		"ServTunnel",
+		"PranorTrace",
+		"PranorTunnel",
 	}
 
 	var issues []APIIssue

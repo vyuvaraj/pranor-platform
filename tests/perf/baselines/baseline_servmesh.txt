@@ -1,7 +1,7 @@
 goos: windows
 goarch: amd64
-pkg: servmesh
+pkg: pranor-mesh
 cpu: 13th Gen Intel(R) Core(TM) i7-13850HX
 BenchmarkCircuitBreakerAllow-28    	27447454	        46.52 ns/op	       0 B/op	       0 allocs/op
 PASS
-ok  	servmesh	1.469s
+ok  	pranor-mesh	1.469s

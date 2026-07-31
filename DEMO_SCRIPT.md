@@ -31,7 +31,7 @@ curl -fsSL https://raw.githubusercontent.com/vyuvaraj/pranor-repo/main/scripts/i
 irm https://raw.githubusercontent.com/vyuvaraj/pranor-repo/main/scripts/install.ps1 | iex
 ```
 
-**Show:** Binary list printed after install — `servgate`, `servstore`, `servqueue`, `servconsole`, `serv` compiler, etc.
+**Show:** Binary list printed after install — `pranor-gate`, `pranor-vault`, `pranor-pulse`, `pranor-console`, `serv` compiler, etc.
 
 > "One command, 16 services, cross-platform. No Docker required, no JVM, no Node. Pure Go binaries."
 
@@ -48,7 +48,7 @@ irm https://raw.githubusercontent.com/vyuvaraj/pranor-repo/main/scripts/install.
 service OrderAPI {
 
   store "orders" {
-    backend: "servstore://localhost:9000"
+    backend: "pranor-vault://localhost:9000"
   }
 
   cache "order-cache" {
@@ -56,7 +56,7 @@ service OrderAPI {
   }
 
   broker "events" {
-    backend: "servqueue://localhost:8082"
+    backend: "pranor-pulse://localhost:8082"
   }
 
   route POST /orders -> Order {
@@ -122,7 +122,7 @@ curl http://localhost:8080/orders/ord_001
 ```bash
 pranor deploy api.pnr --cloud localhost:7070 --name order-api
 
-servcloud status
+pranor-deploy status
 ```
 
 **Show:** Table listing `order-api -> RUNNING | 1 replica | p99: 2ms`

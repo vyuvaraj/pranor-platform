@@ -6,11 +6,11 @@
 
 | # | Item | Component | Description | Status |
 |---|------|-----------|-------------|--------|
-| SG.VE1 | **Enterprise Remote WASM Sync Engine (`serv-ee`)** | Pranor Gateway EE | Cryptographically signed remote WASM plugin download & hot-reloading behind `//go:build enterprise` | [x] |
-| SG.VE2 | **Enterprise WAF Ruleset & Threat Intelligence (`serv-ee`)** | Pranor Gateway EE | OWASP Top 10 automated threat intelligence WAF engine behind `//go:build enterprise` | [x] |
-| SG.VE3 | **Enterprise OAuth2 / OIDC Token Introspection (`serv-ee`)** | Pranor Gateway EE | Distributed OIDC token validation & caching behind `//go:build enterprise` | [x] |
-| SG.VE4 | **Enterprise Multi-Cloud Anycast Mesh Controller (`serv-ee`)** | Pranor Gateway EE | Global Anycast BGP route steering behind `//go:build enterprise` | [x] |
-| SG.VE5 | **Pranor Gateway EE Modularization Verification (`serv-ee`)** | Pranor Gateway EE | Strict build-tag isolation & enterprise package testing | [x] |
+| SG.VE1 | **Enterprise Remote WASM Sync Engine (`pranor-ee`)** | Pranor Gateway EE | Cryptographically signed remote WASM plugin download & hot-reloading behind `//go:build enterprise` | [x] |
+| SG.VE2 | **Enterprise WAF Ruleset & Threat Intelligence (`pranor-ee`)** | Pranor Gateway EE | OWASP Top 10 automated threat intelligence WAF engine behind `//go:build enterprise` | [x] |
+| SG.VE3 | **Enterprise OAuth2 / OIDC Token Introspection (`pranor-ee`)** | Pranor Gateway EE | Distributed OIDC token validation & caching behind `//go:build enterprise` | [x] |
+| SG.VE4 | **Enterprise Multi-Cloud Anycast Mesh Controller (`pranor-ee`)** | Pranor Gateway EE | Global Anycast BGP route steering behind `//go:build enterprise` | [x] |
+| SG.VE5 | **Pranor Gateway EE Modularization Verification (`pranor-ee`)** | Pranor Gateway EE | Strict build-tag isolation & enterprise package testing | [x] |
 
 ---
 

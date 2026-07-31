@@ -1,3 +1,3 @@
 #!/bin/sh
 set -e
-echo "Preparing to remove ServVerse meta-package..."
+echo "Preparing to remove Pranor meta-package..."

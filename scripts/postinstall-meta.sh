@@ -2,9 +2,9 @@
 set -e
 echo ""
 echo "=========================================================="
-echo "  ServVerse Meta-Package Installed Successfully!          "
+echo "  Pranor Meta-Package Installed Successfully!          "
 echo "=========================================================="
-echo "  The entire ServVerse developer ecosystem has been set up."
+echo "  The entire Pranor developer ecosystem has been set up."
 echo "  All 16 microservices and language runtimes are ready."
 echo ""
 echo "  Run 'pranor --version' to test the compiler."

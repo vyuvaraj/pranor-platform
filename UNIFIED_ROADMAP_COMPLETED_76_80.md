@@ -30,7 +30,7 @@
 | IT.1 | **S3 Conformance Test Suite (Mint-compatible)** | Pranor Vault | Run the open-source Mint S3 conformance suite against Pranor Vault. Publish pass rate as CI badge. Target: 90%+ pass rate. | [x] | OSS |
 | IT.2 | **Cross-Component Integration Test Harness** | pranor-repo | Automated test that starts all 15 services via `pranor up`, runs a full user journey (deploy `.pnr` app → hit API → see trace → check queue → verify cache), assert all pass. Run in CI on every push. | [x] | OSS |
 | IT.3 | **STOMP/Kafka/MQTT Protocol Conformance Tests** | Pranor Pulse | Run standard protocol test suites: Apache ActiveMQ STOMP tests, Kafka protocol decoder tests, Eclipse Paho MQTT test suite. Publish conformance percentages. | [x] | OSS |
-| IT.4 | **Load Test Baseline with Published Results** | Pranor Vault, Pranor Gate, Pranor Pulse | Run `servstore bench`, `servgate` performance tests, `servqueue benchmark` in CI. Publish baseline numbers in README badges. Detect regressions automatically. | [x] | OSS |
+| IT.4 | **Load Test Baseline with Published Results** | Pranor Vault, Pranor Gate, Pranor Pulse | Run `pranor-vault bench`, `pranor-gate` performance tests, `pranor-pulse benchmark` in CI. Publish baseline numbers in README badges. Detect regressions automatically. | [x] | OSS |
 | IT.5 | **Upgrade Path Smoke Test (v0.x → v1.0 data migration)** | All | Automated test: create data with current version, upgrade binary to next version, verify data still accessible. Catches breaking changes in storage format. | [x] | OSS |
 | IT.6 | **Chaos Engineering Regression Suite** | Pranor Console, Pranor Mesh | Inject network partitions, kill random services, verify the system recovers within SLA. Run weekly in CI. Publish mean-time-to-recovery. | [x] | OSS |
 

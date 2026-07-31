@@ -1,7 +1,7 @@
 goos: windows
 goarch: amd64
-pkg: servcron
+pkg: pranor-chrono
 cpu: 13th Gen Intel(R) Core(TM) i7-13850HX
 BenchmarkCronNextCalculation-28    	    5328	    233097 ns/op	     182 B/op	       4 allocs/op
 PASS
-ok  	servcron	2.733s
+ok  	pranor-chrono	2.733s

@@ -1,6 +1,6 @@
 # Distributed Caching Made Simple with Pranor Cache
 
-> **Published:** July 2026 | **Reading Time:** ~10 min | **Tags:** `servcache`, `caching`, `performance`, `redis-alternative`
+> **Published:** July 2026 | **Reading Time:** ~10 min | **Tags:** `pranor-cache`, `caching`, `performance`, `redis-alternative`
 
 ---
 
@@ -27,9 +27,9 @@ Caching is one of the highest-leverage performance improvements available to any
 # Standalone (single node)
 docker run -d \
   -p 8082:8082 \
-  -v servcache_data:/data \
-  --name servcache \
-  ghcr.io/vyuvaraj/servcache:latest
+  -v pranor-cache_data:/data \
+  --name pranor-cache \
+  ghcr.io/vyuvaraj/pranor-cache:latest
 ```
 
 Verify:
@@ -107,13 +107,13 @@ This is extremely useful for multi-tenant systems where you need to clear one te
 
 ## Step 4: Use with Pranor
 
-When your `serv.yaml` sets the cache driver to `servcache`, Pranor handles all cache calls transparently:
+When your `serv.yaml` sets the cache driver to `pranor-cache`, Pranor handles all cache calls transparently:
 
 ```yaml
 # serv.yaml
 cache:
-  driver: servcache
-  endpoint: http://servcache:8082
+  driver: pranor-cache
+  endpoint: http://pranor-cache:8082
   namespace: my-api       # All keys are scoped to this namespace
   default_ttl: 60s
 ```
@@ -142,31 +142,31 @@ For production, run 3 nodes. Pranor Cache uses Raft consensus for leader electio
 # docker-compose.yml
 version: "3.9"
 services:
-  servcache-1:
-    image: ghcr.io/vyuvaraj/servcache:latest
+  pranor-cache-1:
+    image: ghcr.io/vyuvaraj/pranor-cache:latest
     environment:
       NODE_ID: "node-1"
-      CLUSTER_PEERS: "servcache-2:8082,servcache-3:8082"
+      CLUSTER_PEERS: "pranor-cache-2:8082,pranor-cache-3:8082"
       DATA_DIR: /data
     volumes:
       - cache1_data:/data
     ports:
       - "8082:8082"
 
-  servcache-2:
-    image: ghcr.io/vyuvaraj/servcache:latest
+  pranor-cache-2:
+    image: ghcr.io/vyuvaraj/pranor-cache:latest
     environment:
       NODE_ID: "node-2"
-      CLUSTER_PEERS: "servcache-1:8082,servcache-3:8082"
+      CLUSTER_PEERS: "pranor-cache-1:8082,pranor-cache-3:8082"
       DATA_DIR: /data
     volumes:
       - cache2_data:/data
 
-  servcache-3:
-    image: ghcr.io/vyuvaraj/servcache:latest
+  pranor-cache-3:
+    image: ghcr.io/vyuvaraj/pranor-cache:latest
     environment:
       NODE_ID: "node-3"
-      CLUSTER_PEERS: "servcache-1:8082,servcache-2:8082"
+      CLUSTER_PEERS: "pranor-cache-1:8082,pranor-cache-2:8082"
       DATA_DIR: /data
     volumes:
       - cache3_data:/data
@@ -255,7 +255,7 @@ In benchmarks on a t3.medium (2 vCPU, 4 GB RAM):
 
 Caching helps with read performance. But for async workflows and service decoupling, you need a message queue. In the next post, we build an event-driven microservice architecture with **Pranor Pulse**.
 
-➡️ [Event-Driven Microservices with Pranor Pulse](blog.html?post=05-event-driven-servqueue)
+➡️ [Event-Driven Microservices with Pranor Pulse](blog.html?post=05-event-driven-pranor-pulse)
 
 ---
 

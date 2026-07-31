@@ -706,7 +706,7 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | 21 | servlockctl | **pranor lock** (subcommand) | CLI for distributed locks |
 | 22 | servsecretctl | **pranor secret** (subcommand) | CLI for secret injection |
 | 23 | Pranor (ecosystem) | **Pranor** | No "verse" suffix needed |
-| 24 | serv-ee | **pranor-ee** | Enterprise Edition |
+| 24 | pranor-ee | **pranor-ee** | Enterprise Edition |
 
 ---
 
@@ -762,7 +762,7 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | E.5 | **Rename PRANOR_REGISTRY** | Pranor Hub | → `PRANOR_REGISTRY` | [ ] |
 | E.6 | **Rename PRANOR_MESH_ADDR** | Pranor Mesh | → `PRANOR_MESH_ADDR` | [ ] |
 | E.7 | **Rename PRANOR_MUTUAL_TLS** | Pranor Mesh | → `PRANOR_MUTUAL_TLS` | [ ] |
-| E.8 | **Rename SERVVERSE_DISCOVERY** | Pranor Mesh | → `PRANOR_DISCOVERY` | [ ] |
+| E.8 | **Rename PRANOR_DISCOVERY** | Pranor Mesh | → `PRANOR_DISCOVERY` | [ ] |
 | E.9 | **Backward compat: fallback** | All components | Read old `PRANOR_*` vars as fallback with deprecation log for 6 months | [ ] |
 | E.10 | **Update docker-compose.yml** | pranor-repo | All env vars, service names, network names | [ ] |
 | E.11 | **Update all config file references** | configs/ | YAML/JSON config files referencing old env vars or service names | [ ] |
@@ -775,7 +775,7 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| D.1 | **Rename Docker service names** | docker-compose.yml | `servgate` → `pranor-gate`, `servstore` → `pranor-store`, etc. (14+ services) | [ ] |
+| D.1 | **Rename Docker service names** | docker-compose.yml | `pranor-gate` → `pranor-gate`, `pranor-vault` → `pranor-store`, etc. (14+ services) | [ ] |
 | D.2 | **Rename Docker network** | docker-compose.yml | `pranor-net` → `pranor-net` | [ ] |
 | D.3 | **Rename Docker image tags** | CI/CD, Dockerfiles | All image references from `serv*` to `pranor-*` | [ ] |
 | D.4 | **Update Kubernetes manifests** | Pranor Deploy, configs/ | Deployment names, service names, ConfigMap keys | [ ] |
@@ -804,9 +804,9 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| PK.1 | **Rename Homebrew tap repo** | homebrew-serv-repo | → `homebrew-pranor` | [ ] |
+| PK.1 | **Rename Homebrew tap repo** | homebrew-pranor-repo | → `homebrew-pranor` | [ ] |
 | PK.2 | **Update Homebrew formula** | Formula/serv.rb | Class name `Serv` → `Pranor`, binary names, URLs, `PRANOR_HOME` → `PRANOR_HOME` | [ ] |
-| PK.3 | **Rename Scoop bucket repo** | scoop-serv | → `scoop-pranor` | [ ] |
+| PK.3 | **Rename Scoop bucket repo** | scoop-pranor | → `scoop-pranor` | [ ] |
 | PK.4 | **Update Scoop manifest** | bucket/serv.json | → `pranor.json`, binary names, URLs, env vars | [ ] |
 | PK.5 | **Update release artifact names** | CI/CD, GoReleaser | `serv-darwin-arm64.tar.gz` → `pranor-darwin-arm64.tar.gz` (all platforms) | [ ] |
 | PK.6 | **Update GoReleaser config** | `.goreleaser-meta.yml` | Binary names, archive names, project name | [ ] |
@@ -849,7 +849,7 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 |---|------|-------|-------------|--------|
 | GH.1 | **Rename GitHub repo** | github.com/vyuvaraj/pranor | → `github.com/vyuvaraj/pranor` (GitHub auto-redirects old URLs) | [ ] |
 | GH.2 | **Rename pranor-repo** | github.com/vyuvaraj/pranor-repo | → `github.com/vyuvaraj/pranor-platform` or similar | [ ] |
-| GH.3 | **Rename serv-ee repo** | github.com/vyuvaraj/pranor-ee | → `github.com/vyuvaraj/pranor-ee` | [ ] |
+| GH.3 | **Rename pranor-ee repo** | github.com/vyuvaraj/pranor-ee | → `github.com/vyuvaraj/pranor-ee` | [ ] |
 | GH.4 | **Update GitHub Actions workflows** | .github/workflows/ | All references to old binary names, paths, repo names | [ ] |
 | GH.5 | **Update issue templates** | .github/ | References to old component names | [ ] |
 | GH.6 | **Update GitHub Pages config** | pranor-repo | Domain, CNAME, site references | [ ] |
@@ -878,7 +878,7 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
-| EE.1 | **Rename EE repository** | serv-ee | → `pranor-ee` | [ ] |
+| EE.1 | **Rename EE repository** | pranor-ee | → `pranor-ee` | [ ] |
 | EE.2 | **Update all EE go.mod** | EE packages | Module paths from serv → pranor | [ ] |
 | EE.3 | **Update EE import statements** | All EE .go files | References to OSS packages | [ ] |
 | EE.4 | **Update EE build tags** | EE gating | Any `//go:build serv_ee` → `//go:build pranor_ee` (if used) | [ ] |

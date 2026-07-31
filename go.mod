@@ -1,9 +1,9 @@
-module servverse
+module pranor
 
 go 1.26.4
 
 require (
-	github.com/vyuvaraj/ServShared v1.0.1
+	github.com/vyuvaraj/PranorCore v1.0.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 

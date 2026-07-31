@@ -5,7 +5,7 @@
 set -e
 
 REPO="vyuvaraj/pranor"
-INSTALL_DIR="${SERVVERSE_HOME:-$HOME/.pranor}"
+INSTALL_DIR="${PRANOR_HOME:-$HOME/.pranor}"
 BIN_DIR="$INSTALL_DIR/bin"
 VERSION="${1:-latest}"
 

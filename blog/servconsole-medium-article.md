@@ -87,12 +87,12 @@ Pranor Console turns observability into action. Instead of editing YAML files, t
 
 ---
 
-## Zero-Config Wiring: `SERVVERSE_DISCOVERY`
+## Zero-Config Wiring: `PRANOR_DISCOVERY`
 
-Running several microservices means keeping track of various host addresses. Pranor Console simplifies this with a unified discovery scheme. Set the `SERVVERSE_DISCOVERY` environment variable to a JSON config block (or local config path), and the console discovers and wires all services automatically:
+Running several microservices means keeping track of various host addresses. Pranor Console simplifies this with a unified discovery scheme. Set the `PRANOR_DISCOVERY` environment variable to a JSON config block (or local config path), and the console discovers and wires all services automatically:
 
 ```bash
-export SERVVERSE_DISCOVERY='{
+export PRANOR_DISCOVERY='{
   "gate":          "http://localhost:8080",
   "store":         "http://localhost:8081",
   "queue":         "http://localhost:8082",
@@ -127,7 +127,7 @@ Ensure Go 1.21+ is installed, then build the binary:
 ```bash
 git clone https://github.com/vyuvaraj/Pranor Console.git
 cd Pranor Console
-go build -o servconsole.exe main.go
+go build -o pranor-console.exe main.go
 ```
 
 ### 2. Launch with Downstream Services

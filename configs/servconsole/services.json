@@ -1,5 +1,5 @@
 {
-  "_comment": "ServVerse service discovery manifest. Edit this file with your actual service endpoints.",
+  "_comment": "Pranor service discovery manifest. Edit this file with your actual service endpoints.",
 
   "gate":          "http://localhost:8080",
   "store":         "http://localhost:8081",
@@ -10,5 +10,5 @@
   "jwt_secret":    "change-me-in-production",
   "otlp_endpoint": "http://localhost:4318",
 
-  "gate_config":   "conf/servgate/config.json"
+  "gate_config":   "conf/pranor-gate/config.json"
 }

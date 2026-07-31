@@ -17,7 +17,7 @@ This document preserves the archived history of completed items for Phase 26 and
 - **CD.9: Time-travel queries with temporal API � `GET /bucket/key?at=2026-07-01T14:00:00Z` returns exact state at that moment** — S3 versioning requires listing all versions manually. [July 17, 2026]
 - **CD.10: Inline WASM transforms in the message path � Filter, enrich, route messages inside the broker without external processors** — No broker runs arbitrary user code in the message pipeline. [July 17, 2026]
 - **CD.11: Single binary: STOMP + HTTP + WASM + WAL + Raft � One file, zero dependencies. Kafka = JVM + ZooKeeper. RabbitMQ = Erlang** — Unmatched operational simplicity. [July 17, 2026]
-- **CD.12: Language-native protocol � `broker "servqueue://host"` in Serv compiles to zero-config STOMP client with auto-auth and tracing** — Every other broker needs SDK import + manual configuration. [July 17, 2026]
+- **CD.12: Language-native protocol � `broker "pranor-pulse://host"` in Serv compiles to zero-config STOMP client with auto-auth and tracing** — Every other broker needs SDK import + manual configuration. [July 17, 2026]
 - **CD.13: Ecosystem-native zero-config observability � All Serv services auto-report metrics. No exporters, no scrape configs, no dashboard imports** — Grafana needs Prometheus + exporters + dashboards configured per service. [July 17, 2026]
 - **CD.14: Bidirectional control plane � Not just observe: create buckets, deploy services, hot-swap middleware, execute runbooks FROM the dashboard** — Grafana/Datadog are read-only. Pranor Console is an operations plane. [July 17, 2026]
 - **CD.15: AI-powered incident correlation � Alert fires ? auto-correlates deploys, config changes, upstream failures ? generates hypothesis** — Datadog has this but at enterprise pricing. Pranor Console is self-hosted. [July 17, 2026]
@@ -100,7 +100,7 @@ This document preserves the archived history of completed items for Phase 26 and
 - **CD.69: Compiler-guaranteed unlock  `lock("x") { ... }` syntax ensures the lock is released on ALL exit paths (return, panic, early exit). Impossible to forget** — Redis locks require explicit defer/finally. Pranor Lock is structural. [July 17, 2026]
 - **CD.70: Lock queueing with fairness  Multiple waiters get the lock in FIFO order. No starvation** — Redis SETNX has no queue. Whoever retries fastest wins (unfair). [July 17, 2026]
 - **CD.72: Unified install script � One curl/irm command installs every component. Cross-platform (Windows, macOS, Linux)** — Competitors install one tool at a time. Pranor installs the entire ecosystem. [July 17, 2026]
-- **CD.73: SERVVERSE_DISCOVERY protocol � Single JSON manifest tells all services where to find each other. Change one file, all services update** — No competitor has a unified service discovery manifest format. [July 17, 2026]
+- **CD.73: PRANOR_DISCOVERY protocol � Single JSON manifest tells all services where to find each other. Change one file, all services update** — No competitor has a unified service discovery manifest format. [July 17, 2026]
 - **CD.75: Consistent error format ecosystem-wide ? Every service returns `{"error":"msg","code":"ERR_X","trace_id":"..."}`. One error handler for any Serv service** — No platform enforces error format consistency across all components. [July 17, 2026]
 - **CD.75: Consistent error format ecosystem-wide � Every service returns `{"error":"msg","code":"ERR_X","trace_id":"..."}`. One error handler for any Serv service** — No platform enforces error format consistency across all components. [July 17, 2026]
 - **CD.76: Type-safe inter-service contracts  When Service A calls `serv://B/users`, compiler verifies A's expected response type matches B's declared return type. Compile error on mismatch** (Pranor) — gRPC has this. REST doesn't. First REST language to do this wins. [July 17, 2026]
@@ -166,7 +166,7 @@ This document preserves the archived history of completed items for Phase 26 and
 - **V1.8: UPGRADING.md** — Migration guide template: how to upgrade between major versions, what might break, deprecation timeline. [July 17, 2026]
 - **V1.10: CHANGELOG.md standardization** — Every component gets a Keep-a-Changelog format CHANGELOG. Required for v1.0 credibility. [July 17, 2026]
 - **V1.11: v1.0.0 release notes draft** — Comprehensive release announcement covering all 19 components, key features, migration notes. [July 17, 2026]
-- **V1.12: Docker Hub / GHCR images** — Publish official container images for all services (`ghcr.io/vyuvaraj/servstore:1.0.0`). [July 17, 2026]
+- **V1.12: Docker Hub / GHCR images** — Publish official container images for all services (`ghcr.io/vyuvaraj/pranor-vault:1.0.0`). [July 17, 2026]
 - **V1.14: VS Code extension published** — Publish LSP extension to marketplace before v1.0 tag. Signals production readiness. [July 17, 2026]
 - **V1.15: VS Code extension enhancements** — Implement robust cross-platform shell terminal escaping, regex-based CodeLens detection, diagnostics cleanup on file close, and colocated LSP path autodetect. [July 17, 2026]
 
@@ -179,7 +179,7 @@ Move beyond GitHub zip downloads to proper OS-native installers across Windows, 
 | Channel | Status | Notes |
 |---|---|---|
 | GitHub Release zips | ✅ Live | All 16 services, via GoReleaser |
-| Homebrew tap | ✅ Live | `brew install vyuvaraj/serv/<service>` |
+| Homebrew tap | ✅ Live | `brew install vyuvaraj/pranor/<service>` |
 | Scoop bucket | ✅ Live | `scoop install <service>` |
 | Docker / GHCR | ✅ Live | `ghcr.io/vyuvaraj/<service>:latest` |
 | `.deb` / `.rpm` packages | ✅ Live | Generated via GoReleaser + nfpm |
@@ -191,14 +191,14 @@ Move beyond GitHub zip downloads to proper OS-native installers across Windows, 
 
 - **PKG.1: Add `nfpms` block to all 17 GoReleaser configs** — Generates `.deb` (Ubuntu/Debian/Mint) and `.rpm` (RHEL/Fedora/Rocky) packages in every GitHub Release automatically. Handles `/usr/local/bin` placement, package metadata, and checksums. [July 17, 2026]
 - **PKG.2: Per-service postinstall scripts** — `postinstall.sh` prints quick-start instructions; `preremove.sh` stops any running service instance before uninstall. [July 17, 2026]
-- **PKG.3: Unified ServVerse `.deb` / `.rpm` meta-package** — A single `pranor` meta-package that declares all 16 services as dependencies, so `apt install pranor` installs the full stack. [July 17, 2026]
+- **PKG.3: Unified Pranor `.deb` / `.rpm` meta-package** — A single `pranor` meta-package that declares all 16 services as dependencies, so `apt install pranor` installs the full stack. [July 17, 2026]
 
 ### Phase 2 - Windows Unified Installer (Inno Setup)
 
-- **PKG.4: Inno Setup script for `ServVerse-x.x.x-windows-setup.exe`** — Single installer with component picker. User selects which services to install. Handles PATH addition, Start Menu shortcuts, and Add/Remove Programs uninstall entry. [July 17, 2026]
+- **PKG.4: Inno Setup script for `Pranor-x.x.x-windows-setup.exe`** — Single installer with component picker. User selects which services to install. Handles PATH addition, Start Menu shortcuts, and Add/Remove Programs uninstall entry. [July 17, 2026]
 - **PKG.5: GitHub Actions workflow for Windows installer build** — Automates Inno Setup build on each release tag using `crazy-max/ghaction-setup-inno`. Uploads the `.exe` as a release asset. [July 17, 2026]
 - **PKG.6: Chocolatey package** — Submit `pranor.nuspec` to Chocolatey Community Repository for `choco install pranor`. [July 17, 2026]
-- **PKG.7: winget manifest** — Submit manifest to `microsoft/winget-pkgs` for `winget install Yuvaraj.ServVerse`. [July 17, 2026]
+- **PKG.7: winget manifest** — Submit manifest to `microsoft/winget-pkgs` for `winget install Yuvaraj.Pranor`. [July 17, 2026]
 
 ### Phase 3 - macOS Packaging (Signed & Notarized)
 

@@ -24,7 +24,7 @@ Pranor Notify is a multi-channel notification provider supporting SMTP email, Sl
 | `PORT` | HTTP listen port | `8094` |
 | `SERVMAIL_SMTP_HOST` | SMTP server host | (required for email) |
 | `SERVMAIL_SLACK_WEBHOOK` | Slack webhook URL | (required for Slack) |
-| `SERVSTORE_URL` | Pranor Vault URL for template storage | (optional) |
+| `PRANOR_VAULT_URL` | Pranor Vault URL for template storage | (optional) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints

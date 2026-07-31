@@ -36,15 +36,15 @@ This document preserves the archived history of completed items for Phases 11 th
 
 ### 🔗 Integration Depth
 - **Pranor Console topology auto-discovery (INT.1)** — Parse OTel trace spans to auto-build service dependency graph.
-- **Pranor → Pranor Auth native keyword (INT.2)** — Support `servauth://` connection string with native APIs.
+- **Pranor → Pranor Auth native keyword (INT.2)** — Support `pranor-auth://` connection string with native APIs.
 - **Pranor → Pranor Pool proxy keyword (INT.3)** — `database "Pranor Pool://"` routes through Pranor Pool pooler.
-- **Pranor → Pranor Notify notify keyword (INT.4)** — Support `notify "servmail://"` with `notify.send()` API.
+- **Pranor → Pranor Notify notify keyword (INT.4)** — Support `notify "pranor-notify://"` with `notify.send()` API.
 - **Pranor Pulse stream processing DSL (INT.5)** — `stream "orders" |> filter(...) |> window(5m) |> count()`.
 - **Pranor Chrono → Pranor Pulse job chaining (INT.6)** — Trigger next job by publishing to topic on completion.
 
 ### 🛠️ Developer Experience
 - **`serv cache inspect` CLI (DX.S1)** — Show per-namespace key counts, hit/miss ratios, top hot keys.
-- **`servqueue tail` CLI (DX.S2)** — Stream live topic messages with JSON pretty-print and regex filter.
+- **`pranor-pulse tail` CLI (DX.S2)** — Stream live topic messages with JSON pretty-print and regex filter.
 - **`serv trace search` CLI (DX.S3)** — Search traces with JSON or ASCII waterfall outputs.
 - **`serv tunnel inspect` CLI (DX.S4)** — Expose active tunnels, throughput, recent request logs.
 - **`serv cron list` CLI (DX.S5)** — List job details, consecutive failure count, next 5 projected runs.
@@ -166,7 +166,7 @@ This document preserves the archived history of completed items for Phases 11 th
 ## Phase 14: AI-Native Ecosystem Deepening (Completed Items)
 
 ### Pranor (Compiler + Runtime)
-- **RAG pipeline keyword (AI.10)** — `rag "servstore://docs" { embed: "openai", chunk: 512 }` declares retrieval-augmented generation as infrastructure. Auto-index on write, inject context on `ai.chat()`.
+- **RAG pipeline keyword (AI.10)** — `rag "pranor-vault://docs" { embed: "openai", chunk: 512 }` declares retrieval-augmented generation as infrastructure. Auto-index on write, inject context on `ai.chat()`.
 - **Structured output (JSON mode) (AI.11)** — `ai.complete(prompt, schema: UserSchema)` forces LLM responses to conform to a Serv struct. Compiler validates schema at build time.
 - **Streaming responses (AI.12)** — `ai.stream(prompt, fn(chunk) { conn.send(chunk) })` for server-sent event streaming. Currently `ai.chat()` blocks until complete.
 - **Prompt template library (AI.13)** — `import "stdlib/prompts"` with variable injection, versioning, and A/B testing hooks.

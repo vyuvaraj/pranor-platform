@@ -1,6 +1,6 @@
 # Pranor Vault v2: Evolving Our S3 Storage Engine into a Standalone, Local-First P2P Analytical Store
 
-*From a single-binary storage box to a multi-modal object store featuring standalone daemons (`servstored`), client-side browser OPFS dual-sync (`@pranor/store-wasm`), streaming S3 Select & embedded DuckDB SQL analytics, Copy-on-Write bucket branching, and WebTorrent P2P asset seeding.*
+*From a single-binary storage box to a multi-modal object store featuring standalone daemons (`pranor-vaultd`), client-side browser OPFS dual-sync (`@pranor/store-wasm`), streaming S3 Select & embedded DuckDB SQL analytics, Copy-on-Write bucket branching, and WebTorrent P2P asset seeding.*
 
 ---
 
@@ -27,11 +27,11 @@ Here is how we solved these challenges in **Pranor Vault v2** within the unified
 
 We merged standalone components into the unified **Serv monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Vault`). As part of this evolution, we strictly separated server runtime logic from administrative tooling:
 
-* **`servstored` (Server Daemon)**: Zero-dependency background service process. It hosts standard S3 REST API listeners on port `:9000`, an embedded Web Storage Console UI on port `:9001` (`http://localhost:9001/ui/`), and Prometheus telemetry metrics (`/metrics`).
-* **`servstore` (Client CLI)**: High-performance administrative binary for operators and automated scripts (`servstore status`, `servstore ls`, `servstore mb`, `servstore branch`).
+* **`pranor-vaultd` (Server Daemon)**: Zero-dependency background service process. It hosts standard S3 REST API listeners on port `:9000`, an embedded Web Storage Console UI on port `:9001` (`http://localhost:9001/ui/`), and Prometheus telemetry metrics (`/metrics`).
+* **`pranor-vault` (Client CLI)**: High-performance administrative binary for operators and automated scripts (`pranor-vault status`, `pranor-vault ls`, `pranor-vault mb`, `pranor-vault branch`).
 
 ```
-                              servstored DAEMON                               
+                              pranor-vaultd DAEMON                               
                               ─────────────────                               
                               ┌──────────────────────────┐                    
                               │ S3 REST API (:9000)      │ ◄─── AWS S3 SDKs / CLI
@@ -61,7 +61,7 @@ In Pranor Vault v2, `@pranor/store-wasm` brings origin-private filesystem (**OPF
 ### How It Works:
 1. When a user creates or modifies a file in a web application, it is written **instantly at native NVMe disk speed** into the browser's local OPFS storage using synchronous file handles (`FileSystemSyncAccessHandle`).
 2. The user experience is **0ms zero-latency**—the UI updates immediately without waiting for server network ACK packets.
-3. In the background, `@pranor/store-wasm` streams chunked S3 multipart uploads to `servstored` with automatic pause, retry, and resume resilience.
+3. In the background, `@pranor/store-wasm` streams chunked S3 multipart uploads to `pranor-vaultd` with automatic pause, retry, and resume resilience.
 
 ```typescript
 import { Pranor VaultBrowserClient } from '@pranor/store-wasm';
@@ -71,7 +71,7 @@ const client = new Pranor VaultBrowserClient({
   bucket: 'user-workspace'
 });
 
-// Saves instantly to local OPFS (0ms) and streams to servstored in background
+// Saves instantly to local OPFS (0ms) and streams to pranor-vaultd in background
 await client.putObject('report.pdf', fileBuffer);
 ```
 
@@ -81,7 +81,7 @@ await client.putObject('report.pdf', fileBuffer);
 
 Traditional S3 object stores return raw byte streams. To filter data, you must pull entire files across the network into external query engines.
 
-Pranor Vault v2 integrates a **Streaming S3 Select SQL Query Engine** and **Embedded DuckDB Parquet Reader** directly into `servstored`.
+Pranor Vault v2 integrates a **Streaming S3 Select SQL Query Engine** and **Embedded DuckDB Parquet Reader** directly into `pranor-vaultd`.
 
 ### Querying Data at Rest:
 You can execute SQL queries directly over HTTP GET requests:
@@ -92,11 +92,11 @@ curl -X GET "http://localhost:9000/api/v1/analytics/query?sql=SELECT+*+FROM+'s3:
 
 ### Key Advantages:
 * **Zero-ETL Overhead**: Query JSON, CSV, and Parquet data directly where it sits on NVMe storage.
-* **Network Bandwidth Savings**: `servstored` filters data at rest and returns only matching result rows, cutting egress bandwidth by **up to 99%**.
+* **Network Bandwidth Savings**: `pranor-vaultd` filters data at rest and returns only matching result rows, cutting egress bandwidth by **up to 99%**.
 
 ---
 
-## 4. Instant Copy-on-Write (CoW) Bucket Branching (`servstore branch`)
+## 4. Instant Copy-on-Write (CoW) Bucket Branching (`pranor-vault branch`)
 
 Cloning a multi-terabyte data bucket for testing or staging traditionally requires running background copy scripts that take hours and double storage costs.
 
@@ -104,13 +104,13 @@ Pranor Vault v2 introduces Git-style zero-byte branching for S3 buckets:
 
 ```bash
 # Create an instant isolated branch clone of 'prod-data'
-servstore branch create prod-data dev-test-branch
+pranor-vault branch create prod-data dev-test-branch
 
 # List active bucket branches
-servstore branch ls prod-data
+pranor-vault branch ls prod-data
 
 # Merge modifications from branch overlay back to parent
-servstore branch merge prod-data dev-test-branch
+pranor-vault branch merge prod-data dev-test-branch
 ```
 
 ### Technical Implementation:
@@ -150,11 +150,11 @@ git clone https://github.com/vyuvaraj/pranor.git
 cd serv/packages/Pranor Vault
 
 # Build and start the daemon (Web UI at http://localhost:9001/ui/)
-go build -o servstored ./cmd/servstored
+go build -o pranor-vaultd ./cmd/pranor-vaultd
 ./pranorstored --port 9000 --admin-port 9001
 
 # In another terminal, use the CLI
-go build -o servstore ./cmd/servstore
+go build -o pranor-vault ./cmd/pranor-vault
 ./pranorstore status
 ./pranorstore mb analytics-bucket
 ./pranorstore branch create analytics-bucket feature-testing

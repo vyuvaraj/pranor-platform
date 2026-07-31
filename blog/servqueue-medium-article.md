@@ -27,8 +27,8 @@ Here is how we addressed these challenges in **Pranor Pulse v2** and migrated to
 
 We merged standalone services into the unified **Serv monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Pulse`). As part of this migration, we strictly separated server runtime logic from client administration tooling:
 
-* **`servqueued` (Server Daemon)**: Zero-dependency background service process. It hosts dedicated listeners for STOMP (`:61613`), MQTT v5.0 (`:1883`), Kafka (`:9092`), HTTP REST (`:8082`), Prometheus metrics (`/metrics`), and an embedded Web Admin UI (`http://localhost:8082/ui/`) served via Go `embed`.
-* **`servqueue` (Client CLI)**: Fast-booting administrative binary for operators and scripts (`status`, `topics`, `publish`, `consume`, `tail`, `seek`).
+* **`pranor-pulsed` (Server Daemon)**: Zero-dependency background service process. It hosts dedicated listeners for STOMP (`:61613`), MQTT v5.0 (`:1883`), Kafka (`:9092`), HTTP REST (`:8082`), Prometheus metrics (`/metrics`), and an embedded Web Admin UI (`http://localhost:8082/ui/`) served via Go `embed`.
+* **`pranor-pulse` (Client CLI)**: Fast-booting administrative binary for operators and scripts (`status`, `topics`, `publish`, `consume`, `tail`, `seek`).
 
 ---
 
@@ -36,10 +36,10 @@ We merged standalone services into the unified **Serv monorepo** (`github.com/vy
 
 A common point of confusion with multi-protocol brokers is whether all clients connect to the same port. 
 
-In `servqueued`, **each protocol listens on its standard dedicated TCP port**, but all protocol handlers funnel into the **same underlying core message broker engine**. This enables seamless **Cross-Protocol Fan-Out**: an IoT sensor publishing via MQTT on port `1883` can be read by a STOMP subscriber on port `61613`, a Kafka client on port `9092`, or inspected via the HTTP Web UI on port `8082`.
+In `pranor-pulsed`, **each protocol listens on its standard dedicated TCP port**, but all protocol handlers funnel into the **same underlying core message broker engine**. This enables seamless **Cross-Protocol Fan-Out**: an IoT sensor publishing via MQTT on port `1883` can be read by a STOMP subscriber on port `61613`, a Kafka client on port `9092`, or inspected via the HTTP Web UI on port `8082`.
 
 ```
-PRODUCER CLIENTS                                servqueued DAEMON                                CONSUMER CLIENTS
+PRODUCER CLIENTS                                pranor-pulsed DAEMON                                CONSUMER CLIENTS
 ────────────────                               ─────────────────                                ────────────────
 [ STOMP Client ]   ─── tcp://localhost:61613 ──► ┌──────────────────────────┐ ─── tcp://localhost:61613 ──► [ STOMP Subscriber ]
                                                  │ STOMP Server (:61613)   │
@@ -78,10 +78,10 @@ Pranor Pulse v2 introduces timestamp-based stream seeking (`seekToTime`). The lo
 
 ```bash
 # Seek consumer offset to 15 minutes ago
-servqueue seek orders.events 15m
+pranor-pulse seek orders.events 15m
 
 # Seek to an explicit ISO-8601 timestamp
-servqueue seek orders.events 2026-07-26T05:00:00Z
+pranor-pulse seek orders.events 2026-07-26T05:00:00Z
 ```
 
 The server returns the exact target offset and timestamp, allowing consumers to resume processing safely.
@@ -99,7 +99,7 @@ When nodes in `us-east-1` and `eu-west-1` operate concurrently, the mirror engin
 Beyond server-side streaming, Pranor Pulse extends event brokerage directly into the browser for local-first and offline-first Progressive Web Apps (PWAs):
 
 * **Embedded Web Worker Storage**: Powered by `@pranor/queue-wasm`, Pranor Pulse runs an embedded event log inside browser Web Workers leveraging the Origin Private File System (`FileSystemSyncAccessHandle`) for high-throughput local disk storage.
-* **Offline Outbox & Reconnect Relay**: When a browser client loses network connectivity, published events are stored locally in the OPFS WAL. Upon network reconnection, an outbox relay automatically streams unacknowledged event ranges in exact sequence to the remote `servqueued` cluster.
+* **Offline Outbox & Reconnect Relay**: When a browser client loses network connectivity, published events are stored locally in the OPFS WAL. Upon network reconnection, an outbox relay automatically streams unacknowledged event ranges in exact sequence to the remote `pranor-pulsed` cluster.
 
 🔗 **Interactive Live Demo**: Test local-first browser queueing and outbox replay live in your browser: [Launch Pranor Pulse OPFS Interactive Demo](https://vyuvaraj.github.io/pranor/playground/opfs_demo.html).
 
@@ -122,7 +122,7 @@ Pranor Pulse v2 provides official client packages under `packages/Pranor Pulse/s
 
 * **Go**: `import "github.com/vyuvaraj/pranor/packages/Pranor Pulse/sdks/go"`
 * **TypeScript / Node.js**: `const { Pranor PulseClient } = require('@pranor/queue-sdk');`
-* **Python**: `from servqueue import Pranor PulseClient`
+* **Python**: `from pranor-pulse import Pranor PulseClient`
 * **Browser WASM**: `@pranor/queue-wasm` for embedded Web Worker event streaming using OPFS (`FileSystemSyncAccessHandle`).
 
 ### Zero-Lock-In: Any Standard STOMP Client Works Out-of-the-Box
@@ -143,7 +143,7 @@ A frequent question from developers evaluating the **Pranor Platform** (`github.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                                    SERVVERSE PLATFORM ECOSYSTEM                                  │
+│                                    PRANOR PLATFORM ECOSYSTEM                                  │
 ├──────────────────────────────┬───────────────────────────────────┬───────────────────────────────┤
 │    ⚡ Pranor Pulse (Messaging)   │     📦 Pranor Vault (Storage)        │    🌐 Pranor Gateway (Edge AI)   │
 ├──────────────────────────────┼───────────────────────────────────┼───────────────────────────────┤
@@ -158,10 +158,10 @@ A frequent question from developers evaluating the **Pranor Platform** (`github.
 
 1. **Client-Side OPFS Browser Dual-Sync (`@pranor/store-wasm`)**:
    - *The Problem with MinIO / S3*: Traditional object stores require continuous network connection for direct uploads. Poor mobile connectivity drops uploads and blocks the UI.
-   - *The Pranor Vault Solution*: `@pranor/store-wasm` leverages origin-private filesystem (**OPFS**) inside browser Web Workers. Web apps save gigabytes of media/files **instantly at native NVMe disk speed** into browser OPFS. In the background, Pranor Vault streams chunked S3 multipart uploads to `servstored` with zero UI freezing and automatic retry on reconnect.
+   - *The Pranor Vault Solution*: `@pranor/store-wasm` leverages origin-private filesystem (**OPFS**) inside browser Web Workers. Web apps save gigabytes of media/files **instantly at native NVMe disk speed** into browser OPFS. In the background, Pranor Vault streams chunked S3 multipart uploads to `pranor-vaultd` with zero UI freezing and automatic retry on reconnect.
 2. **Inline Parquet & DuckDB Zero-ETL Analytics**:
    - *The Problem with MinIO / S3*: Traditional storage engines are "dumb byte stores" requiring external, expensive query clusters (AWS Athena, Snowflake, Trino).
-   - *The Pranor Vault Solution*: `servstored` embeds an analytical SQL engine directly inside the storage process. Execute ANSI SQL (`SELECT * FROM 's3://bucket/data.parquet' WHERE status = 500`) directly via HTTP. Pranor Vault filters data at rest, returning only requested result rows and cutting network egress by **up to 99%**.
+   - *The Pranor Vault Solution*: `pranor-vaultd` embeds an analytical SQL engine directly inside the storage process. Execute ANSI SQL (`SELECT * FROM 's3://bucket/data.parquet' WHERE status = 500`) directly via HTTP. Pranor Vault filters data at rest, returning only requested result rows and cutting network egress by **up to 99%**.
 3. **Hybrid Reed-Solomon Erasure Coding**:
    - *The Problem with Traditional Storage*: Forced 3x replication (200% storage cost overhead).
    - *The Pranor Vault Solution*: Configurable $K+M$ erasure coding (e.g., $4+2$ parity = 50% storage overhead for 11 9s of durability).
@@ -172,7 +172,7 @@ A frequent question from developers evaluating the **Pranor Platform** (`github.
 
 1. **Universal WASM Edge Filter Engine (Server & Browser Service Worker)**:
    - *The Problem with Kong / Envoy*: Kong relies on Lua (single-threaded CPU bottleneck), while Envoy WASM has high IPC overhead. Neither can run inside a user's web browser.
-   - *The Pranor Gateway Solution*: Compiled WebAssembly filters execute in-process with sub-10 microsecond latency. The **exact same WASM filter rules** running in `servgatewayd` on the server can also run inside the browser as a Service Worker (`@pranor/gateway-wasm`), delivering offline-first edge mock APIs and zero-latency client-side request validation.
+   - *The Pranor Gateway Solution*: Compiled WebAssembly filters execute in-process with sub-10 microsecond latency. The **exact same WASM filter rules** running in `pranor-gatewayd` on the server can also run inside the browser as a Service Worker (`@pranor/gateway-wasm`), delivering offline-first edge mock APIs and zero-latency client-side request validation.
 2. **Native Edge AI Proxy, Semantic Prompt Caching & Token Throttling**:
    - *The Problem with Generic Gateways*: Traditional gateways only count HTTP requests (RPM), ignoring actual LLM token consumption.
    - *The Pranor Gateway Solution*: Parses OpenAI, Anthropic, and Ollama streams natively:
@@ -181,7 +181,7 @@ A frequent question from developers evaluating the **Pranor Platform** (`github.
      - **Automatic PII Redaction**: Strips sensitive data (SSNs, credit cards, keys) before prompts leave the edge.
 3. **Kernel-Level eBPF XDP DDoS Bypass (<5µs Latency)**:
    - *The Problem with User-Space Gateways*: Traditional gateways inspect malicious traffic after the TCP handshake, remaining vulnerable to SYN floods.
-   - *The Pranor Gateway Solution*: `servgatewayd` attaches eBPF XDP programs directly to the NIC driver layer, dropping SYN floods and malicious IP ranges in kernel space (<5µs latency) before packets hit TCP sockets.
+   - *The Pranor Gateway Solution*: `pranor-gatewayd` attaches eBPF XDP programs directly to the NIC driver layer, dropping SYN floods and malicious IP ranges in kernel space (<5µs latency) before packets hit TCP sockets.
 
 ---
 
@@ -193,11 +193,11 @@ git clone https://github.com/vyuvaraj/pranor.git
 cd serv/packages/Pranor Pulse
 
 # Build and start the daemon (Web UI at http://localhost:8082/ui/)
-go build -o servqueued ./cmd/servqueued
+go build -o pranor-pulsed ./cmd/pranor-pulsed
 ./pranorqueued --port 8082
 
 # In another terminal, use the CLI
-go build -o servqueue ./cmd/servqueue
+go build -o pranor-pulse ./cmd/pranor-pulse
 ./pranorqueue status
 ./pranorqueue topics create orders.created
 ./pranorqueue publish orders.created '{"order_id": 1001, "amount": 99.99}'

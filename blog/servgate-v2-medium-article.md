@@ -1,6 +1,6 @@
 # Pranor Gate v2: Evolving Our WASM API Gateway into a Standalone Edge AI & Kernel eBPF Engine
 
-*From an inline proxy filter to a standalone gateway daemon (`servgatewayd`), Universal Browser/Server WASM Engine (`@pranor/gateway-wasm`), Smart AI Cost Router, GraphQL Federation, and Kernel-Level eBPF XDP DDoS Protection.*
+*From an inline proxy filter to a standalone gateway daemon (`pranor-gatewayd`), Universal Browser/Server WASM Engine (`@pranor/gateway-wasm`), Smart AI Cost Router, GraphQL Federation, and Kernel-Level eBPF XDP DDoS Protection.*
 
 ---
 
@@ -27,11 +27,11 @@ Here is how we addressed these challenges in **Pranor Gate v2** within the unifi
 
 We merged standalone services into the unified **Serv monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Gate`). As part of this evolution, we strictly separated server runtime logic from administrative tooling:
 
-* **`servgatewayd` (Server Daemon)**: Zero-dependency background service process. It hosts HTTP/1.1, HTTP/2, HTTP/3 QUIC, ACME Let's Encrypt Auto-TLS, REST-to-gRPC transcoding, GraphQL federation, and an embedded Web Gateway Inspector UI (`http://localhost:8081/ui/`).
-* **`servgateway` (Client CLI)**: Fast-booting administrative binary for operators and CI/CD pipelines (`servgateway status`, `servgateway routes list`, `servgateway routes add`).
+* **`pranor-gatewayd` (Server Daemon)**: Zero-dependency background service process. It hosts HTTP/1.1, HTTP/2, HTTP/3 QUIC, ACME Let's Encrypt Auto-TLS, REST-to-gRPC transcoding, GraphQL federation, and an embedded Web Gateway Inspector UI (`http://localhost:8081/ui/`).
+* **`pranor-gateway` (Client CLI)**: Fast-booting administrative binary for operators and CI/CD pipelines (`pranor-gateway status`, `pranor-gateway routes list`, `pranor-gateway routes add`).
 
 ```
-                            servgatewayd DAEMON                               
+                            pranor-gatewayd DAEMON                               
                             ───────────────────                               
                             ┌──────────────────────────┐                      
                             │ HTTP/1.1, H2, H3 QUIC    │ ◄─── Public Internet
@@ -61,7 +61,7 @@ Pranor Gate v2 introduces `@pranor/gateway-wasm`: a universal WebAssembly runtim
 
 ### How It Works:
 - WebAssembly middleware filters execute in-process with **sub-10 microsecond latency**.
-- The **exact same WASM filter rules** compiled for `servgatewayd` on the server can also be deployed directly inside the user's browser as a Service Worker via `@pranor/gateway-wasm`.
+- The **exact same WASM filter rules** compiled for `pranor-gatewayd` on the server can also be deployed directly inside the user's browser as a Service Worker via `@pranor/gateway-wasm`.
 - **Impact**: Enables client-side mock APIs, offline-first request validation, and zero-latency client-side auth checks before requests ever leave the browser.
 
 ---
@@ -124,11 +124,11 @@ git clone https://github.com/vyuvaraj/pranor.git
 cd serv/packages/Pranor Gate
 
 # Build and start the daemon (Web UI at http://localhost:8081/ui/)
-go build -o servgatewayd ./cmd/servgatewayd
+go build -o pranor-gatewayd ./cmd/pranor-gatewayd
 ./pranorgatewayd --port 8080 --admin-port 8081
 
 # In another terminal, use the CLI
-go build -o servgateway ./cmd/servgateway
+go build -o pranor-gateway ./cmd/pranor-gateway
 ./pranorgateway status
 ./pranorgateway routes list
 ./pranorgateway routes add /api/v1/ai http://localhost:11434

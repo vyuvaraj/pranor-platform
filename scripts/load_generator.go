@@ -57,7 +57,7 @@ func main() {
 func setupEcosystem() {
 	client := &http.Client{Timeout: 5 * time.Second}
 
-	// 1. Define Saga Workflow in ServFlow
+	// 1. Define Saga Workflow in PranorFlow
 	workflow := map[string]interface{}{
 		"id": "ecom_order_checkout",
 		"tasks": []map[string]interface{}{
@@ -88,7 +88,7 @@ func setupEcosystem() {
 		resp.Body.Close()
 		fmt.Println("  [SETUP] Defined saga workflow 'ecom_order_checkout' successfully.")
 	} else {
-		fmt.Printf("  [SETUP] Warning: could not define workflow in ServFlow: %v\n", err)
+		fmt.Printf("  [SETUP] Warning: could not define workflow in PranorFlow: %v\n", err)
 	}
 
 	// 2. Put a mock bucket in PranorVault

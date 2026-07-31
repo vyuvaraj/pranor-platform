@@ -632,7 +632,7 @@ export route "DELETE" "/admin/users/:id" (req) @middleware("auth.role(\"admin\")
 ## 16. Pub/Sub Messaging
 
 ```python
-broker "servqueue://localhost:4222"
+broker "pranor-pulse://localhost:4222"
 # or in-memory: broker "memory://"
 
 publish "user.created" { "id": userId, "email": email }

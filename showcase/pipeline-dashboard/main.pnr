@@ -1,4 +1,4 @@
-// Servverse Pipeline Status Dashboard - Written in Serv-lang (V2 - SafeMap Resolved)
+// Pranor Pipeline Status Dashboard - Written in Pranor (V2 - SafeMap Resolved)
 // Demonstrates: HTTP routes, direct HTML rendering, SQLite persistence, background polling
 // Run locally: pranor run main.pnr --watch
 
@@ -23,13 +23,13 @@ every 1h {
     // Seed initial values so the dashboard has data immediately
     log.info("[Pipeline Daemon] Updating pipeline cache...")
     
-    let repos = ["ServGate", "ServConsole", "ServStore", "ServQueue", "ServAuth", "ServPool", "ServTrace", "Serv-lang", "servverse-ee", "ServMesh", "ServCron", "ServCache", "ServDocs", "ServMail", "ServRegistry"]
+    let repos = ["PranorGate", "PranorConsole", "PranorVault", "PranorPulse", "PranorAuth", "PranorPool", "PranorTrace", "Pranor", "pranor-ee", "PranorMesh", "PranorChrono", "PranorCache", "ServDocs", "PranorNotify", "PranorHub"]
     for r in repos {
         // Query database to see if it exists
         let exists = db.query("SELECT repo FROM pipelines WHERE repo = ?", r)
         if exists == nil {
             let mockStatus = "success"
-            if r == "servverse-ee" {
+            if r == "pranor-ee" {
                 mockStatus = "success"
             }
             db.query("INSERT INTO pipelines (repo, status, run_number, author, url, updated_at) VALUES (?, ?, ?, ?, ?, datetime('now'))", 
@@ -42,7 +42,7 @@ every 1h {
 every 5m {
     log.info("[Pipeline Daemon] Polling GitHub Actions API for pipeline updates...")
     
-    let repos = ["ServGate", "ServConsole", "ServStore", "ServQueue", "ServAuth", "ServPool", "ServTrace", "Serv-lang", "servverse-ee", "ServMesh", "ServCron", "ServCache", "ServDocs", "ServMail", "ServRegistry"]
+    let repos = ["PranorGate", "PranorConsole", "PranorVault", "PranorPulse", "PranorAuth", "PranorPool", "PranorTrace", "Pranor", "pranor-ee", "PranorMesh", "PranorChrono", "PranorCache", "ServDocs", "PranorNotify", "PranorHub"]
     for r in repos {
         let apiURL = "https://api.github.com/repos/vyuvaraj/" + r + "/actions/runs?per_page=1"
         
@@ -101,7 +101,7 @@ export route "GET" "/" (req) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Servverse CI/CD Pipeline Dashboard</title>
+        <title>Pranor CI/CD Pipeline Dashboard</title>
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
         <style>
             :root {
@@ -298,8 +298,8 @@ export route "GET" "/" (req) {
     <body>
         <div class="container">
             <header>
-                <h1>Servverse Pipeline Monitor</h1>
-                <p class="subtitle">Real-time status of 15 ecosystem modules powered by Serv-lang</p>
+                <h1>Pranor Pipeline Monitor</h1>
+                <p class="subtitle">Real-time status of 15 ecosystem modules powered by Pranor</p>
             </header>
             
             <div class="grid">

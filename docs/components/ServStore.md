@@ -34,10 +34,10 @@ S3-compatible distributed object storage with WASM transforms, semantic search, 
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `SERVSTORE_PORT` | Listen port | `8081` |
-| `SERVSTORE_DATA_DIR` | Storage directory | `./data` |
-| `SERVSTORE_ACCESS_KEY` | S3 access key | `admin` |
-| `SERVSTORE_SECRET_KEY` | S3 secret key | `password` |
+| `PRANOR_VAULT_PORT` | Listen port | `8081` |
+| `PRANOR_VAULT_DATA_DIR` | Storage directory | `./data` |
+| `PRANOR_VAULT_ACCESS_KEY` | S3 access key | `admin` |
+| `PRANOR_VAULT_SECRET_KEY` | S3 secret key | `password` |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector | (disabled) |
 
 ## Endpoints
@@ -54,7 +54,7 @@ S3-compatible distributed object storage with WASM transforms, semantic search, 
 ## Pranor Integration
 
 ```srv
-store "servstore://localhost:8081/my-bucket"
+store "pranor-vault://localhost:8081/my-bucket"
 
 route "POST" "/upload" (req) {
     store.put(req.body.filename, req.body.data)
@@ -114,7 +114,7 @@ If Raft consensus fails or a network partition splits the storage metadata ring:
 1. **Identify Unhealthy Nodes**: Query `GET /api/v1/cluster/health` to find nodes marked `Down` or in a permanent state of reelection.
 2. **Quorum Restoration**: If quorum is lost, restart the node with the highest last-applied index in force-bootstrap mode:
    ```bash
-   servstore-server --force-bootstrap --data-dir /var/lib/servstore
+   pranor-vault-server --force-bootstrap --data-dir /var/lib/pranor-vault
    ```
 3. **Re-add Stale Replicas**: Re-introduce remaining nodes into the cluster using:
    ```bash

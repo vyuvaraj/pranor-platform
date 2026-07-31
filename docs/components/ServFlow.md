@@ -22,8 +22,8 @@ Pranor Flow is a workflow orchestrator with DAG-based execution, durable checkpo
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `PORT` | HTTP listen port | `8096` |
-| `SERVSTORE_URL` | Pranor Vault URL for state persistence | (required) |
-| `SERVQUEUE_URL` | Pranor Pulse URL for event triggers | (required) |
+| `PRANOR_VAULT_URL` | Pranor Vault URL for state persistence | (required) |
+| `PRANOR_PULSE_URL` | Pranor Pulse URL for event triggers | (required) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints

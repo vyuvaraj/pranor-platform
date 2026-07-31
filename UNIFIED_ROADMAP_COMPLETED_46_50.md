@@ -6,12 +6,12 @@ This document contains the archived detailed breakdown of all fully completed ph
 
 ## Phase 46: Pranor Gateway Standalone Distribution & Edge AI Processing (Completed)
 
-> **Context:** Transform Pranor Gateway into an ultra-high performance standalone API Gateway & Edge AI Ingestion Proxy (`servgatewayd` & `servgateway` CLI), competing with Kong, Envoy, and Cloudflare Workers.
+> **Context:** Transform Pranor Gateway into an ultra-high performance standalone API Gateway & Edge AI Ingestion Proxy (`pranor-gatewayd` & `pranor-gateway` CLI), competing with Kong, Envoy, and Cloudflare Workers.
 
 | # | Item | Component | Description | Status |
 |---|------|-----------|-------------|--------|
-| SG.M1 | **Standalone Gateway Daemon (`servgatewayd`)** | Pranor Gateway Server | Single zero-dependency server binary with YAML configuration & zero-downtime hot reload | [x] |
-| SG.M2 | **Standalone Dual-CLI (`servgateway` & `serv gateway`)** | Pranor Gateway CLI | Dedicated CLI for managing routes, issuing certificates, and live latency profiling | [x] |
+| SG.M1 | **Standalone Gateway Daemon (`pranor-gatewayd`)** | Pranor Gateway Server | Single zero-dependency server binary with YAML configuration & zero-downtime hot reload | [x] |
+| SG.M2 | **Standalone Dual-CLI (`pranor-gateway` & `serv gateway`)** | Pranor Gateway CLI | Dedicated CLI for managing routes, issuing certificates, and live latency profiling | [x] |
 | SG.M3 | **Inline WASM Edge Middleware Engine** | Pranor Gateway Engine | Embedded Wasmtime/Wazero runtime executing custom Edge WebAssembly filters for auth & transformation | [x] |
 | SG.M4 | **Edge AI LLM Proxy & Token Throttling** | Pranor Gateway AI | OpenAI/Anthropic/Ollama compatible reverse proxy with token-bucket rate limiting & prompt caching | [x] |
 | SG.M5 | **ACME Auto-TLS & HTTP/3 QUIC Gateway** | Pranor Gateway Net | Automatic Let's Encrypt SSL/TLS cert provisioning and HTTP/3 QUIC protocol termination | [x] |
@@ -31,22 +31,22 @@ This document contains the archived detailed breakdown of all fully completed ph
 | SG.E2 | **Sovereign FIPS 140-3 TLS & mTLS SPIFFE Engine** | Pranor Gateway Security | Hardware HSM TLS key offload and zero-trust SPIFFE/SPIRE mTLS identity validation | [x] |
 | SG.E3 | **Active-Active Global Edge Mesh & Anycast** | Pranor Gateway Mesh | Cross-cloud edge route synchronization and latency-based WAN traffic steering | [x] |
 | SG.E4 | **Kubernetes Gateway API v1 CRD Controller** | Pranor Gateway K8s | Native K8s Operator implementing the standard Kubernetes `Gateway` & `HTTPRoute` CRD specs | [x] |
-| SG.E5 | **Pranor Gateway EE Build-Tag Modularization** | Pranor Gateway EE | Modularize commercial enterprise features (eBPF DDoS, FIPS HSM TLS, Edge AI Guardrails) into `serv-ee` behind `//go:build enterprise` | [x] |
+| SG.E5 | **Pranor Gateway EE Build-Tag Modularization** | Pranor Gateway EE | Modularize commercial enterprise features (eBPF DDoS, FIPS HSM TLS, Edge AI Guardrails) into `pranor-ee` behind `//go:build enterprise` | [x] |
 
 ---
 
 ## Phase 48: Pranor Vault Standalone Distribution & S3 API Compatibility (Completed)
 
-> **Context:** Transform Pranor Vault into a standalone, zero-dependency, S3-compatible High-Performance Distributed Object Store & Analytical Engine (`servstored` & `servstore` CLI), competing with MinIO, Ceph, and Cloudflare R2.
+> **Context:** Transform Pranor Vault into a standalone, zero-dependency, S3-compatible High-Performance Distributed Object Store & Analytical Engine (`pranor-vaultd` & `pranor-vault` CLI), competing with MinIO, Ceph, and Cloudflare R2.
 
 | # | Item | Component | Description | Status |
 |---|------|-----------|-------------|--------|
-| SS.M1 | **Standalone Storage Daemon (`servstored`) & Dual-CLI** | Pranor Vault Server | Zero-dependency S3-compatible storage daemon and rich CLI (`servstore mb`, `servstore cp`, `servstore ls`) | [x] |
+| SS.M1 | **Standalone Storage Daemon (`pranor-vaultd`) & Dual-CLI** | Pranor Vault Server | Zero-dependency S3-compatible storage daemon and rich CLI (`pranor-vault mb`, `pranor-vault cp`, `pranor-vault ls`) | [x] |
 | SS.M2 | **100% S3 Wire Protocol Compatibility Engine** | Pranor Vault S3 API | Full S3 V4 Signature, Multipart upload, Versioning, and Bucket Lifecycle Policy support | [x] |
 | SS.M3 | **Local Browser OPFS Sync (`@pranor/store-wasm`)** | Pranor Vault Web | Client-side browser file caching & background synchronization to Pranor Vault via OPFS | [x] |
 | SS.M4 | **High-Performance Erasure Coding & Reed-Solomon** | Pranor Vault Core | Configurable K+M erasure coding chunks for 99.999999999% durability without 3x replication overhead | [x] |
-| SS.M5 | **Embedded Storage Console Web UI** | Pranor Vault UI | Built-in web UI embedded inside `servstored` at `http://localhost:9000/ui` for bucket browsing & ACL management | [x] |
-| SS.M6 | **Inline Parquet & DuckDB Query Engine** | Pranor Vault Analytics| Native SQL querying over JSON, CSV, and Parquet objects directly inside `servstored` | [x] |
+| SS.M5 | **Embedded Storage Console Web UI** | Pranor Vault UI | Built-in web UI embedded inside `pranor-vaultd` at `http://localhost:9000/ui` for bucket browsing & ACL management | [x] |
+| SS.M6 | **Inline Parquet & DuckDB Query Engine** | Pranor Vault Analytics| Native SQL querying over JSON, CSV, and Parquet objects directly inside `pranor-vaultd` | [x] |
 | SS.M7 | **Prometheus Storage Metrics & Grafana Templates** | Pranor Vault Telemetry| Storage IOPS, bucket size distribution, and bandwidth metrics exporter | [x] |
 | SS.M8 | **Multi-Language Client SDKs** | Distribution | Go, Node.js/TypeScript, Python, and Rust client libraries for Pranor Vault | [x] |
 
@@ -62,7 +62,7 @@ This document contains the archived detailed breakdown of all fully completed ph
 | SS.E2 | **Cross-Region Active-Active Bucket Replication** | Pranor Vault Mirror | Bi-directional asynchronous bucket mirroring across multi-cloud regions with conflict-free version vectors | [x] |
 | SS.E3 | **io_uring & Direct I/O NVMe Acceleration** | Pranor Vault Network | Linux `io_uring` kernel bypass for 100Gbps NVMe disk throughput and zero-copy kernel transfers | [x] |
 | SS.E4 | **WORM Object Lock & Merkle Immutability Ledger** | Pranor Vault Security | Compliance Object Locking (Write Once Read Many) with Merkle tree immutability audit chains for legal holds | [x] |
-| SS.E5 | **Pranor Vault EE Build-Tag Modularization** | Pranor Vault EE | Modularize commercial features (Active-Active Sync, io_uring, FIPS HSM E2EE) into `serv-ee` behind `//go:build enterprise` | [x] |
+| SS.E5 | **Pranor Vault EE Build-Tag Modularization** | Pranor Vault EE | Modularize commercial features (Active-Active Sync, io_uring, FIPS HSM E2EE) into `pranor-ee` behind `//go:build enterprise` | [x] |
 
 ---
 
@@ -76,6 +76,6 @@ This document contains the archived detailed breakdown of all fully completed ph
 | SG.K2 | **Cost-Optimization LLM Model Router** | Pranor Gateway AI | Route low-complexity prompts to free/local Ollama (e.g., Llama-3 8B) and high-complexity to OpenAI GPT-4o / Anthropic Claude 3.5 | [x] |
 | SG.K3 | **Real-Time AI Bill Savings Telemetry** | Pranor Gateway AI | Track estimated cost savings ($ saved per request) and expose in HTTP headers (`X-Pranor Gateway-AI-Saved-$`) & `/metrics` | [x] |
 | SG.K4 | **Speculative Prompt Pre-Fetching Engine** | Pranor Gateway AI | Predict follow-up prompt completions and pre-fetch AI responses at the edge before client request submission | [x] |
-| SG.K5 | **Enterprise AI Budget Guardrails (`serv-ee`)** | Pranor Gateway EE | Enterprise cost caps, token budget enforcement per API key, and audit logging behind `//go:build enterprise` | [x] |
+| SG.K5 | **Enterprise AI Budget Guardrails (`pranor-ee`)** | Pranor Gateway EE | Enterprise cost caps, token budget enforcement per API key, and audit logging behind `//go:build enterprise` | [x] |
 
 ---

@@ -113,14 +113,14 @@
       <pre id="code-standalone"><code><span class="cmt"># Drop Pranor Gate & Pranor Pulse into your existing Node/Python stack</span>
 <span class="kw">services:</span>
   <span class="kw">gateway:</span>
-    <span class="kw">image:</span> vyuvaraj/servgate:latest
+    <span class="kw">image:</span> vyuvaraj/pranor-gate:latest
     <span class="kw">ports:</span> [<span class="str">"8080:8080"</span>]
     <span class="kw">environment:</span>
       <span class="kw">UPSTREAM:</span> <span class="str">"http://node-api:3000"</span>
       <span class="kw">AI_FIREWALL:</span> <span class="str">"true"</span>
 
   <span class="kw">broker:</span>
-    <span class="kw">image:</span> vyuvaraj/servqueue:latest
+    <span class="kw">image:</span> vyuvaraj/pranor-pulse:latest
     <span class="kw">ports:</span> [<span class="str">"61613:61613"</span>] <span class="cmt"># Standard STOMP port</span>
 
   <span class="kw">node-api:</span>
@@ -129,7 +129,7 @@
 
       <!-- Unified Code Visual -->
       <pre id="code-unified" class="hidden"><code><span class="kw">server</span> <span class="str">"8080"</span>
-<span class="kw">broker</span> <span class="str">"servqueue://localhost:61613"</span>
+<span class="kw">broker</span> <span class="str">"pranor-pulse://localhost:61613"</span>
 <span class="kw">database</span> <span class="str">"sqlite://app.db"</span>
 
 <span class="kw">every</span> 5s {
@@ -263,7 +263,7 @@
   <section id="architecture" class="section">
     <div class="section-header reveal">
       <h2>Ecosystem Architecture</h2>
-      <p>Four integrated layers operating via the <code>SERVVERSE_DISCOVERY</code> protocol.</p>
+      <p>Four integrated layers operating via the <code>PRANOR_DISCOVERY</code> protocol.</p>
     </div>
 
     <div class="arch-grid">
@@ -324,7 +324,7 @@
     <!-- Architecture Flow Diagram -->
     <div class="arch-diagram-container glass-card reveal">
       <h3 style="text-align:center;margin-bottom:1rem;font-size:1.4rem;font-weight:700;">Traffic & Control Flow</h3>
-      <p style="text-align:center;color:var(--text-muted);font-size:0.82rem;margin-bottom:2rem;">All services connected via <code>SERVVERSE_DISCOVERY</code> — OTel traces propagated end-to-end</p>
+      <p style="text-align:center;color:var(--text-muted);font-size:0.82rem;margin-bottom:2rem;">All services connected via <code>PRANOR_DISCOVERY</code> — OTel traces propagated end-to-end</p>
       <img src="arch-diagram.svg" alt="Complete Pranor architecture diagram showing all 16 services across 4 layers: Developer tools, Platform and networking, Infrastructure data stores, and Observability" class="arch-svg" style="width:100%;max-width:960px;height:auto;" loading="lazy">
     </div>
   </section>
@@ -351,21 +351,21 @@
 
         <div class="tab-buttons" id="comp-tab-buttons" role="tablist" aria-label="Component details">
           <button class="tab-btn active" data-category="dev" data-target="pranor">Pranor</button>
-          <button class="tab-btn" data-category="net" data-target="servgate">Pranor Gate</button>
-          <button class="tab-btn" data-category="net" data-target="servmesh">Pranor Mesh</button>
-          <button class="tab-btn" data-category="infra" data-target="servqueue">Pranor Pulse</button>
-          <button class="tab-btn" data-category="infra" data-target="servstore">Pranor Vault</button>
-          <button class="tab-btn" data-category="infra" data-target="servcache">Pranor Cache</button>
-          <button class="tab-btn" data-category="obs" data-target="servconsole">Pranor Console</button>
-          <button class="tab-btn" data-category="dev" data-target="servregistry">Pranor Hub</button>
-          <button class="tab-btn" data-category="net" data-target="servtunnel">Pranor Tunnel</button>
-          <button class="tab-btn" data-category="net" data-target="servcloud">Pranor Deploy</button>
-          <button class="tab-btn" data-category="infra" data-target="servcron">Pranor Chrono</button>
-          <button class="tab-btn" data-category="obs" data-target="servtrace">Pranor Trace</button>
-          <button class="tab-btn" data-category="infra" data-target="servauth">Pranor Auth</button>
+          <button class="tab-btn" data-category="net" data-target="pranor-gate">Pranor Gate</button>
+          <button class="tab-btn" data-category="net" data-target="pranor-mesh">Pranor Mesh</button>
+          <button class="tab-btn" data-category="infra" data-target="pranor-pulse">Pranor Pulse</button>
+          <button class="tab-btn" data-category="infra" data-target="pranor-vault">Pranor Vault</button>
+          <button class="tab-btn" data-category="infra" data-target="pranor-cache">Pranor Cache</button>
+          <button class="tab-btn" data-category="obs" data-target="pranor-console">Pranor Console</button>
+          <button class="tab-btn" data-category="dev" data-target="pranor-hub">Pranor Hub</button>
+          <button class="tab-btn" data-category="net" data-target="pranor-tunnel">Pranor Tunnel</button>
+          <button class="tab-btn" data-category="net" data-target="pranor-deploy">Pranor Deploy</button>
+          <button class="tab-btn" data-category="infra" data-target="pranor-chrono">Pranor Chrono</button>
+          <button class="tab-btn" data-category="obs" data-target="pranor-trace">Pranor Trace</button>
+          <button class="tab-btn" data-category="infra" data-target="pranor-auth">Pranor Auth</button>
           <button class="tab-btn" data-category="infra" data-target="servdb">ServDB</button>
-          <button class="tab-btn" data-category="infra" data-target="servmail">Pranor Notify</button>
-          <button class="tab-btn" data-category="infra" data-target="servflow">Pranor Flow</button>
+          <button class="tab-btn" data-category="infra" data-target="pranor-notify">Pranor Notify</button>
+          <button class="tab-btn" data-category="infra" data-target="pranor-flow">Pranor Flow</button>
           <button class="tab-btn" data-category="infra" data-target="servlock">Pranor Lock</button>
           <button class="tab-btn" data-category="infra" data-target="servsecret">Pranor Secret</button>
         </div>
@@ -384,7 +384,7 @@
             <li><strong>Concurrency:</strong> Fire-and-forget <code>spawn</code> with worker pool limits. <code>async</code>/<code>await</code> with parallel fan-out.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servgate">
+        <div class="tab-panel" id="panel-pranor-gate">
           <h3>Pranor Gate — Programmable API Gateway</h3>
           <p class="panel-desc">WebAssembly-powered reverse proxy that inspects, redacts, and protects at the network edge. Now 100% complete core.</p>
           <ul class="feature-list">
@@ -396,7 +396,7 @@
             <li><strong>AI Prompt Guard & PII Redactor:</strong> Safety vector checks for injections and automatic credit card/SSN masking.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servmesh">
+        <div class="tab-panel" id="panel-pranor-mesh">
           <h3>Pranor Mesh — Library Service Discovery</h3>
           <p class="panel-desc">Lightweight library-level service discovery, client-side load balancing, retries, and circuit breaking.</p>
           <ul class="feature-list">
@@ -406,11 +406,11 @@
             <li><strong>Context propagation:</strong> Built-in telemetry tracking trace paths and latency.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servqueue">
+        <div class="tab-panel" id="panel-pranor-pulse">
           <h3>Pranor Pulse — Multi-Protocol Stream Engine</h3>
           <p class="panel-desc">Multi-protocol message broker with dual CLI binaries, inline WASM stream processing, point-in-time replay, and CRDT active-active geo-replication.</p>
           <ul class="feature-list">
-            <li><strong>Dual-Binary Architecture:</strong> Dedicated <code>servqueued</code> server daemon (with embedded Web Admin UI) + <code>servqueue</code> management CLI.</li>
+            <li><strong>Dual-Binary Architecture:</strong> Dedicated <code>pranor-pulsed</code> server daemon (with embedded Web Admin UI) + <code>pranor-pulse</code> management CLI.</li>
             <li><strong>Multi-Protocol Listeners:</strong> Native STOMP (<code>:61613</code>), MQTT v5.0 Gateway (<code>:1883</code>), Kafka Wire Protocol Adapter (<code>:9092</code>), and REST (<code>:8082</code>).</li>
             <li><strong>Point-in-Time Event Replay:</strong> Seek consumer offsets to arbitrary past timestamps (<code>seekToTime</code>) via CLI or API.</li>
             <li><strong>Active-Active Geo-Replication:</strong> Multi-region cluster mirroring with Last-Write-Wins (LWW) CRDT conflict resolution.</li>
@@ -420,7 +420,7 @@
             <li><strong>OPFS Browser Queue:</strong> Local-first event persistence in Web Workers (`FileSystemSyncAccessHandle`) via `@pranor/queue-wasm`.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servstore">
+        <div class="tab-panel" id="panel-pranor-vault">
           <h3>Pranor Vault — AI-Native S3 Storage</h3>
           <p class="panel-desc">Distributed S3-compatible object storage with consistent hash rings and semantic indexing.</p>
           <ul class="feature-list">
@@ -430,7 +430,7 @@
             <li><strong>Compute-near-Data:</strong> Execute WASM transformations server-side.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servcache">
+        <div class="tab-panel" id="panel-pranor-cache">
           <h3>Pranor Cache — Distributed Cache Engine</h3>
           <p class="panel-desc">High-performance caching service with pluggable backends (in-memory &amp; Redis), native TLS client support, and OTel metrics.</p>
           <ul class="feature-list">
@@ -441,7 +441,7 @@
             <li><strong>Active TTL Eviction:</strong> Safe background pruning of expired keys to guarantee memory efficiency.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servconsole">
+        <div class="tab-panel" id="panel-pranor-console">
           <h3>Pranor Console — Observability Dashboard</h3>
           <p class="panel-desc">Unified glassmorphic control plane for monitoring, configuring, and tracing the Pranor ecosystem.</p>
           <ul class="feature-list">
@@ -453,7 +453,7 @@
             <li><strong>SLO Tracker &amp; Cost Optimizer:</strong> Error budget burn rates, compliance percentages, and infrastructure cost projections.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servregistry">
+        <div class="tab-panel" id="panel-pranor-hub">
           <h3>Pranor Hub — Package Hub</h3>
           <p class="panel-desc">Lightweight S3-backed community package registry for sharing modules.</p>
           <ul class="feature-list">
@@ -463,7 +463,7 @@
             <li><strong>Premium Dashboard:</strong> Browse modules and view guides in glassmorphic UI.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servtunnel">
+        <div class="tab-panel" id="panel-pranor-tunnel">
           <h3>Pranor Tunnel — Secure Dev Tunneling</h3>
           <p class="panel-desc">Secure local tunnel relay and client for exposing local services to the internet natively.</p>
           <ul class="feature-list">
@@ -473,7 +473,7 @@
             <li><strong>Request Inspector:</strong> View and replay requests from the embedded inspector API.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servcloud">
+        <div class="tab-panel" id="panel-pranor-deploy">
           <h3>Pranor Deploy — Managed PaaS Platform</h3>
           <p class="panel-desc">Lightweight process orchestrator and application deployment backend for the Serv ecosystem.</p>
           <ul class="feature-list">
@@ -483,7 +483,7 @@
             <li><strong>Process Isolation:</strong> Automatically allocates free ports and isolates process limits.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servcron">
+        <div class="tab-panel" id="panel-pranor-chrono">
           <h3>Pranor Chrono — Distributed Scheduler</h3>
           <p class="panel-desc">Dedicated scheduling coordinator for executing recurrent cron and interval tasks with syslog logging and API RBAC.</p>
           <ul class="feature-list">
@@ -495,7 +495,7 @@
             <li><strong>Standalone Fallback:</strong> Automatically runs in single-instance leader mode if Redis is absent.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servtrace">
+        <div class="tab-panel" id="panel-pranor-trace">
           <h3>Pranor Trace — Distributed Tracing Backend</h3>
           <p class="panel-desc">Lightweight OTLP/HTTP collector with hierarchical trace tree reconstruction and waterfall visualization.</p>
           <ul class="feature-list">
@@ -505,7 +505,7 @@
             <li><strong>Single Binary:</strong> No JVM, no Elasticsearch, no Cassandra. One Go binary with an in-memory circular buffer.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servauth">
+        <div class="tab-panel" id="panel-pranor-auth">
           <h3>Pranor Auth — Identity & Access Provider</h3>
           <p class="panel-desc">Secure identity and authentication provider supporting OIDC token issuance, account lockout, and structured audit logs.</p>
           <ul class="feature-list">
@@ -529,7 +529,7 @@
             <li><strong>Pranor Integration:</strong> Direct compiler routing for <code>database "servdb://pool-name/dbname"</code> connection strings.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servmail">
+        <div class="tab-panel" id="panel-pranor-notify">
           <h3>Pranor Notify — Transactional Notification Hub</h3>
           <p class="panel-desc">Transactional message delivery hub with disk queue persistence, DKIM signatures, and multiple output channels.</p>
           <ul class="feature-list">
@@ -540,7 +540,7 @@
             <li><strong>Pranor Builtin Integration:</strong> Builtin compiler support for <code>mail.send(to, template, data)</code> and <code>notify(channel, msg)</code>.</li>
           </ul>
         </div>
-        <div class="tab-panel" id="panel-servflow">
+        <div class="tab-panel" id="panel-pranor-flow">
           <h3>Pranor Flow — Workflow & Saga Orchestrator</h3>
           <p class="panel-desc">Stateful execution engine for multi-step DAG workflows, saga database persistence, and Saga rollbacks.</p>
           <ul class="feature-list">
@@ -600,7 +600,7 @@
           <div class="window-dot green"></div>
           <span class="window-title">showcase/task-api/main.pnr</span>
         </div>
-        <pre><code><span class="kw">server</span> <span class="str">"servgate://localhost:8080?port=3000"</span>
+        <pre><code><span class="kw">server</span> <span class="str">"pranor-gate://localhost:8080?port=3000"</span>
 <span class="kw">database</span> <span class="str">"sqlite://tasks.db"</span>
 <span class="kw">cache</span> <span class="str">"in-memory"</span>
 
@@ -708,7 +708,7 @@
         </div>
         <div class="terminal-body">
           <p class="cmd-line"><span class="prompt"># Windows (Scoop)</span></p>
-          <p class="cmd-line"><span class="prompt">$</span> scoop bucket add serv https://github.com/vyuvaraj/scoop-serv</p>
+          <p class="cmd-line"><span class="prompt">$</span> scoop bucket add serv https://github.com/vyuvaraj/scoop-pranor</p>
           <p class="cmd-line"><span class="prompt">$</span> scoop install serv</p>
           <p class="cmd-line">&nbsp;</p>
           <p class="cmd-line"><span class="prompt"># macOS / Linux (Homebrew)</span></p>
@@ -727,13 +727,13 @@
           </div>
           <pre style="background:transparent; padding:0; margin:0;"><code style="font-size:0.75rem;"><span class="kw">version:</span> <span class="str">"3.8"</span>
 <span class="kw">services:</span>
-  <span class="kw">servgate:</span>
-    <span class="kw">image:</span> vyuvaraj/servgate:latest
+  <span class="kw">pranor-gate:</span>
+    <span class="kw">image:</span> vyuvaraj/pranor-gate:latest
     <span class="kw">ports:</span> [<span class="str">"8080:8080"</span>]
     <span class="kw">environment:</span>
       - <span class="str">UPSTREAM=http://api:3000</span>
-  <span class="kw">servqueue:</span>
-    <span class="kw">image:</span> vyuvaraj/servqueue:latest
+  <span class="kw">pranor-pulse:</span>
+    <span class="kw">image:</span> vyuvaraj/pranor-pulse:latest
     <span class="kw">ports:</span> [<span class="str">"61613:61613"</span>]</code></pre>
         </div>
         <div style="border-left: 1px solid var(--border-glass); padding-left: 1rem;">
@@ -745,10 +745,10 @@
             <p class="cmd-line"><span class="prompt">$</span> helm repo add pranor ...</p>
             <p class="cmd-line">&nbsp;</p>
             <p class="cmd-line"><span class="prompt"># Install Pranor Gate proxy</span></p>
-            <p class="cmd-line"><span class="prompt">$</span> helm install edge pranor/servgate</p>
+            <p class="cmd-line"><span class="prompt">$</span> helm install edge pranor/pranor-gate</p>
             <p class="cmd-line">&nbsp;</p>
             <p class="cmd-line"><span class="prompt"># Deploy Pranor Pulse</span></p>
-            <p class="cmd-line"><span class="prompt">$</span> helm install broker pranor/servqueue</p>
+            <p class="cmd-line"><span class="prompt">$</span> helm install broker pranor/pranor-pulse</p>
           </div>
         </div>
       </div>
@@ -762,7 +762,7 @@
       </summary>
       <div style="padding: 0 1.5rem 1.5rem 1.5rem; border-top: 1px solid var(--border-glass); padding-top: 1.5rem;">
         <div class="terminal-body" style="padding:1rem 1.5rem; margin-bottom:1.5rem; background:rgba(0,0,0,0.2); border-radius:8px;">
-          <p class="cmd-line"><span class="prompt">$</span> pranor up --only servgate,servstore,servqueue,servconsole</p>
+          <p class="cmd-line"><span class="prompt">$</span> pranor up --only pranor-gate,pranor-vault,pranor-pulse,pranor-console</p>
           <p class="output-line success">✓ Pranor Gate :8080 | Pranor Vault :8081 | Pranor Pulse :8082 | Pranor Console :8083</p>
           <p class="cmd-line"><span class="prompt">$</span> pranor status</p>
           <p class="output-line success">✓ 4 services healthy</p>

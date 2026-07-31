@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	dirs := []string{"ServAuth", "ServDB", "ServMail", "ServFlow"}
+	dirs := []string{"PranorAuth", "ServDB", "PranorNotify", "PranorFlow"}
 	hasErrors := false
 
 	for _, dir := range dirs {

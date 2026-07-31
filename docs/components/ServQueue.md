@@ -8,21 +8,21 @@
 
 Pranor Pulse is a zero-dependency, high-performance message broker and event streaming engine written in Go as part of the unified **Serv monorepo**. It features a **Dual-Binary Architecture**:
 
-- **`servqueued`**: Server daemon hosting core storage, inline WASM stream transforms, multi-protocol listeners, Prometheus metrics, and an embedded Web Admin UI.
-- **`servqueue`**: Dedicated administrative CLI for publishing, consuming, topic management, stream tailing, and point-in-time replay.
+- **`pranor-pulsed`**: Server daemon hosting core storage, inline WASM stream transforms, multi-protocol listeners, Prometheus metrics, and an embedded Web Admin UI.
+- **`pranor-pulse`**: Dedicated administrative CLI for publishing, consuming, topic management, stream tailing, and point-in-time replay.
 
 ---
 
 ## Key Features
 
-- **Dual-Binary Architecture**: Dedicated `servqueued` server daemon + lightweight `servqueue` client CLI.
+- **Dual-Binary Architecture**: Dedicated `pranor-pulsed` server daemon + lightweight `pranor-pulse` client CLI.
 - **Multi-Protocol Support**:
   - **STOMP TCP Protocol** (`:61613`): `CONNECT`, `SUBSCRIBE`, `SEND`, `ACK`, `DISCONNECT`
   - **MQTT v5.0 IoT Gateway** (`:1883`): `CONNECT`, `PUBLISH`, `SUBSCRIBE`, `PINGREQ` for IoT device telemetry
   - **Kafka Wire Protocol Adapter** (`:9092`): `Produce`, `Fetch`, `ListOffsets`, `Metadata` binary request decoding
   - **HTTP REST Management API** (`:8082`/`:9092`): JSON publish, replay, topic admin, stats, and Web UI
 - **Compute-in-Queue**: Wazero JIT-compiled WebAssembly (WASI) sandboxed stream transformers running inline.
-- **Point-in-Time Event Replay (`seekToTime`)**: Seek consumer offsets to arbitrary past timestamps or durations (`servqueue seek`).
+- **Point-in-Time Event Replay (`seekToTime`)**: Seek consumer offsets to arbitrary past timestamps or durations (`pranor-pulse seek`).
 - **Dead Letter Queues (DLQ)**: Automatic routing, poison-pill isolation, and backoff replay policies.
 - **Cross-Cloud Active-Active Geo-Replication**: Multi-region cluster mirroring with Last-Write-Wins (LWW) CRDT conflict resolution.
 - **Embedded Web Admin UI**: Embedded via `go:embed` at `http://localhost:8082/ui/` or `http://localhost:9092/ui/`.
@@ -61,27 +61,27 @@ Pranor Pulse is a zero-dependency, high-performance message broker and event str
 
 ---
 
-## CLI Reference (`servqueue`)
+## CLI Reference (`pranor-pulse`)
 
 ```bash
 # Check node status
-servqueue status
+pranor-pulse status
 
 # Topic Management
-servqueue topics list
-servqueue topics create orders.created
+pranor-pulse topics list
+pranor-pulse topics create orders.created
 
 # Publish & Consume
-servqueue publish orders.created '{"order_id": "ord_1001", "total": 99.99}'
-servqueue consume orders.created
-servqueue tail orders.created --filter "total > 50"
+pranor-pulse publish orders.created '{"order_id": "ord_1001", "total": 99.99}'
+pranor-pulse consume orders.created
+pranor-pulse tail orders.created --filter "total > 50"
 
 # Point-in-Time Event Replay
-servqueue seek orders.created 15m
-servqueue seek orders.created 2026-07-26T05:00:00Z
+pranor-pulse seek orders.created 15m
+pranor-pulse seek orders.created 2026-07-26T05:00:00Z
 
 # DLQ Management
-servqueue dlq replay orders.created
+pranor-pulse dlq replay orders.created
 ```
 
 ---
@@ -92,7 +92,7 @@ servqueue dlq replay orders.created
 ```go
 import "github.com/vyuvaraj/pranor/packages/Pranor Pulse/sdks/go"
 
-client := servqueue.NewClient("http://localhost:8082", "my-token")
+client := pranor-pulse.NewClient("http://localhost:8082", "my-token")
 err := client.Publish("orders.created", `{"order_id": "1001"}`)
 offset, err := client.SeekToTime("orders.created", "15m")
 ```
@@ -107,7 +107,7 @@ await client.publish("orders.created", JSON.stringify({ order_id: "1001" }));
 
 ### Python SDK
 ```python
-from servqueue import Pranor PulseClient
+from pranor-pulse import Pranor PulseClient
 
 client = Pranor PulseClient(base_url="http://localhost:8082")
 client.publish("orders.created", '{"order_id": "1001"}')

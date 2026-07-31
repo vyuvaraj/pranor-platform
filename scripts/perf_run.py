@@ -9,22 +9,22 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 # Configured paths
 COMPONENTS = {
-    "servauth": "ServAuth",
+    "pranor-auth": "PranorAuth",
     "servdb": "ServDB",
-    "servmesh": "ServMesh",
-    "servgate": "ServGate/pkg/proxy",
-    "servqueue": "ServQueue/pkg/broker",
-    "servstore": "ServStore/pkg/storage",
-    "servcache": "ServCache",
-    "servshared": "ServShared",
-    "servtrace": "ServTrace",
-    "servcron": "ServCron",
-    "servflow": "ServFlow",
-    "servregistry": "ServRegistry"
+    "pranor-mesh": "PranorMesh",
+    "pranor-gate": "PranorGate/pkg/proxy",
+    "pranor-pulse": "PranorPulse/pkg/broker",
+    "pranor-vault": "PranorVault/pkg/storage",
+    "pranor-cache": "PranorCache",
+    "servshared": "PranorCore",
+    "pranor-trace": "PranorTrace",
+    "pranor-chrono": "PranorChrono",
+    "pranor-flow": "PranorFlow",
+    "pranor-hub": "PranorHub"
 }
 
 ROOT_DIR = "c:\\Mine\\try\\serv"
-BASELINES_DIR = os.path.join(ROOT_DIR, "servverse-repo", "tests", "perf", "baselines")
+BASELINES_DIR = os.path.join(ROOT_DIR, "pranor-repo", "tests", "perf", "baselines")
 
 def ensure_dirs():
     os.makedirs(BASELINES_DIR, exist_ok=True)
@@ -52,7 +52,7 @@ def save_baseline():
 def compare():
     ensure_dirs()
     print("=== RUNNING PERFORMANCE COMPARISONS ===")
-    temp_dir = os.path.join(ROOT_DIR, "servverse-repo", "tests", "perf", "temp_run")
+    temp_dir = os.path.join(ROOT_DIR, "pranor-repo", "tests", "perf", "temp_run")
     os.makedirs(temp_dir, exist_ok=True)
     
     for name, path in COMPONENTS.items():

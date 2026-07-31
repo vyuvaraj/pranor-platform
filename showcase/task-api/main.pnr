@@ -5,7 +5,7 @@
 // Test:  pranor test main.pnr
 // Build: pranor build main.pnr -o task-api.exe
 
-server "servgate://localhost:8080?port=3000"
+server "pranor-gate://localhost:8080?port=3000"
 database "sqlite://tasks.db"
 cache "in-memory"
 

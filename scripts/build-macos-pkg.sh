@@ -25,9 +25,9 @@ pkgbuild --root "${PKG_DIR}" \
          --identifier "${IDENTIFIER}" \
          --version "${VERSION}" \
          --install-location "/" \
-         "dist/ServVerse-component.pkg"
+         "dist/Pranor-component.pkg"
 
 echo "Building final distribution package..."
-productbuild --package "dist/ServVerse-component.pkg" "dist/ServVerse-macos-setup.pkg"
+productbuild --package "dist/Pranor-component.pkg" "dist/Pranor-macos-setup.pkg"
 
-echo "Package built successfully: dist/ServVerse-macos-setup.pkg"
+echo "Package built successfully: dist/Pranor-macos-setup.pkg"

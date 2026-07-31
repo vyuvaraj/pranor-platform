@@ -40,14 +40,14 @@ This document contains the archived detailed breakdown of all fully completed ph
 
 ## Phase 43: Pranor Pulse Standalone Distribution, Dual-CLI & Pranor Console Suite (Completed)
 
-> **Context:** Transform Pranor Pulse into a standalone product distribution featuring a zero-dependency server daemon (`servqueued`), dedicated CLI (`servqueue`), Pranor Console live web management inspector, embedded UI, DLQ engine, and point-in-time replay.
+> **Context:** Transform Pranor Pulse into a standalone product distribution featuring a zero-dependency server daemon (`pranor-pulsed`), dedicated CLI (`pranor-pulse`), Pranor Console live web management inspector, embedded UI, DLQ engine, and point-in-time replay.
 
 | # | Item | Component | Description | Status |
 |---|------|-----------|-------------|--------|
-| SQ.M1 | **Standalone Daemon (`servqueued`)** | Pranor Pulse Server | Single zero-dependency server binary with YAML configuration & CLI flags | [x] |
-| SQ.M2 | **Standalone CLI (`servqueue` CLI & `serv queue`)** | Pranor Pulse CLI | Dedicated CLI for publishing, consuming, topic inspection, and DLQ management | [x] |
+| SQ.M1 | **Standalone Daemon (`pranor-pulsed`)** | Pranor Pulse Server | Single zero-dependency server binary with YAML configuration & CLI flags | [x] |
+| SQ.M2 | **Standalone CLI (`pranor-pulse` CLI & `serv queue`)** | Pranor Pulse CLI | Dedicated CLI for publishing, consuming, topic inspection, and DLQ management | [x] |
 | SQ.M3 | **Pranor Console Queue Inspector UI** | Pranor Console | Web UI tab in Pranor Console for visual consumer lag, stream tailing, and outbox relay monitoring | [x] |
-| SQ.M4 | **Embedded Lightweight Web Admin UI** | Pranor Pulse Admin UI | Built-in web UI embedded inside `servqueued` via `go:embed` at `http://localhost:9092/ui` | [x] |
+| SQ.M4 | **Embedded Lightweight Web Admin UI** | Pranor Pulse Admin UI | Built-in web UI embedded inside `pranor-pulsed` via `go:embed` at `http://localhost:9092/ui` | [x] |
 | SQ.M5 | **DLQ & Exponential Backoff Engine** | Pranor Pulse Core | Poison-pill isolation, circuit breaking, and automatic retry policies | [x] |
 | SQ.M6 | **Point-in-Time Event Replay** | Pranor Pulse Storage | Seek consumer offsets to arbitrary past timestamps (`seekToTime`) for disaster recovery | [x] |
 | SQ.M7 | **Prometheus `/metrics` & Grafana Exporter** | Pranor Pulse Telemetry | Prometheus `/metrics` endpoint with pre-built Grafana dashboard templates | [x] |
@@ -74,15 +74,15 @@ This document contains the archived detailed breakdown of all fully completed ph
 
 ## Phase 45: Pranor Pulse Enterprise Commercial Feature Modularization & Build-Tag Gating (Completed)
 
-> **Context:** Enforce strict OSS/EE architectural boundary policy for Pranor Pulse by modularizing commercial enterprise features (Geo-replication, Kafka adapter, HSM/PQC security, AI guardrails, eBPF acceleration, multi-cloud compaction, EventBridge relay, K8s federation) into `serv-ee` behind `//go:build enterprise` build tags while preserving clean interface hooks and `//go:build !enterprise` fallback stubs in the open-source `serv` monorepo.
+> **Context:** Enforce strict OSS/EE architectural boundary policy for Pranor Pulse by modularizing commercial enterprise features (Geo-replication, Kafka adapter, HSM/PQC security, AI guardrails, eBPF acceleration, multi-cloud compaction, EventBridge relay, K8s federation) into `pranor-ee` behind `//go:build enterprise` build tags while preserving clean interface hooks and `//go:build !enterprise` fallback stubs in the open-source `serv` monorepo.
 
 | # | Item | Component | Description | Status |
 |---|------|-----------|-------------|--------|
-| SQ.E15 | **Geo-Replication EE Modularization** | Pranor Pulse Mirror | Modularize Cross-Cloud Active-Active CRDT Geo-Replication into `serv-ee` behind `//go:build enterprise` tag | [x] |
-| SQ.E16 | **Kafka Protocol Adapter EE Modularization** | Pranor Pulse Adapter | Modularize Kafka Wire Protocol Compatibility Adapter into `serv-ee` behind `//go:build enterprise` tag | [x] |
-| SQ.E17 | **FIPS 140-3 HSM & Sovereign Security EE Modularization** | Pranor Pulse Security | Modularize HSM key unsealing, Post-Quantum Kyber768/Dilithium, and Merkle audit ledger into `serv-ee` | [x] |
-| SQ.E18 | **Inline WASM AI Guardrails EE Modularization** | Pranor Pulse WASM | Modularize ONNX/WASM AI PII detection and prompt injection filters into `serv-ee` | [x] |
-| SQ.E19 | **eBPF Kernel Bypass EE Modularization** | Pranor Pulse Network | Modularize eBPF XDP socket acceleration (<10µs latency) into `serv-ee` | [x] |
-| SQ.E20 | **Multi-Cloud Tiered Storage Compaction EE Modularization** | Pranor Pulse Storage | Modularize S3/Pranor Vault cold tier lifecycle compaction workers into `serv-ee` | [x] |
-| SQ.E21 | **AWS EventBridge & Enterprise Webhooks EE Modularization** | Pranor Pulse Relay | Modularize AWS EventBridge relay & signed enterprise webhooks into `serv-ee` | [x] |
-| SQ.E22 | **Multi-Cluster K8s Federation EE Modularization** | Pranor Pulse K8s | Modularize multi-cluster K8s operator federation & cross-region KEDA scaling into `serv-ee` | [x] |
+| SQ.E15 | **Geo-Replication EE Modularization** | Pranor Pulse Mirror | Modularize Cross-Cloud Active-Active CRDT Geo-Replication into `pranor-ee` behind `//go:build enterprise` tag | [x] |
+| SQ.E16 | **Kafka Protocol Adapter EE Modularization** | Pranor Pulse Adapter | Modularize Kafka Wire Protocol Compatibility Adapter into `pranor-ee` behind `//go:build enterprise` tag | [x] |
+| SQ.E17 | **FIPS 140-3 HSM & Sovereign Security EE Modularization** | Pranor Pulse Security | Modularize HSM key unsealing, Post-Quantum Kyber768/Dilithium, and Merkle audit ledger into `pranor-ee` | [x] |
+| SQ.E18 | **Inline WASM AI Guardrails EE Modularization** | Pranor Pulse WASM | Modularize ONNX/WASM AI PII detection and prompt injection filters into `pranor-ee` | [x] |
+| SQ.E19 | **eBPF Kernel Bypass EE Modularization** | Pranor Pulse Network | Modularize eBPF XDP socket acceleration (<10µs latency) into `pranor-ee` | [x] |
+| SQ.E20 | **Multi-Cloud Tiered Storage Compaction EE Modularization** | Pranor Pulse Storage | Modularize S3/Pranor Vault cold tier lifecycle compaction workers into `pranor-ee` | [x] |
+| SQ.E21 | **AWS EventBridge & Enterprise Webhooks EE Modularization** | Pranor Pulse Relay | Modularize AWS EventBridge relay & signed enterprise webhooks into `pranor-ee` | [x] |
+| SQ.E22 | **Multi-Cluster K8s Federation EE Modularization** | Pranor Pulse K8s | Modularize multi-cluster K8s operator federation & cross-region KEDA scaling into `pranor-ee` | [x] |

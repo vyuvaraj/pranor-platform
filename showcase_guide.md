@@ -106,8 +106,8 @@ This compiles all projects and spins up:
    ```
    Observe the package successfully downloads and extracts to your local directory.
 
-### Step 7: Zero-Config Microservice Self-Announcement (servgate://)
-1. Launch the `showcase/task-api` microservice (which uses `servgate://` route registration in its `main.pnr` file):
+### Step 7: Zero-Config Microservice Self-Announcement (pranor-gate://)
+1. Launch the `showcase/task-api` microservice (which uses `pranor-gate://` route registration in its `main.pnr` file):
    ```bash
    cd showcase/task-api
    ..\..\Pranor\pranor.exe run main.pnr

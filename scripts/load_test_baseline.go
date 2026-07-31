@@ -24,7 +24,7 @@ func main() {
 
 	targets := []Target{
 		{
-			Name:      "ServAuth - Key Validation",
+			Name:      "PranorAuth - Key Validation",
 			URL:       "http://localhost:8098/api/auth/keys/validate",
 			Method:    "POST",
 			Payload:   map[string]string{"key": "test-key"},
@@ -38,14 +38,14 @@ func main() {
 			TargetRPS: 1000,
 		},
 		{
-			Name:      "ServRegistry - Service Resolution",
+			Name:      "PranorHub - Service Resolution",
 			URL:       "http://localhost:8088/api/resolve?service=servdb",
 			Method:    "GET",
 			Payload:   nil,
 			TargetRPS: 800,
 		},
 		{
-			Name:      "ServFlow - Define Workflow",
+			Name:      "PranorFlow - Define Workflow",
 			URL:       "http://localhost:8096/api/workflows/define",
 			Method:    "POST",
 			Payload: map[string]interface{}{

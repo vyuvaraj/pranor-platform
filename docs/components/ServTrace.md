@@ -21,8 +21,8 @@ Pranor Trace is a lightweight OTLP/HTTP distributed tracing backend. It reconstr
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `SERVTRACE_PORT` | HTTP listen port | `8090` |
-| `SERVSTORE_URL` | Pranor Vault URL for cold storage | (required) |
+| `PRANOR_TRACE_PORT` | HTTP listen port | `8090` |
+| `PRANOR_VAULT_URL` | Pranor Vault URL for cold storage | (required) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector for self-tracing | (disabled) |
 
 ## Endpoints

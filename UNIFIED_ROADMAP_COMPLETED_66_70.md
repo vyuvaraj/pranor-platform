@@ -27,7 +27,7 @@
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| SS.A1 | **Embedded HNSW Vector Index Engine (In-Process Similarity Search)** | Pranor Vault Vector | Implement an HNSW (Hierarchical Navigable Small World) vector index engine embedded directly in `servstored`; store and query float32 embedding vectors with configurable M and efConstruction graph parameters | [x] | OSS |
+| SS.A1 | **Embedded HNSW Vector Index Engine (In-Process Similarity Search)** | Pranor Vault Vector | Implement an HNSW (Hierarchical Navigable Small World) vector index engine embedded directly in `pranor-vaultd`; store and query float32 embedding vectors with configurable M and efConstruction graph parameters | [x] | OSS |
 | SS.A2 | **Automatic Embedding Generation for Text Objects on PUT** | Pranor Vault Embedding | When an object with `Content-Type: text/*` is uploaded, call a configured embedding model endpoint (local Ollama or OpenAI) to auto-generate and store a float32 vector alongside object metadata | [x] | OSS |
 | SS.A3 | **Hybrid Keyword + Vector Semantic Search API** | Pranor Vault Search | Expose a `/api/v1/search` endpoint combining BM25 keyword relevance scoring with HNSW cosine similarity for hybrid semantic + lexical ranked search over bucket object content | [x] | OSS |
 | SS.A4 | **Per-Bucket Vector Index Namespace Management** | Pranor Vault Namespaces | Maintain isolated per-bucket HNSW vector index namespaces; support API-driven creation, rebuilding, and deletion of vector indexes independently from object storage lifecycle | [x] | OSS |

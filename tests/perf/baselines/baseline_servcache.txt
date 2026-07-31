@@ -1,7 +1,7 @@
 goos: windows
 goarch: amd64
-pkg: servcache
+pkg: pranor-cache
 cpu: 13th Gen Intel(R) Core(TM) i7-13850HX
 BenchmarkInMemoryCacheGetSet-28    	 3613442	       368.0 ns/op	     135 B/op	       2 allocs/op
 PASS
-ok  	servcache	1.795s
+ok  	pranor-cache	1.795s

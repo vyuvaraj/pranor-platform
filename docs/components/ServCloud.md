@@ -23,7 +23,7 @@ Pranor Deploy is a multi-target deployment orchestrator supporting process manag
 |----------|-------------|---------|
 | `SERVCLOUD_PORT` | HTTP listen port | `8086` |
 | `PRANOR_JWT_SECRET` | JWT verification secret | (required) |
-| `SERVGATE_URL` | Pranor Gate URL for route sync | (optional) |
+| `PRANOR_GATE_URL` | Pranor Gate URL for route sync | (optional) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints

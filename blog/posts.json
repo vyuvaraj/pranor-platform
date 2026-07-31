@@ -18,7 +18,7 @@
     "readingTime": "10 min"
   },
   {
-    "slug": "03-api-gateway-servgate",
+    "slug": "03-api-gateway-pranor-gate",
     "title": "Building a Production API Gateway with Pranor Gate",
     "excerpt": "Sandboxed WASM middleware, PII redaction, prompt blocking, routing, and rate limiting at the edge.",
     "badge": "Tutorial",
@@ -27,7 +27,7 @@
     "readingTime": "12 min"
   },
   {
-    "slug": "04-caching-with-servcache",
+    "slug": "04-caching-with-pranor-cache",
     "title": "Distributed Caching Made Simple with Pranor Cache",
     "excerpt": "Raft-based key-value caching, namespaces, clustering, invalidation patterns, and benchmark data.",
     "badge": "Tutorial",
@@ -36,7 +36,7 @@
     "readingTime": "10 min"
   },
   {
-    "slug": "05-event-driven-servqueue",
+    "slug": "05-event-driven-pranor-pulse",
     "title": "Event-Driven Microservices with Pranor Pulse",
     "excerpt": "STOMP messaging, sliding-window dedup, DLQs, webhooks, and fan-out message routing.",
     "badge": "Tutorial",
@@ -72,7 +72,7 @@
     "readingTime": "8 min"
   },
   {
-    "slug": "servgate-medium-article",
+    "slug": "pranor-gate-medium-article",
     "title": "A WebAssembly-Powered API Gateway With AI-Native Guards",
     "excerpt": "Sandboxed WASM middleware, PII redaction, prompt blocking, and semantic caching at the edge.",
     "badge": "Platform Layer",
@@ -81,7 +81,7 @@
     "readingTime": "10 min"
   },
   {
-    "slug": "servqueue-medium-article",
+    "slug": "pranor-pulse-medium-article",
     "title": "A Message Broker With Inline WASM Stream Processing",
     "excerpt": "STOMP messaging, sliding-window dedup, DLQ, and serverless WebAssembly transforms.",
     "badge": "Infrastructure",
@@ -90,7 +90,7 @@
     "readingTime": "9 min"
   },
   {
-    "slug": "servstore-medium-article",
+    "slug": "pranor-vault-medium-article",
     "title": "An S3 Storage Engine With AI-Native Capabilities",
     "excerpt": "Semantic search, time travel, erasure coding, and compute-near-data in one binary.",
     "badge": "Infrastructure",
@@ -99,7 +99,7 @@
     "readingTime": "11 min"
   },
   {
-    "slug": "servconsole-medium-article",
+    "slug": "pranor-console-medium-article",
     "title": "Designing a Premium Glassmorphic Dashboard",
     "excerpt": "OTel waterfalls, hash ring visualizers, SQL workbench, and runtime controls.",
     "badge": "Observability",
@@ -108,7 +108,7 @@
     "readingTime": "7 min"
   },
   {
-    "slug": "servmesh-medium-article",
+    "slug": "pranor-mesh-medium-article",
     "title": "Pranor Mesh: Direct Library-Level Service Discovery",
     "excerpt": "Resilient in-memory load balancing, heartbeats, and circuit breaking without sidecars.",
     "badge": "Ecosystem",
@@ -117,7 +117,7 @@
     "readingTime": "8 min"
   },
   {
-    "slug": "servtunnel-medium-article",
+    "slug": "pranor-tunnel-medium-article",
     "title": "Pranor Tunnel: Multiplexed Dev Tunneling",
     "excerpt": "Exposing local microservices natively with subdomain routing and request debugging.",
     "badge": "Platform Layer",
@@ -126,7 +126,7 @@
     "readingTime": "6 min"
   },
   {
-    "slug": "servcloud-medium-article",
+    "slug": "pranor-deploy-medium-article",
     "title": "Pranor Deploy: Lightweight Process Orchestration PaaS",
     "excerpt": "Deploying and running backend processes with dynamic gateway auto-routing sync.",
     "badge": "Orchestration",
@@ -135,7 +135,7 @@
     "readingTime": "10 min"
   },
   {
-    "slug": "servauth-medium-article",
+    "slug": "pranor-auth-medium-article",
     "title": "Secure Identity & Access Management with Pranor Auth",
     "excerpt": "Designing an identity server with JWKS, TOTP MFA, Social OAuth, and stuffing detection.",
     "badge": "Identity",
@@ -144,7 +144,7 @@
     "readingTime": "8 min"
   },
   {
-    "slug": "servmail-cron-medium-article",
+    "slug": "pranor-notify-cron-medium-article",
     "title": "Scheduled Jobs & Reliable Mail Queues: Pranor Chrono and Pranor Notify",
     "excerpt": "Distributed leader elections, execution locks, disk-backed queues, and DKIM signing.",
     "badge": "Asynchronous",
@@ -153,7 +153,7 @@
     "readingTime": "7 min"
   },
   {
-    "slug": "servstore-v2-medium-article",
+    "slug": "pranor-vault-v2-medium-article",
     "title": "Pranor Vault v2: Evolving Our S3 Engine into a Standalone Local-First P2P Analytical Store",
     "excerpt": "Browser OPFS dual-sync, embedded DuckDB SQL analytics, Copy-on-Write bucket branching, and WebTorrent P2P seeding.",
     "badge": "Infrastructure",
@@ -162,7 +162,7 @@
     "readingTime": "11 min"
   },
   {
-    "slug": "servgate-v2-medium-article",
+    "slug": "pranor-gate-v2-medium-article",
     "title": "Pranor Gate v2: Evolving Our WASM API Gateway into a Standalone Edge AI & Kernel eBPF Engine",
     "excerpt": "Universal Server/Browser WASM Engine, Smart AI Cost Router (saving 85%), TPM rate limiting, and eBPF XDP DDoS bypass.",
     "badge": "Platform Layer",

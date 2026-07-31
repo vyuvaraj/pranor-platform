@@ -52,7 +52,7 @@ Everything starts with **Pranor**, a domain-specific programming language that c
 ```serv
 // Declare infrastructure
 server "8080"
-broker "servqueue://localhost:61613"
+broker "pranor-pulse://localhost:61613"
 
 // Define a REST API route
 route "POST" "/upload" (req) {
@@ -104,7 +104,7 @@ While standard S3 buckets are black boxes, Pranor Vault is AI-native:
 
 Observability is usually an afterthought. In the Pranor, it is the glue. 
 
-**Pranor Console** is a premium glassmorphic dashboard that connects to all downstream engines using the `SERVVERSE_DISCOVERY` protocol. It provides:
+**Pranor Console** is a premium glassmorphic dashboard that connects to all downstream engines using the `PRANOR_DISCOVERY` protocol. It provides:
 - **Distributed OTel Span Waterfalls**: Tracks requests across network boundaries (Gateway ➔ Custom Service ➔ Broker ➔ Storage) and visualizes execution latency in a cascaded chart.
 - **Consistent Hash Ring Visualizer**: Displays how data shards partition across storage nodes in real-time.
 - **Administrative Hub**: Drag-and-drop WASM filters, view topic queues, and publish test payloads directly from the UI.
@@ -127,7 +127,7 @@ To see the ecosystem in action, let's follow a single user request:
 ## The Power of the Shared Protocol
 
 What makes this possible is zero-config wiring. We enforce three shared environment variables across all components:
-1. `SERVVERSE_DISCOVERY`: A JSON string or file path containing the addresses of all services, allowing the gateway, storage, broker, and console to find each other instantly.
+1. `PRANOR_DISCOVERY`: A JSON string or file path containing the addresses of all services, allowing the gateway, storage, broker, and console to find each other instantly.
 2. `PRANOR_JWT_SECRET`: A shared token signing secret that allows unified, secure authorization across all components.
 3. `PRANOR_OTLP_ENDPOINT`: A shared trace exporter endpoint, ensuring every component reports spans to the same observability pool.
 
@@ -150,7 +150,7 @@ To spin up the entire Pranor locally:
 ./pranorgate.exe --config=config.json
 
 # 4. Launch Pranor Console on :8083
-export SERVVERSE_DISCOVERY='{
+export PRANOR_DISCOVERY='{
   "gate":          "http://localhost:8080",
   "store":         "http://localhost:8081",
   "queue":         "http://localhost:8082"

@@ -48,7 +48,7 @@ Every component in the ecosystem natively supports **both** REST/JSON endpoints 
 Every component works entirely on its own. No mandatory Kubernetes. No mandatory service mesh. Run a single binary or `docker run` command and you have a production-grade service.
 
 ```bash
-docker run -p 8081:8081 ghcr.io/vyuvaraj/servgate:latest
+docker run -p 8081:8081 ghcr.io/vyuvaraj/pranor-gate:latest
 ```
 
 ### 2. Ecosystem Integration Is Optional
@@ -86,13 +86,13 @@ Serv targets the 90% use case: teams that need solid infrastructure without a de
 
 ```bash
 # Start the API gateway
-docker run -d -p 8081:8081 ghcr.io/vyuvaraj/servgate:latest
+docker run -d -p 8081:8081 ghcr.io/vyuvaraj/pranor-gate:latest
 
 # Start the cache
-docker run -d -p 8082:8082 ghcr.io/vyuvaraj/servcache:latest
+docker run -d -p 8082:8082 ghcr.io/vyuvaraj/pranor-cache:latest
 
 # Start the auth server
-docker run -d -p 8086:8086 ghcr.io/vyuvaraj/servauth:latest
+docker run -d -p 8086:8086 ghcr.io/vyuvaraj/pranor-auth:latest
 ```
 
 Your backend infrastructure is live. No YAML manifests. No Helm charts.

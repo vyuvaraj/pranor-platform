@@ -88,7 +88,7 @@ To accelerate developer onboarding and remove the friction of configuring local 
 | SQ.E2 | **OPFS Storage Driver (`pkg/opfs`)** | Pranor Pulse | Implement synchronous WebAssembly OPFS file handle access (`FileSystemSyncAccessHandle`) inside browser Web Workers for persistent local event storage | [x] |
 | SQ.E3 | **WASM/JS FFI Bindings (`@pranor/queue-wasm`)** | Distribution / npm | Build WASM binary (`GOOS=js GOARCH=wasm`) and publish TypeScript API glue package `@pranor/queue-wasm` for browser applications | [x] |
 | SQ.E4 | **Offline Outbox & Reconnect Relay** | Pranor Pulse | Background synchronization worker streaming unacknowledged offline event ranges to remote Pranor Pulse servers over WebSocket/WebTransport with server-side deduplication | [x] |
-| SQ.E5 | **Pranor Edge Target Integration** | Pranor | Support `broker "servqueue://opfs"` connection syntax in `.pnr` files when compiling to `--target wasm` / `--target wasm-edge` | [x] |
+| SQ.E5 | **Pranor Edge Target Integration** | Pranor | Support `broker "pranor-pulse://opfs"` connection syntax in `.pnr` files when compiling to `--target wasm` / `--target wasm-edge` | [x] |
 | SQ.E6 | **Web Playground & Local-First Demo** | Pranor Console | Embedded interactive Web Worker demo in Pranor Console showcasing zero-server event streaming, WASM stream transforms, and PWA offline sync | [x] |
 
 ---

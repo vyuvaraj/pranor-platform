@@ -20,9 +20,9 @@ Pranor Chrono is a distributed scheduling service with Redis lease-based leader 
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `SERVCRON_PORT` | HTTP listen port | `8085` |
-| `SERVCRON_REDIS_URL` | Redis URL for leader election | (required) |
-| `SERVSTORE_URL` | Pranor Vault URL for job persistence | (required) |
+| `PRANOR_CHRONO_PORT` | HTTP listen port | `8085` |
+| `PRANOR_CHRONO_REDIS_URL` | Redis URL for leader election | (required) |
+| `PRANOR_VAULT_URL` | Pranor Vault URL for job persistence | (required) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints

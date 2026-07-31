@@ -25,10 +25,10 @@ func TestCrossServicesIntegration(t *testing.T) {
 		path string
 		port string
 	}{
-		{"servauth", "../../../ServAuth", "18098"},
+		{"pranor-auth", "../../../PranorAuth", "18098"},
 		{"servdb", "../../../ServDB", "18097"},
-		{"servmail", "../../../ServMail", "18094"},
-		{"servflow", "../../../ServFlow", "18096"},
+		{"pranor-notify", "../../../PranorNotify", "18094"},
+		{"pranor-flow", "../../../PranorFlow", "18096"},
 	}
 
 	for _, s := range services {
@@ -88,7 +88,7 @@ func TestCrossServicesIntegration(t *testing.T) {
 	}
 
 	// 4. Perform E2E User Lifecycle across services
-	// Step 4a: Register User in ServAuth
+	// Step 4a: Register User in PranorAuth
 	regPayload := map[string]string{
 		"username": "integration-test-user",
 		"password": "strongPassword123!",
@@ -138,7 +138,7 @@ func TestCrossServicesIntegration(t *testing.T) {
 	}
 	resp.Body.Close()
 
-	// Step 4d: Register Mail Template in ServMail
+	// Step 4d: Register Mail Template in PranorNotify
 	templatePayload := map[string]string{
 		"name":    "welcome",
 		"version": "v1",
@@ -150,11 +150,11 @@ func TestCrossServicesIntegration(t *testing.T) {
 	req.Header.Set("Authorization", "Bearer "+loginRes.Token)
 	resp, err = client.Do(req)
 	if err != nil || resp.StatusCode != http.StatusCreated {
-		t.Fatalf("failed to register template in ServMail: %v, status: %d", err, resp.StatusCode)
+		t.Fatalf("failed to register template in PranorNotify: %v, status: %d", err, resp.StatusCode)
 	}
 	resp.Body.Close()
 
-	// Step 4e: Define Workflow in ServFlow
+	// Step 4e: Define Workflow in PranorFlow
 	workflowPayload := map[string]interface{}{
 		"id": "onboarding-workflow",
 		"tasks": []map[string]interface{}{
@@ -170,7 +170,7 @@ func TestCrossServicesIntegration(t *testing.T) {
 	req.Header.Set("Authorization", "Bearer "+loginRes.Token)
 	resp, err = client.Do(req)
 	if err != nil || resp.StatusCode != http.StatusCreated {
-		t.Fatalf("failed to define workflow in ServFlow: %v, status: %d", err, resp.StatusCode)
+		t.Fatalf("failed to define workflow in PranorFlow: %v, status: %d", err, resp.StatusCode)
 	}
 	resp.Body.Close()
 }

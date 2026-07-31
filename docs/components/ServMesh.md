@@ -23,7 +23,7 @@ Pranor Mesh is a library-level service mesh that eliminates sidecar overhead. It
 |----------|-------------|---------|
 | `PRANOR_JWT_SECRET` | JWT verification secret | (required) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
-| `SERVMESH_PORT` | HTTP listen port | `8087` |
+| `PRANOR_MESH_PORT` | HTTP listen port | `8087` |
 
 ## Endpoints
 

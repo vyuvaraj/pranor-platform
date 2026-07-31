@@ -24,7 +24,7 @@ Pranor Pool is a database proxy with connection pooling, read/write query routin
 | `PORT` | HTTP listen port | `8097` |
 | `Pranor Pool_PRIMARY_DSN` | Primary database connection string | (required) |
 | `Pranor Pool_REPLICA_DSN` | Read replica connection string | (optional) |
-| `SERVCACHE_URL` | Pranor Cache URL for query caching | (optional) |
+| `PRANOR_CACHE_URL` | Pranor Cache URL for query caching | (optional) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector URL | (disabled) |
 
 ## Endpoints

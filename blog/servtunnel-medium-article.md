@@ -21,7 +21,7 @@ This is why we built **Pranor Tunnel** — a secure, open-source tunnel relay an
 
 Pranor Tunnel consists of two lightweight components compiled in a single Go binary:
 1. **Pranor Tunnel Server (Relay)**: Hosted on a public server (e.g. `*.tunnel.pranor.dev`). It listens for public HTTP/WebSocket traffic and matches subdomains to active agent connections.
-2. **Pranor Tunnel Client (Agent)**: Runs locally next to your service (e.g., `servtunnel client --local 8080 --subdomain test-app`).
+2. **Pranor Tunnel Client (Agent)**: Runs locally next to your service (e.g., `pranor-tunnel client --local 8080 --subdomain test-app`).
 
 Instead of establishing hundreds of TCP connections or spinning up complex TCP socket wrappers, Pranor Tunnel multiplexes all public requests and private replies over a **single, secure WebSocket connection** between the client and the public relay.
 
@@ -58,7 +58,7 @@ Because Pranor Tunnel is built into the Pranor core, it propagates OTel `tracepa
 ### 1. Launch a Local Tunnel Agent
 Expose your local development port `3000` to the default public relay:
 ```bash
-servtunnel client --local 3000 --subdomain my-order-api
+pranor-tunnel client --local 3000 --subdomain my-order-api
 ```
 Output:
 ```

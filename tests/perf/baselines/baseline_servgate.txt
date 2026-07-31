@@ -1,7 +1,7 @@
 goos: windows
 goarch: amd64
-pkg: servgate/pkg/proxy
+pkg: pranor-gate/pkg/proxy
 cpu: 13th Gen Intel(R) Core(TM) i7-13850HX
 BenchmarkRateLimiterAllow-28    	   92198	    113569 ns/op	     165 B/op	       1 allocs/op
 PASS
-ok  	servgate/pkg/proxy	10.767s
+ok  	pranor-gate/pkg/proxy	10.767s

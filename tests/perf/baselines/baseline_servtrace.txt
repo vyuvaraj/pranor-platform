@@ -1,7 +1,7 @@
 goos: windows
 goarch: amd64
-pkg: servtrace
+pkg: pranor-trace
 cpu: 13th Gen Intel(R) Core(TM) i7-13850HX
 BenchmarkTraceStoreAddSpans-28    	 1000000	     72002 ns/op	    1634 B/op	       5 allocs/op
 PASS
-ok  	servtrace	73.443s
+ok  	pranor-trace	73.443s

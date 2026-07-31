@@ -189,7 +189,7 @@ Each archive contains `serv` (or `pranor.exe`) and `pranor-lsp` (or `pranor-lsp.
 Formula: `release-scripts/homebrew/serv.rb`
 
 **Setup (one-time):**
-1. Create a Homebrew tap repo: `github.com/user/homebrew-serv`
+1. Create a Homebrew tap repo: `github.com/user/homebrew-pranor`
 2. Copy `serv.rb` into the tap repo
 3. Update SHA256 hashes and download URLs to point to your GitHub release
 
@@ -209,13 +209,13 @@ brew install serv
 Manifest: `release-scripts/scoop/serv.json`
 
 **Setup (one-time):**
-1. Create a Scoop bucket repo: `github.com/user/scoop-serv`
+1. Create a Scoop bucket repo: `github.com/user/scoop-pranor`
 2. Copy `serv.json` into the bucket repo
 3. Update the `hash` and `url` fields with actual release URLs
 
 **User install:**
 ```powershell
-scoop bucket add serv https://github.com/user/scoop-serv
+scoop bucket add serv https://github.com/user/scoop-pranor
 scoop install serv
 ```
 

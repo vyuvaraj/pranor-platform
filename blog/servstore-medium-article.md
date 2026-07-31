@@ -157,13 +157,13 @@ Background rebalancing redistributes existing objects without downtime.
 Pranor Vault includes a full Kubernetes deployment story:
 
 ```yaml
-apiVersion: storage.servstore.io/v1alpha1
+apiVersion: storage.pranor-vault.io/v1alpha1
 kind: Pranor VaultCluster
 metadata:
   name: my-storage
 spec:
   replicas: 3
-  image: ghcr.io/vyuvaraj/servstore:latest
+  image: ghcr.io/vyuvaraj/pranor-vault:latest
   erasureCoding:
     enabled: true
     dataShards: 2
@@ -222,7 +222,7 @@ Pranor Vault isn't trying to replace AWS S3 for everyone. It's for teams who wan
 # Clone and build
 git clone https://github.com/vyuvaraj/Pranor Vault.git
 cd Pranor Vault
-go build -o servstore ./cmd/servstore
+go build -o pranor-vault ./cmd/pranor-vault
 
 # Run (no auth, port 9000)
 ./pranorstore

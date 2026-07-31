@@ -42,21 +42,21 @@ type Service struct {
 }
 
 var defaultServices = []Service{
-	{Name: "PranorGate", Binary: "servgate", Port: 8080},
-	{Name: "PranorVault", Binary: "servstore", Port: 8081},
-	{Name: "PranorPulse", Binary: "servqueue", Port: 8082},
-	{Name: "ServConsole", Binary: "servconsole", Port: 8083},
-	{Name: "ServCache", Binary: "servcache", Port: 8084},
-	{Name: "ServCron", Binary: "servcron", Port: 8085},
-	{Name: "ServCloud", Binary: "servcloud", Port: 8086},
-	{Name: "ServMesh", Binary: "servmesh", Port: 8087},
-	{Name: "ServRegistry", Binary: "servregistry", Port: 8088},
-	{Name: "ServTrace", Binary: "servtrace", Port: 8090},
-	{Name: "ServMail", Binary: "servmail", Port: 8094},
-	{Name: "ServFlow", Binary: "servflow", Port: 8096},
-	{Name: "ServPool", Binary: "ServPool", Port: 8097},
-	{Name: "ServAuth", Binary: "servauth", Port: 8098},
-	{Name: "ServTunnel", Binary: "servtunnel", Port: 8443},
+	{Name: "PranorGate", Binary: "pranor-gate", Port: 8080},
+	{Name: "PranorVault", Binary: "pranor-vault", Port: 8081},
+	{Name: "PranorPulse", Binary: "pranor-pulse", Port: 8082},
+	{Name: "PranorConsole", Binary: "pranor-console", Port: 8083},
+	{Name: "PranorCache", Binary: "pranor-cache", Port: 8084},
+	{Name: "PranorChrono", Binary: "pranor-chrono", Port: 8085},
+	{Name: "PranorDeploy", Binary: "pranor-deploy", Port: 8086},
+	{Name: "PranorMesh", Binary: "pranor-mesh", Port: 8087},
+	{Name: "PranorHub", Binary: "pranor-hub", Port: 8088},
+	{Name: "PranorTrace", Binary: "pranor-trace", Port: 8090},
+	{Name: "PranorNotify", Binary: "pranor-notify", Port: 8094},
+	{Name: "PranorFlow", Binary: "pranor-flow", Port: 8096},
+	{Name: "PranorPool", Binary: "PranorPool", Port: 8097},
+	{Name: "PranorAuth", Binary: "pranor-auth", Port: 8098},
+	{Name: "PranorTunnel", Binary: "pranor-tunnel", Port: 8443},
 }
 
 func main() {
@@ -98,7 +98,7 @@ func printUsage() {
 	fmt.Println("Examples:")
 	fmt.Println("  pranor init                          # Generate config file")
 	fmt.Println("  pranor up                            # Start all services")
-	fmt.Println("  pranor up --only servgate,servstore  # Start subset")
+	fmt.Println("  pranor up --only pranor-gate,pranor-vault  # Start subset")
 	fmt.Println("  pranor status                        # Health check")
 }
 
@@ -361,76 +361,76 @@ shared:
 
 # Per-service configuration
 services:
-  servgate:
+  pranor-gate:
     port: 8080
     env:
-      SERVGATE_AUTH_TOKEN: "gateway-secret-token"
+      PRANOR_GATE_AUTH_TOKEN: "gateway-secret-token"
 
-  servstore:
+  pranor-vault:
     port: 8081
     env:
-      SERVSTORE_DATA_DIR: "./data/store"
-      SERVSTORE_ACCESS_KEY: "admin"
-      SERVSTORE_SECRET_KEY: "password"
+      PRANOR_VAULT_DATA_DIR: "./data/store"
+      PRANOR_VAULT_ACCESS_KEY: "admin"
+      PRANOR_VAULT_SECRET_KEY: "password"
 
-  servqueue:
+  pranor-pulse:
     port: 8082
 
-  servconsole:
+  pranor-console:
     port: 8083
     env:
       PRANOR_JWT_SECRET: ""  # empty = no login required (dev mode). Set to shared secret for SSO.
 
-  servcache:
+  pranor-cache:
     port: 8084
     env:
-      SERVCACHE_REDIS_URL: ""  # empty = in-memory mode
+      PRANOR_CACHE_REDIS_URL: ""  # empty = in-memory mode
 
-  servcron:
+  pranor-chrono:
     port: 8085
     env:
-      SERVCRON_REDIS_URL: ""  # empty = standalone leader mode
-      SERVSTORE_URL: "http://localhost:8081"
+      PRANOR_CHRONO_REDIS_URL: ""  # empty = standalone leader mode
+      PRANOR_VAULT_URL: "http://localhost:8081"
 
-  servcloud:
+  pranor-deploy:
     port: 8086
     env:
-      SERVGATE_URL: "http://localhost:8080"
+      PRANOR_GATE_URL: "http://localhost:8080"
 
-  servmesh:
+  pranor-mesh:
     port: 8087
 
-  servregistry:
+  pranor-hub:
     port: 8088
     env:
-      SERVSTORE_URL: "http://localhost:8081"
+      PRANOR_VAULT_URL: "http://localhost:8081"
 
-  servtrace:
+  pranor-trace:
     port: 8090
 
-  servmail:
+  pranor-notify:
     port: 8094
     env:
-      SERVSTORE_URL: "http://localhost:8081"
+      PRANOR_VAULT_URL: "http://localhost:8081"
       SERVMAIL_SMTP_HOST: ""  # empty = mock mode (no real emails sent)
 
-  servflow:
+  pranor-flow:
     port: 8096
     env:
-      SERVSTORE_URL: "http://localhost:8081"
-      SERVQUEUE_URL: "http://localhost:8082"
+      PRANOR_VAULT_URL: "http://localhost:8081"
+      PRANOR_PULSE_URL: "http://localhost:8082"
 
-  ServPool:
+  PranorPool:
     port: 8097
     env:
-      ServPool_PRIMARY_DSN: "sqlite://./data/ServPool.db"
+      PranorPool_PRIMARY_DSN: "sqlite://./data/PranorPool.db"
 
-  servauth:
+  pranor-auth:
     port: 8098
     env:
-      SERVSTORE_URL: "http://localhost:8081"
+      PRANOR_VAULT_URL: "http://localhost:8081"
 
-  servtunnel:
+  pranor-tunnel:
     port: 8443
     env:
       SERVTUNNEL_DOMAIN: "localhost"

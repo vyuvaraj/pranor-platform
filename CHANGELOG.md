@@ -51,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * **ARCH.5**: Shared package extraction and strict constructor dependency injection in `Pranor Notify`. Handlers are now structured as methods on `MailServer`.
-* **DX.9**: Offline mock mode support. Adds a concurrent TCP-based mock SMTP server (listening on port 1025) in `Pranor Notify` and offline S3 mock API mode (activated via `--mock` or `SERVSTORE_MOCK=true`) in `Pranor Vault`.
+* **DX.9**: Offline mock mode support. Adds a concurrent TCP-based mock SMTP server (listening on port 1025) in `Pranor Notify` and offline S3 mock API mode (activated via `--mock` or `PRANOR_VAULT_MOCK=true`) in `Pranor Vault`.
 * **OPS.5**: GitOps configuration sync webhook endpoint `/api/gitops/webhook` and `/api/v1/gitops/webhook` in `Pranor Gate` to pull changes and dynamically reload routes.
 * **OPS.6**: Integrated ACME / Let's Encrypt autocert client in `Pranor Gate` supporting port 80 HTTP-01 challenge redirect and automated certificate renewals on port 443.
 * **CORE.2**: Durable Sagas rollback engine in `Pranor Flow` which executes compensation actions (with support for HTTP endpoints), updates intermediate statuses to `"compensating"`, and durably checkpoints state so rollbacks resume on startup.

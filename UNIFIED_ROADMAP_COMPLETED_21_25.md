@@ -126,11 +126,11 @@ Closed the consistency gaps identified in the API maturity audit before tagging 
 
 ## Phase 28: Distribution & Installer Packaging (Completed Items)
 
-- **PKG.3: Unified ServVerse .deb / .rpm meta-package** — Configured GoReleaser and created packaging scripts to bundle all 16 services under a single installable virtual package (`pranor`). [July 16, 2026]
+- **PKG.3: Unified Pranor .deb / .rpm meta-package** — Configured GoReleaser and created packaging scripts to bundle all 16 services under a single installable virtual package (`pranor`). [July 16, 2026]
 - **PKG.4: Windows Unified Installer (Inno Setup)** — Authored `pranor.iss` setup script configuring a custom component picker, program executable setups, shortcut linkages, and automatic registry PATH updates for Windows installations. [July 16, 2026]
-- **PKG.5: GitHub Actions workflow for Windows installer build** — Established `.github/workflows/windows-installer.yml` to automatically build `pranor.iss` using `crazy-max/ghaction-setup-inno` and upload `ServVerse-windows-setup.exe` to release assets. [July 16, 2026]
+- **PKG.5: GitHub Actions workflow for Windows installer build** — Established `.github/workflows/windows-installer.yml` to automatically build `pranor.iss` using `crazy-max/ghaction-setup-inno` and upload `Pranor-windows-setup.exe` to release assets. [July 16, 2026]
 - **PKG.6: Chocolatey package** — Created `pranor.nuspec` package specification along with installation helper scripts (`chocolateyinstall.ps1`, `chocolateyuninstall.ps1`) enabling silent Windows deployments using `choco install pranor`. [July 16, 2026]
-- **PKG.7: winget manifest** — Created `yuvaraj.pranor.yaml` winget manifest according to the winget client schema, supporting remote `winget install Yuvaraj.ServVerse` execution. [July 16, 2026]
+- **PKG.7: winget manifest** — Created `yuvaraj.pranor.yaml` winget manifest according to the winget client schema, supporting remote `winget install Yuvaraj.Pranor` execution. [July 16, 2026]
 - **PKG.8: macOS Package Installer (.pkg)** — Created macOS `pkgbuild`/`productbuild` automation configuration `build-macos-pkg.sh` packaging all 10 base workspace binary components inside a single setup package. [July 16, 2026]
 - **PKG.9: Apple Developer Notarization CI** — Integrated `macos-installer.yml` GitHub actions workflow with simulated Apple notarization check validating release uploads. [July 16, 2026]
 - **PKG.10: Snap Package** — Written `snapcraft.yaml` specifying confined commands and system bindings to build Pranor Linux Snaps. [July 16, 2026]

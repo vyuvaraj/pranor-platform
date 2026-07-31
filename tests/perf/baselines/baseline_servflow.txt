@@ -1,7 +1,7 @@
 goos: windows
 goarch: amd64
-pkg: servflow
+pkg: pranor-flow
 cpu: 13th Gen Intel(R) Core(TM) i7-13850HX
 BenchmarkWorkflowDefinitionLookup-28    	17471494	        60.96 ns/op	      21 B/op	       1 allocs/op
 PASS
-ok  	servflow	2.511s
+ok  	pranor-flow	2.511s

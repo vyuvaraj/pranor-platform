@@ -12,7 +12,7 @@ version: '3.8'
 services:
   # ── Core Infrastructure ─────────────────────────────────────────────────────
   serv-store:
-    image: pranor/servstore:latest
+    image: pranor/pranor-vault:latest
     ports:
       - "8081:8081"
     environment:
@@ -25,7 +25,7 @@ services:
       interval: 10s
 
   serv-queue:
-    image: pranor/servqueue:latest
+    image: pranor/pranor-pulse:latest
     ports:
       - "8082:8082"
     environment:
@@ -36,7 +36,7 @@ services:
 
   # ── Identity & Persistence (Phase 9/10) ─────────────────────────────────────
   serv-auth:
-    image: pranor/servauth:latest
+    image: pranor/pranor-auth:latest
     ports:
       - "8098:8098"
     environment:
@@ -64,7 +64,7 @@ services:
 
   # ── Workflow Engine & Schedulers ────────────────────────────────────────────
   serv-flow:
-    image: pranor/servflow:latest
+    image: pranor/pranor-flow:latest
     ports:
       - "8096:8096"
     environment:
@@ -77,7 +77,7 @@ services:
       interval: 10s
 
   serv-mail:
-    image: pranor/servmail:latest
+    image: pranor/pranor-notify:latest
     ports:
       - "8094:8094"
     environment:
@@ -90,7 +90,7 @@ services:
 
   # ── API Gateway & Ingress ───────────────────────────────────────────────────
   serv-gate:
-    image: pranor/servgate:latest
+    image: pranor/pranor-gate:latest
     ports:
       - "8080:8080"
     environment:

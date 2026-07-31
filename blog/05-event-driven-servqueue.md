@@ -1,6 +1,6 @@
 # Event-Driven Microservices with Pranor Pulse
 
-> **Published:** July 2026 | **Reading Time:** ~12 min | **Tags:** `servqueue`, `messaging`, `event-driven`, `pub-sub`, `wasm`, `monorepo`
+> **Published:** July 2026 | **Reading Time:** ~12 min | **Tags:** `pranor-pulse`, `messaging`, `event-driven`, `pub-sub`, `wasm`, `monorepo`
 
 ---
 
@@ -12,7 +12,7 @@ Synchronous request-response works fine until it doesn't. When a user places an 
 
 Pranor Pulse is the Pranor message broker. It supports:
 
-- **Dual-Binary Architecture** — `servqueued` server daemon + `servqueue` management CLI
+- **Dual-Binary Architecture** — `pranor-pulsed` server daemon + `pranor-pulse` management CLI
 - **Multi-Protocol Support** — Native STOMP (`:61613`), MQTT v5.0 (`:1883`), Kafka Wire Protocol (`:9092`), and HTTP REST (`:8082`/`:9092`)
 - **Compute-in-Queue** — Inline WASM transform execution on topics
 - **Point-in-Time Event Replay** — Seek consumer offsets to arbitrary timestamps (`seekToTime`)
@@ -23,45 +23,45 @@ Pranor Pulse is the Pranor message broker. It supports:
 
 ---
 
-## Step 1: Run the Pranor Pulse Daemon (`servqueued`)
+## Step 1: Run the Pranor Pulse Daemon (`pranor-pulsed`)
 
-Build or run `servqueued` directly from the monorepo:
+Build or run `pranor-pulsed` directly from the monorepo:
 
 ```bash
 cd serv/packages/Pranor Pulse
-go run ./cmd/servqueued --port 9092
+go run ./cmd/pranor-pulsed --port 9092
 ```
 
 The server outputs:
 ```
-Starting Pranor Pulse Standalone Daemon (servqueued) on port 9092...
-servqueued Web Admin UI available at http://localhost:9092/ui/
+Starting Pranor Pulse Standalone Daemon (pranor-pulsed) on port 9092...
+pranor-pulsed Web Admin UI available at http://localhost:9092/ui/
 ```
 
 ---
 
-## Step 2: CLI Operations (`servqueue`)
+## Step 2: CLI Operations (`pranor-pulse`)
 
-Use the dedicated `servqueue` CLI tool to inspect and manage topics:
+Use the dedicated `pranor-pulse` CLI tool to inspect and manage topics:
 
 ```bash
 # Check status
-servqueue status
+pranor-pulse status
 
 # Create a topic
-servqueue topics create orders.created
+pranor-pulse topics create orders.created
 
 # Publish a message
-servqueue publish orders.created '{"order_id": "ord_1001", "total": 99.99}'
+pranor-pulse publish orders.created '{"order_id": "ord_1001", "total": 99.99}'
 
 # Consume messages
-servqueue consume orders.created
+pranor-pulse consume orders.created
 
 # Stream live topic messages
-servqueue tail orders.created
+pranor-pulse tail orders.created
 
 # Seek consumer offset to 15 minutes ago
-servqueue seek orders.created 15m
+pranor-pulse seek orders.created 15m
 ```
 
 ---
@@ -74,7 +74,7 @@ Pranor Pulse provides official client SDKs:
 ```go
 import "github.com/vyuvaraj/pranor/packages/Pranor Pulse/sdks/go"
 
-client := servqueue.NewClient("http://localhost:8082", "my-token")
+client := pranor-pulse.NewClient("http://localhost:8082", "my-token")
 err := client.Publish("orders.created", `{"order_id": "1001"}`)
 offset, err := client.SeekToTime("orders.created", "15m")
 ```
@@ -89,7 +89,7 @@ await client.publish("orders.created", JSON.stringify({ order_id: "1001" }));
 
 ### Python SDK
 ```python
-from servqueue import Pranor PulseClient
+from pranor-pulse import Pranor PulseClient
 
 client = Pranor PulseClient(base_url="http://localhost:8082")
 client.publish("orders.created", '{"order_id": "1001"}')
@@ -100,10 +100,10 @@ client.publish("orders.created", '{"order_id": "1001"}')
 ## Step 4: Observability & Monitoring
 
 Pranor Pulse exposes Prometheus metrics natively at `/metrics`:
-* `servqueue_messages_published_total`
-* `servqueue_queue_depth`
-* `servqueue_consumer_lag`
-* `servqueue_wasm_executions_total`
+* `pranor-pulse_messages_published_total`
+* `pranor-pulse_queue_depth`
+* `pranor-pulse_consumer_lag`
+* `pranor-pulse_wasm_executions_total`
 
 Pre-built Grafana dashboard templates are included in `packages/Pranor Pulse/grafana_dashboard.json`.
 

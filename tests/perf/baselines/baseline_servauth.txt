@@ -1,8 +1,8 @@
 goos: windows
 goarch: amd64
-pkg: servauth
+pkg: pranor-auth
 cpu: 13th Gen Intel(R) Core(TM) i7-13850HX
 BenchmarkAPIKeyHashing-28       	19439902	        58.13 ns/op	       0 B/op	       0 allocs/op
 BenchmarkAPIKeyValidation-28    	 4815814	       248.8 ns/op	     128 B/op	       3 allocs/op
 PASS
-ok  	servauth	2.787s
+ok  	pranor-auth	2.787s

@@ -63,7 +63,7 @@ graph TD
 
 ## Service Discovery
 
-All services locate each other via the `SERVVERSE_DISCOVERY` environment variable — a JSON manifest (or file path) mapping service names to URLs:
+All services locate each other via the `PRANOR_DISCOVERY` environment variable — a JSON manifest (or file path) mapping service names to URLs:
 
 ```json
 {

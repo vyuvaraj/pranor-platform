@@ -125,13 +125,13 @@ store:
 
 cache:
   driver: memory          # In-memory cache for local dev
-  # driver: servcache     # Switch to Pranor Cache in production
+  # driver: pranor-cache     # Switch to Pranor Cache in production
   # endpoint: http://localhost:8082
 
 auth:
   driver: jwt
   secret: ${JWT_SECRET}
-  # driver: servauth      # Delegate to Pranor Auth in production
+  # driver: pranor-auth      # Delegate to Pranor Auth in production
   # endpoint: http://localhost:8086
 ```
 
@@ -191,19 +191,19 @@ Switch your `serv.yaml` to production drivers:
 
 ```yaml
 cache:
-  driver: servcache
-  endpoint: http://servcache:8082
+  driver: pranor-cache
+  endpoint: http://pranor-cache:8082
 
 auth:
-  driver: servauth
-  endpoint: http://servauth:8086
+  driver: pranor-auth
+  endpoint: http://pranor-auth:8086
 ```
 
 Start the ecosystem services:
 
 ```bash
-docker run -d -p 8082:8082 ghcr.io/vyuvaraj/servcache:latest
-docker run -d -p 8086:8086 ghcr.io/vyuvaraj/servauth:latest
+docker run -d -p 8082:8082 ghcr.io/vyuvaraj/pranor-cache:latest
+docker run -d -p 8086:8086 ghcr.io/vyuvaraj/pranor-auth:latest
 docker run -d -p 3000:3000 my-api:latest
 ```
 
@@ -225,7 +225,7 @@ In 10 minutes, you went from zero to:
 
 In the next post, we go deeper into **Pranor Gate** — the API gateway that sits in front of all your services, handling routing, rate limiting, and auth forwarding.
 
-➡️ [Building a Production API Gateway with Pranor Gate](blog.html?post=03-api-gateway-servgate)
+➡️ [Building a Production API Gateway with Pranor Gate](blog.html?post=03-api-gateway-pranor-gate)
 
 ---
 

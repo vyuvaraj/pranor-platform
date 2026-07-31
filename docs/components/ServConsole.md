@@ -37,14 +37,14 @@ Single-binary glassmorphic web dashboard providing unified observability, admini
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `SERVVERSE_DISCOVERY` | JSON manifest or file path for service URLs | (uses CLI flags) |
+| `PRANOR_DISCOVERY` | JSON manifest or file path for service URLs | (uses CLI flags) |
 | `PRANOR_JWT_SECRET` | Shared JWT secret for console auth | (required for SSO) |
 | `PRANOR_OTLP_ENDPOINT` | OTel collector | (disabled) |
 
 ## CLI Flags
 
 ```bash
-servconsole \
+pranor-console \
   --port 8083 \
   --gate-url http://localhost:8080 \
   --store-url http://localhost:8081 \

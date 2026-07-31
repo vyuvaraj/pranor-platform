@@ -16,9 +16,9 @@ func TestCrossComponentConformance(t *testing.T) {
 
 	// Mock component server endpoints
 	components := []string{
-		"ServAuth", "PranorVault", "PranorGate", "PranorPulse", "ServCache",
-		"ServMesh", "ServCloud", "ServTrace", "ServMail", "ServPool",
-		"ServTunnel", "Serv-lang", "ServConsole", "ServCron", "ServFlow",
+		"PranorAuth", "PranorVault", "PranorGate", "PranorPulse", "PranorCache",
+		"PranorMesh", "PranorDeploy", "PranorTrace", "PranorNotify", "PranorPool",
+		"PranorTunnel", "Pranor", "PranorConsole", "PranorChrono", "PranorFlow",
 	}
 
 	mu := sync.Mutex{}

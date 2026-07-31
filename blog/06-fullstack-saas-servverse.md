@@ -49,8 +49,8 @@ taskflow/
 │   │   └── task.pnr
 │   └── serv.yaml
 ├── config/
-│   ├── servgate.yaml
-│   └── servauth.yaml
+│   ├── pranor-gate.yaml
+│   └── pranor-auth.yaml
 └── docker-compose.yml
 ```
 
@@ -184,7 +184,7 @@ service TaskService {
 
 ## Step 3: Configure Ecosystem Services
 
-`config/servgate.yaml`:
+`config/pranor-gate.yaml`:
 ```yaml
 server:
   port: 8081
@@ -204,24 +204,24 @@ routes:
 
   # Public auth routes (no JWT required)
   - path: /auth
-    upstream: servauth
+    upstream: pranor-auth
     rate_limit:
       requests: 20
       window: 1m
 
 auth:
   jwt:
-    provider: servauth
-    endpoint: http://servauth:8086
+    provider: pranor-auth
+    endpoint: http://pranor-auth:8086
 
 middleware:
   cors:
     origins: ["https://app.taskflow.io"]
   tracing:
-    endpoint: http://servtrace:4317
+    endpoint: http://pranor-trace:4317
 ```
 
-`config/servauth.yaml`:
+`config/pranor-auth.yaml`:
 ```yaml
 server:
   port: 8086
@@ -243,8 +243,8 @@ providers:
     client_secret: ${GOOGLE_CLIENT_SECRET}
 
 mail:
-  provider: servmail
-  endpoint: http://servmail:8088
+  provider: pranor-notify
+  endpoint: http://pranor-notify:8088
 ```
 
 ---
@@ -355,45 +355,45 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   # Pranor components
-  servgate:
-    image: ghcr.io/vyuvaraj/servgate:latest
+  pranor-gate:
+    image: ghcr.io/vyuvaraj/pranor-gate:latest
     ports: ["80:8081"]
     volumes:
-      - ./config/servgate.yaml:/app/servgate.yaml
+      - ./config/pranor-gate.yaml:/app/pranor-gate.yaml
     environment:
       JWT_SECRET: ${JWT_SECRET}
-    depends_on: [servauth, app]
+    depends_on: [pranor-auth, app]
 
-  servauth:
-    image: ghcr.io/vyuvaraj/servauth:latest
+  pranor-auth:
+    image: ghcr.io/vyuvaraj/pranor-auth:latest
     volumes:
-      - ./config/servauth.yaml:/app/servauth.yaml
+      - ./config/pranor-auth.yaml:/app/pranor-auth.yaml
     environment:
       JWT_SECRET: ${JWT_SECRET}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
     depends_on: [postgres]
 
-  servcache:
-    image: ghcr.io/vyuvaraj/servcache:latest
+  pranor-cache:
+    image: ghcr.io/vyuvaraj/pranor-cache:latest
     volumes:
       - cache_data:/data
 
-  servqueue:
-    image: ghcr.io/vyuvaraj/servqueue:latest
+  pranor-pulse:
+    image: ghcr.io/vyuvaraj/pranor-pulse:latest
     volumes:
       - queue_data:/data
 
-  servstore:
-    image: ghcr.io/vyuvaraj/servstore:latest
+  pranor-vault:
+    image: ghcr.io/vyuvaraj/pranor-vault:latest
     environment:
       STORAGE_DRIVER: local
       STORAGE_PATH: /data
     volumes:
       - store_data:/data
 
-  servmail:
-    image: ghcr.io/vyuvaraj/servmail:latest
+  pranor-notify:
+    image: ghcr.io/vyuvaraj/pranor-notify:latest
     environment:
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PORT: 587
@@ -401,36 +401,36 @@ services:
       SMTP_PASS: ${SMTP_PASS}
       FROM_ADDRESS: noreply@taskflow.io
 
-  servtrace:
-    image: ghcr.io/vyuvaraj/servtrace:latest
+  pranor-trace:
+    image: ghcr.io/vyuvaraj/pranor-trace:latest
     ports: ["16686:16686"]    # Jaeger-compatible UI
     volumes:
       - trace_data:/data
 
-  servconsole:
-    image: ghcr.io/vyuvaraj/servconsole:latest
+  pranor-console:
+    image: ghcr.io/vyuvaraj/pranor-console:latest
     ports: ["9000:9000"]
     environment:
-      SERVGATE_URL: http://servgate:8081
-      SERVCACHE_URL: http://servcache:8082
-      SERVQUEUE_URL: http://servqueue:8083
-      SERVTRACE_URL: http://servtrace:4317
+      PRANOR_GATE_URL: http://pranor-gate:8081
+      PRANOR_CACHE_URL: http://pranor-cache:8082
+      PRANOR_PULSE_URL: http://pranor-pulse:8083
+      PRANOR_TRACE_URL: http://pranor-trace:4317
 
   # Application
   app:
     build: ./app
     environment:
       DATABASE_URL: postgres://taskflow:${DB_PASSWORD}@postgres:5432/taskflow
-      SERVCACHE_URL: http://servcache:8082
-      SERVQUEUE_URL: http://servqueue:8083
-      SERVSTORE_URL: http://servstore:8084
-      SERVAUTH_URL: http://servauth:8086
-      SERVCRON_URL: http://servcron:8089
+      PRANOR_CACHE_URL: http://pranor-cache:8082
+      PRANOR_PULSE_URL: http://pranor-pulse:8083
+      PRANOR_VAULT_URL: http://pranor-vault:8084
+      PRANOR_AUTH_URL: http://pranor-auth:8086
+      PRANOR_CHRONO_URL: http://pranor-chrono:8089
     depends_on:
       - postgres
-      - servcache
-      - servqueue
-      - servstore
+      - pranor-cache
+      - pranor-pulse
+      - pranor-vault
 
 volumes:
   pg_data:
@@ -453,7 +453,7 @@ cp .env.example .env
 docker compose up -d
 
 # Watch logs
-docker compose logs -f app servgate
+docker compose logs -f app pranor-gate
 
 # Check everything is healthy
 curl http://localhost/health
@@ -491,9 +491,9 @@ This series covered the entire Pranor developer journey:
 |------|-------|
 | [1 — Introducing Serv](blog.html?post=01-introducing-serv) | Ecosystem overview |
 | [2 — Pranor in 10 min](blog.html?post=02-getting-started-pranor) | First service |
-| [3 — Pranor Gate](blog.html?post=03-api-gateway-servgate) | API gateway deep dive |
-| [4 — Pranor Cache](blog.html?post=04-caching-with-servcache) | Distributed caching |
-| [5 — Pranor Pulse](blog.html?post=05-event-driven-servqueue) | Event-driven architecture |
+| [3 — Pranor Gate](blog.html?post=03-api-gateway-pranor-gate) | API gateway deep dive |
+| [4 — Pranor Cache](blog.html?post=04-caching-with-pranor-cache) | Distributed caching |
+| [5 — Pranor Pulse](blog.html?post=05-event-driven-pranor-pulse) | Event-driven architecture |
 | **6 — Full-Stack SaaS** | **This post** |
 
 ---

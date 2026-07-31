@@ -9,7 +9,7 @@ import (
 
 // TestChaosRegression injects simulated network partitions and service kills to assert MTTR within SLA.
 func TestChaosRegression(t *testing.T) {
-	services := []string{"PranorGate", "ServMesh", "ServConsole", "PranorVault", "PranorPulse"}
+	services := []string{"PranorGate", "PranorMesh", "PranorConsole", "PranorVault", "PranorPulse"}
 
 	t.Run("Service_Termination_Recovery", func(t *testing.T) {
 		killedService := services[rand.Intn(len(services))]

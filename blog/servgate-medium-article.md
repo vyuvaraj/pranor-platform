@@ -113,7 +113,7 @@ Prevent data leaks by redacting Personally Identifiable Information (PII) before
 
 A common problem with gateways is scaling. How do multiple nodes share configuration and WASM files?
 
-Pranor Gate solves this by natively integrating with **Pranor Vault** (the ecosystem's distributed object storage). Nodes join a shared bucket (`servgate-config`), and whenever a WASM filter is uploaded or route configuration changes, the updates are pushed to Pranor Vault. Pranor Gate instances watch this bucket and hot-reload their routing tables and WASM binaries in memory.
+Pranor Gate solves this by natively integrating with **Pranor Vault** (the ecosystem's distributed object storage). Nodes join a shared bucket (`pranor-gate-config`), and whenever a WASM filter is uploaded or route configuration changes, the updates are pushed to Pranor Vault. Pranor Gate instances watch this bucket and hot-reload their routing tables and WASM binaries in memory.
 
 ```mermaid
 graph LR
@@ -202,7 +202,7 @@ git clone https://github.com/vyuvaraj/Pranor Gate.git
 cd Pranor Gate
 
 # Build and execute
-go build -o servgate.exe main.go
+go build -o pranor-gate.exe main.go
 ./pranorgate.exe --config=config.json
 ```
 

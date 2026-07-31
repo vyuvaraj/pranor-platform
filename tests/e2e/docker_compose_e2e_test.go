@@ -37,10 +37,10 @@ func TestDockerComposeE2E(t *testing.T) {
 		name string
 		port string
 	}{
-		{"servauth", "8098"},
+		{"pranor-auth", "8098"},
 		{"servdb", "8097"},
-		{"servmail", "8094"},
-		{"servflow", "8096"},
+		{"pranor-notify", "8094"},
+		{"pranor-flow", "8096"},
 	}
 
 	client := &http.Client{Timeout: 1 * time.Second}
@@ -64,7 +64,7 @@ func TestDockerComposeE2E(t *testing.T) {
 	t.Log("All services healthy. Executing E2E flow...")
 
 	// 3. Perform contract assertions
-	// Step A: Register User in ServAuth
+	// Step A: Register User in PranorAuth
 	regPayload := map[string]string{
 		"username": "docker-test-user",
 		"password": "strongPassword123!",
@@ -113,7 +113,7 @@ func TestDockerComposeE2E(t *testing.T) {
 	}
 	resp.Body.Close()
 
-	// Step D: Register Mail Template in ServMail
+	// Step D: Register Mail Template in PranorNotify
 	templatePayload := map[string]string{
 		"name":    "welcome",
 		"version": "v1",
@@ -125,11 +125,11 @@ func TestDockerComposeE2E(t *testing.T) {
 	req.Header.Set("Authorization", "Bearer "+loginRes.Token)
 	resp, err = client.Do(req)
 	if err != nil || resp.StatusCode != http.StatusCreated {
-		t.Fatalf("failed to register template in ServMail: %v, status: %d", err, resp.StatusCode)
+		t.Fatalf("failed to register template in PranorNotify: %v, status: %d", err, resp.StatusCode)
 	}
 	resp.Body.Close()
 
-	// Step E: Define Workflow in ServFlow
+	// Step E: Define Workflow in PranorFlow
 	workflowPayload := map[string]interface{}{
 		"id": "onboarding-workflow",
 		"tasks": []map[string]interface{}{
@@ -145,7 +145,7 @@ func TestDockerComposeE2E(t *testing.T) {
 	req.Header.Set("Authorization", "Bearer "+loginRes.Token)
 	resp, err = client.Do(req)
 	if err != nil || resp.StatusCode != http.StatusCreated {
-		t.Fatalf("failed to define workflow in ServFlow: %v, status: %d", err, resp.StatusCode)
+		t.Fatalf("failed to define workflow in PranorFlow: %v, status: %d", err, resp.StatusCode)
 	}
 	resp.Body.Close()
 

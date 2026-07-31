@@ -1,5 +1,5 @@
 $packageName = 'pranor'
-$softwareName = 'ServVerse*'
+$softwareName = 'Pranor*'
 
 Uninstall-ChocolateyPackage -PackageName $packageName `
                             -SoftwareName $softwareName

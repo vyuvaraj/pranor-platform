@@ -22,7 +22,7 @@ Pranor Hub is a package registry hub for `.pnr` modules. It provides S3-backed s
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `SERVREGISTRY_PORT` | HTTP listen port | `8088` |
-| `SERVSTORE_URL` | Pranor Vault URL for package storage | (required) |
+| `PRANOR_VAULT_URL` | Pranor Vault URL for package storage | (required) |
 | `PRANOR_JWT_SECRET` | JWT verification secret | (required) |
 
 ## Endpoints
