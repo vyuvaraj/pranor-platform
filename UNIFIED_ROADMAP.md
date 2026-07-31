@@ -969,3 +969,90 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | **TOTAL** | **87** | **87** | **0** | **100%** ✅ |
 
 > **Note:** Pipeline dashboard binary requires `pranor build main.pnr` after Go module proxy propagates latest commit (~5 min delay). Pranor compiler itself builds successfully (`go build -o pranor.exe .` in `lang/`).
+
+
+---
+
+## Phase 82: Documentation Consolidation (Planned)
+
+> **Goal:** Consolidate all documentation into a single `docs/` directory in the pranor monorepo. Currently docs are scattered across per-module READMEs, a separate platform repo, blog posts, and embedded docs/ folders. This phase creates a unified, navigable documentation structure.
+>
+> Last updated: July 31, 2026
+
+### Current Problems
+
+- Documentation lives in 5+ locations (per-module READMEs, pranor-platform/docs, pranor-platform/blog, lang/docs, individual ROADMAP.md files)
+- No cross-module guides (deployment, architecture, security)
+- No single entry point for new users
+- Blog posts contain technical docs mixed with marketing
+- pranor-platform repo is a grab-bag of docs, configs, showcases, and installers
+
+### Target Structure
+
+```
+pranor/
+├── docs/
+│   ├── README.md                    ← Docs home / index
+│   ├── getting-started.md           ← Install, first app, 5-min quickstart
+│   ├── language/
+│   │   ├── syntax.md               ← Language reference
+│   │   ├── stdlib.md               ← Standard library reference
+│   │   ├── cli.md                  ← CLI commands reference
+│   │   └── examples.md             ← Example code walkthrough
+│   ├── modules/
+│   │   ├── gate.md                 ← Pranor Gate full docs
+│   │   ├── pulse.md                ← Pranor Pulse full docs
+│   │   ├── vault.md                ← Pranor Vault full docs
+│   │   ├── chrono.md               ← Pranor Chrono full docs
+│   │   ├── auth.md                 ← Pranor Auth full docs
+│   │   ├── cache.md                ← Pranor Cache full docs
+│   │   ├── mesh.md                 ← Pranor Mesh full docs
+│   │   ├── trace.md                ← Pranor Trace full docs
+│   │   ├── console.md              ← Pranor Console full docs
+│   │   ├── pool.md                 ← Pranor Pool full docs
+│   │   ├── notify.md               ← Pranor Notify full docs
+│   │   ├── flow.md                 ← Pranor Flow full docs
+│   │   ├── deploy.md               ← Pranor Deploy full docs
+│   │   ├── tunnel.md               ← Pranor Tunnel full docs
+│   │   ├── hub.md                  ← Pranor Hub full docs
+│   │   ├── lock.md                 ← Pranor Lock full docs
+│   │   └── secret.md               ← Pranor Secret full docs
+│   ├── deployment/
+│   │   ├── docker.md               ← Docker Compose guide
+│   │   ├── kubernetes.md           ← K8s / Helm deployment
+│   │   └── standalone.md           ← Running individual modules
+│   ├── architecture/
+│   │   ├── overview.md             ← System diagram, how modules connect
+│   │   ├── security.md             ← Auth model, mTLS, RBAC
+│   │   └── observability.md        ← Tracing, metrics, alerting
+│   ├── enterprise/
+│   │   ├── features.md             ← EE features list
+│   │   └── licensing.md            ← Pricing, tiers
+│   └── changelog.md                ← Unified changelog
+```
+
+### Tasks
+
+| # | Item | Description | Status |
+|---|------|-------------|--------|
+| DC.1 | **Create docs/ directory structure** | Create all subdirectories and index files | [ ] |
+| DC.2 | **Consolidate module docs** | Move content from each module's README.md into `docs/modules/{name}.md` | [ ] |
+| DC.3 | **Write getting-started.md** | Install → first app → deploy → observe in 5 minutes | [ ] |
+| DC.4 | **Write language reference** | Merge lang/docs/ + lang/README into `docs/language/` | [ ] |
+| DC.5 | **Write deployment guides** | Consolidate docker-compose, K8s, standalone docs | [ ] |
+| DC.6 | **Write architecture overview** | System diagram, module interaction, data flow | [ ] |
+| DC.7 | **Write security guide** | Auth model, mTLS, RBAC, zero-trust | [ ] |
+| DC.8 | **Write observability guide** | Tracing, metrics, alerting across modules | [ ] |
+| DC.9 | **Consolidate changelogs** | Merge 17 per-module CHANGELOGs into one | [ ] |
+| DC.10 | **Shorten per-module READMEs** | Keep only quick reference + link to full docs | [ ] |
+| DC.11 | **Move blog content** | Migrate relevant technical content from pranor-platform/blog to docs/ | [ ] |
+| DC.12 | **Add CLI reference** | Complete `pranor` CLI command reference | [ ] |
+| DC.13 | **Add enterprise docs** | EE features, licensing, comparison table | [ ] |
+| DC.14 | **Add docs build system** | mdbook/Docusaurus config for static site generation | [ ] |
+| DC.15 | **Deploy docs site** | Publish to pranor.dev or GitHub Pages | [ ] |
+
+### Completion Tracker
+
+| Sub-Phase | Total | Completed | Pending | Progress |
+|-----------|-------|-----------|---------|----------|
+| Phase 82 Docs Consolidation | 15 | 0 | 15 | 0% |
