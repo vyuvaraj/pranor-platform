@@ -1,23 +1,23 @@
-# Servverse Installer for Windows
-# Usage: irm https://raw.githubusercontent.com/vyuvaraj/servverse/main/scripts/install.ps1 | iex
+# Pranor Installer for Windows
+# Usage: irm https://raw.githubusercontent.com/vyuvaraj/pranor/main/scripts/install.ps1 | iex
 
 param(
     [string]$Version = "latest",
-    [string]$InstallDir = "$env:USERPROFILE\.servverse",
+    [string]$InstallDir = "$env:USERPROFILE\.pranor",
     [switch]$Uninstall
 )
 
 $ErrorActionPreference = "Stop"
-$Repo = "vyuvaraj/servverse"
+$Repo = "vyuvaraj/pranor"
 $BinDir = Join-Path $InstallDir "bin"
 
-function Write-Status($msg) { Write-Host "  [servverse] $msg" -ForegroundColor Cyan }
+function Write-Status($msg) { Write-Host "  [pranor] $msg" -ForegroundColor Cyan }
 function Write-Ok($msg) { Write-Host "  [✓] $msg" -ForegroundColor Green }
 function Write-Err($msg) { Write-Host "  [✗] $msg" -ForegroundColor Red }
 
 # --- Uninstall ---
 if ($Uninstall) {
-    Write-Status "Uninstalling Servverse..."
+    Write-Status "Uninstalling Pranor..."
     if (Test-Path $InstallDir) {
         Remove-Item -Recurse -Force $InstallDir
         Write-Ok "Removed $InstallDir"
@@ -29,7 +29,7 @@ if ($Uninstall) {
         [Environment]::SetEnvironmentVariable("PATH", $newPath, "User")
         Write-Ok "Removed from PATH"
     }
-    Write-Ok "Servverse uninstalled."
+    Write-Ok "Pranor uninstalled."
     return
 }
 
@@ -49,12 +49,12 @@ if ($Version -eq "latest") {
 Write-Status "Version: $Version"
 
 # --- Find archive asset ---
-$assetName = "servverse-${Version}-${os}-${arch}.zip"
+$assetName = "pranor-${Version}-${os}-${arch}.zip"
 $asset = $release.assets | Where-Object { $_.name -eq $assetName }
 
 if (-not $asset) {
     # Fallback: try without 'v' prefix
-    $assetName = "servverse-$($Version.TrimStart('v'))-${os}-${arch}.zip"
+    $assetName = "pranor-$($Version.TrimStart('v'))-${os}-${arch}.zip"
     $asset = $release.assets | Where-Object { $_.name -eq $assetName }
 }
 
@@ -92,15 +92,15 @@ $binaries = Get-ChildItem $BinDir -Filter "*.exe" | Select-Object -ExpandPropert
 Write-Ok "Installed $($binaries.Count) binaries:"
 $binaries | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
 
-# --- Test serv ---
+# --- Test pranor ---
 $servPath = Join-Path $BinDir "pranor.exe"
 if (Test-Path $servPath) {
     Write-Host ""
-    Write-Ok "Servverse $Version installed successfully!"
+    Write-Ok "Pranor $Version installed successfully!"
     Write-Host ""
     Write-Host "  Quick start:" -ForegroundColor White
-    Write-Host "    servverse up          # Start all services" -ForegroundColor DarkGray
-    Write-Host "    servverse status      # Check service health" -ForegroundColor DarkGray
+    Write-Host "    pranor up          # Start all services" -ForegroundColor DarkGray
+    Write-Host "    pranor status      # Check service health" -ForegroundColor DarkGray
     Write-Host "    pranor run app.pnr      # Run a .pnr file" -ForegroundColor DarkGray
     Write-Host ""
     Write-Host "  Open a new terminal for PATH changes to take effect." -ForegroundColor Yellow

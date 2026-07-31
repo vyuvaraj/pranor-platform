@@ -1,27 +1,27 @@
 # PowerShell script to create and push release tag v0.2.0 for all repositories
 
 $repos = @(
-    "Serv-lang",
-    "ServGate",
-    "ServStore",
-    "ServQueue",
-    "ServConsole",
-    "ServCache",
-    "ServMesh",
-    "ServCron",
-    "ServCloud",
-    "ServTrace",
-    "ServTunnel",
-    "ServAuth",
-    "ServPool",
-    "ServMail",
-    "ServFlow",
-    "ServRegistry",
-    "ServShared",
+    "pranor-lang",
+    "pranor-gate",
+    "pranor-vault",
+    "pranor-pulse",
+    "pranor-console",
+    "pranor-cache",
+    "pranor-mesh",
+    "pranor-chrono",
+    "pranor-deploy",
+    "pranor-trace",
+    "pranor-tunnel",
+    "pranor-auth",
+    "pranor-pool",
+    "pranor-notify",
+    "pranor-flow",
+    "pranor-hub",
+    "pranor-core",
     "ServDocs",
-    "servverse-ee",
-    "servverse-operator",
-    "servverse-repo"
+    "pranor-ee",
+    "pranor-operator",
+    "pranor-repo"
 )
 
 $tag = "v1.0.0-rc1"

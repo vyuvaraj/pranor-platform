@@ -79,7 +79,7 @@ fi
 BINARY_COUNT=$(ls "$BIN_DIR" | wc -l | tr -d ' ')
 ok "Installed $BINARY_COUNT binaries"
 
-if [ -x "$BIN_DIR/serv" ]; then
+if [ -x "$BIN_DIR/pranor" ]; then
     echo ""
     ok "Pranor $VERSION installed successfully!"
     echo ""
@@ -90,5 +90,5 @@ if [ -x "$BIN_DIR/serv" ]; then
     echo ""
     echo "  Restart your shell or run: export PATH=\"$BIN_DIR:\$PATH\""
 else
-    err "Installation completed but 'serv' binary not found in $BIN_DIR"
+    err "Installation completed but 'pranor' binary not found in $BIN_DIR"
 fi

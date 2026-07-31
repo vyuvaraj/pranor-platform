@@ -1,6 +1,6 @@
-# Build All Servverse Components
+# Build All Pranor Components
 # Usage: .\scripts\build-all.ps1 -Version v0.1.0 -OS windows -Arch amd64
-# Output: dist/servverse-<version>-<os>-<arch>/
+# Output: dist/pranor-<version>-<os>-<arch>/
 
 param(
     [Parameter(Mandatory=$true)][string]$Version,
@@ -11,29 +11,29 @@ param(
 
 $ErrorActionPreference = "Stop"
 $ext = if ($OS -eq "windows") { ".exe" } else { "" }
-$archiveDir = "$OutputDir/servverse-${Version}-${OS}-${Arch}"
+$archiveDir = "$OutputDir/pranor-${Version}-${OS}-${Arch}"
 
-Write-Host "Building Servverse $Version for ${OS}/${Arch}..." -ForegroundColor Cyan
+Write-Host "Building Pranor $Version for ${OS}/${Arch}..." -ForegroundColor Cyan
 
 # Component definitions: [name, source_dir, go_module_path]
 $components = @(
-    @("serv",         "../Serv-lang",     "."),
-    @("servgate",     "../ServGate",      "."),
-    @("servstore",    "../ServStore",     "./cmd/servstore/"),
-    @("servqueue",    "../ServQueue",     "."),
-    @("servconsole",  "../ServConsole",   "."),
-    @("servcache",    "../ServCache",     "."),
-    @("servmesh",     "../ServMesh",      "."),
-    @("servcron",     "../ServCron",      "."),
-    @("servcloud",    "../ServCloud",     "."),
-    @("servtrace",    "../ServTrace",     "."),
-    @("servtunnel",   "../ServTunnel",    "."),
-    @("servauth",     "../ServAuth",      "."),
-    @("servdb",       "../ServPool",      "."),
-    @("servmail",     "../ServMail",      "."),
-    @("servflow",     "../ServFlow",      "."),
-    @("servregistry", "../ServRegistry",  "."),
-    @("servlock",     "../ServLock",      ".")
+    @("pranor",         "../pranor-lang",     "."),
+    @("pranor-gate",     "../pranor-gate",      "."),
+    @("pranor-vault",    "../pranor-vault",     "./cmd/pranor-vault/"),
+    @("pranor-pulse",    "../pranor-pulse",     "."),
+    @("pranor-console",  "../pranor-console",   "."),
+    @("pranor-cache",    "../pranor-cache",     "."),
+    @("pranor-mesh",     "../pranor-mesh",      "."),
+    @("pranor-chrono",     "../pranor-chrono",      "."),
+    @("pranor-deploy",    "../pranor-deploy",     "."),
+    @("pranor-trace",    "../pranor-trace",     "."),
+    @("pranor-tunnel",   "../pranor-tunnel",    "."),
+    @("pranor-auth",     "../pranor-auth",      "."),
+    @("servdb",       "../pranor-pool",      "."),
+    @("pranor-notify",     "../pranor-notify",      "."),
+    @("pranor-flow",     "../pranor-flow",      "."),
+    @("pranor-hub", "../pranor-hub",  "."),
+    @("servlock",     "../pranor-lock",      ".")
 )
 
 # Prepare output directory
@@ -81,10 +81,10 @@ foreach ($comp in $components) {
 }
 
 # Copy the launcher (built separately)
-$launcherSrc = "cmd/servverse/main.go"
+$launcherSrc = "cmd/pranor/main.go"
 if (Test-Path $launcherSrc) {
-    Write-Host "  Building servverse launcher..." -NoNewline
-    go build -ldflags "-s -w -X main.version=$Version" -o "$archiveDir/servverse${ext}" ./cmd/servverse/
+    Write-Host "  Building pranor launcher..." -NoNewline
+    go build -ldflags "-s -w -X main.version=$Version" -o "$archiveDir/pranor${ext}" ./cmd/pranor/
     Write-Host " OK" -ForegroundColor Green
     $success++
 }

@@ -1,29 +1,29 @@
-# PowerShell script to push all Serv ecosystem repositories to origin main
+# PowerShell script to push all Pranor ecosystem repositories to origin main
 
 $repos = @(
-    "Serv-lang",
-    "ServGate",
-    "ServStore",
-    "ServQueue",
-    "ServConsole",
-    "ServCache",
-    "ServMesh",
-    "ServCron",
-    "ServCloud",
-    "ServTrace",
-    "ServTunnel",
-    "ServAuth",
-    "ServPool",
-    "ServMail",
-    "ServFlow",
-    "ServRegistry",
-    "ServShared",
+    "pranor-lang",
+    "pranor-gate",
+    "pranor-vault",
+    "pranor-pulse",
+    "pranor-console",
+    "pranor-cache",
+    "pranor-mesh",
+    "pranor-chrono",
+    "pranor-deploy",
+    "pranor-trace",
+    "pranor-tunnel",
+    "pranor-auth",
+    "pranor-pool",
+    "pranor-notify",
+    "pranor-flow",
+    "pranor-hub",
+    "pranor-core",
     "ServDocs",
-    "servverse-repo"
+    "pranor-repo"
 )
 
 Write-Host "==================================================" -ForegroundColor Cyan
-Write-Host "Pushing all Serv ecosystem repositories to origin..." -ForegroundColor Cyan
+Write-Host "Pushing all Pranor ecosystem repositories to origin..." -ForegroundColor Cyan
 Write-Host "==================================================" -ForegroundColor Cyan
 
 foreach ($repo in $repos) {
