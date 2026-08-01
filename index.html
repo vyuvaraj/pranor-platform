@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pranor — Backend Infrastructure, One Platform</title>
-  <meta name="description" content="19 modules. Zero glue code. A programming language that compiles to native binaries with built-in API gateway, message broker, object storage, and observability.">
+  <meta name="description" content="19 modules. Zero glue code. A programming language that compiles to native binaries with built-in API gateway, message broker, object storage, and obpranorability.">
   <meta property="og:title" content="Pranor — Backend Infrastructure, One Platform">
   <meta property="og:description" content="The language that deploys itself. 19 modules, zero glue code.">
   <meta property="og:type" content="website">
@@ -132,10 +132,10 @@
       <p class="section-label">Write Less, Ship More</p>
       <h2>The language that deploys itself</h2>
       <p class="section-desc">Define routes, databases, cron jobs, and queues in a single file. Pranor compiles it to a native Go binary — no framework, no boilerplate, no runtime.</p>
-      <p style="color:var(--muted);font-size:0.85rem;margin-top:1.5rem;">This is a complete production service. 15 lines. One binary.</p>
+      <p style="color:var(--muted);font-size:0.85rem;margin-top:1.5rem;">This is a complete production pranorice. 15 lines. One binary.</p>
     </div>
     <div class="code-block">
-<span class="kw">server</span> <span class="str">"8080"</span>
+<span class="kw">pranorer</span> <span class="str">"8080"</span>
 <span class="kw">database</span> <span class="str">"sqlite://app.db"</span>
 <span class="kw">cache</span> <span class="str">"in-memory"</span>
 
@@ -170,9 +170,9 @@
     <div class="module-card"><h3><span class="module-icon">⏰</span> Chrono</h3><p>Distributed cron scheduler with leader election</p></div>
     <div class="module-card"><h3><span class="module-icon">🔐</span> Auth</h3><p>OAuth2/OIDC, RBAC, MFA, JWT — multi-tenant ready</p></div>
     <div class="module-card"><h3><span class="module-icon">💾</span> Cache</h3><p>Redis-compatible distributed cache with bloom filters</p></div>
-    <div class="module-card"><h3><span class="module-icon">🕸️</span> Mesh</h3><p>Service discovery, load balancing, mTLS, circuit breaking</p></div>
+    <div class="module-card"><h3><span class="module-icon">🕸️</span> Mesh</h3><p>Pranorice discovery, load balancing, mTLS, circuit breaking</p></div>
     <div class="module-card"><h3><span class="module-icon">📡</span> Trace</h3><p>OTLP distributed tracing with anomaly detection</p></div>
-    <div class="module-card"><h3><span class="module-icon">📊</span> Console</h3><p>Observability dashboard — metrics, SQL workbench, alerts</p></div>
+    <div class="module-card"><h3><span class="module-icon">📊</span> Console</h3><p>Obpranorability dashboard — metrics, SQL workbench, alerts</p></div>
     <div class="module-card"><h3><span class="module-icon">🔌</span> Pool</h3><p>DB connection proxy with query analytics and read/write split</p></div>
     <div class="module-card"><h3><span class="module-icon">📬</span> Notify</h3><p>Email, Slack, SMS gateway with HTML templates</p></div>
     <div class="module-card"><h3><span class="module-icon">🔀</span> Flow</h3><p>Workflow engine — DAGs, sagas, human approval gates</p></div>
@@ -190,7 +190,7 @@
 <section>
   <p class="section-label">Architecture</p>
   <h2>How it fits together</h2>
-  <p class="section-desc">Every module communicates over standard protocols. Your .pnr service sits at the center.</p>
+  <p class="section-desc">Every module communicates over standard protocols. Your .pnr pranorice sits at the center.</p>
   
   <div class="arch-visual">
     <!-- Layer 1: Edge -->
@@ -235,7 +235,7 @@
       <div class="arch-nodes">
         <div class="arch-node arch-node-primary">
           <div class="arch-node-icon">📄</div>
-          <div class="arch-node-name">.pnr Services</div>
+          <div class="arch-node-name">.pnr Pranorices</div>
           <div class="arch-node-desc">Your code</div>
         </div>
         <div class="arch-node">
@@ -285,9 +285,9 @@
     </div>
     <div class="arch-connector">▼</div>
 
-    <!-- Layer 5: Observability -->
+    <!-- Layer 5: Obpranorability -->
     <div class="arch-layer">
-      <div class="arch-layer-label">Observability</div>
+      <div class="arch-layer-label">Obpranorability</div>
       <div class="arch-nodes">
         <div class="arch-node">
           <div class="arch-node-icon">📡</div>
@@ -320,7 +320,7 @@
       <tr><td>Object Storage</td><td>MinIO / S3 + SDK</td><td><span class="check">✓</span> pranor vault</td></tr>
       <tr><td>Auth/Identity</td><td>Keycloak / Auth0 + integration</td><td><span class="check">✓</span> pranor auth</td></tr>
       <tr><td>Caching</td><td>Redis + client library</td><td><span class="check">✓</span> pranor cache</td></tr>
-      <tr><td>Service Mesh</td><td>Istio / Linkerd + sidecars</td><td><span class="check">✓</span> pranor mesh</td></tr>
+      <tr><td>Pranorice Mesh</td><td>Istio / Linkerd + sidecars</td><td><span class="check">✓</span> pranor mesh</td></tr>
       <tr><td>Tracing</td><td>Jaeger + OTel collector + config</td><td><span class="check">✓</span> pranor trace</td></tr>
       <tr><td>Workflows</td><td>Temporal / Step Functions</td><td><span class="check">✓</span> pranor flow</td></tr>
       <tr><td>Deployment</td><td>Helm + ArgoCD + Dockerfiles</td><td><span class="check">✓</span> pranor deploy</td></tr>
@@ -342,7 +342,7 @@ pranor init my-api && cd my-api
 
 <span class="cm"># Run it</span>
 pranor run main.pnr --watch
-<span class="cm"># → Server running at http://localhost:8080</span>
+<span class="cm"># → Pranorer running at http://localhost:8080</span>
   </div>
 </section>
 

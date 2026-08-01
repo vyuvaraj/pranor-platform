@@ -1,13 +1,13 @@
-// App logic for Serv Web Playground
+// App logic for Pranor Web Playground
 
 let editor = null;
 let isMonacoReady = false;
 let isWasmLoaded = false;
 
-const DEFAULT_CODE = `// Serv Web Playground
-// Write, format, and run Serv background services here.
+const DEFAULT_CODE = `// Pranor Web Playground
+// Write, format, and run Pranor background pranorices here.
 
-log.info("Hello from Serv Web Playground!")
+log.info("Hello from Pranor Web Playground!")
 let msg = greet("Developer")
 log.info(msg)
 
@@ -19,9 +19,9 @@ fn greet(name: string) -> string {
 // Initialize Monaco Editor
 require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs' } });
 require(['vs/editor/editor.main'], function () {
-    // Register Serv language if needed, or configure basic JS-like colorization
-    monaco.languages.register({ id: 'serv' });
-    monaco.languages.setMonarchTokensProvider('serv', {
+    // Register Pranor language if needed, or configure basic JS-like colorization
+    monaco.languages.register({ id: 'pranor' });
+    monaco.languages.setMonarchTokensProvider('pranor', {
         tokenizer: {
             root: [
                 [/\b(fn|let|return|import|export|from|try|catch|match|test|assert|enum|struct|interface|middleware|if|else|for|in|spawn|every|cron|subscribe|publish|true|false|nil|self|await|ws|validate|type|use|limit|tool)\b/, 'keyword'],
@@ -35,7 +35,7 @@ require(['vs/editor/editor.main'], function () {
 
     editor = monaco.editor.create(document.getElementById('monaco-container'), {
         value: DEFAULT_CODE,
-        language: 'serv',
+        language: 'pranor',
         theme: 'vs-dark',
         automaticLayout: true,
         fontSize: 14,
@@ -95,12 +95,12 @@ function checkSystemStatus() {
 
 // Load WebAssembly
 const go = new Go();
-WebAssembly.instantiateStreaming(fetch("serv.wasm"), go.importObject)
+WebAssembly.instantiateStreaming(fetch("pranor.wasm"), go.importObject)
     .then((result) => {
         go.run(result.instance);
         isWasmLoaded = true;
         checkSystemStatus();
-        printToTerminal("Serv Compiler WebAssembly loaded successfully.", "success-msg");
+        printToTerminal("Pranor Compiler WebAssembly loaded successfully.", "success-msg");
     })
     .catch((err) => {
         console.error("WASM failed to load: ", err);
@@ -135,7 +135,7 @@ document.getElementById('btn-format').addEventListener('click', () => {
 
     const currentCode = getCodeValue();
     try {
-        const res = formatServ(currentCode);
+        const res = formatPranor(currentCode);
         if (res.error) {
             printToTerminal(`Formatting failed: ${res.error}`, "error-msg");
         } else if (res.formatted) {
@@ -149,12 +149,12 @@ document.getElementById('btn-format').addEventListener('click', () => {
 
 document.getElementById('btn-run').addEventListener('click', async () => {
     const code = getCodeValue();
-    printToTerminal("Compiling & executing code on sandbox server...", "system-msg");
+    printToTerminal("Compiling & executing code on sandbox pranorer...", "system-msg");
 
-    // Before sending to server, let's run a quick local validation in WASM if available
+    // Before sending to pranorer, let's run a quick local validation in WASM if available
     if (isWasmLoaded) {
         try {
-            const validation = compileServ(code);
+            const validation = compilePranor(code);
             if (validation.error) {
                 printToTerminal("Local Compilation Check: Failed", "error-msg");
                 printToTerminal(validation.output, "error-msg");
@@ -186,7 +186,7 @@ document.getElementById('btn-run').addEventListener('click', async () => {
 
         const data = await response.json();
         if (response.status !== 200) {
-            printToTerminal(`Server returned status ${response.status}: ${data.error || 'Unknown error'}`, "error-msg");
+            printToTerminal(`Pranorer returned status ${response.status}: ${data.error || 'Unknown error'}`, "error-msg");
             if (data.output) {
                 printToTerminal(data.output, "stderr-msg");
             }
@@ -202,6 +202,6 @@ document.getElementById('btn-run').addEventListener('click', async () => {
             printToTerminal(`Program execution failed: ${data.error || 'Execution returned non-zero exit code'}`, "error-msg");
         }
     } catch (err) {
-        printToTerminal(`Failed to connect to execution server: ${err.message}`, "error-msg");
+        printToTerminal(`Failed to connect to execution pranorer: ${err.message}`, "error-msg");
     }
 });
