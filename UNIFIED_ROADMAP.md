@@ -703,8 +703,8 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | 18 | Pranor Lock | **Pranor Lock** | Distributed Locking |
 | 19 | Pranor Secret | **Pranor Secret** | Secret Management & Key Unsealing |
 | 20 | Pranor Platform | **Pranor Platform** (merge into Core or keep) | Platform bootstrap |
-| 21 | servlockctl | **pranor lock** (subcommand) | CLI for distributed locks |
-| 22 | servsecretctl | **pranor secret** (subcommand) | CLI for secret injection |
+| 21 | pranor-lockctl | **pranor lock** (subcommand) | CLI for distributed locks |
+| 22 | pranor-secretctl | **pranor secret** (subcommand) | CLI for secret injection |
 | 23 | Pranor (ecosystem) | **Pranor** | No "verse" suffix needed |
 | 24 | pranor-ee | **pranor-ee** | Enterprise Edition |
 
@@ -717,11 +717,11 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | # | Item | Scope | Description | Status |
 |---|------|-------|-------------|--------|
 | R.1 | **Rename monorepo** | `serv/` → `pranor/` | Rename the root repository directory and GitHub repo from `github.com/vyuvaraj/pranor` to `github.com/vyuvaraj/pranor` | [ ] |
-| R.2 | **Rename go.work** | `go.work` | Update all `use` directives from `./packages/Serv*` to `./packages/pranor-*` | [ ] |
+| R.2 | **Rename go.work** | `go.work` | Update all `use` directives from `./packages/pranor-*` to `./packages/pranor-*` | [ ] |
 | R.3 | **Rename package directories** | `/packages/` | Rename all 22 package directories (e.g., `Pranor Gate` → `pranor-gate`, `Pranor` → `pranor-lang`) | [ ] |
-| R.4 | **Update all go.mod files** | Every package | Change `module github.com/vyuvaraj/pranor/packages/ServXxx` → `module github.com/vyuvaraj/pranor/packages/pranor-xxx` | [ ] |
+| R.4 | **Update all go.mod files** | Every package | Change `module github.com/vyuvaraj/pranor/packages/pranor-xxx` → `module github.com/vyuvaraj/pranor/packages/pranor-xxx` | [ ] |
 | R.5 | **Update all replace directives** | Every go.mod | Fix all `replace` directives to reference new paths | [ ] |
-| R.6 | **Update all import statements** | Every .go file | Find/replace all `github.com/vyuvaraj/pranor/packages/Serv*` imports | [ ] |
+| R.6 | **Update all import statements** | Every .go file | Find/replace all `github.com/vyuvaraj/pranor/packages/pranor-*` imports | [ ] |
 | R.7 | **Update cross-package references** | Every .go file | Internal references between packages (e.g., Pranor Core imported by Pranor Gate) | [ ] |
 | R.8 | **Verify `go build ./...`** | Root | Ensure the entire workspace compiles after rename | [ ] |
 | R.9 | **Verify `go test ./...`** | Root | Ensure all tests pass after rename | [ ] |
@@ -737,9 +737,9 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | C.1 | **Rename CLI binary** | Pranor | `serv` → `pranor` (output binary name in build scripts) | [ ] |
 | C.2 | **Rename LSP binary** | Pranor | `pranor-lsp` → `pranor-lsp` | [ ] |
 | C.3 | **Update file extension** | Compiler, LSP | `.pnr` → `.pnr` (scanner/lexer file detection, glob patterns) | [ ] |
-| C.4 | **Update generated go.mod** | cmd_build.go | Change `module serv-build` → `module pranor-build` in generated build directories | [ ] |
-| C.5 | **Update generated imports** | Codegen | Change `import "serv/runtime"` → `import "pranor/runtime"` in all emitted Go code | [ ] |
-| C.6 | **Update build cache filename** | Build system | `.serv-build-cache.json` → `.pranor-build-cache.json` | [ ] |
+| C.4 | **Update generated go.mod** | cmd_build.go | Change `module pranor-build` → `module pranor-build` in generated build directories | [ ] |
+| C.5 | **Update generated imports** | Codegen | Change `import "pranor/runtime"` → `import "pranor/runtime"` in all emitted Go code | [ ] |
+| C.6 | **Update build cache filename** | Build system | `.pranor-build-cache.json` → `.pranor-build-cache.json` | [ ] |
 | C.7 | **Update `pranor init` scaffolding** | CLI | Template generates `main.pnr` instead of `main.pnr`, references pranor in generated files | [ ] |
 | C.8 | **Update CLI command names** | All subcommands | `pranor run` → `pranor run`, `pranor build` → `pranor build`, etc. | [ ] |
 | C.9 | **Update LSP server name** | LSP | Internal server identifier `"pranor-lsp"` → `"pranor-lsp"` | [ ] |
@@ -780,7 +780,7 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | D.3 | **Rename Docker image tags** | CI/CD, Dockerfiles | All image references from `serv*` to `pranor-*` | [ ] |
 | D.4 | **Update Kubernetes manifests** | Pranor Deploy, configs/ | Deployment names, service names, ConfigMap keys | [ ] |
 | D.5 | **Update Helm charts** (if any) | configs/ | Chart names, value references | [ ] |
-| D.6 | **Rename `servd` unified binary** | Phase 72 output | `servd` → `pranord` (the single-binary daemon) | [ ] |
+| D.6 | **Rename unified binary** | Phase 72 output | Old daemon binary renamed to `pranord` (the single-binary daemon) | [x] |
 
 ---
 
@@ -792,7 +792,7 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 |---|------|-------|-------------|--------|
 | P.1 | **Rename custom URL scheme** | Pranor Mesh | `serv://` protocol → `pranor://` (in client.go resolver) | [ ] |
 | P.2 | **Update health check responses** | Pranor Core | `"service":"serv"` → `"service":"pranor"` | [ ] |
-| P.3 | **Update migration table name** | Runtime | `_serv_migrations` → `_pranor_migrations` (with migration script for existing DBs) | [ ] |
+| P.3 | **Update migration table name** | Runtime | `_pranor_migrations` → `_pranor_migrations` (with migration script for existing DBs) | [ ] |
 | P.4 | **Update internal service discovery JSON** | Pranor Mesh | Service name keys in discovery maps | [ ] |
 | P.5 | **Backward compat: accept old scheme** | Pranor Mesh | Accept both `serv://` and `pranor://` during transition period | [ ] |
 
@@ -929,7 +929,7 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 | `.pnr` file extension | 6 months | Compiler accepts both `.pnr` and `.pnr`, emits deprecation warning for `.pnr` |
 | `PRANOR_*` env vars | 6 months | All components check `PRANOR_*` first, fall back to `PRANOR_*` with warning |
 | `serv://` URL scheme | 6 months | Mesh accepts both `serv://` and `pranor://` |
-| `_serv_migrations` table | Permanent | Migration script renames table; code checks both names |
+| `_pranor_migrations` table | Permanent | Migration script renames table; code checks both names |
 | Old GitHub URLs | Permanent | GitHub auto-redirects after repo rename |
 | Old Homebrew/Scoop names | Until next release | Deprecation notice in old repos pointing to new ones |
 

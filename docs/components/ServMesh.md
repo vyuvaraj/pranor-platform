@@ -4,7 +4,7 @@
 
 ## Overview
 
-Pranor Mesh is a library-level service mesh that eliminates sidecar overhead. It provides service registry, round-robin load balancing, circuit breakers, mTLS between services, canary routing, and OpenTelemetry context propagation — all accessible via the `serv://` URL scheme.
+Pranor Mesh is a library-level service mesh that eliminates sidecar overhead. It provides service registry, round-robin load balancing, circuit breakers, mTLS between services, canary routing, and OpenTelemetry context propagation — all accessible via the `pranor://` URL scheme.
 
 ## Key Features
 
@@ -14,7 +14,7 @@ Pranor Mesh is a library-level service mesh that eliminates sidecar overhead. It
 - Mutual TLS (mTLS) for inter-service communication
 - Canary routing with percentage-based traffic splitting
 - OpenTelemetry trace context propagation
-- Custom `serv://` URL scheme for service-aware requests
+- Custom `pranor://` URL scheme for service-aware requests
 - No sidecar containers required — embedded as a library
 
 ## Environment Variables
@@ -37,5 +37,5 @@ Pranor Mesh is a library-level service mesh that eliminates sidecar overhead. It
 ## Pranor Integration
 
 ```srv
-http.get("serv://user-service/users/123")
+http.get("pranor://user-service/users/123")
 ```

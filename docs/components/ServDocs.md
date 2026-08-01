@@ -1,6 +1,6 @@
 # ServDocs — Documentation Generator
 
-> **Status:** 🟢 Stable | **Port:** 8089 | **Repository:** [ServDocs](https://github.com/vyuvaraj/pranor/tree/main/packages/ServDocs)
+> **Status:** 🟢 Stable | **Port:** 8089 | **Repository:** [ServDocs](https://github.com/vyuvaraj/pranor/tree/main/packages/pranor-docs)
 
 ## Overview
 

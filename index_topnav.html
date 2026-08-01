@@ -552,9 +552,9 @@
         </div>
         <div class="tab-panel" id="panel-servlock">
           <h3>Pranor Lock — Distributed Locking & Lease Manager</h3>
-          <p class="panel-desc">Consensus-driven distributed lock coordinator supporting deadlock cycle detection, reentrancy, fencing tokens, and the <code>servlockctl</code> CLI tool.</p>
+          <p class="panel-desc">Consensus-driven distributed lock coordinator supporting deadlock cycle detection, reentrancy, fencing tokens, and the <code>pranor-lockctl</code> CLI tool.</p>
           <ul class="feature-list">
-            <li><strong>Monorepo Integration:</strong> Includes <code>servlockctl</code> CLI under <code>packages/servlockctl</code> for acquiring, renewing, and inspecting locks from terminal scripts.</li>
+            <li><strong>Monorepo Integration:</strong> Includes <code>pranor-lockctl</code> CLI under <code>packages/pranor-lockctl</code> for acquiring, renewing, and inspecting locks from terminal scripts.</li>
             <li><strong>Multi-Backend Storage:</strong> Support distributed lock state storage in Redis, etcd, or local memory.</li>
             <li><strong>Deadlock Cycle Detection:</strong> Dynamic cycle graph inspection to identify and preempt wait deadlocks.</li>
             <li><strong>mTLS Transport Hardening:</strong> Secure transport channels natively out of the box using client/server certificates.</li>
@@ -563,19 +563,19 @@
           <pre class="code-snippet" style="margin-top:1rem; background:rgba(0,0,0,0.3); padding:1rem; border-radius:8px;"><code><span class="kw">use</span> lock
 
 <span class="kw">lock</span> <span class="str">"payment_sync"</span> {
-    <span class="kw">log.info</span>(<span class="str">"Acquired reentrant distributed lock via servlockctl"</span>)
+    <span class="kw">log.info</span>(<span class="str">"Acquired reentrant distributed lock via pranor-lockctl"</span>)
     syncPayments()
 }</code></pre>
         </div>
         <div class="tab-panel" id="panel-servsecret">
           <h3>Pranor Secret — Encrypted Secrets Manager</h3>
-          <p class="panel-desc">Zero-knowledge secure secret store with automatic key rotation, JIT credentials, Shamir unsealing, and the <code>servsecretctl</code> CLI tool.</p>
+          <p class="panel-desc">Zero-knowledge secure secret store with automatic key rotation, JIT credentials, Shamir unsealing, and the <code>pranor-secretctl</code> CLI tool.</p>
           <ul class="feature-list">
-            <li><strong>Monorepo Integration:</strong> Includes <code>servsecretctl</code> CLI under <code>packages/servsecretctl</code> for key rotation, audit logging, and secret injection into sub-processes.</li>
+            <li><strong>Monorepo Integration:</strong> Includes <code>pranor-secretctl</code> CLI under <code>packages/pranor-secretctl</code> for key rotation, audit logging, and secret injection into sub-processes.</li>
             <li><strong>IP CIDR & Geofencing:</strong> Fine-grained retrieval access controls based on network zone bounds.</li>
             <li><strong>Dynamic SQL/NoSQL Logins:</strong> Generate short-lived database logins dynamically and rotate them on schedule.</li>
             <li><strong>Master Key Sharding:</strong> Shamir's Secret Sharing to require multi-operator keys to unseal secret storage.</li>
-            <li><strong>CLI Environment Injectors:</strong> Inject secrets directly into child process contexts: <code>servsecretctl run --cmd "app"</code>.</li>
+            <li><strong>CLI Environment Injectors:</strong> Inject secrets directly into child process contexts: <code>pranor-secretctl run --cmd "app"</code>.</li>
           </ul>
           <pre class="code-snippet" style="margin-top:1rem; background:rgba(0,0,0,0.3); padding:1rem; border-radius:8px;"><code><span class="kw">use</span> secret
 

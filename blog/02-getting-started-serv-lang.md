@@ -49,7 +49,7 @@ my-api/
 ├── services/          # Service definitions
 ├── models/            # Data models
 ├── serv.yaml          # Project config
-└── .serv/             # Build cache
+└── .pranor/             # Build cache
 ```
 
 ---

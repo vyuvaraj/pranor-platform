@@ -47,8 +47,8 @@
 | [Pranor Hub](components/Pranor Hub.md) | Packages — semver resolution, signing, Pranor Vault backend |
 | [ServDocs](components/ServDocs.md) | Documentation — auto-generated from `.pnr` source |
 | [Pranor Core](components/Pranor Core.md) | Common Library — health probes, OTel, JWT middleware |
-| [servlockctl](https://github.com/vyuvaraj/pranor/tree/main/packages/servlockctl) | Lock CLI — distributed lock acquisition, renewal, and deadlock inspection |
-| [servsecretctl](https://github.com/vyuvaraj/pranor/tree/main/packages/servsecretctl) | Secrets CLI — key rotation, secret injection, and Shamir unseal operations |
+| [pranor-lockctl](https://github.com/vyuvaraj/pranor/tree/main/packages/pranor-lockctl) | Lock CLI — distributed lock acquisition, renewal, and deadlock inspection |
+| [pranor-secretctl](https://github.com/vyuvaraj/pranor/tree/main/packages/pranor-secretctl) | Secrets CLI — key rotation, secret injection, and Shamir unseal operations |
 
 ---
 

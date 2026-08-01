@@ -110,6 +110,6 @@ All services follow these patterns (enforced by Pranor Core):
 | HTTP REST (sync) | All services for API calls |
 | STOMP TCP (async) | Pranor Pulse for pub/sub messaging |
 | WebSocket (push) | Pranor Console for real-time dashboards, Pranor Tunnel for tunneling |
-| `serv://` resolver | Pranor Mesh for inter-service calls |
+| `pranor://` resolver | Pranor Mesh for inter-service calls |
 | S3 protocol | Pranor Vault for object storage |
 | OTLP/HTTP | Pranor Trace for span ingestion |
