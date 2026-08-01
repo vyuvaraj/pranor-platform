@@ -639,10 +639,10 @@ All backlog tasks for Phase 77 have been fully completed, verified, and archived
 
 | # | Item | Component | Description | Status | Tier |
 |---|------|-----------|-------------|--------|:---:|
-| DX.1 | **Interactive CLI Wizard (`pranor quickstart`)** | pranor-repo | Guided setup: asks what you need (API + DB? Queue? Auth?), generates minimal config, starts only required services. Like `npm init` for infrastructure. | [ ] | OSS |
+| DX.1 | **Interactive CLI Wizard (`pranor quickstart`)** | pranor-repo | Guided setup: asks what you need (API + DB? Queue? Auth?), generates minimal config, starts only required services. Like `npm init` for infrastructure. | [x] | OSS |
 | DX.2 | **serv playground hosted at `playground.pranor.dev`** | Pranor | Zero-install browser IDE showing: editor (left), generated Go (center), running output (right). Pre-loaded with 5 example templates. Share button generates URL. | [ ] | OSS |
 | DX.3 | **Unified Error Code Registry with Fix Suggestions** | All | Every error across all services gets a unique code (SRV-E001 through SRV-E999). CLI shows Error `SRV-E042`: see `https://docs.pranor.dev/errors/SRV-E042` with fix steps. | [ ] | OSS |
-| DX.4 | **`pranor doctor` Health Diagnostic** | pranor-repo | Single command that checks: Go version, port availability, disk space, Docker running, all binaries present, config valid. Outputs pass/fail with fix suggestions. | [ ] | OSS |
+| DX.4 | **`pranor doctor` Health Diagnostic** | pranor-repo | Single command that checks: Go version, port availability, disk space, Docker running, all binaries present, config valid. Outputs pass/fail with fix suggestions. | [x] | OSS |
 | DX.5 | **Auto-Generated CLI Reference Docs from Source** | All | `go generate` step that produces markdown CLI reference from flag definitions. Published at `docs.pranor.dev/cli`. Always current. | [ ] | OSS |
 | DX.6 | **`serv create my-api --template rest+auth+queue`** | Pranor | Scaffold generator: creates a project with sensible defaults for common patterns (REST API, background worker, webhook processor, full-stack). Like `rails new`. | [ ] | OSS |
 
