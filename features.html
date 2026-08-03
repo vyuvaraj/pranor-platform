@@ -218,7 +218,16 @@ const featuresData = [
   { module: "Pranor Deploy", edition: "EE", name: "Multi-Cluster Fleet Management & DR Failover", desc: "1-click active-passive region failover, automatic DNS update sync, and cross-cloud fleet status." },
   { module: "Pranor Deploy", edition: "EE", name: "Zero-Downtime Blue/Green Deployment Pipeline", desc: "Automated blue/green deployment switching with instant rollback capability." },
 
-  // 8. Pranor Mesh (Service Discovery & Zero-Trust)
+  // 8. Pranor Cache, Pool, Lock & Tunnel
+  { module: "Pranor Cache", edition: "OSS", name: "Raft-Based Key-Value Cache Engine", desc: "Distributed in-memory caching with namespaces, automatic expiration TTLs, and stampede protection." },
+  { module: "Pranor Cache", edition: "EE", name: "Multi-Region Distributed Cache Invalidation Sync", desc: "Cross-datacenter active cache purging and write-behind replication to underlying database instances." },
+  { module: "Pranor Tunnel", edition: "OSS", name: "Multiplexed Developer Tunneling", desc: "Expose local microservices natively with subdomain routing, HTTP request inspection, and OTel trace propagation." },
+  { module: "Pranor Tunnel", edition: "EE", name: "Zero-Trust Enterprise Tunnel Relay", desc: "Self-hosted private relay servers with custom TLS domain termination and access policies." },
+  { module: "Pranor Pool", edition: "OSS", name: "Multi-Dialect Database Connection Pooler", desc: "Unified pooler supporting PostgreSQL, SQLite, Oracle, and MongoDB with slow query detection." },
+  { module: "Pranor Lock", edition: "OSS", name: "Distributed Lock & Fencing Tokens", desc: "Language-native lock primitives with cryptographic monotonic fencing tokens preventing split-brain writes." },
+  { module: "Pranor Notify", edition: "OSS", name: "Multi-Channel Notification Gateway", desc: "Unified notification engine sending emails (SMTP/DKIM), Slack webhooks, SMS, and push alerts." },
+
+  // 9. Pranor Mesh (Service Discovery & Zero-Trust)
   { module: "Pranor Mesh", edition: "OSS", name: "Direct Library-Level Mesh (Zero Sidecars)", desc: "Runs inside binary via custom HTTP transport. Zero CPU/memory overhead of Envoy sidecar proxies." },
   { module: "Pranor Mesh", edition: "OSS", name: "Zero-Trust In-Memory Service Discovery", desc: "Multicast UDP auto-discovery and heartbeats without external Consul or ZooKeeper daemons." },
   { module: "Pranor Mesh", edition: "OSS", name: "High-Performance gRPC JSON Transport", desc: "Multiplexed gRPC transport layer enabling zero-compile inter-service communication." },
