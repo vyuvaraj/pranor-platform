@@ -36,3 +36,27 @@
 
 ---
 
+## Phase 78: Third-Party Ecosystem Integrations & Connectors (Completed)
+
+> **Goal**: Make Pranor work with existing tools, not just instead of them. Reduce switching cost.
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| EC.1 | **Terraform Provider for Pranor** | pranor-repo | `terraform-provider-pranor` enabling declarative management of buckets, topics, routes, cron jobs, and workflow definitions. | [x] | OSS |
+| EC.2 | **Prometheus Remote Write Receiver in Pranor Trace** | Pranor Trace | Accept Prometheus `remote_write` protocol — lets existing Prometheus scrapers forward metrics to Pranor Trace without changing their config. | [x] | OSS |
+| EC.3 | **Grafana Data Source Plugin** | Pranor Trace, Pranor Pulse | Grafana plugin that queries Pranor Trace spans and Pranor Pulse metrics natively. | [x] | OSS |
+| EC.4 | **GitHub Actions for Serv Deployments** | pranor-repo | `pranor/deploy-action@v1` — CI action that builds a `.pnr` app, pushes to Pranor Hub, and triggers blue/green deploy on Pranor Deploy. | [x] | OSS |
+| EC.5 | **OpenTelemetry Collector Exporter** | Pranor Trace | Implement an OTel Collector exporter so teams using the standard OTel Collector can route traces/metrics to Pranor Trace without code changes. | [x] | OSS |
+| EC.6 | **VS Code Dev Container + Codespaces Template** | pranor-repo | One-click GitHub Codespaces template: opens with Pranor pre-installed, sample app deployed, Pranor Console accessible in forwarded port. | [x] | OSS |
+
+---
+
+## Phase 79: Developer Experience Polish & Onboarding Automation (Completed)
+
+> **Goal**: Make the first 5 minutes frictionless for someone who's never seen Pranor.
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| DX.1 | **Interactive CLI Wizard (`pranor quickstart`)** | pranor-repo | Guided setup: asks what you need (API + DB? Queue? Auth?), generates minimal config, starts only required services. Like `npm init` for infrastructure. | [x] | OSS |
+| DX.2 | **serv playground hosted at `playground.pranor.dev`** | Pranor | Zero-install browser IDE showing: editor (left), generated Go (center), running output (right). Pre-loaded with 5 example templates. Share button generates URL. | [x] | OSS |
+| DX.3 | **Unified Error Code Registry with Fix Suggestions** | All | Every error across all services gets a unique code (SRV-E001 through SRV-E999). CLI shows Error `SRV-E042`: see `https://docs.pranor.dev/errors/SRV-E042` with fix steps. | [x] | OSS |
