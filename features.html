@@ -242,8 +242,33 @@ const featuresData = [
   { module: "Pranor VS Code", edition: "EE", name: "Visual Secret Manager Panel", desc: "Unseal vault stores, manage environment secret maps, and inspect cluster rotation policies inside VS Code." },
   { module: "Integrations", edition: "OSS", name: "Terraform Provider (terraform-provider-pranor)", desc: "Declarative management of buckets, topics, cron jobs, and API gateway routes." },
   { module: "Integrations", edition: "OSS", name: "GitHub Action (pranor/deploy-action@v1)", desc: "Automated CI/CD compilation and blue/green deployments for Pranor microservices." },
-  { module: "Integrations", edition: "OSS", name: "Grafana Datasource Plugin", desc: "Visualizing Pranor Trace spans and Pranor Pulse queue metrics natively inside Grafana dashboards." }
+  { module: "Integrations", edition: "OSS", name: "Grafana Datasource Plugin", desc: "Visualizing Pranor Trace spans and Pranor Pulse queue metrics natively inside Grafana dashboards." },
+
+  // 10. Phase 86 Advanced Enterprise Security & Resiliency
+  { module: "Pranor Secret", edition: "EE", name: "FIPS 140-3 Cryptographic Engine", desc: "FIPS 140-3 Level 3 compliant hardware cryptographic module integration." },
+  { module: "Pranor Secret", edition: "EE", name: "Hardware Security Module (HSM) Offloader", desc: "Offloads envelope encryption key derivation to hardware HSM devices (AWS CloudHSM, YubiHSM2)." },
+  { module: "Pranor Auth", edition: "EE", name: "Post-Quantum Hybrid Cryptography", desc: "Post-quantum hybrid key exchange (X25519 + Kyber768) for zero-trust API calls." },
+  { module: "Pranor Auth", edition: "EE", name: "SPIFFE/SPIRE Identity Token Exchange", desc: "Exchanges SAML/OAuth tokens for short-lived SVID certificates for service calls." },
+  { module: "Pranor Vault", edition: "EE", name: "Dynamic Data Masking & PII Redaction", desc: "Auto-detects SSNs, credit cards, and API keys, replacing them with deterministic masks." },
+  { module: "Pranor Vault", edition: "EE", name: "Zero-Knowledge Multi-Party Computation (MPC)", desc: "Multi-party computation threshold key secret sharing across cloud providers." },
+  { module: "Pranor Gate", edition: "EE", name: "Global CRDT Rate-Limiting Grid", desc: "Sub-millisecond global rate-limiting budget synchronization across edge clusters." },
+  { module: "Pranor Gate", edition: "EE", name: "1-Click Multi-Region Active-Passive DR Failover", desc: "Active-passive region failover with automated DNS record updates (Route53/Cloudflare)." },
+  { module: "Pranor Pulse", edition: "EE", name: "Active-Active Cross-Cloud MirrorMaker v2", desc: "Event topic mirroring across AWS, GCP, and Azure with poison-pill message filtering." },
+  { module: "Pranor Pulse", edition: "EE", name: "Hardware-Accelerated Zero-Copy WAL Encryption", desc: "Hardware AES-NI zero-copy payload encryption before writing to disk WAL." },
+  { module: "Pranor Deploy", edition: "EE", name: "AI FinOps Cloud Cost Guardrails", desc: "Analyzes RAM/CPU/bandwidth usage, recommending spot instance cron scheduling." },
+  { module: "Pranor Trace", edition: "EE", name: "Automated Incident Postmortem Synthesizer", desc: "Synthesizes trace flamegraphs, log lines, and metric spikes into postmortem reports." },
+  { module: "Pranor Notify", edition: "EE", name: "Multi-Channel Alert Escalation Engine", desc: "On-call rotation scheduling (PagerDuty, OpsGenie) with delivery confirmation." },
+  { module: "Pranor Mesh", edition: "EE", name: "Byzantine Fault Tolerant (BFT) Raft Consensus", desc: "Tamper-resistant Raft consensus cluster for high-security zero-trust deployments." },
+  { module: "Pranor Console", edition: "EE", name: "Immutable Merkle Tree Audit Ledger", desc: "Cryptographic Merkle tree proof generation for all control plane operations." },
+  { module: "Pranor Gate", edition: "EE", name: "Continuous Threat Intelligence Feed Integration", desc: "Real-time IP reputation & threat intelligence feed ingestion to block malicious IPs." },
+  { module: "Pranor Pulse", edition: "EE", name: "Blind Broker End-to-End Payload Encryption", desc: "Zero-trust payload encryption where message brokers never hold decryption keys." },
+  { module: "Pranor Pulse", edition: "EE", name: "SIMD / AVX-512 Vectorized Event Filter", desc: "Hardware SIMD-accelerated event payload filter engine operating at line rate." },
+  { module: "Pranor Console", edition: "EE", name: "Automated Compliance Evidence Generator", desc: "1-click SOC2 Type II and ISO 27001 compliance audit evidence bundle exporter." },
+  { module: "Pranor Cache", edition: "EE", name: "Multi-Tenant Memory Pool Isolation & Quotas", desc: "Dedicated per-tenant memory quotas and hardware cache isolation." },
+  { module: "Pranor Deploy", edition: "EE", name: "Zero-Downtime Blue/Green Cluster Promotion Pipeline", desc: "Zero-downtime blue/green cluster switching with automated canary rollback." },
+  { module: "Pranor Console", edition: "EE", name: "Enterprise 24/7 SLA Priority Support Integration", desc: "In-console dedicated priority ticket submission directly to Pranor core team." }
 ];
+
 
 let currentTierFilter = 'all';
 

@@ -695,6 +695,7 @@ All 21 backlog items for Phase 85 have been fully completed, verified, and archi
 | EE.86.20 | **Multi-Tenant Memory Pool Isolation & Quota Engine** | Pranor Cache | Dedicated per-tenant memory quotas and hardware cache isolation | [ ] | EE |
 | EE.86.21 | **Zero-Downtime Blue/Green Cluster Promotion Pipeline** | Pranor Deploy | Zero-downtime blue/green cluster switching with automated canary rollback | [ ] | EE |
 | EE.86.22 | **Enterprise 24/7 SLA Priority Support Channel Integration** | Pranor Console | In-console dedicated priority ticket submission directly to Pranor core team | [ ] | EE |
+| EE.86.23 | **Phase 86 Documentation & Feature Matrix Sync** | Docs | Synchronize Phase 86 EE capabilities to features.html and docs/enterprise/features.md | [ ] | Docs |
 
 ---
 
@@ -726,6 +727,8 @@ All 21 backlog items for Phase 85 have been fully completed, verified, and archi
 | EE.87.20 | **Automated Multi-Region Database Replica Failover Coordinator** | Pranor Pool | Automatic health checks promoting read replicas to primary DB during cloud outage | [ ] | EE |
 | EE.87.21 | **Enterprise Custom WASM Security Sandbox Isolation** | Pranor Gate | Strict memory-bound WASM runtime sandboxing preventing side-channel leaks | [ ] | EE |
 | EE.87.22 | **Dedicated Enterprise VIP Support Portal & 15-Min Emergency SLA** | Pranor Console | In-console emergency escalation routing tickets directly to on-call principal architects | [ ] | EE |
+| EE.87.23 | **Phase 87 Documentation & Feature Matrix Sync** | Docs | Synchronize Phase 87 EE capabilities to features.html and docs/enterprise/features.md | [ ] | Docs |
+
 
 
 
