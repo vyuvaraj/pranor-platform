@@ -26,11 +26,9 @@
       --orange: #fb923c;
       --pink: #f472b6;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; overflow-x:hidden; }
     
     /* Hero */
-    .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:2rem; position:relative; }
     .hero::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:800px; height:800px; background:radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); pointer-events:none; }
     .hero-badge { display:inline-flex; align-items:center; gap:0.5rem; background:var(--surface); border:1px solid var(--border); border-radius:99px; padding:0.4rem 1rem; font-size:0.8rem; color:var(--muted); margin-bottom:2rem; }
     .hero-badge .dot { width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
@@ -108,6 +106,17 @@
   </style>
 </head>
 <body>
+
+<nav style="display:flex; justify-content:space-between; align-items:center; padding:1.2rem 2.5rem; border-bottom:1px solid var(--border); background:rgba(10,10,15,0.8); backdrop-filter:blur(10px); position:fixed; top:0; left:0; right:0; z-index:100;">
+  <a href="index.html" style="font-weight:800; font-size:1.1rem; text-decoration:none; color:var(--text); display:flex; align-items:center; gap:0.5rem;">▲ Pranor Platform</a>
+  <ul style="display:flex; gap:1.8rem; list-style:none;">
+    <li><a href="index.html" style="color:var(--accent); text-decoration:none; font-size:0.9rem; font-weight:600;">Platform</a></li>
+    <li><a href="vault.html" style="color:var(--muted); text-decoration:none; font-size:0.9rem; font-weight:500;">Vault (S3 + Vector)</a></li>
+    <li><a href="pulse.html" style="color:var(--muted); text-decoration:none; font-size:0.9rem; font-weight:500;">Pulse (Queue)</a></li>
+    <li><a href="gate.html" style="color:var(--muted); text-decoration:none; font-size:0.9rem; font-weight:500;">Gate (API Router)</a></li>
+    <li><a href="https://github.com/vyuvaraj/pranor" style="color:var(--muted); text-decoration:none; font-size:0.9rem; font-weight:500;">GitHub</a></li>
+  </ul>
+</nav>
 
 <!-- Hero -->
 <div class="hero">
