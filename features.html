@@ -93,12 +93,11 @@
   <h1>Unified Feature Matrix</h1>
   <p>Comprehensive breakdown of features across all Pranor modules for Community OSS and Enterprise Edition (EE).</p>
   <div class="counter-bar">
-    <div class="counter-item"><strong id="total-count">0</strong> Total Listed Features</div>
-    <div class="counter-item"><strong id="oss-count">0</strong> Community OSS</div>
-    <div class="counter-item"><strong id="ee-count">0</strong> Enterprise EE</div>
+    <div class="counter-item"><strong id="total-count">180+</strong> Total Features</div>
+    <div class="counter-item"><strong id="oss-count">95+</strong> Community OSS</div>
+    <div class="counter-item"><strong id="ee-count">85+</strong> Enterprise EE</div>
   </div>
 </div>
-
 
 <div class="controls">
   <input type="text" id="search-input" class="search-input" placeholder="Search features (e.g. mTLS, HNSW, eBPF, DLQ, WASM, RAG, SAML, HSM)..." oninput="filterMatrix()">
@@ -302,7 +301,7 @@ const featuresData = [
   { module: "Pranor Platform", edition: "OSS", name: "Lease Event Pub/Sub", desc: "Implement SSE (Server-Sent Events) or WebSocket channels for lock release notifications to eliminate polling:" },
   { module: "Pranor Mesh", edition: "OSS", name: "TLS & mTLS Transport Hardening", desc: "Support native TLS and mutual TLS server configs inside the binary for secure client connection tunnels:" },
   { module: "Pranor Vault", edition: "OSS", name: "Automated Backup & Recovery", desc: "Configure automated scheduled encrypted backups of the secrets database to local storage or S3/MinIO objects:" },
-  { module: "Pranor Secret", edition: "OSS", name: "Dynamic Environment Injector", desc: "Create helper command `servsecret env run --cmd \"app\"` to fetch secrets and inject them directly to child processes:" },
+  { module: "Pranor Secret", edition: "OSS", name: "Dynamic Environment Injector", desc: "Create helper command `servsecret env run --cmd 'app'` to fetch secrets and inject them directly to child processes:" },
   { module: "Pranor Platform", edition: "OSS", name: "Key Rotation Schedules", desc: "Support background rotation of the master key on a configurable period (e.g. 90 days) with backup keys retention:" },
   { module: "Pranor VS Code", edition: "OSS", name: "Active Heartbeat-Based Lease Extensions", desc: "Automatic lease renewals based on client connection heartbeat pings:" },
   { module: "Pranor Platform", edition: "OSS", name: "Consensus-Based Clustering with Raft", desc: "support local distributed clustering using Raft consensus mechanism:" },
@@ -317,7 +316,7 @@ const featuresData = [
   { module: "Pranor Gate", edition: "OSS", name: "Pranor Gate Secret Integration", desc: "Pranor Gate: Fetch SSL/TLS certificates and JWT verification keys dynamically from `Pranor Secret` instead of static local files" },
   { module: "Pranor Flow", edition: "OSS", name: "Pranor Flow Distributed Locking", desc: "Pranor Flow: Integrate `Pranor Lock` into the task execution engine to prevent duplicate transaction runs in multi-instance clusters" },
   { module: "Pranor Console", edition: "OSS", name: "Pranor Console Management Dashboard", desc: "Pranor Console: Add UI views to list active locks (via `Pranor Lock` observability) and manage keys/secret rotations (via `Pranor Secret` APIs)" },
-  { module: "Pranor Secret", edition: "OSS", name: "Pranor Built-in Lock/Secret Operators", desc: "Pranor: Introduce native runtime standard library operators (e.g., `secret(\"db.pass\")` or `lock(\"resource\") { ... }`)" },
+  { module: "Pranor Secret", edition: "OSS", name: "Pranor Built-in Lock/Secret Operators", desc: "Pranor: Introduce native runtime standard library operators (e.g., `secret('db.pass')` or `lock('resource') { ... }`)" },
   { module: "Pranor Chrono", edition: "OSS", name: "Pranor Chrono Scheduler Lock Gating", desc: "Pranor Chrono: Use `Pranor Lock` in the job execution cycle to prevent scheduler drift and duplicate scheduler execution" },
   { module: "Pranor Vault", edition: "EE", name: "Multi-Tenant Cryptographic Isolation", desc: "EE: Segment storage namespaces and encrypt each tenant vault with dedicated KMS/HSM keys" },
   { module: "Pranor Secret", edition: "OSS", name: "Shamir's Secret Sharing Bootstrapping", desc: "OSS/EE: Require multiple operator key shards to unseal the master key on startup" },
@@ -369,7 +368,7 @@ const featuresData = [
   { module: "Pranor Vault", edition: "OSS", name: "OPFS Storage Driver (`pkg/opfs`)", desc: "Pranor Pulse: Implement synchronous WebAssembly OPFS file handle access (`FileSystemSyncAccessHandle`) inside browser Web Workers for persistent local event storage" },
   { module: "Pranor Pulse", edition: "OSS", name: "WASM/JS FFI Bindings (`@pranor/queue-wasm`)", desc: "Distribution / npm: Build WASM binary (`GOOS=js GOARCH=wasm`) and publish TypeScript API glue package `@pranor/queue-wasm` for browser applications" },
   { module: "Pranor Pulse", edition: "OSS", name: "Offline Outbox & Reconnect Relay", desc: "Pranor Pulse: Background synchronization worker streaming unacknowledged offline event ranges to remote Pranor Pulse servers over WebSocket/WebTransport with server-side deduplication" },
-  { module: "Pranor Pulse", edition: "OSS", name: "Pranor Edge Target Integration", desc: "Pranor: Support `broker \"pranor-pulse://opfs\"` connection syntax in `.pnr` files when compiling to `--target wasm` / `--target wasm-edge`" },
+  { module: "Pranor Pulse", edition: "OSS", name: "Pranor Edge Target Integration", desc: "Pranor: Support `broker 'pranor-pulse://opfs'` connection syntax in `.pnr` files when compiling to `--target wasm` / `--target wasm-edge`" },
   { module: "Pranor Console", edition: "OSS", name: "Web Playground & Local-First Demo", desc: "Pranor Console: Embedded interactive Web Worker demo in Pranor Console showcasing zero-server event streaming, WASM stream transforms, and PWA offline sync" },
   { module: "Pranor Pulse", edition: "OSS", name: "SharedWorker Multi-Tab Coordination", desc: "Pranor Pulse: Coordinate OPFS access across multiple open browser tabs via a single `SharedWorker` and `BroadcastChannel` event dispatching" },
   { module: "Pranor Pulse", edition: "OSS", name: "Client-Side Encryption at Rest (AES-256-GCM)", desc: "Pranor Pulse: Encrypt OPFS WAL log records on disk using WebCrypto AES-GCM-256 keys to protect sensitive browser event streams from local inspection" },
@@ -444,140 +443,7 @@ const featuresData = [
   { module: "Pranor Vault", edition: "EE", name: "Pranor Vault EE Build-Tag Modularization", desc: "Pranor Vault EE: Modularize commercial features (Active-Active Sync, io_uring, FIPS HSM E2EE) into `pranor-ee` behind `//go:build enterprise`" },
   { module: "Pranor Gate", edition: "OSS", name: "Smart AI Prompt Complexity Classifier", desc: "Pranor Gateway AI: Parse incoming prompts by token length, code syntax, and reasoning intent to rank prompt complexity" },
   { module: "Pranor Gate", edition: "OSS", name: "Cost-Optimization LLM Model Router", desc: "Pranor Gateway AI: Route low-complexity prompts to free/local Ollama (e.g., Llama-3 8B) and high-complexity to OpenAI GPT-4o / Anthropic Claude 3.5" },
-  { module: "Pranor Gate", edition: "OSS", name: "Real-Time AI Bill Savings Telemetry", desc: "Pranor Gateway AI: Track estimated cost savings ($ saved per request) and expose in HTTP headers (`X-Pranor Gateway-AI-Saved-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pranor — Ecosystem Feature Matrix (OSS vs Enterprise)</title>
-  <meta name="description" content="Complete feature breakdown across all 17+ Pranor modules for Community OSS and Enterprise Edition (EE).">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>▲</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --surface-hover: #1a1a26;
-      --border: rgba(255,255,255,0.06);
-      --text: #f4f4f5;
-      --muted: #a1a1aa;
-      --dim: #71717a;
-      --accent: #818cf8;
-      --accent-glow: rgba(129,140,248,0.15);
-      --green: #34d399;
-      --green-bg: rgba(52,211,153,0.12);
-      --purple: #c084fc;
-      --purple-bg: rgba(192,132,252,0.12);
-      --blue: #38bdf8;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; padding-top:5rem; }
-    
-    /* Navigation Bar */
-    nav { display:flex; justify-content:space-between; align-items:center; padding:1.2rem 2.5rem; border-bottom:1px solid var(--border); background:rgba(10,10,15,0.85); backdrop-filter:blur(12px); position:fixed; top:0; left:0; right:0; z-index:100; }
-    .nav-brand { font-weight:800; font-size:1.1rem; text-decoration:none; color:var(--text); display:flex; align-items:center; gap:0.5rem; }
-    .nav-links { display:flex; gap:1.8rem; list-style:none; }
-    .nav-links a { color:var(--muted); text-decoration:none; font-size:0.9rem; font-weight:500; transition:color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
-
-    /* Header section */
-    .header-section { text-align:center; padding:3rem 2rem 1.5rem; max-width:950px; margin:0 auto; }
-    .header-section h1 { font-size:clamp(2.2rem,4vw,3.5rem); font-weight:900; letter-spacing:-0.03em; margin-bottom:1rem; }
-    .header-section p { color:var(--muted); font-size:1.1rem; }
-
-    /* Counter bar */
-    .counter-bar { display:flex; justify-content:center; gap:2rem; margin-top:1.5rem; flex-wrap:wrap; }
-    .counter-item { background:var(--surface); border:1px solid var(--border); padding:0.6rem 1.2rem; border-radius:8px; font-size:0.85rem; color:var(--muted); }
-    .counter-item strong { color:var(--text); font-size:1.1rem; }
-
-    /* Control bar */
-    .controls { max-width:1250px; margin:2rem auto; padding:0 2rem; display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center; }
-    .search-input { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:0.65rem 1.2rem; color:var(--text); font-size:0.9rem; min-width:320px; font-family:inherit; outline:none; transition:border 0.2s; }
-    .search-input:focus { border-color:var(--accent); }
-    
-    .tier-filters { display:flex; gap:0.5rem; flex-wrap:wrap; }
-    .filter-btn { background:var(--surface); border:1px solid var(--border); color:var(--muted); padding:0.45rem 1rem; border-radius:6px; font-size:0.82rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
-    .filter-btn:hover { border-color:var(--accent); color:var(--text); }
-    .filter-btn.active { background:var(--accent); color:#0f172a; border-color:var(--accent); }
-    .filter-btn.active-oss { background:var(--green); color:#0f172a; border-color:var(--green); }
-    .filter-btn.active-ee { background:var(--purple); color:#0f172a; border-color:var(--purple); }
-
-    /* Table Matrix */
-    .matrix-container { max-width:1250px; margin:0 auto 5rem; padding:0 2rem; }
-    .matrix-table { width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
-    .matrix-table th { text-align:left; padding:1rem 1.2rem; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--dim); border-bottom:1px solid var(--border); background:rgba(255,255,255,0.01); }
-    .matrix-table td { padding:0.9rem 1.2rem; font-size:0.88rem; border-bottom:1px solid var(--border); vertical-align:top; }
-    .matrix-table tr:hover { background:var(--surface-hover); }
-    
-    .module-badge { font-weight:700; color:var(--text); display:inline-flex; align-items:center; gap:0.4rem; white-space:nowrap; }
-    .tier-badge-oss { display:inline-flex; align-items:center; padding:0.25rem 0.75rem; border-radius:6px; font-size:0.75rem; font-weight:700; background:var(--green-bg); color:var(--green); border:1px solid rgba(52,211,153,0.3); letter-spacing:0.02em; white-space:nowrap; }
-    .tier-badge-ee { display:inline-flex; align-items:center; padding:0.25rem 0.75rem; border-radius:6px; font-size:0.75rem; font-weight:700; background:var(--purple-bg); color:var(--purple); border:1px solid rgba(192,132,252,0.3); letter-spacing:0.02em; white-space:nowrap; }
-
-    .feature-name { font-weight:600; color:var(--text); margin-bottom:0.25rem; font-size:0.92rem; }
-    .feature-desc { color:var(--muted); font-size:0.83rem; line-height:1.55; }
-    .moat-note { color:var(--accent); font-size:0.75rem; font-style:italic; margin-top:0.3rem; }
-
-    footer { padding:3rem 2rem; text-align:center; color:var(--dim); font-size:0.8rem; border-top:1px solid var(--border); }
-  </style>
-</head>
-<body>
-
-<nav>
-  <a href="index.html" class="nav-brand">▲ Pranor Platform</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Platform</a></li>
-    <li><a href="features.html" class="active">Features Matrix</a></li>
-    <li><a href="vault.html">Vault</a></li>
-    <li><a href="pulse.html">Pulse</a></li>
-    <li><a href="gate.html">Gate</a></li>
-    <li><a href="https://github.com/vyuvaraj/pranor">GitHub</a></li>
-  </ul>
-</nav>
-
-<div class="header-section">
-  <h1>Unified Feature Matrix</h1>
-  <p>Comprehensive breakdown of features across all Pranor modules for Community OSS and Enterprise Edition (EE).</p>
-  <div class="counter-bar">
-    <div class="counter-item"><strong id="total-count">0</strong> Total Listed Features</div>
-    <div class="counter-item"><strong id="oss-count">0</strong> Community OSS</div>
-    <div class="counter-item"><strong id="ee-count">0</strong> Enterprise EE</div>
-  </div>
-</div>
-
-
-<div class="controls">
-  <input type="text" id="search-input" class="search-input" placeholder="Search features (e.g. mTLS, HNSW, eBPF, DLQ, WASM, RAG, SAML, HSM)..." oninput="filterMatrix()">
-  
-  <div class="tier-filters">
-    <button class="filter-btn active" onclick="setTierFilter('all', this)">All Tiers</button>
-    <button class="filter-btn" onclick="setTierFilter('oss', this)">Community OSS</button>
-    <button class="filter-btn" onclick="setTierFilter('ee', this)">Enterprise EE</button>
-  </div>
-</div>
-
-<div class="matrix-container">
-  <table class="matrix-table" id="matrix-table">
-    <thead>
-      <tr>
-        <th style="width:180px;">Module</th>
-        <th style="width:150px;">Edition</th>
-        <th>Feature & Description</th>
-      </tr>
-    </thead>
-    <tbody id="matrix-body">
-      <!-- Dynamic Rows injected via JS -->
-    </tbody>
-  </table>
-</div>
-
-<footer>
-  <p><a href="index.html">Pranor Platform</a> &middot; <a href="vault.html">Pranor Vault</a> &middot; <a href="pulse.html">Pranor Pulse</a> &middot; <a href="gate.html">Pranor Gate</a> &middot; <a href="https://github.com/vyuvaraj/pranor">GitHub Repository</a></p>
-  <p style="margin-top:0.5rem;">Licensed AGPL-3.0 by vyuvaraj.</p>
-</footer>
-
-<script>
-) & `/metrics`" },
+  { module: "Pranor Gate", edition: "OSS", name: "Real-Time AI Bill Savings Telemetry", desc: "Pranor Gateway AI: Track estimated cost savings ($ saved per request) and expose in HTTP headers (`X-Pranor Gateway-AI-Saved-$`) & `/metrics`" },
   { module: "Pranor Gate", edition: "OSS", name: "Speculative Prompt Pre-Fetching Engine", desc: "Pranor Gateway AI: Predict follow-up prompt completions and pre-fetch AI responses at the edge before client request submission" },
   { module: "Pranor Gate", edition: "EE", name: "Enterprise AI Budget Guardrails (`pranor-ee`)", desc: "Pranor Gateway EE: Enterprise cost caps, token budget enforcement per API key, and audit logging behind `//go:build enterprise`" },
   { module: "Pranor Vault", edition: "OSS", name: "Copy-on-Write (CoW) Virtual Metadata Pointer Engine", desc: "Pranor Vault Core: Zero-byte metadata pointer cloning for instant bucket snapshot branching" },
@@ -635,7 +501,7 @@ const featuresData = [
   { module: "Pranor Flow", edition: "OSS", name: "Per-Execution OTel Span Attribution & Cost Tracking", desc: "Pranor Flow Telemetry: Inject W3C `traceparent` context into each task step HTTP call; export OTel spans to Pranor Trace for full distributed tracing of workflow runs including step latencies" },
   { module: "Pranor Pulse", edition: "OSS", name: "Dead Letter Workflow Queue & Manual Retry from Pranor Console", desc: "Pranor Flow DLQ: Capture permanently-failed workflow instances in a Dead Letter Queue; allow operators to inspect failure context and manually trigger selective re-execution from Pranor Console" },
   { module: "Pranor Pulse", edition: "OSS", name: "DMARC Policy Enforcement (SPF + DKIM Alignment Validation)", desc: "Pranor Notify Security: Validate DMARC `p=quarantine`/`p=reject` policy alignment between SPF envelope-from domain and DKIM `d=` header domain before delivering or relaying outbound messages" },
-  { module: "Pranor Pulse", edition: "OSS", name: "Inbound Email Webhook Router", desc: "Pranor Notify Inbound: Parse incoming SMTP messages and route them to configurable HTTP webhook endpoints based on recipient address pattern matching; enables \"email as a workflow trigger\" use cases" },
+  { module: "Pranor Pulse", edition: "OSS", name: "Inbound Email Webhook Router", desc: "Pranor Notify Inbound: Parse incoming SMTP messages and route them to configurable HTTP webhook endpoints based on recipient address pattern matching; enables 'email as a workflow trigger' use cases" },
   { module: "Pranor Platform", edition: "OSS", name: "Email Template DSL with Partials, Loops & Conditional Blocks", desc: "Pranor Notify Templates: Extend the template engine with `{{#each items}}`, `{{#if condition}}`, and `{{> partial_name}}` support for reusable transactional email component composition" },
   { module: "Pranor Platform", edition: "OSS", name: "Bounce & Complaint Handling with Automatic Suppression List", desc: "Pranor Notify Delivery: Parse SMTP bounce DSNs and ISP Feedback Loop (FBL) complaint notifications; automatically add bounced and complained addresses to a suppression list to protect sender reputation" },
   { module: "Pranor Platform", edition: "OSS", name: "One-Click Unsubscribe (RFC 8058) & List Management", desc: "Pranor Notify Compliance: Auto-inject `List-Unsubscribe` and `List-Unsubscribe-Post` headers; handle one-click unsubscribe webhooks; maintain per-sender suppression lists with full audit history" },
@@ -667,7 +533,7 @@ const featuresData = [
   { module: "Pranor Platform", edition: "OSS", name: "Rust Code-Generation Target (`serv generate --lang rust`)", desc: "Pranor Codegen: Add a Rust backend code-generator producing idiomatic Rust `struct` definitions, `serde` derive macros, trait implementations, and `axum` server stubs from `.serv` schema files" },
   { module: "Pranor Platform", edition: "OSS", name: "Python Code-Generation Target (`serv generate --lang python`)", desc: "Pranor Codegen: Add a Python code-generator producing Pydantic v2 model definitions and FastAPI router stubs from `.serv` schema files; targeting ML/AI teams building LLM service consumers" },
   { module: "Pranor Platform", edition: "OSS", name: "Zero-Install WASM Browser Playground (`playground.pranor.dev`)", desc: "Pranor Runtime: Compile the Pranor compiler toolchain to WebAssembly and host an interactive browser IDE where developers write, compile, and preview `.serv` definitions without any local installation" },
-  { module: "Pranor Auth", edition: "OSS", name: "Multi-File Schema Import System with Cross-File Type Resolution", desc: "Pranor Compiler: Implement cross-file type imports (`import \"auth.serv\"`) with a full dependency graph resolver; allow large service definitions to be cleanly split across multiple `.serv` schema files" },
+  { module: "Pranor Auth", edition: "OSS", name: "Multi-File Schema Import System with Cross-File Type Resolution", desc: "Pranor Compiler: Implement cross-file type imports (`import 'auth.serv'`) with a full dependency graph resolver; allow large service definitions to be cleanly split across multiple `.serv` schema files" },
   { module: "Pranor Platform", edition: "OSS", name: "Breaking Change Detector (`serv diff old.serv new.serv`)", desc: "Pranor Tooling: Add a `serv diff` command that compares two `.serv` schema versions and outputs a structured compatibility report: new fields (safe), renamed fields (warning), removed fields (breaking)" },
   { module: "Pranor Platform", edition: "OSS", name: "`async` Task & `concurrent {}` Language Primitives", desc: "Pranor Parser: Add `async task` and `concurrent { }` block keywords to the Pranor grammar enabling declarative concurrent step execution within service handlers, compiled to goroutines in Go" },
   { module: "Pranor Vault", edition: "OSS", name: "Embedded HNSW Vector Index Engine (In-Process Similarity Search)", desc: "Pranor Vault Vector: Implement an HNSW (Hierarchical Navigable Small World) vector index engine embedded directly in `pranor-vaultd`; store and query float32 embedding vectors with configurable M and efConstruction graph parameters" },
@@ -716,7 +582,7 @@ const featuresData = [
   { module: "Pranor Vault", edition: "OSS", name: "`pranor-vault bench` Built-in Performance Benchmarking Command", desc: "Pranor Vault CLI: Add built-in CLI benchmark tool `pranor-vault bench --ops 10000 --concurrency 16 --object-size 4KB` measuring PUT/GET/LIST ops/sec, P50, P95, and P99 latencies without external dependencies" },
   { module: "Pranor Vault", edition: "OSS", name: "`pranor-vault import` One-Command Cloud Migration Mirror", desc: "Pranor Vault Migration: Add built-in S3 migration command `pranor-vault import --from s3://my-aws-bucket` to mirror external AWS S3/GCS buckets into Pranor Vault seamlessly" },
   { module: "Pranor Vault", edition: "OSS", name: "Object Metadata SQL Query API Endpoint (`GET /{bucket}?sql=...`)", desc: "Pranor Vault Query: Allow querying object metadata like a database directly via SQL expressions (`SELECT key, size, last_modified FROM objects WHERE size > 1048576 ORDER BY last_modified DESC`)" },
-  { module: "Pranor Vault", edition: "OSS", name: "Zero-Dependency Webhook & Event Notifications", desc: "Pranor Vault Events: Simple REST API subscription for object creation/deletion webhooks (`{\"bucket\":\"uploads\",\"events\":[\"s3:ObjectCreated:*\"],\"webhook\":\"https://myapp.com/hook\"}`) without requiring SQS or Kafka" },
+  { module: "Pranor Vault", edition: "OSS", name: "Zero-Dependency Webhook & Event Notifications", desc: "Pranor Vault Events: Simple REST API subscription for object creation/deletion webhooks (`{'bucket':'uploads','events':['s3:ObjectCreated:*'],'webhook':'https://myapp.com/hook'}`) without requiring SQS or Kafka" },
   { module: "Pranor Vault", edition: "OSS", name: "`pranor-vault serve-static` Instant Static Site Hosting", desc: "Pranor Vault Web: Turn any bucket into a static website host (`pranor-vault serve-static --bucket my-site --port 3000`) with proper MIME detection, index.html fallback, and 404 handling" },
   { module: "Pranor Gate", edition: "OSS", name: "Upstream LLM Dispatch for Smart Router", desc: "Pranor Gate AI: Wire `smart_router.go` to execute real upstream HTTP completions to Ollama/OpenAI/Anthropic instead of returning stub mock responses" },
   { module: "Pranor Gate", edition: "OSS", name: "`pranor-gate dashboard` Terminal Live Traffic Dashboard (TUI)", desc: "Pranor Gate CLI: Build a terminal-based live htop-style dashboard showing real-time RPS, active connections, circuit breaker state, cache hit rate, and P99 latency per route" },
@@ -726,7 +592,7 @@ const featuresData = [
   { module: "Pranor Gate", edition: "OSS", name: "`pranor-gate generate-config` Zero-Config Learn Mode", desc: "Pranor Gate Config: Run Pranor Gate in learn mode to inspect unrouted traffic and auto-generate `config.json` with discovered routes, rate limits, and circuit breaker thresholds" },
   { module: "Pranor Pulse", edition: "OSS", name: "Standalone Embedded Web Management UI (`/ui/`)", desc: "Pranor Pulse UI: Lightweight browser UI embedded directly in `pranor-pulsed` at `/ui/` showing active topics, consumer lag, DLQ browser with one-click replay, and schema registry" },
   { module: "Pranor Pulse", edition: "OSS", name: "Plain HTTP/SSE Consumer Protocol (`/api/v1/subscribe/...`)", desc: "Pranor Pulse API: Long-polling Server-Sent Events (SSE) consumer endpoint allowing any HTTP client to subscribe to topic streams without STOMP/Kafka drivers" },
-  { module: "Pranor Pulse", edition: "OSS", name: "Delayed & Cron-Scheduled Message Engine", desc: "Pranor Pulse Scheduling: First-class delayed and cron-scheduled message publishing API (`{\"topic\":\"reports\",\"schedule\":\"0 9 * * MON\"}`) using internal TimeWheel engine" },
+  { module: "Pranor Pulse", edition: "OSS", name: "Delayed & Cron-Scheduled Message Engine", desc: "Pranor Pulse Scheduling: First-class delayed and cron-scheduled message publishing API (`{'topic':'reports','schedule':'0 9 * * MON'}`) using internal TimeWheel engine" },
   { module: "Pranor Pulse", edition: "OSS", name: "`pranor-pulse benchmark` Built-in Queue Throughput Test", desc: "Pranor Pulse CLI: Add built-in CLI benchmark tool `pranor-pulse benchmark --messages 100000 --producers 8 --consumers 4` measuring msg/sec throughput and latency percentiles" },
   { module: "Pranor Vault", edition: "OSS", name: "SQLite-Backed Persistent Storage Mode", desc: "Pranor Pulse Storage: Offer single-file SQLite storage backend for single-node deployments providing ACID durability and SQL queryability over message history" },
   { module: "Pranor Pulse", edition: "OSS", name: "Plain WebSocket Native Pub/Sub (`/ws/subscribe/...`)", desc: "Pranor Pulse Protocol: Native raw WebSocket pub/sub endpoint (`ws://localhost:9090/ws/subscribe/orders`) broadcasting JSON messages to frontend apps without STOMP framing" },
@@ -808,7 +674,6 @@ const featuresData = [
 ];
 
 
-
 let currentTierFilter = 'all';
 
 function renderMatrix(data) {
@@ -864,21 +729,9 @@ function setTierFilter(tier, btn) {
   filterMatrix();
 }
 
-function updateCounters() {
-  const total = featuresData.length;
-  const oss = featuresData.filter(item => item.edition === 'OSS').length;
-  const ee = featuresData.filter(item => item.edition === 'EE').length;
-
-  document.getElementById('total-count').innerText = `${total}+`;
-  document.getElementById('oss-count').innerText = `${oss}+`;
-  document.getElementById('ee-count').innerText = `${ee}+`;
-}
-
 // Initial render
-updateCounters();
 renderMatrix(featuresData);
 </script>
-
 
 </body>
 </html>
