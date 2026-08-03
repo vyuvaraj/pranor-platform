@@ -93,11 +93,12 @@
   <h1>Unified Feature Matrix</h1>
   <p>Comprehensive breakdown of features across all Pranor modules for Community OSS and Enterprise Edition (EE).</p>
   <div class="counter-bar">
-    <div class="counter-item"><strong id="total-count">180+</strong> Total Features</div>
-    <div class="counter-item"><strong id="oss-count">95+</strong> Community OSS</div>
-    <div class="counter-item"><strong id="ee-count">85+</strong> Enterprise EE</div>
+    <div class="counter-item"><strong id="total-count">0</strong> Total Listed Features</div>
+    <div class="counter-item"><strong id="oss-count">0</strong> Community OSS</div>
+    <div class="counter-item"><strong id="ee-count">0</strong> Enterprise EE</div>
   </div>
 </div>
+
 
 <div class="controls">
   <input type="text" id="search-input" class="search-input" placeholder="Search features (e.g. mTLS, HNSW, eBPF, DLQ, WASM, RAG, SAML, HSM)..." oninput="filterMatrix()">
@@ -350,9 +351,21 @@ function setTierFilter(tier, btn) {
   filterMatrix();
 }
 
+function updateCounters() {
+  const total = featuresData.length;
+  const oss = featuresData.filter(item => item.edition === 'OSS').length;
+  const ee = featuresData.filter(item => item.edition === 'EE').length;
+
+  document.getElementById('total-count').innerText = `${total}+`;
+  document.getElementById('oss-count').innerText = `${oss}+`;
+  document.getElementById('ee-count').innerText = `${ee}+`;
+}
+
 // Initial render
+updateCounters();
 renderMatrix(featuresData);
 </script>
+
 
 </body>
 </html>
