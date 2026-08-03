@@ -77,6 +77,11 @@
     .kw { color:var(--accent); }
     .str { color:var(--green); }
 
+    /* Tabs */
+    .lang-tab { padding:0.5rem 1rem; background:var(--surface); border:1px solid var(--border); color:var(--muted); border-radius:6px; font-size:0.85rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+    .lang-tab:hover { border-color:var(--accent); color:var(--text); }
+    .lang-tab.active { background:var(--accent); color:#0f172a; border-color:var(--accent); }
+
     footer { padding:3rem 2rem; text-align:center; color:var(--dim); font-size:0.8rem; border-top:1px solid var(--border); }
   </style>
 </head>
@@ -152,21 +157,89 @@
 </section>
 
 <section id="quickstart">
-  <p class="section-label">Code Example</p>
-  <h2>Native Vector Querying in Pranor</h2>
-  <p class="section-desc">Store files and run semantic similarity queries directly in `.pnr` or via standard REST HTTP endpoints.</p>
+  <p class="section-label">Code Examples</p>
+  <h2>Use from Any Language or Framework</h2>
+  <p class="section-desc">Pranor Vault works natively with Python, TypeScript/Node.js, Go, cURL, or directly in Pranor applications.</p>
   
-  <div class="code-block">
+  <div style="margin-bottom:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+    <button class="lang-tab active" onclick="switchLang('vault', 'python', this)">Python</button>
+    <button class="lang-tab" onclick="switchLang('vault', 'typescript', this)">TypeScript / Node</button>
+    <button class="lang-tab" onclick="switchLang('vault', 'go', this)">Go</button>
+    <button class="lang-tab" onclick="switchLang('vault', 'curl', this)">cURL / REST</button>
+    <button class="lang-tab" onclick="switchLang('vault', 'pranor', this)">Pranor (.pnr)</button>
+  </div>
+
+  <div id="vault-python" class="code-block lang-snippet">
+<span class="kw">import</span> boto3
+<span class="kw">import</span> requests
+
+<span class="cm"># 1. Standard AWS S3 SDK for object upload</span>
+s3 = boto3.client(<span class="str">'s3'</span>, endpoint_url=<span class="str">'http://localhost:8084'</span>)
+s3.upload_file(<span class="str">'report.pdf'</span>, <span class="str">'documents'</span>, <span class="str">'report.pdf'</span>)
+
+<span class="cm"># 2. HNSW Vector Similarity Query via REST</span>
+res = requests.post(<span class="str">'http://localhost:8084/api/v1/vectors/search'</span>, json={
+    <span class="str">"collection"</span>: <span class="str">"doc-embeddings"</span>,
+    <span class="str">"vector"</span>: [0.12, -0.44, 0.89, 0.05],
+    <span class="str">"top_k"</span>: 5
+})
+print(<span class="str">"Top match:"</span>, res.json()[<span class="str">'results'</span>][0][<span class="str">'key'</span>])
+  </div>
+
+  <div id="vault-typescript" class="code-block lang-snippet" style="display:none;">
+<span class="kw">import</span> { S3Client, PutObjectCommand } <span class="kw">from</span> <span class="str">"@aws-sdk/client-s3"</span>;
+
+<span class="cm">// 1. Standard S3 Client</span>
+<span class="kw">const</span> s3 = <span class="kw">new</span> S3Client({ endpoint: <span class="str">"http://localhost:8084"</span>, region: <span class="str">"us-east-1"</span> });
+<span class="kw">await</span> s3.send(<span class="kw">new</span> PutObjectCommand({ Bucket: <span class="str">"documents"</span>, Key: <span class="str">"report.pdf"</span>, Body: fileBuffer }));
+
+<span class="cm">// 2. Vector Similarity Search</span>
+<span class="kw">const</span> res = <span class="kw">await</span> fetch(<span class="str">"http://localhost:8084/api/v1/vectors/search"</span>, {
+  method: <span class="str">"POST"</span>,
+  headers: { <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span> },
+  body: JSON.stringify({ collection: <span class="str">"doc-embeddings"</span>, vector: [0.12, -0.44, 0.89], top_k: 5 })
+});
+<span class="kw">const</span> data = <span class="kw">await</span> res.json();
+console.log(<span class="str">"Matches:"</span>, data.results);
+  </div>
+
+  <div id="vault-go" class="code-block lang-snippet" style="display:none;">
+<span class="kw">package</span> main
+
+<span class="kw">import</span> (
+    <span class="str">"context"</span>
+    <span class="str">"github.com/aws/aws-sdk-go-v2/aws"</span>
+    <span class="str">"github.com/aws/aws-sdk-go-v2/service/s3"</span>
+)
+
+<span class="kw">func</span> main() {
+    <span class="cm">// Standard AWS Go SDK v2 initialized against Pranor Vault</span>
+    client := s3.NewFromConfig(cfg, <span class="kw">func</span>(o *s3.Options) {
+        o.BaseEndpoint = aws.String(<span class="str">"http://localhost:8084"</span>)
+    })
+    client.PutObject(context.TODO(), &s3.PutObjectInput{
+        Bucket: aws.String(<span class="str">"documents"</span>),
+        Key:    aws.String(<span class="str">"report.pdf"</span>),
+    })
+}
+  </div>
+
+  <div id="vault-curl" class="code-block lang-snippet" style="display:none;">
+<span class="cm"># Upload object via standard S3 API</span>
+curl -X PUT http://localhost:8084/documents/report.pdf --data-binary @report.pdf
+
+<span class="cm"># Execute HNSW Vector Search</span>
+curl -X POST http://localhost:8084/api/v1/vectors/search \
+  -H "Content-Type: application/json" \
+  -d '{"collection": "doc-embeddings", "vector": [0.12, -0.44, 0.89], "top_k": 5}'
+  </div>
+
+  <div id="vault-pranor" class="code-block lang-snippet" style="display:none;">
 <span class="kw">import</span> <span class="str">"std/vault"</span>
 
 <span class="kw">fn</span> main() {
-    <span class="cm">// Upload object to S3 bucket</span>
+    <span class="cm">// Native Pranor syntax</span>
     vault.put_object(<span class="str">"documents"</span>, <span class="str">"report.pdf"</span>, data)
-
-    <span class="cm">// Index vector embedding associated with object</span>
-    vault.index_vector(<span class="str">"doc-embeddings"</span>, <span class="str">"report.pdf"</span>, [0.12, -0.44, 0.89, ...])
-
-    <span class="cm">// Execute HNSW nearest-neighbor similarity search</span>
     <span class="kw">let</span> results = vault.search_vector(<span class="str">"doc-embeddings"</span>, query_embedding, 5)
     log.info(<span class="str">"Top match: "</span> + results[0].key)
 }
@@ -177,6 +250,22 @@
   <p><a href="index.html">Pranor Platform</a> &middot; <a href="pulse.html">Pranor Pulse</a> &middot; <a href="gate.html">Pranor Gate</a> &middot; <a href="https://github.com/vyuvaraj/pranor">GitHub Repository</a></p>
   <p style="margin-top:0.5rem;">Licensed AGPL-3.0 by vyuvaraj.</p>
 </footer>
+
+<script>
+  function switchLang(modulePrefix, lang, btn) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.lang-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll(`.lang-snippet`).forEach(el => {
+      if (el.id.startsWith(modulePrefix + '-')) {
+        el.style.display = 'none';
+      }
+    });
+    const target = document.getElementById(modulePrefix + '-' + lang);
+    if (target) target.style.display = 'block';
+  }
+</script>
 
 </body>
 </html>

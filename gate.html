@@ -77,6 +77,11 @@
     .kw { color:var(--accent); }
     .str { color:var(--green); }
 
+    /* Tabs */
+    .lang-tab { padding:0.5rem 1rem; background:var(--surface); border:1px solid var(--border); color:var(--muted); border-radius:6px; font-size:0.85rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+    .lang-tab:hover { border-color:var(--accent); color:var(--text); }
+    .lang-tab.active { background:var(--accent); color:#0f172a; border-color:var(--accent); }
+
     footer { padding:3rem 2rem; text-align:center; color:var(--dim); font-size:0.8rem; border-top:1px solid var(--border); }
   </style>
 </head>
@@ -152,11 +157,68 @@
 </section>
 
 <section id="quickstart">
-  <p class="section-label">Code Example</p>
-  <h2>Declare Edge Routes in Pranor</h2>
-  <p class="section-desc">Route incoming API requests with built-in CORS, auth middleware, and rate limiting.</p>
+  <p class="section-label">Code Examples</p>
+  <h2>Use from Any Language or Framework</h2>
+  <p class="section-desc">Pranor Gate routes traffic for services written in Python, Node.js, Go, Rust, or native Pranor.</p>
   
-  <div class="code-block">
+  <div style="margin-bottom:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+    <button class="lang-tab active" onclick="switchLang('gate', 'curl', this)">cURL / HTTP</button>
+    <button class="lang-tab" onclick="switchLang('gate', 'python', this)">Python (FastAPI/Flask)</button>
+    <button class="lang-tab" onclick="switchLang('gate', 'typescript', this)">Node.js (Express)</button>
+    <button class="lang-tab" onclick="switchLang('gate', 'go', this)">Go (net/http)</button>
+    <button class="lang-tab" onclick="switchLang('gate', 'pranor', this)">Pranor (.pnr)</button>
+  </div>
+
+  <div id="gate-curl" class="code-block lang-snippet">
+<span class="cm"># Request through Pranor Gate with JWT Bearer Token validation & Rate Limiting</span>
+curl -i -X GET http://localhost:8080/api/v1/orders \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1Ni..." \
+  -H "X-Client-ID: app_prod_01"
+  </div>
+
+  <div id="gate-python" class="code-block lang-snippet" style="display:none;">
+<span class="kw">from</span> fastapi <span class="kw">import</span> FastAPI, Request
+
+<span class="cm"># Upstream Python service routed behind Pranor Gate</span>
+app = FastAPI()
+
+<span class="kw">@app.get</span>(<span class="str">"/api/v1/orders"</span>)
+<span class="kw">async def</span> get_orders(request: Request):
+    <span class="cm"># Headers injected by Pranor Gate after mTLS / Auth validation</span>
+    user_id = request.headers.get(<span class="str">"X-Pranor-User-ID"</span>)
+    <span class="kw">return</span> {<span class="str">"user_id"</span>: user_id, <span class="str">"orders"</span>: []}
+  </div>
+
+  <div id="gate-typescript" class="code-block lang-snippet" style="display:none;">
+<span class="kw">import</span> express <span class="kw">from</span> <span class="str">"express"</span>;
+<span class="kw">const</span> app = express();
+
+<span class="cm">// Node.js microservice receiving routed ingress traffic from Pranor Gate</span>
+app.get(<span class="str">"/api/v1/orders"</span>, (req, res) => {
+  <span class="kw">const</span> userId = req.headers[<span class="str">"x-pranor-user-id"</span>];
+  res.json({ userId, orders: [] });
+});
+app.listen(3000);
+  </div>
+
+  <div id="gate-go" class="code-block lang-snippet" style="display:none;">
+<span class="kw">package</span> main
+
+<span class="kw">import</span> (
+    <span class="str">"net/http"</span>
+)
+
+<span class="kw">func</span> main() {
+    <span class="cm">// Go backend service running behind Pranor Gate router</span>
+    http.HandleFunc(<span class="str">"/api/v1/orders"</span>, <span class="kw">func</span>(w http.ResponseWriter, r *http.Request) {
+        userID := r.Header.Get(<span class="str">"X-Pranor-User-ID"</span>)
+        w.Write([]byte(<span class="str">`{"user_id":"`</span> + userID + <span class="str">`"}`</span>))
+    })
+    http.ListenAndServe(<span class="str">":8081"</span>, nil)
+}
+  </div>
+
+  <div id="gate-pranor" class="code-block lang-snippet" style="display:none;">
 <span class="kw">middleware</span> auth_check (req) {
     <span class="kw">if</span> req.headers[<span class="str">"Authorization"</span>] == <span class="kw">nil</span> {
         <span class="kw">return</span> { <span class="str">"error"</span>: <span class="str">"Unauthorized"</span> }, 401
@@ -174,6 +236,22 @@
   <p><a href="index.html">Pranor Platform</a> &middot; <a href="vault.html">Pranor Vault</a> &middot; <a href="pulse.html">Pranor Pulse</a> &middot; <a href="https://github.com/vyuvaraj/pranor">GitHub Repository</a></p>
   <p style="margin-top:0.5rem;">Licensed AGPL-3.0 by vyuvaraj.</p>
 </footer>
+
+<script>
+  function switchLang(modulePrefix, lang, btn) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.lang-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll(`.lang-snippet`).forEach(el => {
+      if (el.id.startsWith(modulePrefix + '-')) {
+        el.style.display = 'none';
+      }
+    });
+    const target = document.getElementById(modulePrefix + '-' + lang);
+    if (target) target.style.display = 'block';
+  }
+</script>
 
 </body>
 </html>
