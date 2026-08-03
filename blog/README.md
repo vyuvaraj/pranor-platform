@@ -1,6 +1,6 @@
-# Serv Blog — Tutorial Series
+# Pranor Blog — Tutorial Series
 
-A collection of hands-on tutorials and deep-dive articles for building production-grade backends with the Serv ecosystem.
+A collection of hands-on tutorials and deep-dive articles for building production-grade backends with the Pranor ecosystem.
 
 ---
 
@@ -8,7 +8,7 @@ A collection of hands-on tutorials and deep-dive articles for building productio
 
 | # | Title | Topic | Reading Time |
 |---|-------|-------|-------------|
-| 1 | [Introducing Serv: The Modular Backend Ecosystem](blog.html?post=01-introducing-serv) | Overview | ~6 min |
+| 1 | [Introducing Pranor: The Modular Backend Ecosystem](blog.html?post=01-introducing-pranor) | Overview | ~6 min |
 | 2 | [Getting Started with Pranor in 10 Minutes](blog.html?post=02-getting-started-pranor) | Pranor basics | ~10 min |
 | 3 | [Building a Production API Gateway with Pranor Gate](blog.html?post=03-api-gateway-pranor-gate) | Pranor Gate deep dive | ~12 min |
 | 4 | [Distributed Caching Made Simple with Pranor Cache](blog.html?post=04-caching-with-pranor-cache) | Pranor Cache patterns | ~10 min |

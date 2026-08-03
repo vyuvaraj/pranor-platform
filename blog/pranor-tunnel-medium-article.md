@@ -68,7 +68,7 @@ Inspector:   http://localhost:8443
 ```
 
 ### 2. Configure in Pranor
-You can declare tunnel mappings directly inside your `serv.toml` or announce configurations dynamically:
+You can declare tunnel mappings directly inside your `pranor.toml` or announce configurations dynamically:
 ```toml
 [tunnel]
 local_port = 3000

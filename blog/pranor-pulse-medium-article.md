@@ -19,13 +19,13 @@ While the core WASM stream processing engine worked seamlessly, running it in re
 3. **Disaster Recovery**: Consumers needed the ability to rewind and replay stream history back to exact timestamps (`seekToTime`) rather than just raw offset numbers.
 4. **Cross-Cloud Active-Active Sync**: Distributed clusters across multiple cloud regions required conflict-free multi-primary event mirroring.
 
-Here is how we addressed these challenges in **Pranor Pulse v2** and migrated to the unified **Serv monorepo** (`github.com/vyuvaraj/pranor`).
+Here is how we addressed these challenges in **Pranor Pulse v2** and migrated to the unified **Pranor monorepo** (`github.com/vyuvaraj/pranor`).
 
 ---
 
 ## 1. Monorepo Migration & The Daemon / CLI Split
 
-We merged standalone services into the unified **Serv monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Pulse`). As part of this migration, we strictly separated server runtime logic from client administration tooling:
+We merged standalone services into the unified **Pranor monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Pulse`). As part of this migration, we strictly separated server runtime logic from client administration tooling:
 
 * **`pranor-pulsed` (Server Daemon)**: Zero-dependency background service process. It hosts dedicated listeners for STOMP (`:61613`), MQTT v5.0 (`:1883`), Kafka (`:9092`), HTTP REST (`:8082`), Prometheus metrics (`/metrics`), and an embedded Web Admin UI (`http://localhost:8082/ui/`) served via Go `embed`.
 * **`pranor-pulse` (Client CLI)**: Fast-booting administrative binary for operators and scripts (`status`, `topics`, `publish`, `consume`, `tail`, `seek`).
@@ -188,9 +188,9 @@ A frequent question from developers evaluating the **Pranor Platform** (`github.
 ## Quickstart with Pranor Pulse v2
 
 ```bash
-# Clone the unified Serv monorepo
+# Clone the unified Pranor monorepo
 git clone https://github.com/vyuvaraj/pranor.git
-cd serv/packages/Pranor Pulse
+cd pranor/packages/Pranor Pulse
 
 # Build and start the daemon (Web UI at http://localhost:8082/ui/)
 go build -o pranor-pulsed ./cmd/pranor-pulsed

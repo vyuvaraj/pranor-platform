@@ -19,13 +19,13 @@ While inline WASM filters solved custom proxy logic, scaling modern cloud and AI
 3. **Gateway Lock-in on the Server**: Middleware rules written for server gateways could not run inside modern single-page applications or offline progressive web apps (PWAs).
 4. **Upstream Schema Fragmentation**: Microservices expose disjointed REST and GraphQL endpoints, requiring complex client-side orchestration.
 
-Here is how we addressed these challenges in **Pranor Gate v2** within the unified **Serv monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Gate`).
+Here is how we addressed these challenges in **Pranor Gate v2** within the unified **Pranor monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Gate`).
 
 ---
 
 ## 1. Monorepo Migration & The Daemon / CLI Split
 
-We merged standalone services into the unified **Serv monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Gate`). As part of this evolution, we strictly separated server runtime logic from administrative tooling:
+We merged standalone services into the unified **Pranor monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Gate`). As part of this evolution, we strictly separated server runtime logic from administrative tooling:
 
 * **`pranor-gatewayd` (Server Daemon)**: Zero-dependency background service process. It hosts HTTP/1.1, HTTP/2, HTTP/3 QUIC, ACME Let's Encrypt Auto-TLS, REST-to-gRPC transcoding, GraphQL federation, and an embedded Web Gateway Inspector UI (`http://localhost:8081/ui/`).
 * **`pranor-gateway` (Client CLI)**: Fast-booting administrative binary for operators and CI/CD pipelines (`pranor-gateway status`, `pranor-gateway routes list`, `pranor-gateway routes add`).
@@ -119,9 +119,9 @@ Pranor Gate v2 bridges legacy microservices into unified APIs:
 ## Quickstart with Pranor Gate v2
 
 ```bash
-# Clone the Serv monorepo
+# Clone the Pranor monorepo
 git clone https://github.com/vyuvaraj/pranor.git
-cd serv/packages/Pranor Gate
+cd pranor/packages/Pranor Gate
 
 # Build and start the daemon (Web UI at http://localhost:8081/ui/)
 go build -o pranor-gatewayd ./cmd/pranor-gatewayd

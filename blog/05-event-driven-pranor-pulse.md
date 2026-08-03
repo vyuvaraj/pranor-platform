@@ -4,7 +4,7 @@
 
 ---
 
-Synchronous request-response works fine until it doesn't. When a user places an order, you don't want them waiting while your service sends a confirmation email, updates inventory, triggers a fulfillment workflow, and notifies your analytics pipeline — all in sequence. **Pranor Pulse** (part of the unified [Serv monorepo](https://github.com/vyuvaraj/pranor)) decouples these operations so each one runs independently, securely, and reliably.
+Synchronous request-response works fine until it doesn't. When a user places an order, you don't want them waiting while your service sends a confirmation email, updates inventory, triggers a fulfillment workflow, and notifies your analytics pipeline — all in sequence. **Pranor Pulse** (part of the unified [Pranor monorepo](https://github.com/vyuvaraj/pranor)) decouples these operations so each one runs independently, securely, and reliably.
 
 ---
 
@@ -28,7 +28,7 @@ Pranor Pulse is the Pranor message broker. It supports:
 Build or run `pranor-pulsed` directly from the monorepo:
 
 ```bash
-cd serv/packages/Pranor Pulse
+cd pranor/packages/Pranor Pulse
 go run ./cmd/pranor-pulsed --port 9092
 ```
 

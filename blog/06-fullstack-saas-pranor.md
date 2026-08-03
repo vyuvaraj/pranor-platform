@@ -4,7 +4,7 @@
 
 ---
 
-This is the capstone tutorial of the Serv blog series. We'll build a complete SaaS application — a project management tool — using 8 Pranor components, from scratch to a running Docker Compose stack.
+This is the capstone tutorial of the Pranor blog series. We'll build a complete SaaS application — a project management tool — using 8 Pranor components, from scratch to a running Docker Compose stack.
 
 **What we're building:** A multi-tenant project management API (think simplified Linear or Jira backend) with:
 - User authentication and multi-tenancy
@@ -47,7 +47,7 @@ taskflow/
 │   │   ├── user.pnr
 │   │   ├── project.pnr
 │   │   └── task.pnr
-│   └── serv.yaml
+│   └── pranor.yaml
 ├── config/
 │   ├── pranor-gate.yaml
 │   └── pranor-auth.yaml
@@ -59,7 +59,7 @@ taskflow/
 ## Step 1: Define the Data Models
 
 `app/models/task.pnr`:
-```serv
+```pranor
 model Project {
   id:          string   @id
   org_id:      string   @required @index
@@ -101,7 +101,7 @@ model Comment {
 ## Step 2: Define the Services
 
 `app/services/task.pnr`:
-```serv
+```pranor
 import store
 import cache
 import queue
@@ -252,7 +252,7 @@ mail:
 ## Step 4: Set Up Scheduled Jobs
 
 `app/services/notification.pnr`:
-```serv
+```pranor
 import cron
 import queue
 import store
@@ -297,7 +297,7 @@ cron.schedule("0 * * * *", "overdue-check") {
 ## Step 5: Wire Up Email Notifications
 
 `app/services/notification.pnr` (continued):
-```serv
+```pranor
 import mail
 
 # Handle daily digest
@@ -489,7 +489,7 @@ This series covered the entire Pranor developer journey:
 
 | Post | Topic |
 |------|-------|
-| [1 — Introducing Serv](blog.html?post=01-introducing-serv) | Ecosystem overview |
+| [1 — Introducing Pranor](blog.html?post=01-introducing-pranor) | Ecosystem overview |
 | [2 — Pranor in 10 min](blog.html?post=02-getting-started-pranor) | First service |
 | [3 — Pranor Gate](blog.html?post=03-api-gateway-pranor-gate) | API gateway deep dive |
 | [4 — Pranor Cache](blog.html?post=04-caching-with-pranor-cache) | Distributed caching |

@@ -19,13 +19,13 @@ While the core object storage layer worked smoothly, operating it in real-world 
 3. **Storage Snapshot Overhead**: Creating staging environments or test copies of multi-terabyte data lakes requires waiting hours for physical copy operations and doubles storage bills.
 4. **Origin Bandwidth Exhaustion**: Delivering high-demand assets (video streams, 3D assets, software installers) to thousands of concurrent users overloads origin servers and inflates egress costs.
 
-Here is how we solved these challenges in **Pranor Vault v2** within the unified **Serv monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Vault`).
+Here is how we solved these challenges in **Pranor Vault v2** within the unified **Pranor monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Vault`).
 
 ---
 
 ## 1. Monorepo Migration & The Daemon / CLI Split
 
-We merged standalone components into the unified **Serv monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Vault`). As part of this evolution, we strictly separated server runtime logic from administrative tooling:
+We merged standalone components into the unified **Pranor monorepo** (`github.com/vyuvaraj/pranor/packages/Pranor Vault`). As part of this evolution, we strictly separated server runtime logic from administrative tooling:
 
 * **`pranor-vaultd` (Server Daemon)**: Zero-dependency background service process. It hosts standard S3 REST API listeners on port `:9000`, an embedded Web Storage Console UI on port `:9001` (`http://localhost:9001/ui/`), and Prometheus telemetry metrics (`/metrics`).
 * **`pranor-vault` (Client CLI)**: High-performance administrative binary for operators and automated scripts (`pranor-vault status`, `pranor-vault ls`, `pranor-vault mb`, `pranor-vault branch`).
@@ -145,9 +145,9 @@ Beyond browser and analytical features, Pranor Vault v2 includes enterprise-grad
 ## Quickstart with Pranor Vault v2
 
 ```bash
-# Clone the Serv monorepo
+# Clone the Pranor monorepo
 git clone https://github.com/vyuvaraj/pranor.git
-cd serv/packages/Pranor Vault
+cd pranor/packages/Pranor Vault
 
 # Build and start the daemon (Web UI at http://localhost:9001/ui/)
 go build -o pranor-vaultd ./cmd/pranor-vaultd

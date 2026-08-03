@@ -1,18 +1,18 @@
-# Introducing Serv: The Modular Backend Ecosystem
+# Introducing Pranor: The Modular Backend Ecosystem
 
-> **Published:** July 2026 | **Reading Time:** ~6 min | **Tags:** `serv`, `microservices`, `backend`, `go`
+> **Published:** July 2026 | **Reading Time:** ~6 min | **Tags:** `pranor`, `microservices`, `backend`, `go`
 
 ---
 
 Modern applications need caching, queuing, authentication, rate limiting, tracing, and more — but setting all of this up from scratch is brutally repetitive. You write the same boilerplate, configure the same Redis/Kafka/NATS stack, and glue it all together before you write a single line of business logic.
 
-**Serv** is built to fix that.
+**Pranor** is built to fix that.
 
 ---
 
-## What Is Serv?
+## What Is Pranor?
 
-Serv is a modular, self-hosted backend ecosystem written in Go. Each component of your infrastructure — from API gateway to distributed cache — is a standalone, Docker-runnable service with sane defaults.
+Pranor is a modular, self-hosted backend ecosystem written in Go. Each component of your infrastructure — from API gateway to distributed cache — is a standalone, Docker-runnable service with sane defaults.
 
 The Pranor is the full collection of these components:
 
@@ -59,7 +59,7 @@ Components *can* integrate with each other — Pranor Gate can delegate auth to 
 
 For teams building business logic on top of the Pranor, **Pranor** is a domain-specific language that compiles down to Go. It gives you expressive service definitions with zero boilerplate.
 
-```serv
+```pranor
 service UserService {
   route GET /users/:id {
     cache ttl=60s
@@ -78,7 +78,7 @@ Kubernetes is powerful, but it's also:
 - **Expensive** — full-time SRE to operate
 - **Overkill** — most apps don't need 10k nodes
 
-Serv targets the 90% use case: teams that need solid infrastructure without a dedicated platform team. You get the same guarantees (HA, observability, scaling) without the operational burden.
+Pranor targets the 90% use case: teams that need solid infrastructure without a dedicated platform team. You get the same guarantees (HA, observability, scaling) without the operational burden.
 
 ---
 

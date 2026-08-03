@@ -49,7 +49,7 @@ Here is how the pieces fit together.
 
 Everything starts with **Pranor**, a domain-specific programming language that compiles to native Go binaries. Instead of writing connection pools and framework boilerplate, infrastructure is declared directly in syntax:
 
-```serv
+```pranor
 // Declare infrastructure
 server "8080"
 broker "pranor-pulse://localhost:61613"

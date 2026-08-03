@@ -1,6 +1,6 @@
 [
   {
-    "slug": "01-introducing-serv",
+    "slug": "01-introducing-pranor",
     "title": "Introducing Serv: The Modular Backend Ecosystem",
     "excerpt": "How a custom compiler, an S3 object store, a STOMP queue, an API gateway, and a glassmorphic console fit together.",
     "badge": "Tutorial",

@@ -107,10 +107,10 @@ This is extremely useful for multi-tenant systems where you need to clear one te
 
 ## Step 4: Use with Pranor
 
-When your `serv.yaml` sets the cache driver to `pranor-cache`, Pranor handles all cache calls transparently:
+When your `pranor.yaml` sets the cache driver to `pranor-cache`, Pranor handles all cache calls transparently:
 
 ```yaml
-# serv.yaml
+# pranor.yaml
 cache:
   driver: pranor-cache
   endpoint: http://pranor-cache:8082
@@ -120,7 +120,7 @@ cache:
 
 In your service file:
 
-```serv
+```pranor
 service ProductService {
   route GET /products/:id {
     cache ttl=5m key="product:{id}"    # Pranor Cache handles this
@@ -207,7 +207,7 @@ Best for: Frequently read data with acceptable staleness (e.g., product catalog,
 
 Invalidate on write events via Pranor Pulse:
 
-```serv
+```pranor
 service OrderService {
   route POST /orders {
     result = store.create(Order, body)
@@ -227,7 +227,7 @@ A cache consumer subscribes and flushes the key immediately when an order is cre
 
 Update the cache on every write:
 
-```serv
+```pranor
 route PUT /users/:id {
   result = store.update(User, id, body)
   cache.set(key="user:{id}", value=result, ttl=5m)

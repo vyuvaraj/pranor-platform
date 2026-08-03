@@ -16,13 +16,13 @@ I kept writing the same boilerplate across dozens of services. So I built a lang
 
 ---
 
-## Meet Serv
+## Meet Pranor
 
-Serv is a domain-specific language that compiles to native binaries via Go code generation. It's designed for one thing: making backend services trivial to write.
+Pranor is a domain-specific language that compiles to native binaries via Go code generation. It's designed for one thing: making backend services trivial to write.
 
 Here's a complete scheduled job:
 
-```serv
+```pranor
 every 5s {
     log.info("Running healthcheck...")
     log.info("Database connection is healthy.")
@@ -40,7 +40,7 @@ That's it. No main function. No imports. No boilerplate. Run `pranor build sched
 
 ## A REST API in 15 Lines
 
-```serv
+```pranor
 server env("PORT")
 
 route "GET" "/health" (req) {
@@ -63,7 +63,7 @@ No framework to configure. No router to initialize. The `server` keyword starts 
 
 Pub/sub and concurrency aren't afterthoughts — they're language primitives:
 
-```serv
+```pranor
 broker "nats://localhost:4222"
 
 every 4s {
@@ -86,7 +86,7 @@ fn processLogData(logLine) {
 
 ## Middleware and Auth — No Framework Required
 
-```serv
+```pranor
 server "8080"
 
 middleware auth(req) {
@@ -107,7 +107,7 @@ Middleware is a first-class concept. Attach it to routes with `use [...]`. If mi
 
 ## WebSockets in 8 Lines
 
-```serv
+```pranor
 server "8080"
 
 ws "/chat" (conn) {
@@ -120,9 +120,9 @@ ws "/chat" (conn) {
 ```
 
 ---
-## What Makes Serv Different
+## What Makes Pranor Different
 
-| Feature | Serv | Go | Node.js | Python |
+| Feature | Pranor | Go | Node.js | Python |
 |---------|------|-----|---------|--------|
 | HTTP server | `server "8080"` | 15+ lines | Express setup | Flask/FastAPI setup |
 | Scheduled job | `every 5s { }` | goroutine + ticker | node-cron package | APScheduler/Celery |
@@ -131,19 +131,19 @@ ws "/chat" (conn) {
 | Rate limiting | `limit 100/minute` on a route | Middleware library | express-rate-limit | Custom decorator |
 | WebSocket | `ws "/path" (conn) { }` | gorilla/websocket setup | ws/socket.io | websockets library |
 
-The difference isn't that Serv can do things others can't — it's that infrastructure concerns become *declarations* instead of *implementation details*.
+The difference isn't that Pranor can do things others can't — it's that infrastructure concerns become *declarations* instead of *implementation details*.
 
 ---
 
 ## Under the Hood
 
-Serv compiles through a classic pipeline:
+Pranor compiles through a classic pipeline:
 
 ```
 .pnr source → Lexer → Parser (Pratt) → AST → Code Generator → Go source → Native binary
 ```
 
-The generated Go code uses a runtime library that provides HTTP routing, pub/sub adapters, cron scheduling, database access, caching, metrics, and structured logging. You write 15 lines of Serv; the compiler generates the 200 lines of Go you'd have written by hand.
+The generated Go code uses a runtime library that provides HTTP routing, pub/sub adapters, cron scheduling, database access, caching, metrics, and structured logging. You write 15 lines of Pranor; the compiler generates the 200 lines of Go you'd have written by hand.
 
 The compiler itself is written in Go (~21 source files across lexer, parser, AST, codegen, and semantic analysis). It includes:
 
@@ -156,19 +156,19 @@ The compiler itself is written in Go (~21 source files across lexer, parser, AST
 
 ## Real Features, Not a Toy
 
-Serv isn't a weekend project. It has:
+Pranor isn't a weekend project. It has:
 
 - **40+ working examples** covering REST APIs, schedulers, pub/sub, WebSockets, database migrations, generics, MCP tools, and more
 - **Multiple database backends**: SQLite, PostgreSQL, MongoDB, Oracle
 - **Multiple broker backends**: Kafka, NATS, RabbitMQ, MQTT, Redis Streams
 - **A test framework**: `test "name" { assert expr }` blocks that generate Go tests
-- **A formatter**: `serv fmt` with consistent 4-space indentation
+- **A formatter**: `pranor fmt` with consistent 4-space indentation
 - **A linter**: `pranor lint` for static analysis without building
-- **A REPL**: `serv repl` for interactive exploration
+- **A REPL**: `pranor repl` for interactive exploration
 - **Python interop**: `extern fn` bindings to call Python scripts
 - **Go package FFI**: Import and use any Go package via declaration files
-- **A standard library**: Auth, JWT, validation, pagination, crypto modules written in Serv itself
-- **Docker support**: `serv dockerize` generates production Dockerfiles
+- **A standard library**: Auth, JWT, validation, pagination, crypto modules written in Pranor itself
+- **Docker support**: `pranor dockerize` generates production Dockerfiles
 - **VS Code extension**: Syntax highlighting and language support
 
 ---
@@ -181,7 +181,7 @@ If you're building:
 - Internal tools and health-check services
 - Rapid prototypes that need to become production services
 
-...and you're tired of writing the same Go/Java/Python scaffolding every time, Serv might be what you're looking for.
+...and you're tired of writing the same Go/Java/Python scaffolding every time, Pranor might be what you're looking for.
 
 ---
 
@@ -205,10 +205,10 @@ pranor build examples/02_rest_api.pnr -o my-api.exe
 
 ## What's Next
 
-Serv is open-source and actively developed. The roadmap includes:
+Pranor is open-source and actively developed. The roadmap includes:
 
-- **serv-playground**: A web sandbox to try Serv without installing anything
-- **Package registry**: `serv install` for community modules
+- **pranor-playground**: A web sandbox to try Pranor without installing anything
+- **Package registry**: `pranor install` for community modules
 - **More adapter backends**: MySQL, AWS SQS, GCP Pub/Sub, Meilisearch
 - **Enhanced LSP**: Full autocomplete and go-to-definition
 - **Deploy targets**: `pranor deploy --target fly` / `--target railway` / `--target k8s`
@@ -225,6 +225,6 @@ The goal isn't to replace Go — it's to make Go the *compilation target* while 
 
 ---
 
-*If you're building backend services and want to cut through the boilerplate, give Serv a try. Star the repo, open an issue, or just run an example and tell me what breaks.*
+*If you're building backend services and want to cut through the boilerplate, give Pranor a try. Star the repo, open an issue, or just run an example and tell me what breaks.*
 
 *— Yuvaraj*

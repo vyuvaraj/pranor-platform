@@ -12,7 +12,7 @@ Pranor is a domain-specific language for defining backend services. It compiles 
 
 - Go 1.22+
 - Docker (for optional ecosystem services)
-- The `serv` CLI
+- The `pranor` CLI
 
 ### Install the CLI
 
@@ -28,7 +28,7 @@ irm https://raw.githubusercontent.com/vyuvaraj/Pranor/main/install.ps1 | iex
 
 **Verify:**
 ```bash
-serv version
+pranor version
 # Pranor v0.2.0
 ```
 
@@ -48,7 +48,7 @@ my-api/
 ├── main.pnr          # Entry point
 ├── services/          # Service definitions
 ├── models/            # Data models
-├── serv.yaml          # Project config
+├── pranor.yaml          # Project config
 └── .pranor/             # Build cache
 ```
 
@@ -58,7 +58,7 @@ my-api/
 
 Open `services/user.pnr` and add:
 
-```serv
+```pranor
 import store
 import cache
 
@@ -108,7 +108,7 @@ This single file gives you:
 
 ## Step 3: Configure the Project
 
-Edit `serv.yaml`:
+Edit `pranor.yaml`:
 
 ```yaml
 name: my-api
@@ -184,10 +184,10 @@ curl http://localhost:3000/api/v1/users \
 pranor build
 
 # Or build a Docker image
-serv docker build --tag my-api:latest
+pranor docker build --tag my-api:latest
 ```
 
-Switch your `serv.yaml` to production drivers:
+Switch your `pranor.yaml` to production drivers:
 
 ```yaml
 cache:
