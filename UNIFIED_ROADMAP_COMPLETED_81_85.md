@@ -70,3 +70,34 @@
 | VS.E4 | **Live Distributed Flamegraph & Correlated Log Viewer (Pranor Trace)** | VSCode Webview | Render live CPU/latency flamegraphs for slow spans with instant side-by-side log correlation by `trace_id` | [x] | OSS |
 | VS.E5 | **Visual Secret & Key Management Console (Pranor Secret)** | VSCode Control | Secure webview to unseal vault stores, manage environment secret maps, and inspect key rotation policies across clusters | [x] | **EE** |
 | VS.E6 | **Multi-Cluster Infrastructure & Deployment Dashboard (Pranor Deploy)** | VSCode Dashboard | Manage multi-region cluster deployments, view real-time node resource utilization, and perform rollback/canary promotions directly in VS Code | [x] | OSS |
+
+---
+
+## Phase 85: Enterprise Commercial Tier Expansion & Monetization Moats (Completed)
+
+> **Goal**: Define and implement 10-15 high-value Enterprise (EE) capabilities per module (Pranor Gate, Vault, Pulse, Flow, Trace, Console, Auth, Secret, Chrono, Mesh, Deploy) to establish a compelling commercial monetization model for enterprise engineering teams.
+
+| # | Item | Component | Description | Status | Tier |
+|---|------|-----------|-------------|--------|:---:|
+| EE.85.1 | **Kernel eBPF XDP DDoS Bypass** | Pranor Gate | 100Gbps network packet filtering at the Linux kernel level | [x] | EE |
+| EE.85.2 | **Geo-IP Latency Anycast Steering** | Pranor Gate | Edge routing steering global client traffic to lowest latency datacenters | [x] | EE |
+| EE.85.3 | **GraphQL Schema Stitching & Federation** | Pranor Gate | Unifies backend GraphQL endpoints into single gateway schema | [x] | EE |
+| EE.85.4 | **Immutable Object Access Audit Trail** | Pranor Vault | Append-only immutable log recording object reads/writes with identity | [x] | EE |
+| EE.85.5 | **Active-Active Multi-Region Replication** | Pranor Vault | Cross-cloud replication with LWW conflict resolution | [x] | EE |
+| EE.85.6 | **Copy-on-Write (CoW) Bucket Branching** | Pranor Vault | Branch terabyte buckets instantly for sandbox development | [x] | EE |
+| EE.85.7 | **Sovereign Client Envelope Encryption** | Pranor Vault | Zero-knowledge client envelope encryption | [x] | EE |
+| EE.85.8 | **Multi-Region MirrorMaker Sync** | Pranor Pulse | Active-active cross-cloud event topic mirroring across AWS/GCP/Azure | [x] | EE |
+| EE.85.9 | **Hardware Payload Encryption at Rest** | Pranor Pulse | KMS/HSM envelope encryption before writing to disk WAL | [x] | EE |
+| EE.85.10 | **Schema Registry & Breaking Change Guard** | Pranor Pulse | Strict schema validation blocking breaking event payloads | [x] | EE |
+| EE.85.11 | **Visual Workflow Builder & Live Replay** | Pranor Flow | Interactive drag-and-drop designer with step-by-step state diff playback | [x] | EE |
+| EE.85.12 | **High-Availability Coordinator Cluster** | Pranor Flow | Multi-region workflow state replication across Raft clusters | [x] | EE |
+| EE.85.13 | **Anomaly Auto-Remediation Runbooks** | Pranor Trace | Executes auto-remediation webhooks on SLA trace anomaly breaches | [x] | EE |
+| EE.85.14 | **Long-Term Tail Sampling Storage Tier** | Pranor Trace | Tail sampling archiving 99.9% routine spans to cold S3 storage | [x] | EE |
+| EE.85.15 | **SOC2 / HIPAA Immutable Audit Exporter** | Pranor Console | WORM audit logging with automated SOC2 compliance reporting | [x] | EE |
+| EE.85.16 | **Single Sign-On (SAML 2.0 / OIDC) & RBAC** | Pranor Console | Enterprise SSO (Okta, Azure AD) with fine-grained RBAC | [x] | EE |
+| EE.85.17 | **Passkey & WebAuthn Native Server** | Pranor Auth | FIDO2 / Passkey passwordless authentication server | [x] | EE |
+| EE.85.18 | **Enterprise Directory Sync (AD / LDAP)** | Pranor Auth | Active Directory & LDAP identity sync with group mapping | [x] | EE |
+| EE.85.19 | **Smart SLA-Aware Cron Window Optimizer** | Pranor Chrono | AI cron window optimizer shifting jobs to off-peak infrastructure | [x] | EE |
+| EE.85.20 | **Multi-Cluster Fleet DR Failover** | Pranor Deploy | 1-click active-passive region failover and DNS update sync | [x] | EE |
+| EE.85.21 | **Multi-Cloud Cross-VPC Mesh Peering** | Pranor Mesh | Encrypted mesh tunnels connecting AWS EKS, GCP GKE, and on-premise | [x] | EE |
+
