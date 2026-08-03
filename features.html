@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pranor — Ecosystem Feature Matrix (OSS vs Enterprise)</title>
-  <meta name="description" content="Complete feature breakdown of all 120+ capabilities across 17+ Pranor modules for Community OSS and Enterprise Edition (EE).">
+  <meta name="description" content="Complete feature breakdown across all 17+ Pranor modules for Community OSS and Enterprise Edition (EE).">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>▲</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
     .header-section p { color:var(--muted); font-size:1.1rem; }
 
     /* Counter bar */
-    .counter-bar { display:flex; justify-content:center; gap:2rem; margin-top:1.5rem; }
+    .counter-bar { display:flex; justify-content:center; gap:2rem; margin-top:1.5rem; flex-wrap:wrap; }
     .counter-item { background:var(--surface); border:1px solid var(--border); padding:0.6rem 1.2rem; border-radius:8px; font-size:0.85rem; color:var(--muted); }
     .counter-item strong { color:var(--text); font-size:1.1rem; }
 
@@ -91,16 +91,16 @@
 
 <div class="header-section">
   <h1>Unified Feature Matrix</h1>
-  <p>Complete 120+ capability matrix across all 17+ Pranor modules compiled from Phases 1 through 84.</p>
+  <p>Comprehensive breakdown of features across all Pranor modules for Community OSS and Enterprise Edition (EE).</p>
   <div class="counter-bar">
-    <div class="counter-item"><strong id="total-count">120+</strong> Total Features</div>
+    <div class="counter-item"><strong id="total-count">180+</strong> Total Features</div>
     <div class="counter-item"><strong id="oss-count">95+</strong> Community OSS</div>
-    <div class="counter-item"><strong id="ee-count">25+</strong> Enterprise EE</div>
+    <div class="counter-item"><strong id="ee-count">85+</strong> Enterprise EE</div>
   </div>
 </div>
 
 <div class="controls">
-  <input type="text" id="search-input" class="search-input" placeholder="Search 120+ features (e.g. mTLS, HNSW, eBPF, DLQ, WASM, RAG)..." oninput="filterMatrix()">
+  <input type="text" id="search-input" class="search-input" placeholder="Search features (e.g. mTLS, HNSW, eBPF, DLQ, WASM, RAG, SAML, HSM)..." oninput="filterMatrix()">
   
   <div class="tier-filters">
     <button class="filter-btn active" onclick="setTierFilter('all', this)">All Tiers</button>
@@ -131,17 +131,7 @@
 
 <script>
 const featuresData = [
-  // Pranor Compiler & Language
-  { module: "Pranor Compiler", edition: "OSS", name: "Infrastructure-as-Syntax", desc: "broker, store, cache, and ai are first-class keywords, not library imports. Misconfigurations emit compile-time errors.", moat: "No other language makes backend infrastructure a language keyword." },
-  { module: "Pranor Compiler", edition: "OSS", name: "Automated AI Code Repair Loop", desc: "pranor create generates code, pranor test executes validation, and pranor create --fix repairs compile errors automatically.", moat: "First compiler with automated AI self-repair loop." },
-  { module: "Pranor Compiler", edition: "OSS", name: "Compile-Time Service Contract Validation", desc: "If a route declares -> User, the compiler verifies the return shape matches the struct at build time." },
-  { module: "Pranor Compiler", edition: "OSS", name: "Compiler-Guaranteed Structural Locks", desc: "lock('resource') { ... } syntax guarantees lock release on all exit paths (return, panic, early break)." },
-  { module: "Pranor Compiler", edition: "OSS", name: "Language-Native cached fn Keyword", desc: "cached fn getUser(id) ttl 5m generates automatic cache get, set, and invalidation boilerplate." },
-  { module: "Pranor Compiler", edition: "OSS", name: "Multi-Dialect Database Proxying (Pranor Pool)", desc: "Unified pooler supporting PostgreSQL, SQLite, Oracle, and MongoDB simultaneously." },
-  { module: "Pranor Compiler", edition: "OSS", name: "Native Go Codegen & Source Carets", desc: "Compiles .pnr code into standalone Go binaries with precise source caret pointers (^) and source-mapped stack traces." },
-  { module: "Pranor Compiler", edition: "OSS", name: "Browser Web Playground", desc: "Zero-install web playground (playground.pranor.dev) compiling .pnr code directly in browser via WASM." },
-
-  // Pranor Gate (API Gateway & Edge Router)
+  // 1. Pranor Gate (API Gateway & Ingress Router)
   { module: "Pranor Gate", edition: "OSS", name: "Sub-millisecond Ingress Proxy", desc: "HTTP/1.1, HTTP/2, and gRPC edge proxy routing with header matching, path prefixing, and path rewriting." },
   { module: "Pranor Gate", edition: "OSS", name: "WASM Middleware Hot-Swap During Live Traffic", desc: "Hot-swap WebAssembly request/response middleware at request boundary with zero downtime." },
   { module: "Pranor Gate", edition: "OSS", name: "AI Agent (MCP) Native Traffic Engine", desc: "Native understanding of Model Context Protocol (MCP) JSON-RPC tool calls, per-agent rate limits, and token cost tracking." },
@@ -154,8 +144,12 @@ const featuresData = [
   { module: "Pranor Gate", edition: "OSS", name: "GitOps Webhook Sync", desc: "Dynamic route reloading triggered via /api/gitops/webhook without connection dropping." },
   { module: "Pranor Gate", edition: "EE", name: "Kernel eBPF XDP DDoS Bypass", desc: "100Gbps network packet filtering at the Linux kernel level bypassing OS socket stack overhead." },
   { module: "Pranor Gate", edition: "EE", name: "AI Cost Router & Prompt Firewall", desc: "Semantic prompt inspection, PII redaction, embedding similarity injection detection, and LLM failover routing." },
+  { module: "Pranor Gate", edition: "EE", name: "Geo-IP Latency Anycast Steering", desc: "Real-time edge routing steering global client traffic to the lowest latency datacenter cluster." },
+  { module: "Pranor Gate", edition: "EE", name: "Enterprise WAF Rule Generator", desc: "Auto-generates OWASP top-10 protection rules based on observed traffic patterns." },
+  { module: "Pranor Gate", edition: "EE", name: "GraphQL Schema Stitching & Federation", desc: "Unifies multiple backend GraphQL endpoints into a single federated gateway schema." },
+  { module: "Pranor Gate", edition: "EE", name: "Zero-Downtime TLS Hardware Offloading", desc: "Offloads TLS handshake cryptography to dedicated PCIe crypto accelerator cards." },
 
-  // Pranor Vault (S3 Storage & Vector Search)
+  // 2. Pranor Vault (S3 Storage & Vector Search)
   { module: "Pranor Vault", edition: "OSS", name: "AWS S3 API Compatibility", desc: "Full compatibility with standard AWS S3 SDKs, MinIO CLI, bucket policies, and multipart uploads." },
   { module: "Pranor Vault", edition: "OSS", name: "Native HNSW Vector Search Engine", desc: "High-dimensional embedding storage and millisecond similarity queries (Cosine, Euclidean, Dot-product)." },
   { module: "Pranor Vault", edition: "OSS", name: "Conversational RAG Object Query", desc: "GET /bucket?ask=... synthesizes answers from stored documents directly in the storage engine layer." },
@@ -167,46 +161,72 @@ const featuresData = [
   { module: "Pranor Vault", edition: "EE", name: "Immutable Object-Level Access Audit Trail", desc: "Append-only immutable log recording who read/wrote/deleted every object with identity details." },
   { module: "Pranor Vault", edition: "EE", name: "Active-Active Multi-Region Replication", desc: "Cross-cloud object replication with Last-Write-Wins (LWW) conflict resolution." },
   { module: "Pranor Vault", edition: "EE", name: "Embedded DuckDB Analytics & Torrent Seeding", desc: "Execute SQL queries directly over S3 parquet objects and seed P2P datasets with WebTorrent." },
+  { module: "Pranor Vault", edition: "EE", name: "Copy-on-Write (CoW) Instant Bucket Branching", desc: "Branch terabyte buckets instantly for sandbox development without duplicating storage data." },
+  { module: "Pranor Vault", edition: "EE", name: "Sovereign Key Client-Side Envelope Encryption", desc: "Zero-knowledge client envelope encryption ensuring storage nodes never hold raw decryption keys." },
+  { module: "Pranor Vault", edition: "EE", name: "Automatic Tiering to Glacier / Cold Blob Stores", desc: "Lifecycle policies automatically migrating stale objects to low-cost archival storage." },
 
-  // Pranor Pulse (Async Event Broker & Message Queue)
+  // 3. Pranor Pulse (Async Event Broker & Queue)
   { module: "Pranor Pulse", edition: "OSS", name: "Multi-Protocol Message Engine", desc: "Unified wire-protocol decoders for Kafka wire format, STOMP over WebSockets, and MQTT 3.1/5.0." },
   { module: "Pranor Pulse", edition: "OSS", name: "Single Distributed End-to-End Tracing", desc: "Single OTel distributed trace spanning publish → WASM transforms → DLQ redirect → consumer ACK." },
   { module: "Pranor Pulse", edition: "OSS", name: "Dead Letter Queue (DLQ) & 1-Click Replay", desc: "Automatic failed message isolation with exponential backoff and REST replay APIs." },
   { module: "Pranor Pulse", edition: "OSS", name: "Sliding-Window Message Deduplication", desc: "In-memory message ID deduplication to enforce exactly-once delivery guarantees." },
   { module: "Pranor Pulse", edition: "OSS", name: "Declarative WASM Transform Pipeline", desc: "Chain multiple WASM transforms (raw → validate → enrich → route) in the message path." },
-  { module: "Pranor Pulse", edition: "OSS", name: "AI-Powered Message Classification Routing", desc: "Evaluate embedding models per message for dynamic topic routing (e.g. subscribe where ai.classify(msg) == 'urgent')." },
+  { module: "Pranor Pulse", edition: "OSS", name: "AI-Powered Message Classification Routing", desc: "Evaluate embedding models per message for dynamic topic routing." },
   { module: "Pranor Pulse", edition: "OSS", name: "Consumer Backpressure & Disk Overflow", desc: "Buffers to disk when consumers are slow and auto-routes to DLQ on persistent congestion." },
   { module: "Pranor Pulse", edition: "EE", name: "Multi-Tenant Partition Sharding", desc: "Isolated queue memory pools and dedicated topic partition routing per enterprise customer." },
+  { module: "Pranor Pulse", edition: "EE", name: "Multi-Region MirrorMaker & Cross-Cloud Event Sync", desc: "Active-active cross-cloud event topic mirroring with automatic deduplication across AWS, GCP, and Azure." },
+  { module: "Pranor Pulse", edition: "EE", name: "Hardware-Accelerated Payload Encryption at Rest", desc: "Envelope encryption of message payloads using KMS / HSM keys before writing to disk WAL." },
+  { module: "Pranor Pulse", edition: "EE", name: "Consumer Group Rebalance Auto-Tuning", desc: "AI-assisted topic partition rebalancing eliminating consumer group starvation under peak load." },
+  { module: "Pranor Pulse", edition: "EE", name: "Compliance Schema Registry & Breaking Change Guard", desc: "Strict Schema Registry enforcement blocking producers from publishing backward-incompatible event payloads." },
 
-  // Pranor Mesh (Service Discovery & Security)
-  { module: "Pranor Mesh", edition: "OSS", name: "Direct Library-Level Mesh (Zero Sidecars)", desc: "Runs inside binary via custom HTTP transport. Zero CPU/memory overhead of Envoy sidecar proxies." },
-  { module: "Pranor Mesh", edition: "OSS", name: "Zero-Trust In-Memory Service Discovery", desc: "Multicast UDP auto-discovery and heartbeats without external Consul or ZooKeeper daemons." },
-  { module: "Pranor Mesh", edition: "OSS", name: "High-Performance gRPC JSON Transport", desc: "Multiplexed gRPC transport layer enabling zero-compile inter-service communication." },
-  { module: "Pranor Mesh", edition: "OSS", name: "Automated Zero-Downtime mTLS Rotation", desc: "Dynamic TLS callback engine for automated certificate key pair rotations." },
-  { module: "Pranor Mesh", edition: "EE", name: "Hardware TPM / HSM Identity Attestation", desc: "Hardware-backed cryptographic identity verification for zero-trust enterprise clusters." },
-
-  // Pranor Flow (Sagas & Workflows)
+  // 4. Pranor Flow (Stateful Workflows & Sagas)
   { module: "Pranor Flow", edition: "OSS", name: "Durable Saga Workflow Orchestrator", desc: "Stateful distributed transaction coordinator supporting HTTP & STOMP compensation rollbacks." },
   { module: "Pranor Flow", edition: "OSS", name: "Automatic Reverse Compensation Ordering", desc: "Fails at step N ? compensations fire in reverse (N → N-1 → ... → 1) automatically." },
   { module: "Pranor Flow", edition: "OSS", name: "Human Approval Gates with Timeout Escalation", desc: "Pauses workflow for human approval and auto-escalates or approves if no response in X time." },
   { module: "Pranor Flow", edition: "OSS", name: "Mermaid DAG Visualization API", desc: "GET /api/workflows/visualize returns visual Mermaid graph of the workflow definition." },
   { module: "Pranor Flow", edition: "OSS", name: "Crash Recovery Checkpointing", desc: "Durably saves saga step states to disk to automatically resume compensation routines on restart." },
+  { module: "Pranor Flow", edition: "EE", name: "Enterprise Visual Workflow Builder & Live Replay", desc: "Interactive drag-and-drop workflow designer inside Pranor Console with step-by-step state diff playback." },
+  { module: "Pranor Flow", edition: "EE", name: "High-Availability Distributed Coordinator Clustering", desc: "Multi-region workflow state replication across Raft clusters with zero-loss failover." },
+  { module: "Pranor Flow", edition: "EE", name: "Sub-Workflow Parallellization & Fan-Out Engine", desc: "High-throughput parallel worker execution engine handling 100,000+ concurrent workflow instances." },
+  { module: "Pranor Flow", edition: "EE", name: "SLA Deadline Enforcement & Auto-Escalation", desc: "Triggers emergency escalation Webhooks and Slack alerts if workflows exceed strict enterprise SLAs." },
 
-  // Pranor Auth & Secret (Security, Identity & Keys)
-  { module: "Pranor Auth", edition: "OSS", name: "Identity & Access Management Server", desc: "Identity server supporting JWKS key rotation, TOTP MFA, Social OAuth, and credential stuffing defense." },
-  { module: "Pranor Auth", edition: "OSS", name: "Adaptive Risk Scoring per Login", desc: "Scores risk (new device + location + time) and automatically steps up to MFA on high risk." },
-  { module: "Pranor Secret", edition: "OSS", name: "Visual Secret Console & KMS Key Rotation", desc: "KMS Envelope encryption key rotation worker and SHA-256 API key hashing." },
-  { module: "Pranor Auth", edition: "EE", name: "SCIM 2.0 Enterprise User Provisioning", desc: "Enterprise user/group sync from Okta, Azure AD, and Google Workspace." },
-  { module: "Pranor Secret", edition: "EE", name: "Vault Transit & Hardware HSM Integration", desc: "Direct hardware security module (HSM) signing, Vault Transit integration, and Keycloak sync." },
-
-  // Pranor Trace & Console (Observability & Control)
+  // 5. Pranor Trace & Console (Observability & Control)
   { module: "Pranor Trace", edition: "OSS", name: "OTLP Distributed Tracing & Prometheus Engine", desc: "Full OpenTelemetry HTTP/gRPC span collector, flamegraph log correlation, and Prometheus remote write ingestion." },
   { module: "Pranor Trace", edition: "OSS", name: "Compiler-Linked Source Mapping", desc: "Trace spans map directly back to .pnr source file and line numbers." },
   { module: "Pranor Console", edition: "OSS", name: "Bidirectional Operations Dashboard", desc: "Visual message flow timeline, OTel waterfall traces, and automated incident postmortem generator." },
   { module: "Pranor Console", edition: "OSS", name: "Single-Click Gateway Request Replay", desc: "Select a trace span in waterfall and re-issue exact request through Pranor Gate with 1 click." },
   { module: "Pranor Console", edition: "OSS", name: "Embedded SQL Workbench", desc: "Run SQL queries against connected databases directly inside the dashboard." },
+  { module: "Pranor Trace", edition: "EE", name: "Anomaly-Based Auto-Remediation & Incident Runbooks", desc: "Automatically executes remediation webhooks or container restarts when trace anomaly models detect SLA breaches." },
+  { module: "Pranor Console", edition: "EE", name: "SOC2 / HIPAA Immutable Audit & Compliance Exporter", desc: "Immutable WORM audit logging for all control plane actions, API calls, and SQL queries with SOC2 report generation." },
+  { module: "Pranor Console", edition: "EE", name: "Single Sign-On (SAML 2.0 / OIDC) & Fine-Grained RBAC", desc: "Enterprise SSO integration (Okta, Azure AD, Ping Identity) with role-based workspace permissions." },
+  { module: "Pranor Trace", edition: "EE", name: "Long-Term Trace Sampling & Cold Analytics Tier", desc: "Smart trace tail sampling retaining 100% of error traces while archiving 99.9% of routine spans to cold S3 storage." },
 
-  // IDE, LSP & Tooling Ecosystem
+  // 6. Pranor Auth & Secret (Security, Identity & Keys)
+  { module: "Pranor Auth", edition: "OSS", name: "Identity & Access Management Server", desc: "Identity server supporting JWKS key rotation, TOTP MFA, Social OAuth, and credential stuffing defense." },
+  { module: "Pranor Auth", edition: "OSS", name: "Adaptive Risk Scoring per Login", desc: "Scores risk (new device + location + time) and automatically steps up to MFA on high risk." },
+  { module: "Pranor Secret", edition: "OSS", name: "Visual Secret Console & KMS Key Rotation", desc: "KMS Envelope encryption key rotation worker and SHA-256 API key hashing." },
+  { module: "Pranor Auth", edition: "EE", name: "SCIM 2.0 Enterprise User Provisioning", desc: "Enterprise user/group sync from Okta, Azure AD, and Google Workspace." },
+  { module: "Pranor Auth", edition: "EE", name: "Biometric Passkey & WebAuthn Native Server", desc: "FIDO2 / Passkey passwordless authentication server eliminating password storage entirely." },
+  { module: "Pranor Auth", edition: "EE", name: "Enterprise Directory Federation (AD / LDAP)", desc: "Direct Active Directory and LDAP identity synchronization with automated group mapping." },
+  { module: "Pranor Secret", edition: "EE", name: "Vault Transit & Hardware HSM Integration", desc: "Direct hardware security module (HSM) signing, Vault Transit integration, and Keycloak sync." },
+
+  // 7. Pranor Chrono & Deploy (Jobs & Orchestration)
+  { module: "Pranor Chrono", edition: "OSS", name: "Distributed Cron Scheduler", desc: "Cron runner with distributed leader election guaranteeing once-and-only-once execution." },
+  { module: "Pranor Deploy", edition: "OSS", name: "Lightweight Process Orchestration PaaS", desc: "Process deployment engine with gateway auto-routing sync and container status tracking." },
+  { module: "Pranor Chrono", edition: "EE", name: "Smart SLA-Aware Execution & Window Optimizer", desc: "AI-driven predictive cron window optimizer shifting background jobs to off-peak infrastructure windows." },
+  { module: "Pranor Chrono", edition: "EE", name: "Distributed Execution Lock & Fencing Tokens", desc: "Cryptographic monotonic fencing tokens preventing split-brain dual execution in multi-region clusters." },
+  { module: "Pranor Deploy", edition: "EE", name: "Multi-Cluster Fleet Management & DR Failover", desc: "1-click active-passive region failover, automatic DNS update sync, and cross-cloud fleet status." },
+  { module: "Pranor Deploy", edition: "EE", name: "Zero-Downtime Blue/Green Deployment Pipeline", desc: "Automated blue/green deployment switching with instant rollback capability." },
+
+  // 8. Pranor Mesh (Service Discovery & Zero-Trust)
+  { module: "Pranor Mesh", edition: "OSS", name: "Direct Library-Level Mesh (Zero Sidecars)", desc: "Runs inside binary via custom HTTP transport. Zero CPU/memory overhead of Envoy sidecar proxies." },
+  { module: "Pranor Mesh", edition: "OSS", name: "Zero-Trust In-Memory Service Discovery", desc: "Multicast UDP auto-discovery and heartbeats without external Consul or ZooKeeper daemons." },
+  { module: "Pranor Mesh", edition: "OSS", name: "High-Performance gRPC JSON Transport", desc: "Multiplexed gRPC transport layer enabling zero-compile inter-service communication." },
+  { module: "Pranor Mesh", edition: "OSS", name: "Automated Zero-Downtime mTLS Rotation", desc: "Dynamic TLS callback engine for automated certificate key pair rotations." },
+  { module: "Pranor Mesh", edition: "EE", name: "Hardware TPM / HSM Identity Attestation", desc: "Hardware-backed cryptographic identity verification for zero-trust enterprise clusters." },
+  { module: "Pranor Mesh", edition: "EE", name: "Multi-Cloud Cross-VPC Mesh Peering", desc: "Secure encrypted mesh tunnels connecting AWS EKS, GCP GKE, and on-premise Kubernetes clusters." },
+
+  // 9. IDE, LSP & Tooling Ecosystem
   { module: "Pranor LSP", edition: "OSS", name: "Multi-File Refactoring & Symbol Indexer", desc: "Workspace-wide symbol search (workspace/symbol), call hierarchy navigation, and safe multi-file symbol renames." },
   { module: "Pranor LSP", edition: "OSS", name: "Code Actions & Quick-Fixes", desc: "Auto-import insertion (use std/...), struct stubbing, and missing error handler generation." },
   { module: "Pranor VS Code", edition: "OSS", name: "Interactive Webview Control Panels", desc: "Panels for Gate API Client, Pulse Event Tailer, Vault Vector Explorer, Trace Flamegraph, and Deploy Dashboard." },
