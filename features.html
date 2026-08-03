@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pranor — Ecosystem Feature Matrix (OSS vs Enterprise)</title>
+  <meta name="description" content="Complete feature breakdown of all 17+ Pranor modules across Community OSS and Enterprise Edition (EE).">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>▲</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface-hover: #1a1a26;
+      --border: rgba(255,255,255,0.06);
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --dim: #71717a;
+      --accent: #818cf8;
+      --accent-glow: rgba(129,140,248,0.15);
+      --green: #34d399;
+      --green-bg: rgba(52,211,153,0.1);
+      --purple: #c084fc;
+      --purple-bg: rgba(192,132,252,0.1);
+      --blue: #38bdf8;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; padding-top:5rem; }
+    
+    /* Navigation Bar */
+    nav { display:flex; justify-content:space-between; align-items:center; padding:1.2rem 2.5rem; border-bottom:1px solid var(--border); background:rgba(10,10,15,0.85); backdrop-filter:blur(12px); position:fixed; top:0; left:0; right:0; z-index:100; }
+    .nav-brand { font-weight:800; font-size:1.1rem; text-decoration:none; color:var(--text); display:flex; align-items:center; gap:0.5rem; }
+    .nav-links { display:flex; gap:1.8rem; list-style:none; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:0.9rem; font-weight:500; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+
+    /* Header section */
+    .header-section { text-align:center; padding:3rem 2rem 2rem; max-width:900px; margin:0 auto; }
+    .header-section h1 { font-size:clamp(2.2rem,4vw,3.5rem); font-weight:900; letter-spacing:-0.03em; margin-bottom:1rem; }
+    .header-section p { color:var(--muted); font-size:1.1rem; }
+
+    /* Control bar */
+    .controls { max-width:1200px; margin:2rem auto; padding:0 2rem; display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center; }
+    .search-input { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:0.6rem 1.2rem; color:var(--text); font-size:0.9rem; min-width:280px; font-family:inherit; outline:none; transition:border 0.2s; }
+    .search-input:focus { border-color:var(--accent); }
+    
+    .tier-filters, .module-filters { display:flex; gap:0.5rem; flex-wrap:wrap; }
+    .filter-btn { background:var(--surface); border:1px solid var(--border); color:var(--muted); padding:0.4rem 0.9rem; border-radius:6px; font-size:0.82rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+    .filter-btn:hover { border-color:var(--accent); color:var(--text); }
+    .filter-btn.active { background:var(--accent); color:#0f172a; border-color:var(--accent); }
+    .filter-btn.active-oss { background:var(--green); color:#0f172a; border-color:var(--green); }
+    .filter-btn.active-ee { background:var(--purple); color:#0f172a; border-color:var(--purple); }
+
+    /* Table Matrix */
+    .matrix-container { max-width:1200px; margin:0 auto 5rem; padding:0 2rem; }
+    .matrix-table { width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    .matrix-table th { text-align:left; padding:1rem 1.2rem; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--dim); border-bottom:1px solid var(--border); background:rgba(255,255,255,0.01); }
+    .matrix-table td { padding:1rem 1.2rem; font-size:0.88rem; border-bottom:1px solid var(--border); vertical-align:top; }
+    .matrix-table tr:hover { background:var(--surface-hover); }
+    
+    .module-badge { font-weight:700; color:var(--text); display:inline-flex; align-items:center; gap:0.4rem; }
+    .tier-badge-oss { display:inline-block; padding:0.2rem 0.6rem; border-radius:99px; font-size:0.72rem; font-weight:700; background:var(--green-bg); color:var(--green); border:1px solid rgba(52,211,153,0.3); }
+    .tier-badge-ee { display:inline-block; padding:0.2rem 0.6rem; border-radius:99px; font-size:0.72rem; font-weight:700; background:var(--purple-bg); color:var(--purple); border:1px solid rgba(192,132,252,0.3); }
+
+    .feature-name { font-weight:600; color:var(--text); margin-bottom:0.2rem; }
+    .feature-desc { color:var(--muted); font-size:0.82rem; line-height:1.5; }
+
+    footer { padding:3rem 2rem; text-align:center; color:var(--dim); font-size:0.8rem; border-top:1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">▲ Pranor Platform</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Platform</a></li>
+    <li><a href="features.html" class="active">Features Matrix</a></li>
+    <li><a href="vault.html">Vault</a></li>
+    <li><a href="pulse.html">Pulse</a></li>
+    <li><a href="gate.html">Gate</a></li>
+    <li><a href="https://github.com/vyuvaraj/pranor">GitHub</a></li>
+  </ul>
+</nav>
+
+<div class="header-section">
+  <h1>Unified Feature Matrix</h1>
+  <p>Complete capabilities breakdown across all 17+ Pranor modules for Community OSS and Enterprise Edition (EE).</p>
+</div>
+
+<div class="controls">
+  <input type="text" id="search-input" class="search-input" placeholder="Search features (e.g. mTLS, HNSW, eBPF, DLQ)..." oninput="filterMatrix()">
+  
+  <div class="tier-filters">
+    <button class="filter-btn active" onclick="setTierFilter('all', this)">All Tiers</button>
+    <button class="filter-btn" onclick="setTierFilter('oss', this)">🟢 Community OSS</button>
+    <button class="filter-btn" onclick="setTierFilter('ee', this)">🟣 Enterprise EE</button>
+  </div>
+</div>
+
+<div class="matrix-container">
+  <table class="matrix-table" id="matrix-table">
+    <thead>
+      <tr>
+        <th style="width:160px;">Module</th>
+        <th style="width:130px;">Edition</th>
+        <th>Feature & Description</th>
+      </tr>
+    </thead>
+    <tbody id="matrix-body">
+      <!-- Dynamic Rows injected via JS -->
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <p><a href="index.html">Pranor Platform</a> &middot; <a href="vault.html">Pranor Vault</a> &middot; <a href="pulse.html">Pranor Pulse</a> &middot; <a href="gate.html">Pranor Gate</a> &middot; <a href="https://github.com/vyuvaraj/pranor">GitHub Repository</a></p>
+  <p style="margin-top:0.5rem;">Licensed AGPL-3.0 by vyuvaraj.</p>
+</footer>
+
+<script>
+const featuresData = [
+  // Pranor Gate
+  { module: "Pranor Gate", edition: "OSS", name: "Sub-millisecond Ingress Routing", desc: "HTTP/1.1, HTTP/2, and gRPC edge proxy routing with header matching, rewriting, and path prefixing." },
+  { module: "Pranor Gate", edition: "OSS", name: "Dynamic mTLS & ACME Certificate Engine", desc: "Zero-downtime Let's Encrypt / ACME HTTP-01 challenge redirection and automatic cert renewals." },
+  { module: "Pranor Gate", edition: "OSS", name: "WASM Middleware Sandbox (Wazero)", desc: "Execute custom request/response transform logic in lightweight WebAssembly sandboxes." },
+  { module: "Pranor Gate", edition: "OSS", name: "Token Bucket Rate Limiting", desc: "Per-IP, per-API-key, and per-tenant rate-limiting budgets with atomic sliding windows." },
+  { module: "Pranor Gate", edition: "EE", name: "Kernel eBPF XDP DDoS Bypass", desc: "100Gbps network packet filtering at the Linux kernel level bypassing OS socket overhead." },
+  { module: "Pranor Gate", edition: "EE", name: "AI Cost Router & Prompt Protection", desc: "Semantic prompt inspection, PII sanitization, and cost-based LLM provider failover routing." },
+
+  // Pranor Vault
+  { module: "Pranor Vault", edition: "OSS", name: "AWS S3 API Compatibility", desc: "Full compatibility with standard AWS S3 SDKs, MinIO CLI, bucket policies, and multipart uploads." },
+  { module: "Pranor Vault", edition: "OSS", name: "Native HNSW Vector Search Engine", desc: "High-dimensional embedding storage and millisecond similarity search (Cosine, Euclidean, Dot-product)." },
+  { module: "Pranor Vault", edition: "OSS", name: "Offline S3 Mock Gateway", desc: "Zero-dependency local testing mode (--mock) for unit tests and local sandboxes." },
+  { module: "Pranor Vault", edition: "EE", name: "Active-Active Multi-Region Replication", desc: "Cross-cloud bucket statement replication with Last-Write-Wins (LWW) conflict resolution." },
+  { module: "Pranor Vault", edition: "EE", name: "Embedded DuckDB Analytics & Torrent Seeding", desc: "Run SQL queries directly over S3 parquet objects and P2P torrent dataset distribution." },
+
+  // Pranor Pulse
+  { module: "Pranor Pulse", edition: "OSS", name: "Multi-Protocol Message Engine", desc: "Unified wire-protocol decoders for Kafka, STOMP over WebSockets, and MQTT 3.1/5.0." },
+  { module: "Pranor Pulse", edition: "OSS", name: "Dead Letter Queue (DLQ) & 1-Click Replay", desc: "Automatic failed message isolation with exponential backoff and REST replay APIs." },
+  { module: "Pranor Pulse", edition: "OSS", name: "Sliding-Window Message Deduplication", desc: "In-memory message ID deduplication to enforce exactly-once delivery guarantees." },
+  { module: "Pranor Pulse", edition: "EE", name: "Multi-Tenant Partition Sharding", desc: "Isolated queue memory pools and dedicated partition topic routing per enterprise customer." },
+
+  // Pranor Mesh
+  { module: "Pranor Mesh", edition: "OSS", name: "Zero-Trust In-Memory Service Discovery", desc: "Multicast UDP auto-discovery and heartbeats without external Consul or ZooKeeper daemons." },
+  { module: "Pranor Mesh", edition: "OSS", name: "High-Performance gRPC Transport", desc: "Multiplexed gRPC JSON-codec transport layer for zero-compile internal microservice calls." },
+  { module: "Pranor Mesh", edition: "EE", name: "Hardware TPM / HSM Identity Attestation", desc: "Hardware-backed cryptographic identity verification for zero-trust enterprise clusters." },
+
+  // Pranor Flow
+  { module: "Pranor Flow", edition: "OSS", name: "Durable Saga Workflow Orchestration", desc: "Stateful distributed transaction coordinator with HTTP & STOMP compensation rollbacks." },
+  { module: "Pranor Flow", edition: "OSS", name: "Resilient Crash Recovery Checkpointing", desc: "Durably saves saga step states to disk to automatically resume compensation routines on restart." },
+
+  // Pranor Auth & Secret
+  { module: "Pranor Auth", edition: "OSS", name: "JWKS, TOTP MFA & OAuth Server", desc: "Identity server with token minting, MFA verification, and social OAuth login endpoints." },
+  { module: "Pranor Secret", edition: "OSS", name: "Visual Secret Console & KMS Key Rotation", desc: "KMS Envelope encryption key rotation worker and SHA-256 API key hashing." },
+  { module: "Pranor Secret", edition: "EE", name: "Vault Transit & Hardware HSM Integration", desc: "Direct hardware security module (HSM) signing and enterprise Keycloak sync." },
+
+  // Pranor Trace & Console
+  { module: "Pranor Trace", edition: "OSS", name: "OTLP Distributed Tracing & Flamegraph Engine", desc: "Full OpenTelemetry HTTP/gRPC span collector, flamegraph log correlation, and Prometheus receiver." },
+  { module: "Pranor Console", edition: "OSS", name: "Glassmorphic Operations Dashboard", desc: "Visual message flow timeline, OTel waterfall traces, and automated incident postmortem generator." },
+
+  // Tooling & IDE
+  { module: "Pranor CLI & LSP", edition: "OSS", name: "Language Server & Multi-File Refactoring", desc: "VS Code LSP with workspace symbol search, call hierarchy, and workspace-wide .pnr renames." },
+  { module: "Pranor VS Code", edition: "OSS", name: "Integrated Webview Control Panels", desc: "Built-in interactive webviews for Gate API Client, Pulse Event Tailer, Vault Vector Explorer, and Deploy Dashboard." }
+];
+
+let currentTierFilter = 'all';
+
+function renderMatrix(data) {
+  const tbody = document.getElementById('matrix-body');
+  tbody.innerHTML = '';
+
+  if (data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:3rem; color:var(--dim);">No matching features found.</td></tr>`;
+    return;
+  }
+
+  data.forEach(item => {
+    const tr = document.createElement('tr');
+    const badgeClass = item.edition === 'OSS' ? 'tier-badge-oss' : 'tier-badge-ee';
+    const badgeLabel = item.edition === 'OSS' ? '🟢 Community OSS' : '🟣 Enterprise EE';
+
+    tr.innerHTML = `
+      <td><span class="module-badge">${item.module}</span></td>
+      <td><span class="${badgeClass}">${badgeLabel}</span></td>
+      <td>
+        <div class="feature-name">${item.name}</div>
+        <div class="feature-desc">${item.desc}</div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function filterMatrix() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  
+  const filtered = featuresData.filter(item => {
+    const matchesTier = (currentTierFilter === 'all') || (item.edition.toLowerCase() === currentTierFilter);
+    const matchesSearch = item.module.toLowerCase().includes(query) || 
+                          item.name.toLowerCase().includes(query) || 
+                          item.desc.toLowerCase().includes(query);
+    return matchesTier && matchesSearch;
+  });
+
+  renderMatrix(filtered);
+}
+
+function setTierFilter(tier, btn) {
+  currentTierFilter = tier;
+  document.querySelectorAll('.tier-filters .filter-btn').forEach(b => b.className = 'filter-btn');
+  
+  if (tier === 'all') btn.className = 'filter-btn active';
+  if (tier === 'oss') btn.className = 'filter-btn active-oss';
+  if (tier === 'ee') btn.className = 'filter-btn active-ee';
+
+  filterMatrix();
+}
+
+// Initial render
+renderMatrix(featuresData);
+</script>
+
+</body>
+</html>
