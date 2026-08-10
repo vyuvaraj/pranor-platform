@@ -48,8 +48,10 @@ All items in Phases 1 through 87 have been fully implemented, verified, and push
 | **Phase 86: Advanced Enterprise Security & Operations** | 23 | 23 | 0 | **100%** | ████████████████████ |
 | **Phase 87: Enterprise AI Sovereign Data & Resiliency** | 23 | 23 | 0 | **100%** | ████████████████████ |
 | **Phase 88: Next-Gen AI Agent Security & Execution Governance** | 10 | 10 | 0 | **100%** | ████████████████████ |
+| **Phase 89: Pranor v2.0 Core Governed Execution Fabric** | 5 | 0 | 5 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 90: Pranor v2.x Intelligence Extensions & ML Providers** | 4 | 0 | 4 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM CODE WORK** | **775** | **775** | **0** | **100%** | ████████████████████ |
+| **TOTAL ECOSYSTEM CODE WORK** | **784** | **775** | **9** | **98.8%** | ███████████████████░ |
 
 
 ---
@@ -85,6 +87,33 @@ This phase establishes Pranor Gate as a programmable, zero-trust execution contr
 | **EE.88.8** | **Agent-to-Agent Delegation Governance** | Pranor Gate | Point-to-point agent-to-agent authorization & token passing. | Multi-agent mesh control plane, delegation lineage tracking & root-cause audit logs. | ✅ **Completed** |
 | **EE.88.9** | **Protocol-Agnostic Capability Exposer** | Pranor Gate | Native MCP, gRPC, and HTTP/REST adapters for single nodes. | GraphQL federation + automatic multi-protocol schema translation & registration. | ✅ **Completed** |
 | **EE.88.10** | **End-to-End Agent Execution Trace Visualization** | Pranor Gate / Trace | Standard OpenTelemetry spans emitted to local OTLP collectors. | Full visual multi-step agent execution tree UI in Pranor Console dashboard. | ✅ **Completed** |
+
+---
+
+## Phase 89: Pranor v2.0 Core Governed Execution Fabric (Planned / Active Phase)
+
+Guided by `requirements_definitive.md` and the Architectural Litmus Test, Phase 89 establishes Pranor's core AI-native execution runtime without external CGO dependencies.
+
+| # | Item | Component | Open-Source (OSS) Scope | Enterprise (EE) Scope | Status |
+|---|------|-----------|-------------------------|------------------------|--------|
+| **V2.89.1** | **Pranor Graph (`std/graph`)** | Pranor Core | Zero-copy virtual entity context layer linking `Pool`, `Vault`, and `Pulse` with materialized context caching via `Pranor Cache` (`< 2ms` latency target). | Enterprise cross-datacenter entity context graph synchronization & RBAC tenant isolation. | Planned |
+| **V2.89.2** | **Pranor Decision Engine (`std/decision`)** | Pranor Core | Unified policy-driven decision matrix combining Graph context, business rules, risk scores, and security authorizations. | Enterprise rule distribution & real-time risk model synchronization. | Planned |
+| **V2.89.3** | **Durable Agent Orchestration (`Pranor Flow`)** | Pranor Flow | Bounded `AgentStep` execution primitive inside durable sagas for safe non-deterministic LLM loops. | Distributed saga state replication across multi-region Raft clusters. | Planned |
+| **V2.89.4** | **Agent Execution Trace Model (`Pranor Trace`)** | Pranor Trace | Standardized OTLP span schema capturing end-to-end trajectory trees (`User → Agent → Graph → Decision → Flow`). | Long-term trace tail sampling & automated anomaly incident runbooks. | Planned |
+| **V2.89.5** | **Zero-CGO Invariant CI Pipeline (`scripts/check_cgo.sh`)** | Pranor Core | Automated CI script enforcing `CGO_ENABLED=0` static builds and binary static link assertions across OS matrix. | FIPS 140-3 compliant HSM crypto verification build stage. | Planned |
+
+---
+
+## Phase 90: Pranor v2.x Intelligence Extensions & ML Providers (Planned / Future Phase)
+
+Establishes the extensible provider framework and evaluation suite for external machine learning runtimes.
+
+| # | Item | Component | Open-Source (OSS) Scope | Enterprise (EE) Scope | Status |
+|---|------|-----------|-------------------------|------------------------|--------|
+| **V2.90.1** | **Pranor Learn Provider Architecture (`std/learn`)** | Pranor Learn | Abstracted `Predictor` interface with pure-Go WASM (`wazero`) and gRPC sidecar drivers. | GPU-accelerated PyTorch/TabPFN sidecar pool & multi-cluster model routing. | Planned |
+| **V2.90.2** | **Pranor Eval Framework (`std/eval`)** | Pranor Eval | Trajectory trace replay engine and score evaluators (accuracy, latency, cost, safety). | Automated CI/CD quality gate blocking regressions before deployment. | Planned |
+| **V2.90.3** | **Decision Simulation Engine ("What-If" Analysis)** | Pranor Decision | Counterfactual decision evaluation in `SIMULATION` mode without committing backend state. | Multi-variant decision A/B testing & simulation analytics dashboard. | Planned |
+| **V2.90.4** | **Interactive HITL Approval Queue (`Pranor Console`)** | Pranor Console | Basic Webhook & REST approval endpoints for manual gate interventions. | Interactive Slack, Microsoft Teams, and Email approval workflows with SLA timers. | Planned |
 
 ---
 
