@@ -3,7 +3,7 @@
 
 > Single source of truth for the **Serv** ecosystem: Pranor, Pranor Gate, Pranor Vault, Pranor Pulse, Pranor Console, Pranor Cache, Pranor Mesh, Pranor Chrono, Pranor Deploy, Pranor Trace, Pranor Tunnel, Pranor Auth, Pranor Pool, Pranor Notify, Pranor Flow, and the Pranor vision.  
 
-> Last updated: August 3, 2026
+> Last updated: August 10, 2026
 
 
 ---
@@ -34,6 +34,25 @@ All items in Phases 1 through 87 have been fully implemented, verified, and push
 - For completed details of Phase 81-85: See [UNIFIED_ROADMAP_COMPLETED_81_85.md](UNIFIED_ROADMAP_COMPLETED_81_85.md).
 - For completed details of Phase 86-87: See [UNIFIED_ROADMAP_COMPLETED_86_87.md](UNIFIED_ROADMAP_COMPLETED_86_87.md).
 
+---
+
+## v2.0 Branch Strategy
+
+> **Decision (2026-08-10):** Pranor v1.0 is not yet released. All Phase 89/90 v2.0 feature work is developed on a dedicated `v2.0-dev` branch in `pranor` and `pranor-ee`. The `main` branch is frozen for v1.0 stabilization and release.
+
+| Repository | v1.0 Branch | v2.0 Branch | Notes |
+|-----------|-------------|-------------|-------|
+| `pranor` | `main` ← **freeze for v1.0** | `v2.0-dev` ✅ created | Sprint 2–7 feature work here |
+| `pranor-ee` | `main` ← **freeze for v1.0** | `v2.0-dev` ✅ created | EE stubs for Graph, Decision, Flow |
+| `pranor-platform` | `main` | `main` | Docs/roadmap — no feature code |
+
+### Branch Rules
+- **`main`**: v1.0 bug fixes, security patches, and release cuts only. No new Phase 89/90 modules.
+- **`v2.0-dev`**: All Phase 89/90 Sprint 2–7 work (`graph/`, `decision/`, `trace/pkg/schema/`, `flow/pkg/agentstep/`, `learn/`).
+- **Sprint 1 exception**: `scripts/check_cgo.sh`, `.github/workflows/cgo_check.yml`, and `_templates/` were committed to `main` (pure infrastructure benefiting v1.0 CI). They are inherited by `v2.0-dev` via branch creation.
+- **Merge criteria**: `v2.0-dev → main` only after v1.0 is tagged (`v1.0.0`), all v2.0 tests pass, and a PR review is completed.
+
+---
 
 ### Completion Tracker
 
