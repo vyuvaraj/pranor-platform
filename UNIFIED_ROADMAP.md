@@ -48,10 +48,10 @@ All items in Phases 1 through 87 have been fully implemented, verified, and push
 | **Phase 86: Advanced Enterprise Security & Operations** | 23 | 23 | 0 | **100%** | ████████████████████ |
 | **Phase 87: Enterprise AI Sovereign Data & Resiliency** | 23 | 23 | 0 | **100%** | ████████████████████ |
 | **Phase 88: Next-Gen AI Agent Security & Execution Governance** | 10 | 10 | 0 | **100%** | ████████████████████ |
-| **Phase 89: Pranor v2.0 Core Governed Execution Fabric** | 5 | 0 | 5 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 90: Pranor v2.x Intelligence Extensions & ML Providers** | 4 | 0 | 4 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 89: Pranor v2.0 Core Governed Execution Fabric** | 7 | 0 | 7 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 90: Pranor v2.x Intelligence Extensions & ML Providers** | 5 | 0 | 5 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM CODE WORK** | **784** | **775** | **9** | **98.8%** | ███████████████████░ |
+| **TOTAL ECOSYSTEM CODE WORK** | **787** | **775** | **12** | **98.5%** | ███████████████████░ |
 
 
 ---
@@ -92,28 +92,31 @@ This phase establishes Pranor Gate as a programmable, zero-trust execution contr
 
 ## Phase 89: Pranor v2.0 Core Governed Execution Fabric (Planned / Active Phase)
 
-Guided by `requirements_definitive.md` and the Architectural Litmus Test, Phase 89 establishes Pranor's core AI-native execution runtime without external CGO dependencies.
+Guided by `requirements_definitive.md` (§2.1–§2.6, §3) and the Architectural Litmus Test, Phase 89 establishes Pranor's core AI-native execution runtime — all modules are pure-Go, CGO-free, and split by OSS / EE build tags.
 
 | # | Item | Component | Open-Source (OSS) Scope | Enterprise (EE) Scope | Status |
 |---|------|-----------|-------------------------|------------------------|--------|
-| **V2.89.1** | **Pranor Graph (`std/graph`)** | Pranor Core | Zero-copy virtual entity context layer linking `Pool`, `Vault`, and `Pulse` with materialized context caching via `Pranor Cache` (`< 2ms` latency target). | Enterprise cross-datacenter entity context graph synchronization & RBAC tenant isolation. | Planned |
-| **V2.89.2** | **Pranor Decision Engine (`std/decision`)** | Pranor Core | Unified policy-driven decision matrix combining Graph context, business rules, risk scores, and security authorizations. | Enterprise rule distribution & real-time risk model synchronization. | Planned |
-| **V2.89.3** | **Durable Agent Orchestration (`Pranor Flow`)** | Pranor Flow | Bounded `AgentStep` execution primitive inside durable sagas for safe non-deterministic LLM loops. | Distributed saga state replication across multi-region Raft clusters. | Planned |
-| **V2.89.4** | **Agent Execution Trace Model (`Pranor Trace`)** | Pranor Trace | Standardized OTLP span schema capturing end-to-end trajectory trees (`User → Agent → Graph → Decision → Flow`). | Long-term trace tail sampling & automated anomaly incident runbooks. | Planned |
-| **V2.89.5** | **Zero-CGO Invariant CI Pipeline (`scripts/check_cgo.sh`)** | Pranor Core | Automated CI script enforcing `CGO_ENABLED=0` static builds and binary static link assertions across OS matrix. | FIPS 140-3 compliant HSM crypto verification build stage. | Planned |
+| **V2.89.1** | **Pranor Graph (`std/graph`)** | Pranor Core | Virtual entity context layer linking `Pool`, `Vault`, and `Pulse`; Hot materialized cache (`< 2ms`); fail-closed on backend unavailability (`ErrGraphContextUnavailable`). | Cross-datacenter entity graph synchronization & RBAC tenant isolation. | Planned |
+| **V2.89.2** | **Pranor Decision Engine (`std/decision`)** | Pranor Core | 6-level priority veto ladder: Authorization > Budget > Risk > Rules > Learn > Default. Hard `DENY` on Auth/Budget; `APPROVE`/`DENY` on Risk; soft advisory on Learn. | Enterprise rule distribution & real-time risk model synchronization. | Planned |
+| **V2.89.3** | **Pranor Flow — AgentStep & Saga Engine (`std/flow`)** | Pranor Flow | Idempotent, compensatable `AgentStep` primitive; `SagaConfig` with `MaxSteps`, `StepTimeout`, `TotalTimeout`; `COMPENSATE` and `PAUSE_FOR_HITL` limit policies; reverse compensation unwind on failure. | Distributed saga state replication (Raft); multi-region saga recovery & failover. | Planned |
+| **V2.89.4** | **Pranor Trace — OTLP Span Schema (`std/trace`)** | Pranor Trace | Canonical `pranor.agent_execution` root span hierarchy across Gate, Graph, Decision, Flow, and Learn modules; mandatory span attributes (`agent_id`, `user_id`, `tenant_id`, `request_id`, `module`, `outcome`); best-effort emission (never on critical path). | Tail-based sampling; long-term trace archive; `Eval` replay query API. | Planned |
+| **V2.89.5** | **Pranor Graph — Fault Tolerance Contract** | Pranor Graph | Transparent Hot→Warm fallback with `graph.cache_miss` span; fail-closed `ErrGraphContextUnavailable` on all-tier exhaustion; no fail-open permitted. | Same contract applied across multi-datacenter replicas. | Planned |
+| **V2.89.6** | **Pranor Decision — Fault Tolerance Contract** | Pranor Decision | `DENY` with `ERR_CONTEXT_UNAVAILABLE` when Graph unavailable; skip Learn (Priority 5) when sidecar down; `SIMULATION` mode records decisions without committing side-effects. | Same contract enforced across distributed rule clusters. | Planned |
+| **V2.89.7** | **Zero-CGO Invariant CI Pipeline (`scripts/check_cgo.sh`)** | Pranor Core | Automated CI script: `CGO_ENABLED=0` cross-compile matrix (`linux/amd64`, `arm64`, `darwin`, `windows`); `ldd` static-link verification; `go list` CGO source scan. | FIPS 140-3 compliant HSM crypto verification build stage. | Planned |
 
 ---
 
 ## Phase 90: Pranor v2.x Intelligence Extensions & ML Providers (Planned / Future Phase)
 
-Establishes the extensible provider framework and evaluation suite for external machine learning runtimes.
+Establishes the extensible provider framework, OSS/EE build-tag discipline, and evaluation suite for external machine learning runtimes.
 
 | # | Item | Component | Open-Source (OSS) Scope | Enterprise (EE) Scope | Status |
 |---|------|-----------|-------------------------|------------------------|--------|
-| **V2.90.1** | **Pranor Learn Provider Architecture (`std/learn`)** | Pranor Learn | Abstracted `Predictor` interface with pure-Go WASM (`wazero`) and gRPC sidecar drivers. | GPU-accelerated PyTorch/TabPFN sidecar pool & multi-cluster model routing. | Planned |
+| **V2.90.1** | **Pranor Learn Provider Architecture (`std/learn`)** | Pranor Learn | `Predictor` interface (`Predict`, `HealthCheck`); typed `PredictInput` / `PredictOutput` structs with schema validation; pure-Go WASM (`wazero`) and gRPC sidecar drivers; `ErrSidecarTimeout` / `ErrModelBudgetExceeded` fault contracts. | GPU-accelerated PyTorch/TabPFN sidecar pool & multi-cluster model routing. | Planned |
 | **V2.90.2** | **Pranor Eval Framework (`std/eval`)** | Pranor Eval | Trajectory trace replay engine and score evaluators (accuracy, latency, cost, safety). | Automated CI/CD quality gate blocking regressions before deployment. | Planned |
-| **V2.90.3** | **Decision Simulation Engine ("What-If" Analysis)** | Pranor Decision | Counterfactual decision evaluation in `SIMULATION` mode without committing backend state. | Multi-variant decision A/B testing & simulation analytics dashboard. | Planned |
+| **V2.90.3** | **Decision Simulation Engine ("What-If" Analysis)** | Pranor Decision | Counterfactual decision evaluation in `SIMULATION` mode without committing backend state to any module. | Multi-variant decision A/B testing & simulation analytics dashboard. | Planned |
 | **V2.90.4** | **Interactive HITL Approval Queue (`Pranor Console`)** | Pranor Console | Basic Webhook & REST approval endpoints for manual gate interventions. | Interactive Slack, Microsoft Teams, and Email approval workflows with SLA timers. | Planned |
+| **V2.90.5** | **OSS / EE Build-Tag Contract (All v2.x Modules)** | Pranor Core | Enforced `//go:build !enterprise` stubs returning `ERR_EE_REQUIRED`; shared interface files carry no build tags; OSS stubs API-compatible with EE implementations. | EE build path (`//go:build enterprise`) in `pranor-ee` repo across all v2.x modules. | Planned |
 
 ---
 
