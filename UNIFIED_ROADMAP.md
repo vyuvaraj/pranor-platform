@@ -48,10 +48,10 @@ All items in Phases 1 through 87 have been fully implemented, verified, and push
 | **Phase 86: Advanced Enterprise Security & Operations** | 23 | 23 | 0 | **100%** | ████████████████████ |
 | **Phase 87: Enterprise AI Sovereign Data & Resiliency** | 23 | 23 | 0 | **100%** | ████████████████████ |
 | **Phase 88: Next-Gen AI Agent Security & Execution Governance** | 10 | 10 | 0 | **100%** | ████████████████████ |
-| **Phase 89: Pranor v2.0 Core Governed Execution Fabric** | 7 | 0 | 7 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
-| **Phase 90: Pranor v2.x Intelligence Extensions & ML Providers** | 5 | 0 | 5 | **0%** | ░░░░░░░░░░░░░░░░░░░░ |
+| **Phase 89: Pranor v2.0 Core Governed Execution Fabric** | 7 | 2 | 5 | **28.6%** | ██████░░░░░░░░░░░░░░ |
+| **Phase 90: Pranor v2.x Intelligence Extensions & ML Providers** | 5 | 1 | 4 | **20%** | ████░░░░░░░░░░░░░░░░ |
 
-| **TOTAL ECOSYSTEM CODE WORK** | **787** | **775** | **12** | **98.5%** | ███████████████████░ |
+| **TOTAL ECOSYSTEM CODE WORK** | **787** | **777** | **10** | **98.7%** | ███████████████████░ |
 
 
 ---
@@ -98,7 +98,7 @@ Guided by `requirements_definitive.md` (§2.1–§2.6, §3) and the Architectura
 
 | # | Item | Component | Open-Source (OSS) Scope | Enterprise (EE) Scope | Sprint / Priority | Status |
 |---|------|-----------|-------------------------|------------------------|-------------------:|--------|
-| **V2.89.7** | **Zero-CGO Invariant CI Pipeline (`scripts/check_cgo.sh`)** | Pranor Core | Automated CI script: `CGO_ENABLED=0` cross-compile matrix (`linux/amd64`, `arm64`, `darwin`, `windows`); `ldd` static-link verification; `go list` CGO source scan. | FIPS 140-3 compliant HSM crypto verification build stage. | 🥇 **Sprint 1 — P0** | 🔄 **In Progress** |
+| **V2.89.7** | **Zero-CGO Invariant CI Pipeline (`scripts/check_cgo.sh`)** | Pranor Core | Automated CI script: `CGO_ENABLED=0` cross-compile matrix (`linux/amd64`, `arm64`, `darwin`, `windows`); `ldd` static-link verification; `go list` CGO source scan. | FIPS 140-3 compliant HSM crypto verification build stage. | 🥇 **Sprint 1 — P0** | ✅ **Completed** |
 | **V2.89.4** | **Pranor Trace — OTLP Span Schema (`std/trace`)** | Pranor Trace | Canonical `pranor.agent_execution` root span hierarchy across Gate, Graph, Decision, Flow, and Learn modules; mandatory span attributes (`agent_id`, `user_id`, `tenant_id`, `request_id`, `module`, `outcome`); best-effort emission (never on critical path). | Tail-based sampling; long-term trace archive; `Eval` replay query API. | 🥈 **Sprint 2 — P0** | **Selected** |
 | **V2.89.1** | **Pranor Graph (`std/graph`)** | Pranor Core | Virtual entity context layer linking `Pool`, `Vault`, and `Pulse`; Hot materialized cache (`< 2ms`); fail-closed on backend unavailability (`ErrGraphContextUnavailable`). | Cross-datacenter entity graph synchronization & RBAC tenant isolation. | 🥉 **Sprint 3 — P0** | **Selected** |
 | **V2.89.3** | **Pranor Flow — AgentStep & Saga Engine (`std/flow`)** | Pranor Flow | Idempotent, compensatable `AgentStep` primitive; `SagaConfig` with `MaxSteps`, `StepTimeout`, `TotalTimeout`; `COMPENSATE` and `PAUSE_FOR_HITL` limit policies; reverse compensation unwind on failure. | Distributed saga state replication (Raft); multi-region saga recovery & failover. | 4️⃣ **Sprint 4 — P0** | **Selected** |
@@ -150,7 +150,7 @@ Establishes the extensible provider framework, OSS/EE build-tag discipline, and 
 
 | # | Item | Component | Open-Source (OSS) Scope | Enterprise (EE) Scope | Sprint / Priority | Status |
 |---|------|-----------|-------------------------|------------------------|-------------------:|--------|
-| **V2.90.5** | **OSS / EE Build-Tag Contract (All v2.x Modules)** | Pranor Core | Enforced `//go:build !enterprise` stubs returning `ERR_EE_REQUIRED`; shared interface files carry no build tags; OSS stubs API-compatible with EE implementations. | EE build path (`//go:build enterprise`) in `pranor-ee` repo across all v2.x modules. | 🥇 **Sprint 1 — P0** | 🔄 **In Progress** |
+| **V2.90.5** | **OSS / EE Build-Tag Contract (All v2.x Modules)** | Pranor Core | Enforced `//go:build !enterprise` stubs returning `ERR_EE_REQUIRED`; shared interface files carry no build tags; OSS stubs API-compatible with EE implementations. | EE build path (`//go:build enterprise`) in `pranor-ee` repo across all v2.x modules. | 🥇 **Sprint 1 — P0** | ✅ **Completed** |
 | **V2.90.1** | **Pranor Learn Provider Architecture (`std/learn`)** | Pranor Learn | `Predictor` interface (`Predict`, `HealthCheck`); typed `PredictInput` / `PredictOutput` structs with schema validation; pure-Go WASM (`wazero`) and gRPC sidecar drivers; `ErrSidecarTimeout` / `ErrModelBudgetExceeded` fault contracts. | GPU-accelerated PyTorch/TabPFN sidecar pool & multi-cluster model routing. | Post-Phase-89 — P1 | Planned |
 | **V2.90.3** | **Decision Simulation Engine ("What-If" Analysis)** | Pranor Decision | Counterfactual decision evaluation in `SIMULATION` mode without committing backend state to any module. | Multi-variant decision A/B testing & simulation analytics dashboard. | Post-Phase-89 — P1 | Planned |
 | **V2.90.4** | **Interactive HITL Approval Queue (`Pranor Console`)** | Pranor Console | Basic Webhook & REST approval endpoints for manual gate interventions. | Interactive Slack, Microsoft Teams, and Email approval workflows with SLA timers. | Post-Phase-89 — P1 | Planned |
