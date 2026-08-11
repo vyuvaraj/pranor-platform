@@ -12,7 +12,7 @@ default-theme = "navy"
 preferred-dark-theme = "coal"
 git-repository-url = "https://github.com/vyuvaraj/pranor-platform"
 edit-url-template = "https://github.com/vyuvaraj/pranor-platform/edit/main/docs/{path}"
-site-url = "/pranor-platform/"
+site-url = "/pranor-platform/docs/"
 
 [output.html.search]
 enable = true
