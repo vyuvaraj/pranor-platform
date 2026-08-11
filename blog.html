@@ -3,247 +3,240 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pranor — Blog</title>
-  <meta name="description" content="Technical deep dives into the Pranor ecosystem: architecture decisions, implementation details, and developer guides.">
-  <meta property="og:title" content="Pranor Blog">
-  <meta property="og:description" content="Technical deep dives into the Pranor ecosystem.">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://vyuvaraj.github.io/pranor/blog.html">
-  <meta property="og:image" content="https://vyuvaraj.github.io/pranor/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://vyuvaraj.github.io/pranor/blog.html">
+  <title>Pranor — Official Blog & Engineering Deep Dives</title>
+  <meta name="description" content="Technical deep dives into the Pranor ecosystem: AI agent execution fabric, 6-level veto ladders, zero-CGO microservice architecture, and developer guides.">
+  <meta property="og:title" content="Pranor Official Blog">
+  <meta property="og:description" content="Technical deep dives, architecture guides, and tutorial series for Pranor v1.0 and v2.0.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vyuvaraj.github.io/pranor-platform/blog.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>▲</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
   <style>
-    .blog-meta { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-glass); }
-    .blog-meta-item { font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; }
-    .blog-toc { position: sticky; top: 6rem; max-height: 80vh; overflow-y: auto; padding: 1.5rem; border-radius: 16px; background: rgba(25,28,45,0.3); border: 1px solid var(--border-glass); }
-    .light-theme .blog-toc { background: rgba(255,255,255,0.5); }
-    .blog-toc h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 1rem; }
-    .blog-toc a { display: block; font-size: 0.85rem; color: var(--text-secondary); text-decoration: none; padding: 0.35rem 0; transition: color 0.2s; }
-    .blog-toc a:hover { color: var(--primary); }
-    .blog-layout { display: grid; grid-template-columns: 1fr 240px; gap: 3rem; max-width: 1200px; margin: 0 auto; align-items: start; }
-    @media (max-width: 968px) { .blog-layout { grid-template-columns: 1fr; } .blog-toc { display: none; } }
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface-hover: #1a1a26;
+      --border: rgba(255,255,255,0.06);
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --dim: #71717a;
+      --accent: #818cf8;
+      --accent-glow: rgba(129,140,248,0.15);
+      --green: #34d399;
+      --purple: #c084fc;
+      --blue: #38bdf8;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; padding-top:5.5rem; overflow-x:hidden; }
+    
+    /* Navigation Bar */
+    nav { display:flex; justify-content:space-between; align-items:center; padding:1.2rem 2.5rem; border-bottom:1px solid var(--border); background:rgba(10,10,15,0.85); backdrop-filter:blur(12px); position:fixed; top:0; left:0; right:0; z-index:100; }
+    .nav-brand { font-weight:800; font-size:1.1rem; text-decoration:none; color:var(--text); display:flex; align-items:center; gap:0.5rem; }
+    .nav-links { display:flex; gap:1.6rem; list-style:none; align-items:center; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:0.88rem; font-weight:500; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+
+    /* Page Header */
+    .header-section { text-align:center; padding:3rem 2rem 2rem; max-width:900px; margin:0 auto; }
+    .header-section h1 { font-size:clamp(2.2rem,4vw,3.5rem); font-weight:900; letter-spacing:-0.03em; margin-bottom:1rem; }
+    .header-section p { color:var(--muted); font-size:1.1rem; }
+
+    /* Blog Grid Container */
+    .blog-container { max-width:1150px; margin:0 auto 5rem; padding:0 2rem; }
+    .blog-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:1.5rem; }
+    .blog-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.75rem; text-decoration:none; color:var(--text); transition:all 0.25s; display:flex; flex-direction:column; justify-content:space-between; }
+    .blog-card:hover { border-color:var(--accent); transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,0.4); }
+    .card-badge { display:inline-flex; align-items:center; padding:0.2rem 0.6rem; border-radius:6px; font-size:0.75rem; font-weight:700; margin-bottom:1rem; width:fit-content; }
+    .badge-purple { background:rgba(192,132,252,0.12); color:var(--purple); border:1px solid rgba(192,132,252,0.3); }
+    .badge-blue { background:rgba(56,189,248,0.12); color:var(--blue); border:1px solid rgba(56,189,248,0.3); }
+    .badge-green { background:rgba(52,211,153,0.12); color:var(--green); border:1px solid rgba(52,211,153,0.3); }
+    .blog-card h3 { font-size:1.15rem; font-weight:700; margin-bottom:0.6rem; line-height:1.4; color:var(--text); }
+    .blog-card p { font-size:0.88rem; color:var(--muted); line-height:1.55; margin-bottom:1.5rem; }
+    .card-footer { display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; color:var(--dim); font-family:'JetBrains Mono',monospace; border-top:1px solid var(--border); padding-top:0.8rem; }
+
+    /* Single Article Reader View */
+    .article-layout { display:grid; grid-template-columns:1fr 250px; gap:3rem; max-width:1150px; margin:0 auto 5rem; padding:0 2rem; }
+    @media (max-width:900px) { .article-layout { grid-template-columns:1fr; } .article-toc { display:none; } }
+    .article-body { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:2.5rem; line-height:1.8; color:var(--text); }
+    .article-body h1 { font-size:2.2rem; font-weight:800; margin-bottom:1.2rem; letter-spacing:-0.02em; }
+    .article-body h2 { font-size:1.5rem; font-weight:700; margin:2rem 0 1rem; color:var(--accent); border-bottom:1px solid var(--border); padding-bottom:0.5rem; }
+    .article-body h3 { font-size:1.2rem; font-weight:600; margin:1.5rem 0 0.75rem; color:var(--text); }
+    .article-body p { margin-bottom:1.2rem; color:#d4d4d8; font-size:0.98rem; }
+    .article-body code { font-family:'JetBrains Mono',monospace; background:rgba(255,255,255,0.06); padding:0.2rem 0.4rem; border-radius:4px; font-size:0.88rem; color:var(--accent); }
+    .article-body pre { background:#07070a; border:1px solid var(--border); border-radius:8px; padding:1.25rem; font-family:'JetBrains Mono',monospace; font-size:0.85rem; line-height:1.7; overflow-x:auto; margin:1.5rem 0; color:#e4e4e7; }
+    .article-body ul, .article-body ol { margin-left:1.5rem; margin-bottom:1.5rem; color:#d4d4d8; }
+    .article-body li { margin-bottom:0.4rem; }
+    .article-body table { width:100%; border-collapse:collapse; margin:1.5rem 0; font-size:0.88rem; }
+    .article-body th, .article-body td { border:1px solid var(--border); padding:0.6rem 0.8rem; text-align:left; }
+    .article-body th { background:rgba(255,255,255,0.03); color:var(--accent); }
+    
+    .article-toc { position:sticky; top:7rem; max-height:80vh; overflow-y:auto; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem; }
+    .article-toc h4 { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--dim); margin-bottom:0.75rem; }
+    .article-toc a { display:block; font-size:0.82rem; color:var(--muted); text-decoration:none; padding:0.35rem 0; transition:color 0.2s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .article-toc a:hover { color:var(--accent); }
+
+    .btn-back { display:inline-flex; align-items:center; gap:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--text); padding:0.5rem 1rem; border-radius:8px; text-decoration:none; font-size:0.85rem; font-weight:600; margin-bottom:1.5rem; transition:all 0.2s; }
+    .btn-back:hover { border-color:var(--accent); color:var(--accent); }
+
+    footer { padding:3rem 2rem; text-align:center; color:var(--dim); font-size:0.8rem; border-top:1px solid var(--border); }
+    footer a { color:var(--muted); text-decoration:none; }
+    footer a:hover { color:var(--accent); }
   </style>
 </head>
 <body>
-  <a href="#article-body" class="skip-link">Skip to article</a>
-  <div class="aurora-bg"></div>
 
-  <!-- Header / Nav -->
-  <header class="navbar" id="navbar">
-    <a href="index.html" class="logo-area" aria-label="Pranor home">
-      <div class="logo-icon">▲</div>
-      <div class="logo-text">
-        <h1>Pranor</h1>
-        <span>AI-Native Backend Infrastructure</span>
+<nav>
+  <a href="index.html" class="nav-brand">▲ Pranor Platform</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Platform</a></li>
+    <li><a href="features.html">Features Matrix</a></li>
+    <li><a href="https://vyuvaraj.github.io/pranor/v2.0/" style="color:#c084fc; text-decoration:none; font-size:0.88rem; font-weight:700; background:rgba(192,132,252,0.12); padding:0.25rem 0.65rem; border-radius:6px; border:1px solid rgba(192,132,252,0.3);">✨ v2.0 AI Fabric</a></li>
+    <li><a href="/pranor-platform/docs/">Docs</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="vault.html">Vault</a></li>
+    <li><a href="pulse.html">Pulse</a></li>
+    <li><a href="gate.html">Gate</a></li>
+    <li><a href="https://github.com/vyuvaraj/pranor">GitHub</a></li>
+  </ul>
+</nav>
+
+<!-- Main Container (Switches between Catalog & Article Reader) -->
+<div id="app"></div>
+
+<footer>
+  <p style="margin-bottom:0.5rem;">
+    <a href="/pranor-platform/docs/">Docs</a> &middot;
+    <a href="https://github.com/vyuvaraj/pranor">GitHub</a> &middot;
+    <a href="https://github.com/vyuvaraj/pranor-ee">Enterprise</a>
+  </p>
+  <p>Built by <a href="https://github.com/vyuvaraj">vyuvaraj</a>. Licensed AGPL-3.0.</p>
+</footer>
+
+<script>
+async function initBlog() {
+  const app = document.getElementById('app');
+  const urlParams = new URLSearchParams(window.location.search);
+  const postName = urlParams.get('post');
+
+  if (postName) {
+    // Single Article Reader View
+    await renderArticle(postName);
+  } else {
+    // Blog Catalog List View
+    await renderCatalog();
+  }
+}
+
+async function renderCatalog() {
+  const app = document.getElementById('app');
+  document.title = "Pranor — Official Blog & Engineering Deep Dives";
+
+  try {
+    const res = await fetch('blog/posts.json');
+    if (!res.ok) throw new Error('Failed to load posts manifest');
+    const posts = await res.json();
+
+    let gridHtml = `
+      <div class="header-section">
+        <h1>Engineering Blog & Tutorials</h1>
+        <p>Deep dives into backend architecture, zero-CGO Go systems, and the Pranor v2.0 AI Execution Fabric.</p>
       </div>
-    </a>
-    <nav class="nav-links" id="nav-links" role="navigation" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="index.html#architecture">Architecture</a>
-      <a href="index.html#components">Components</a>
-      <a href="index.html#quickstart">Quickstart</a>
-      <a href="index.html#blog">Blog</a>
-      <a href="https://github.com/vyuvaraj/pranor" class="github-btn" target="_blank" rel="noopener">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right:6px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        GitHub
-      </a>
-      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
-        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-      </button>
-    </nav>
-    <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+      <div class="blog-container">
+        <div class="blog-grid">
+    `;
 
-  <!-- Blog Content Section -->
-  <main class="section">
-    <div class="blog-actions">
-      <a href="index.html#blog" class="btn btn-secondary btn-back">← Back to Blog</a>
-    </div>
+    posts.forEach(post => {
+      let badgeClass = 'badge-blue';
+      if (post.badgeColor === 'purple' || post.badge === 'AI Fabric') badgeClass = 'badge-purple';
+      if (post.badgeColor === 'green') badgeClass = 'badge-green';
 
-    <div class="blog-layout" style="margin-top: 2rem;">
-      <article id="blog-content-card" class="glass-card blog-post-container">
-        <div id="loader" class="blog-loader">
-          <div class="spinner"></div>
-          <p>Loading article...</p>
-        </div>
-        <div id="article-body" class="blog-content" style="display: none;"></div>
-      </article>
-      <aside class="blog-toc" id="blog-toc" style="display:none;">
-        <h4>On this page</h4>
-        <nav id="toc-nav" aria-label="Table of contents"></nav>
-      </aside>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-brand"><div class="logo-icon small">▲</div><span>Pranor</span></div>
-      <div class="footer-links">
-        <a href="https://github.com/vyuvaraj/pranor" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/vyuvaraj/pranor/blob/main/docs/language-guide.md" target="_blank" rel="noopener">Language Guide</a>
-        <a href="https://github.com/vyuvaraj/pranor/tree/main/packages/Pranor/examples" target="_blank" rel="noopener">Examples</a>
-        <a href="https://github.com/vyuvaraj/pranor/blob/main/docs/docker-guide.md" target="_blank" rel="noopener">Docker Guide</a>
-        <a href="index.html#blog">Blog</a>
-        <a href="mailto:pranor@gmail.com?subject=Inquiry" style="color:#a855f7;">Contact Support</a>
-      </div>
-      <p class="footer-copy">© 2026 Pranor. Open source under AGPLv3. Built by Yuvaraj.</p>
-    </div>
-  </footer>
-
-  <script>
-    // Theme Toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    if (localStorage.getItem('theme') === 'light') document.documentElement.classList.add('light-theme');
-    themeToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('light-theme');
-      localStorage.setItem('theme', document.documentElement.classList.contains('light-theme') ? 'light' : 'dark');
-    });
-
-    // Mobile nav toggle
-    const mobileToggle = document.getElementById('mobile-toggle');
-    const navLinks = document.getElementById('nav-links');
-    mobileToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      mobileToggle.classList.toggle('active');
-    });
-
-    // Navbar shrink on scroll
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-    });
-
-    // Dynamic Markdown Fetcher and Renderer
-    async function loadArticle() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const postName = urlParams.get('post');
-      const loader = document.getElementById('loader');
-      const articleBody = document.getElementById('article-body');
-
-      if (!postName) {
-        showError("No article selected. Please return to the homepage.");
-        return;
-      }
-
-      const safePostName = postName.replace(/[^a-zA-Z0-9_-]/g, '');
-
-      try {
-        const response = await fetch(`blog/${safePostName}.md`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}: Article not found.`);
-
-        const markdownText = await response.text();
-        const htmlContent = marked.parse(markdownText);
-
-        articleBody.innerHTML = htmlContent;
-        loader.style.display = 'none';
-        articleBody.style.display = 'block';
-
-        // Set page title from first H1
-        const h1 = articleBody.querySelector('h1');
-        if (h1) {
-          document.title = `${h1.textContent} — Pranor Blog`;
-          // Update OG meta dynamically
-          const ogTitle = document.querySelector('meta[property="og:title"]');
-          if (ogTitle) ogTitle.content = h1.textContent;
-        }
-
-        // Build table of contents from H2 headings
-        buildTOC();
-
-        // Estimate reading time
-        const wordCount = markdownText.split(/\s+/).length;
-        const readingTime = Math.ceil(wordCount / 230);
-        const metaDiv = document.createElement('div');
-        metaDiv.className = 'blog-meta';
-        metaDiv.innerHTML = `
-          <span class="blog-meta-item">📖 ${readingTime} min read</span>
-          <span class="blog-meta-item">📝 ${wordCount.toLocaleString()} words</span>
-        `;
-        articleBody.insertBefore(metaDiv, articleBody.children[1]);
-
-        // Add Next/Previous links dynamically
-        try {
-          const manifestResponse = await fetch('blog/posts.json');
-          if (manifestResponse.ok) {
-            const posts = await manifestResponse.json();
-            const currentIndex = posts.findIndex(p => p.slug === safePostName);
-            if (currentIndex !== -1) {
-              const prevPost = posts[currentIndex - 1];
-              const nextPost = posts[currentIndex + 1];
-              
-              if (prevPost || nextPost) {
-                const navDiv = document.createElement('div');
-                navDiv.className = 'blog-navigation';
-                navDiv.style.display = 'flex';
-                navDiv.style.justify = 'space-between';
-                navDiv.style.marginTop = '3rem';
-                navDiv.style.paddingTop = '1.5rem';
-                navDiv.style.borderTop = '1px solid var(--border-glass)';
-                
-                navDiv.innerHTML = `
-                  <div style="flex: 1; text-align: left;">
-                    ${prevPost ? `<span style="font-size:0.8rem; color:var(--text-muted);">PREVIOUS</span><br/><a href="blog.html?post=${prevPost.slug}" style="font-weight:600; text-decoration:none; color:var(--primary);">← ${prevPost.title}</a>` : ''}
-                  </div>
-                  <div style="flex: 1; text-align: right;">
-                    ${nextPost ? `<span style="font-size:0.8rem; color:var(--text-muted);">NEXT</span><br/><a href="blog.html?post=${nextPost.slug}" style="font-weight:600; text-decoration:none; color:var(--primary);">${nextPost.title} →</a>` : ''}
-                  </div>
-                `;
-                articleBody.appendChild(navDiv);
-              }
-            }
-          }
-        } catch (manifestErr) {
-          console.warn('Failed to load next/prev navigation:', manifestErr);
-        }
-
-      } catch (err) {
-        console.error('Blog load error:', err);
-        if (window.location.protocol === 'file:') {
-          showError("Cannot load articles from disk. Pranore via HTTP or use GitHub Pages.");
-        } else {
-          showError("We couldn't load this article. Please check the URL or try again later.");
-        }
-      }
-    }
-
-    function buildTOC() {
-      const headings = document.querySelectorAll('#article-body h2');
-      const tocNav = document.getElementById('toc-nav');
-      const tocAside = document.getElementById('blog-toc');
-
-      if (headings.length < 2) return; // Don't show TOC for very short articles
-
-      headings.forEach((h, i) => {
-        const id = `section-${i}`;
-        h.id = id;
-        const link = document.createElement('a');
-        link.href = `#${id}`;
-        link.textContent = h.textContent;
-        tocNav.appendChild(link);
-      });
-
-      tocAside.style.display = 'block';
-    }
-
-    function showError(message) {
-      const loader = document.getElementById('loader');
-      loader.innerHTML = `
-        <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
-        <p style="color: var(--danger); font-weight: 600; font-size: 1.2rem;">Error</p>
-        <p style="margin-top: 0.5rem; color: var(--text-secondary);">${message}</p>
-        <a href="index.html#blog" class="btn btn-primary" style="margin-top: 1.5rem;">Return to Blog</a>
+      gridHtml += `
+        <a href="blog.html?post=${post.slug}" class="blog-card">
+          <div>
+            <span class="card-badge ${badgeClass}">${post.badge || 'Article'}</span>
+            <h3>${post.title}</h3>
+            <p>${post.excerpt}</p>
+          </div>
+          <div class="card-footer">
+            <span>📅 ${post.date}</span>
+            <span>📖 ${post.readingTime}</span>
+          </div>
+        </a>
       `;
-    }
+    });
 
-    window.addEventListener('DOMContentLoaded', loadArticle);
-  </script>
+    gridHtml += `
+        </div>
+      </div>
+    `;
+
+    app.innerHTML = gridHtml;
+  } catch (err) {
+    app.innerHTML = `
+      <div class="header-section">
+        <h1>Engineering Blog</h1>
+        <p style="color:var(--muted);">Unable to load articles manifest. Please refresh or try again later.</p>
+      </div>
+    `;
+  }
+}
+
+async function renderArticle(postSlug) {
+  const app = document.getElementById('app');
+  const safeSlug = postSlug.replace(/[^a-zA-Z0-9_-]/g, '');
+
+  try {
+    const res = await fetch(`blog/${safeSlug}.md`);
+    if (!res.ok) throw new Error('Article not found');
+    const mdText = await res.text();
+    const parsedHtml = marked.parse(mdText);
+
+    app.innerHTML = `
+      <div style="max-width:1150px; margin:2rem auto 0; padding:0 2rem;">
+        <a href="blog.html" class="btn-back">← Back to All Articles</a>
+      </div>
+      <div class="article-layout">
+        <article class="article-body" id="article-body">
+          ${parsedHtml}
+        </article>
+        <aside class="article-toc">
+          <h4>On This Page</h4>
+          <div id="toc-links"></div>
+        </aside>
+      </div>
+    `;
+
+    // Set Document Title from first H1
+    const h1 = document.querySelector('.article-body h1');
+    if (h1) document.title = `${h1.textContent} — Pranor Blog`;
+
+    // Generate Table of Contents
+    const headings = document.querySelectorAll('.article-body h2');
+    const tocLinks = document.getElementById('toc-links');
+    headings.forEach((h, idx) => {
+      const id = `heading-${idx}`;
+      h.id = id;
+      const a = document.createElement('a');
+      a.href = `#${id}`;
+      a.textContent = h.textContent;
+      tocLinks.appendChild(a);
+    });
+
+  } catch (err) {
+    app.innerHTML = `
+      <div class="header-section">
+        <div style="font-size:3rem; margin-bottom:1rem;">⚠️</div>
+        <h1>Article Not Found</h1>
+        <p style="margin-bottom:2rem;">The requested article "${safeSlug}" could not be found.</p>
+        <a href="blog.html" class="btn-back">← Return to Blog Catalog</a>
+      </div>
+    `;
+  }
+}
+
+window.addEventListener('DOMContentLoaded', initBlog);
+</script>
 </body>
 </html>
