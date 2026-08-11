@@ -93,9 +93,9 @@
   <h1>Unified Feature Matrix</h1>
   <p>Comprehensive breakdown of features across all Pranor modules for Community OSS and Enterprise Edition (EE).</p>
   <div class="counter-bar">
-    <div class="counter-item"><strong id="total-count">540+</strong> Total Features</div>
-    <div class="counter-item"><strong id="oss-count">392+</strong> Community OSS</div>
-    <div class="counter-item"><strong id="ee-count">148+</strong> Enterprise EE</div>
+    <div class="counter-item"><strong id="total-count">570+</strong> Total Features</div>
+    <div class="counter-item"><strong id="oss-count">410+</strong> Community OSS</div>
+    <div class="counter-item"><strong id="ee-count">160+</strong> Enterprise EE</div>
   </div>
 </div>
 
@@ -674,7 +674,30 @@ const featuresData = [
   { module: "Pranor Auth", edition: "EE", name: "Passkey & WebAuthn Native Server", desc: "Pranor Auth: FIDO2 / Passkey passwordless authentication server" },
   { module: "Pranor Auth", edition: "EE", name: "Enterprise Directory Sync (AD / LDAP)", desc: "Pranor Auth: Active Directory & LDAP identity sync with group mapping" },
   { module: "Pranor Chrono", edition: "EE", name: "Smart SLA-Aware Cron Window Optimizer", desc: "Pranor Chrono: AI cron window optimizer shifting jobs to off-peak infrastructure" },
-  { module: "Pranor Deploy", edition: "EE", name: "Multi-Cluster Fleet DR Failover", desc: "Pranor Deploy: 1-click active-passive region failover and DNS update sync" }
+  { module: "Pranor Deploy", edition: "EE", name: "Multi-Cluster Fleet DR Failover", desc: "Pranor Deploy: 1-click active-passive region failover and DNS update sync" },
+  // v2.0 AI Execution Fabric Features
+  { module: "Pranor Graph", edition: "OSS", name: "3-Tier Virtual Entity Context Assembly", desc: "Pranor Graph: Virtual context assembly across Hot (memory <2ms), Warm (SQL <15ms), and Cold (S3 <100ms) tiers with fail-closed contract" },
+  { module: "Pranor Graph", edition: "OSS", name: "Dynamic Token Budget & Semantic Node Pruning", desc: "Pranor Graph: Automatically prunes lower-relevance graph context nodes when MaxTokenBudget is exceeded" },
+  { module: "Pranor Graph", edition: "EE", name: "Cross-Datacenter Graph Sync & RBAC Isolation", desc: "Pranor Graph EE: Active-active cross-cloud graph synchronization with RBAC tenant isolation" },
+  { module: "Pranor Decision", edition: "OSS", name: "6-Level Priority Veto Ladder Engine", desc: "Pranor Decision: Governed execution ladder evaluating Auth > Budget > Risk > Rules > Learn > Default prior to tool invocation" },
+  { module: "Pranor Decision", edition: "OSS", name: "Counterfactual SIMULATION Mode", desc: "Pranor Decision: Dry-run full policy traces against live traffic without committing side-effects" },
+  { module: "Pranor Decision", edition: "EE", name: "Multi-Variant Decision A/B Testing & Simulation Analytics", desc: "Pranor Decision EE: Policy variant benchmarking and simulation analytics dashboard" },
+  { module: "Pranor Memory", edition: "OSS", name: "Working & Episodic Cosine Similarity Recall", desc: "Pranor Memory: Volatile working memory scratchpad and episodic memory recall using Cosine Similarity vector search" },
+  { module: "Pranor Memory", edition: "EE", name: "HNSW Vector Indexing & GPU Embedding Quantization", desc: "Pranor Memory EE: High-density HNSW vector indexing via Pranor Vault pipeline with GPU-accelerated embeddings" },
+  { module: "Pranor Eval", edition: "OSS", name: "Trajectory Trace Replay & 4 Evaluators", desc: "Pranor Eval: Trajectory replay engine with accuracy, latency, cost, and safety evaluators plus score drift alert channel" },
+  { module: "Pranor Eval", edition: "EE", name: "Automated CI/CD Quality Gate Regression Blocker", desc: "Pranor Eval EE: Blocks GitHub pull requests automatically if trajectory score drops >10%" },
+  { module: "Pranor Learn", edition: "OSS", name: "Pluggable ML Predictor & WASM Runtime", desc: "Pranor Learn: Typed Predictor interface with wazero pure-Go WASM runtime and gRPC sidecar drivers" },
+  { module: "Pranor Learn", edition: "EE", name: "GPU PyTorch/TabPFN Sidecar Pool", desc: "Pranor Learn EE: Multi-gpu PyTorch inference sidecar pool with automated model retraining" },
+  { module: "Pranor ExecContext", edition: "OSS", name: "Immutable Context Propagation & HTTP Carriers", desc: "Pranor ExecContext: Immutable ExecutionContext carrying Tenant, Agent, User, Trace, and Cost budgets across RPC and HTTP headers" },
+  { module: "Pranor Capability", edition: "OSS", name: "Governed Tool & Resource Registry", desc: "Pranor Capability: First-class resource governance with semver, risk classes, blast radius limits, and rate limiters" },
+  { module: "Pranor Agent", edition: "OSS", name: "Declarative AgentSpec & 7-State Machine", desc: "Pranor Agent: Declarative agent registration with 7-state runtime state machine (IDLE -> DONE/FAILED)" },
+  { module: "Pranor A2A", edition: "OSS", name: "Agent-to-Agent Delegation Protocol", desc: "Pranor A2A: Parent-child agent delegation with capability escalation prevention and identity propagation" },
+  { module: "Pranor LLM", edition: "OSS", name: "Model Gateway, Router, & Token Streaming", desc: "Pranor LLM: Unified ChatProvider interface, HTTP/Echo drivers, fallback router, and ChatStream token streaming" },
+  { module: "Pranor Guardrails", edition: "OSS", name: "In-Line Security Scanners", desc: "Pranor Guardrails: PII regex masking, prompt injection scanner, secret leak detector, and JSON schema validator" },
+  { module: "Pranor Guardrails", edition: "EE", name: "GPU PromptGuard & Threat Intel Feed", desc: "Pranor Guardrails EE: Neural prompt injection classifier and real-time Threat Intel IP feed" },
+  { module: "Pranor Shadow", edition: "OSS", name: "Simulation Side-Effect Isolation", desc: "Pranor Shadow: Converts DB writes and external API calls to [SHADOW_MODE_NOOP] during simulation dry-runs" },
+  { module: "Pranor Tenant", edition: "OSS", name: "Multi-Tenant Sandboxing & Quotas", desc: "Pranor Tenant: Multi-tenant quota enforcer tracking requests/min, concurrent agents, and daily USD cost limits" },
+  { module: "pranor-agentctl", edition: "OSS", name: "Developer CLI Tool", desc: "agentctl: Command line tool for trace replay, budget queries, and policy dry-run simulations" }
 ];
 
 
