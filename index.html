@@ -121,11 +121,12 @@
 
 <!-- Hero -->
 <div class="hero">
-  <div class="hero-badge"><span class="dot"></span> Open Source &middot; AGPL-3.0</div>
+  <div class="hero-badge"><span class="dot"></span> Pranor v2.0 Released &middot; Governed AI Execution Fabric</div>
   <h1>Backend infrastructure.<br><span class="highlight">One platform.</span></h1>
-  <p class="hero-sub">A programming language that compiles to native binaries — with API gateway, message broker, object storage, auth, tracing, and 13 more modules built in. Zero glue code.</p>
+  <p class="hero-sub">A programming language and high-performance microservices runtime — with API gateway, AI agent governance, message broker, object storage, vector memory, and 25 more modules built in. Zero glue code.</p>
   <div class="hero-actions">
-    <a href="/pranor-platform/docs/" class="btn btn-primary">Read the Docs</a>
+    <a href="https://vyuvaraj.github.io/pranor/v1.0/" class="btn btn-primary">v1.0 Docs</a>
+    <a href="https://vyuvaraj.github.io/pranor/v2.0/" class="btn btn-primary" style="background:linear-gradient(135deg, var(--accent), var(--pink));">v2.0 AI Execution Fabric Docs →</a>
     <a href="https://github.com/vyuvaraj/pranor" class="btn btn-ghost">GitHub →</a>
   </div>
   <div class="install-bar">
@@ -142,7 +143,7 @@
       <p class="section-label">Write Less, Ship More</p>
       <h2>The language that deploys itself</h2>
       <p class="section-desc">Define routes, databases, cron jobs, and queues in a single file. Pranor compiles it to a native Go binary — no framework, no boilerplate, no runtime.</p>
-      <p style="color:var(--muted);font-size:0.85rem;margin-top:1.5rem;">This is a complete production pranorice. 15 lines. One binary.</p>
+      <p style="color:var(--muted);font-size:0.85rem;margin-top:1.5rem;">This is a complete production service. 15 lines. One binary.</p>
     </div>
     <div class="code-block">
 <span class="kw">pranorer</span> <span class="str">"8080"</span>
@@ -169,7 +170,7 @@
 
 <!-- Modules -->
 <section>
-  <p class="section-label">19 Modules</p>
+  <p class="section-label">31 Modules (v1.0 Core + v2.0 AI Execution Fabric)</p>
   <h2>Everything you need. Nothing you don't.</h2>
   <p class="section-desc">Each module runs standalone or together. Use the full platform, or drop individual modules into your existing stack.</p>
   
@@ -180,19 +181,31 @@
     <div class="module-card"><h3><span class="module-icon">⏰</span> Chrono</h3><p>Distributed cron scheduler with leader election</p></div>
     <div class="module-card"><h3><span class="module-icon">🔐</span> Auth</h3><p>OAuth2/OIDC, RBAC, MFA, JWT — multi-tenant ready</p></div>
     <div class="module-card"><h3><span class="module-icon">💾</span> Cache</h3><p>Redis-compatible distributed cache with bloom filters</p></div>
-    <div class="module-card"><h3><span class="module-icon">🕸️</span> Mesh</h3><p>Pranorice discovery, load balancing, mTLS, circuit breaking</p></div>
+    <div class="module-card"><h3><span class="module-icon">🕸️</span> Mesh</h3><p>Service discovery, load balancing, mTLS, circuit breaking</p></div>
     <div class="module-card"><h3><span class="module-icon">📡</span> Trace</h3><p>OTLP distributed tracing with anomaly detection</p></div>
-    <div class="module-card"><h3><span class="module-icon">📊</span> Console</h3><p>Obpranorability dashboard — metrics, SQL workbench, alerts</p></div>
+    <div class="module-card"><h3><span class="module-icon">📊</span> Console</h3><p>Observability dashboard — metrics, SQL workbench, alerts</p></div>
     <div class="module-card"><h3><span class="module-icon">🔌</span> Pool</h3><p>DB connection proxy with query analytics and read/write split</p></div>
     <div class="module-card"><h3><span class="module-icon">📬</span> Notify</h3><p>Email, Slack, SMS gateway with HTML templates</p></div>
-    <div class="module-card"><h3><span class="module-icon">🔀</span> Flow</h3><p>Workflow engine — DAGs, sagas, human approval gates</p></div>
+    <div class="module-card"><h3><span class="module-icon">🔀</span> Flow</h3><p>Workflow engine & AgentStep saga runner with HITL queues</p></div>
     <div class="module-card"><h3><span class="module-icon">🚀</span> Deploy</h3><p>Docker & K8s deployment with blue/green and canary</p></div>
     <div class="module-card"><h3><span class="module-icon">🔗</span> Tunnel</h3><p>WebSocket dev tunneling with HTTP inspector</p></div>
     <div class="module-card"><h3><span class="module-icon">📦</span> Hub</h3><p>Package registry with semver and artifact signing</p></div>
     <div class="module-card"><h3><span class="module-icon">🔒</span> Lock</h3><p>Distributed locking with Raft consensus</p></div>
     <div class="module-card"><h3><span class="module-icon">🗝️</span> Secret</h3><p>Secret management with Shamir splitting and rotation</p></div>
-    <div class="module-card"><h3><span class="module-icon">🧩</span> Core</h3><p>Shared retry, health checks, OTel middleware</p></div>
-    <div class="module-card"><h3><span class="module-icon">🏗️</span> Platform</h3><p>Unified binary, WireGuard mesh, chaos engine</p></div>
+    <div class="module-card"><h3><span class="module-icon">🧱</span> Graph</h3><p>v2.0 3-tier virtual entity context & token budget node pruning</p></div>
+    <div class="module-card"><h3><span class="module-icon">🛡️</span> Decision</h3><p>v2.0 6-level AI governance veto ladder & counterfactual simulation</p></div>
+    <div class="module-card"><h3><span class="module-icon">🧠</span> Memory</h3><p>v2.0 Working scratchpad & episodic vector HNSW recall</p></div>
+    <div class="module-card"><h3><span class="module-icon">⚖️</span> Eval</h3><p>v2.0 Trajectory trace replay & 4 score evaluators (accuracy, latency, cost, safety)</p></div>
+    <div class="module-card"><h3><span class="module-icon">🔮</span> Learn</h3><p>v2.0 Pluggable ML inference provider (wazero WASM + gRPC sidecar)</p></div>
+    <div class="module-card"><h3><span class="module-icon">🆔</span> ExecContext</h3><p>v2.0 Immutable execution context propagation (Tenant, Agent, User, Budgets)</p></div>
+    <div class="module-card"><h3><span class="module-icon">🏷️</span> Capability</h3><p>v2.0 Governed tool & capability registry with semver & risk classes</p></div>
+    <div class="module-card"><h3><span class="module-icon">👤</span> Agent</h3><p>v2.0 Declarative AgentSpec & 7-state runtime state machine</p></div>
+    <div class="module-card"><h3><span class="module-icon">🤝</span> A2A</h3><p>v2.0 Agent-to-Agent delegation protocol & capability escalation guard</p></div>
+    <div class="module-card"><h3><span class="module-icon">🤖</span> LLM Router</h3><p>v2.0 Model gateway, HTTP/Echo drivers, & native token streaming</p></div>
+    <div class="module-card"><h3><span class="module-icon">🛡️</span> Guardrails</h3><p>v2.0 PII masking, prompt injection scanner, secret leak detector</p></div>
+    <div class="module-card"><h3><span class="module-icon">👥</span> Shadow</h3><p>v2.0 Simulation side-effect isolation & interceptor sandbox</p></div>
+    <div class="module-card"><h3><span class="module-icon">🏢</span> Tenant</h3><p>v2.0 Multi-tenant sandboxing & daily token/cost quota enforcer</p></div>
+    <div class="module-card"><h3><span class="module-icon">🛠️</span> agentctl</h3><p>v2.0 Developer CLI for trace replay & policy dry-runs</p></div>
   </div>
 </section>
 
