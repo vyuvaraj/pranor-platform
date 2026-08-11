@@ -14,6 +14,7 @@ A collection of hands-on tutorials and deep-dive articles for building productio
 | 4 | [Distributed Caching Made Simple with Pranor Cache](blog.html?post=04-caching-with-pranor-cache) | Pranor Cache patterns | ~10 min |
 | 5 | [Event-Driven Microservices with Pranor Pulse](blog.html?post=05-event-driven-pranor-pulse) | Queue & messaging | ~12 min |
 | 6 | [Full-Stack SaaS in Under an Hour with Pranor](blog.html?post=06-fullstack-saas-pranor) | End-to-end tutorial | ~20 min |
+| 7 | [Pranor v2.0: Governed AI Agent Execution Fabric](blog.html?post=07-v2-ai-execution-fabric) | v2.0 AI Architecture | ~12 min |
 
 ---
 

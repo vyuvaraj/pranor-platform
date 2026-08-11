@@ -165,9 +165,14 @@
     "slug": "pranor-gate-v2-medium-article",
     "title": "Pranor Gate v2: Evolving Our WASM API Gateway into a Standalone Edge AI & Kernel eBPF Engine",
     "excerpt": "Universal Server/Browser WASM Engine, Smart AI Cost Router (saving 85%), TPM rate limiting, and eBPF XDP DDoS bypass.",
-    "badge": "Platform Layer",
-    "badgeColor": "blue",
-    "date": "2026-07-26",
+  },
+  {
+    "slug": "07-v2-ai-execution-fabric",
+    "title": "Pranor v2.0: Governed AI Agent Execution Fabric",
+    "excerpt": "6-level priority veto ladders, 3-tier virtual entity context graphs, episodic vector HNSW memory recall, and transactional agent sagas in pure Go.",
+    "badge": "AI Fabric",
+    "badgeColor": "purple",
+    "date": "2026-08-11",
     "readingTime": "12 min"
   }
 ]
