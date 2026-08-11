@@ -133,54 +133,63 @@ async function renderCatalog() {
   const app = document.getElementById('app');
   document.title = "Pranor — Official Blog & Engineering Deep Dives";
 
+  const fallbackPosts = [
+    { slug: "07-v2-ai-execution-fabric", title: "Pranor v2.0: Governed AI Agent Execution Fabric", excerpt: "6-level priority veto ladders, 3-tier virtual entity context graphs, episodic vector HNSW memory recall, and transactional agent sagas in pure Go.", badge: "AI Fabric", badgeColor: "purple", date: "2026-08-11", readingTime: "12 min" },
+    { slug: "01-introducing-pranor", title: "Introducing Pranor: The Modular Backend Ecosystem", excerpt: "How a custom compiler, an S3 object store, a STOMP queue, an API gateway, and a glassmorphic console fit together.", badge: "Tutorial", badgeColor: "purple", date: "2026-07-10", readingTime: "6 min" },
+    { slug: "02-getting-started-pranor", title: "Getting Started with Pranor in 10 Minutes", excerpt: "What if building a microservice was as simple as describing what it should do? Compile your first service.", badge: "Tutorial", badgeColor: "purple", date: "2026-07-10", readingTime: "10 min" },
+    { slug: "03-api-gateway-pranor-gate", title: "Building a Production API Gateway with Pranor Gate", excerpt: "Sandboxed WASM middleware, PII redaction, prompt blocking, routing, and rate limiting at the edge.", badge: "Tutorial", badgeColor: "blue", date: "2026-07-10", readingTime: "12 min" },
+    { slug: "04-caching-with-pranor-cache", title: "Distributed Caching Made Simple with Pranor Cache", excerpt: "Raft-based key-value caching, namespaces, clustering, invalidation patterns, and benchmark data.", badge: "Tutorial", badgeColor: "green", date: "2026-07-10", readingTime: "10 min" },
+    { slug: "05-event-driven-pranor-pulse", title: "Event-Driven Microservices with Pranor Pulse", excerpt: "STOMP messaging, sliding-window dedup, DLQs, webhooks, and fan-out message routing.", badge: "Tutorial", badgeColor: "orange", date: "2026-07-10", readingTime: "12 min" },
+    { slug: "06-fullstack-saas-pranor", title: "Full-Stack SaaS in Under an Hour with Pranor", excerpt: "A complete multi-tenant project management SaaS backend using 8+ Pranor components and docker-compose.", badge: "Tutorial", badgeColor: "purple", date: "2026-07-10", readingTime: "20 min" },
+    { slug: "pranor-gate-medium-article", title: "A WebAssembly-Powered API Gateway With AI-Native Guards", excerpt: "Sandboxed WASM middleware, PII redaction, prompt blocking, and semantic caching at the edge.", badge: "Platform Layer", badgeColor: "blue", date: "2026-07-09", readingTime: "10 min" },
+    { slug: "pranor-vault-medium-article", title: "An S3 Storage Engine With AI-Native Capabilities", excerpt: "Semantic search, time travel, erasure coding, and compute-near-data in one binary.", badge: "Infrastructure", badgeColor: "green", date: "2026-07-09", readingTime: "11 min" }
+  ];
+
+  let posts = fallbackPosts;
   try {
     const res = await fetch('blog/posts.json');
-    if (!res.ok) throw new Error('Failed to load posts manifest');
-    const posts = await res.json();
+    if (res.ok) {
+      posts = await res.json();
+    }
+  } catch (err) {
+    console.warn("Using embedded fallback blog manifest:", err);
+  }
 
-    let gridHtml = `
-      <div class="header-section">
-        <h1>Engineering Blog & Tutorials</h1>
-        <p>Deep dives into backend architecture, zero-CGO Go systems, and the Pranor v2.0 AI Execution Fabric.</p>
-      </div>
-      <div class="blog-container">
-        <div class="blog-grid">
-    `;
+  let gridHtml = `
+    <div class="header-section">
+      <h1>Engineering Blog & Tutorials</h1>
+      <p>Deep dives into backend architecture, zero-CGO Go systems, and the Pranor v2.0 AI Execution Fabric.</p>
+    </div>
+    <div class="blog-container">
+      <div class="blog-grid">
+  `;
 
-    posts.forEach(post => {
-      let badgeClass = 'badge-blue';
-      if (post.badgeColor === 'purple' || post.badge === 'AI Fabric') badgeClass = 'badge-purple';
-      if (post.badgeColor === 'green') badgeClass = 'badge-green';
-
-      gridHtml += `
-        <a href="blog.html?post=${post.slug}" class="blog-card">
-          <div>
-            <span class="card-badge ${badgeClass}">${post.badge || 'Article'}</span>
-            <h3>${post.title}</h3>
-            <p>${post.excerpt}</p>
-          </div>
-          <div class="card-footer">
-            <span>📅 ${post.date}</span>
-            <span>📖 ${post.readingTime}</span>
-          </div>
-        </a>
-      `;
-    });
+  posts.forEach(post => {
+    let badgeClass = 'badge-blue';
+    if (post.badgeColor === 'purple' || post.badge === 'AI Fabric') badgeClass = 'badge-purple';
+    if (post.badgeColor === 'green') badgeClass = 'badge-green';
 
     gridHtml += `
+      <a href="blog.html?post=${post.slug}" class="blog-card">
+        <div>
+          <span class="card-badge ${badgeClass}">${post.badge || 'Article'}</span>
+          <h3>${post.title}</h3>
+          <p>${post.excerpt}</p>
         </div>
-      </div>
+        <div class="card-footer">
+          <span>📅 ${post.date}</span>
+          <span>📖 ${post.readingTime}</span>
+        </div>
+      </a>
     `;
+  });
 
-    app.innerHTML = gridHtml;
-  } catch (err) {
-    app.innerHTML = `
-      <div class="header-section">
-        <h1>Engineering Blog</h1>
-        <p style="color:var(--muted);">Unable to load articles manifest. Please refresh or try again later.</p>
+  gridHtml += `
       </div>
-    `;
-  }
+    </div>
+  `;
+
+  app.innerHTML = gridHtml;
 }
 
 async function renderArticle(postSlug) {

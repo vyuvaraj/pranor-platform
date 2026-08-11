@@ -1,7 +1,7 @@
 [
   {
     "slug": "01-introducing-pranor",
-    "title": "Introducing Serv: The Modular Backend Ecosystem",
+    "title": "Introducing Pranor: The Modular Backend Ecosystem",
     "excerpt": "How a custom compiler, an S3 object store, a STOMP queue, an API gateway, and a glassmorphic console fit together.",
     "badge": "Tutorial",
     "badgeColor": "purple",
@@ -54,22 +54,22 @@
     "readingTime": "20 min"
   },
   {
+    "slug": "07-v2-ai-execution-fabric",
+    "title": "Pranor v2.0: Governed AI Agent Execution Fabric",
+    "excerpt": "6-level priority veto ladders, 3-tier virtual entity context graphs, episodic vector HNSW memory recall, and transactional agent sagas in pure Go.",
+    "badge": "AI Fabric",
+    "badgeColor": "purple",
+    "date": "2026-08-11",
+    "readingTime": "12 min"
+  },
+  {
     "slug": "pranor-connecting-article",
-    "title": "Building the Pranor: A Unified, AI-Native Backend Ecosystem",
-    "excerpt": "How a custom compiler, an S3 object store, a STOMP queue, an API gateway, and a glassmorphic console fit together.",
+    "title": "Building the Pranor Ecosystem: Unified Microservice Engine",
+    "excerpt": "How a custom compiler, S3 object store, STOMP queue, API gateway, and console fit together.",
     "badge": "Ecosystem",
     "badgeColor": "purple",
     "date": "2026-07-09",
     "readingTime": "12 min"
-  },
-  {
-    "slug": "pranor-medium-article",
-    "title": "I Built a Programming Language for Backend Services — Here's Why",
-    "excerpt": "What if building a microservice was as simple as describing what it should do?",
-    "badge": "Developer Layer",
-    "badgeColor": "purple",
-    "date": "2026-07-09",
-    "readingTime": "8 min"
   },
   {
     "slug": "pranor-gate-medium-article",
@@ -100,7 +100,7 @@
   },
   {
     "slug": "pranor-console-medium-article",
-    "title": "Designing a Premium Glassmorphic Dashboard",
+    "title": "Designing a Glassmorphic Dashboard for Microservices",
     "excerpt": "OTel waterfalls, hash ring visualizers, SQL workbench, and runtime controls.",
     "badge": "Observability",
     "badgeColor": "orange",
@@ -137,24 +137,15 @@
   {
     "slug": "pranor-auth-medium-article",
     "title": "Secure Identity & Access Management with Pranor Auth",
-    "excerpt": "Designing an identity server with JWKS, TOTP MFA, Social OAuth, and stuffing detection.",
+    "excerpt": "Designing an identity server with JWKS, TOTP MFA, Social OAuth, and credential stuffing detection.",
     "badge": "Identity",
     "badgeColor": "purple",
     "date": "2026-07-11",
     "readingTime": "8 min"
   },
   {
-    "slug": "pranor-notify-cron-medium-article",
-    "title": "Scheduled Jobs & Reliable Mail Queues: Pranor Chrono and Pranor Notify",
-    "excerpt": "Distributed leader elections, execution locks, disk-backed queues, and DKIM signing.",
-    "badge": "Asynchronous",
-    "badgeColor": "blue",
-    "date": "2026-07-11",
-    "readingTime": "7 min"
-  },
-  {
     "slug": "pranor-vault-v2-medium-article",
-    "title": "Pranor Vault v2: Evolving Our S3 Engine into a Standalone Local-First P2P Analytical Store",
+    "title": "Pranor Vault v2: Local-First P2P Analytical Store",
     "excerpt": "Browser OPFS dual-sync, embedded DuckDB SQL analytics, Copy-on-Write bucket branching, and WebTorrent P2P seeding.",
     "badge": "Infrastructure",
     "badgeColor": "green",
@@ -163,16 +154,11 @@
   },
   {
     "slug": "pranor-gate-v2-medium-article",
-    "title": "Pranor Gate v2: Evolving Our WASM API Gateway into a Standalone Edge AI & Kernel eBPF Engine",
-    "excerpt": "Universal Server/Browser WASM Engine, Smart AI Cost Router (saving 85%), TPM rate limiting, and eBPF XDP DDoS bypass.",
-  },
-  {
-    "slug": "07-v2-ai-execution-fabric",
-    "title": "Pranor v2.0: Governed AI Agent Execution Fabric",
-    "excerpt": "6-level priority veto ladders, 3-tier virtual entity context graphs, episodic vector HNSW memory recall, and transactional agent sagas in pure Go.",
-    "badge": "AI Fabric",
-    "badgeColor": "purple",
-    "date": "2026-08-11",
+    "title": "Pranor Gate v2: Standalone Edge AI & Kernel eBPF Engine",
+    "excerpt": "Universal Server/Browser WASM Engine, Smart AI Cost Router, TPM rate limiting, and eBPF XDP DDoS bypass.",
+    "badge": "Platform Layer",
+    "badgeColor": "blue",
+    "date": "2026-07-26",
     "readingTime": "12 min"
   }
 ]
