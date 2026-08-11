@@ -111,6 +111,8 @@ This phase establishes Pranor Gate as a programmable, zero-trust execution contr
 
 ## Phase 89: Pranor v2.0 Core Governed Execution Fabric (Planned / Active Phase)
 
+> **Architecture Docs:** See [docs/v2-architecture.md](docs/v2-architecture.md) for the full v2.0 AI Execution Fabric design.
+
 Guided by `requirements_definitive.md` (§2.1–§2.6, §3) and the Architectural Litmus Test, Phase 89 establishes Pranor's core AI-native execution runtime — all modules are pure-Go, CGO-free, and split by OSS / EE build tags.
 
 **Selected for active implementation:** V2.89.7, V2.89.4, V2.89.1, V2.89.3 (Sprint 1–4). V2.89.2, V2.89.5, V2.89.6 follow as unblocked dependents.
@@ -162,6 +164,8 @@ Guided by `requirements_definitive.md` (§2.1–§2.6, §3) and the Architectura
 ---
 
 ## Phase 90: Pranor v2.x Intelligence Extensions & ML Providers (Planned / Future Phase)
+
+> **Architecture Docs:** See [docs/v2-architecture.md](docs/v2-architecture.md) for the full v2.0 AI Execution Fabric design.
 
 Establishes the extensible provider framework, OSS/EE build-tag discipline, and evaluation suite for external machine learning runtimes.
 
