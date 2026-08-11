@@ -216,7 +216,7 @@
 <section>
   <p class="section-label">Architecture</p>
   <h2>How it fits together</h2>
-  <p class="section-desc">Every module communicates over standard protocols. Your .pnr pranorice sits at the center.</p>
+  <p class="section-desc">Every module communicates over standard protocols. Your .pnr service sits at the center.</p>
   
   <div class="arch-visual">
     <!-- Layer 1: Edge -->
@@ -261,7 +261,7 @@
       <div class="arch-nodes">
         <div class="arch-node arch-node-primary">
           <div class="arch-node-icon">📄</div>
-          <div class="arch-node-name">.pnr Pranorices</div>
+          <div class="arch-node-name">.pnr Services</div>
           <div class="arch-node-desc">Your code</div>
         </div>
         <div class="arch-node">
@@ -283,37 +283,37 @@
     </div>
     <div class="arch-connector">▼</div>
 
-    <!-- Layer 4: Orchestration -->
+    <!-- Layer 4: Orchestration & AI Fabric -->
     <div class="arch-layer">
-      <div class="arch-layer-label">Orchestration</div>
+      <div class="arch-layer-label">Orchestration & AI Execution Fabric</div>
       <div class="arch-nodes">
-        <div class="arch-node">
-          <div class="arch-node-icon">⏰</div>
-          <div class="arch-node-name">Chrono</div>
-          <div class="arch-node-desc">Scheduler</div>
+        <div class="arch-node arch-node-accent">
+          <div class="arch-node-icon">🛡️</div>
+          <div class="arch-node-name">Decision</div>
+          <div class="arch-node-desc">Veto Ladder</div>
+        </div>
+        <div class="arch-node arch-node-accent">
+          <div class="arch-node-icon">🧱</div>
+          <div class="arch-node-name">Graph</div>
+          <div class="arch-node-desc">3-Tier Context</div>
         </div>
         <div class="arch-node">
           <div class="arch-node-icon">🔀</div>
           <div class="arch-node-name">Flow</div>
-          <div class="arch-node-desc">Workflows</div>
+          <div class="arch-node-desc">Agent Sagas</div>
         </div>
         <div class="arch-node">
-          <div class="arch-node-icon">📬</div>
-          <div class="arch-node-name">Notify</div>
-          <div class="arch-node-desc">Alerts</div>
-        </div>
-        <div class="arch-node">
-          <div class="arch-node-icon">🚀</div>
-          <div class="arch-node-name">Deploy</div>
-          <div class="arch-node-desc">Ship</div>
+          <div class="arch-node-icon">🧠</div>
+          <div class="arch-node-name">Memory</div>
+          <div class="arch-node-desc">Vector HNSW</div>
         </div>
       </div>
     </div>
     <div class="arch-connector">▼</div>
 
-    <!-- Layer 5: Obpranorability -->
+    <!-- Layer 5: Observability -->
     <div class="arch-layer">
-      <div class="arch-layer-label">Obpranorability</div>
+      <div class="arch-layer-label">Observability</div>
       <div class="arch-nodes">
         <div class="arch-node">
           <div class="arch-node-icon">📡</div>
@@ -334,7 +334,7 @@
 <section>
   <p class="section-label">Why Pranor</p>
   <h2>Replace the stack, not add to it</h2>
-  <p class="section-desc">Instead of stitching together 10 tools with yaml glue, use one coherent platform.</p>
+  <p class="section-desc">Instead of stitching together 12 tools with yaml glue, use one coherent platform.</p>
   
   <table class="compare-table">
     <thead>
@@ -342,15 +342,17 @@
     </thead>
     <tbody>
       <tr><td>API Gateway</td><td>Kong / Nginx + config</td><td><span class="check">✓</span> pranor gate</td></tr>
+      <tr><td>AI Agent Governance</td><td>LangChain / LlamaIndex + custom code</td><td><span class="check">✓</span> pranor decision / graph</td></tr>
+      <tr><td>Vector & Semantic Memory</td><td>Pinecone / Qdrant / Weaviate</td><td><span class="check">✓</span> pranor memory / vault</td></tr>
       <tr><td>Message Broker</td><td>Kafka / RabbitMQ + client libs</td><td><span class="check">✓</span> pranor pulse</td></tr>
       <tr><td>Object Storage</td><td>MinIO / S3 + SDK</td><td><span class="check">✓</span> pranor vault</td></tr>
       <tr><td>Auth/Identity</td><td>Keycloak / Auth0 + integration</td><td><span class="check">✓</span> pranor auth</td></tr>
       <tr><td>Caching</td><td>Redis + client library</td><td><span class="check">✓</span> pranor cache</td></tr>
-      <tr><td>Pranorice Mesh</td><td>Istio / Linkerd + sidecars</td><td><span class="check">✓</span> pranor mesh</td></tr>
+      <tr><td>Service Mesh</td><td>Istio / Linkerd + sidecars</td><td><span class="check">✓</span> pranor mesh</td></tr>
       <tr><td>Tracing</td><td>Jaeger + OTel collector + config</td><td><span class="check">✓</span> pranor trace</td></tr>
-      <tr><td>Workflows</td><td>Temporal / Step Functions</td><td><span class="check">✓</span> pranor flow</td></tr>
+      <tr><td>Workflows & Sagas</td><td>Temporal / Step Functions</td><td><span class="check">✓</span> pranor flow</td></tr>
       <tr><td>Deployment</td><td>Helm + ArgoCD + Dockerfiles</td><td><span class="check">✓</span> pranor deploy</td></tr>
-      <tr><td>Glue code</td><td>Hundreds of lines of config</td><td><span class="check">✓</span> Zero</td></tr>
+      <tr><td>Glue code</td><td>Thousands of lines of config</td><td><span class="check">✓</span> Zero</td></tr>
     </tbody>
   </table>
 </section>
