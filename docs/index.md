@@ -50,17 +50,17 @@
 | [pranor-lockctl](https://github.com/vyuvaraj/pranor/tree/main/packages/pranor-lockctl) | Lock CLI — distributed lock acquisition, renewal, and deadlock inspection |
 | [pranor-secretctl](https://github.com/vyuvaraj/pranor/tree/main/packages/pranor-secretctl) | Secrets CLI — key rotation, secret injection, and Shamir unseal operations |
 
-### v2.0 AI Execution Fabric *(v2.0-dev branch — Beta)*
+### v2.0 AI Execution Fabric *(v2.0.0 Released — GA)*
 
-> All v2.0 modules are `CGO_ENABLED=0` and follow the OSS/EE build-tag convention. They merge to main after v1.0.0 release.
+> All v2.0 modules are `CGO_ENABLED=0` and follow the OSS/EE build-tag convention. Available natively on `main`.
 
 | Doc | Description | Status |
 |-----|-------------|--------|
-| [Pranor Graph](components/Pranor Graph.md) | Virtual entity context assembly — Hot/Warm/Cold 3-tier | v2.0-dev Beta |
-| [Pranor Decision](components/Pranor Decision.md) | 6-level AI governance veto ladder | v2.0-dev Beta |
-| [Pranor Learn](components/Pranor Learn.md) | Pluggable ML inference (WASM + gRPC sidecar) | v2.0-dev Beta |
-| [Pranor Eval](components/Pranor Eval.md) | Trajectory replay and quality scoring | v2.0-dev Beta |
-| [v2.0 Architecture](v2-architecture.md) | Full AI Execution Fabric architecture doc | v2.0-dev |
+| [Pranor Graph](components/Pranor Graph.md) | Virtual entity context assembly — Hot/Warm/Cold 3-tier | v2.0.0 GA |
+| [Pranor Decision](components/Pranor Decision.md) | 6-level AI governance veto ladder | v2.0.0 GA |
+| [Pranor Learn](components/Pranor Learn.md) | Pluggable ML inference (WASM + gRPC sidecar) | v2.0.0 GA |
+| [Pranor Eval](components/Pranor Eval.md) | Trajectory replay and quality scoring | v2.0.0 GA |
+| [v2.0 Architecture](v2-architecture.md) | Full AI Execution Fabric architecture doc | v2.0.0 GA |
 
 ---
 

@@ -1,6 +1,6 @@
 # Pranor v2.0 — AI Execution Fabric Architecture
 
-> **Branch:** `v2.0-dev` — Merges to `main` after v1.0.0 is officially tagged.
+> **Release Status:** `v2.0.0` GA — Officially merged to `main` and tagged `v2.0.0`.
 
 ## Overview
 
